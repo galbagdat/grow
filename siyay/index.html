@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Сияй ✨</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#9fc3e6;
+    --sky-soft:#d6e8f5;
+    --sky-pale:#eaf3fb;
+    --beige:#efe6d6;
+    --beige-soft:#f7f1e6;
+    --cream:#fbf8f2;
+    --ink:#3a4a5c;
+    --ink-soft:#6b7c8f;
+    --white:#ffffff;
+    --accent:#7fb0dd;
+    --gold:#e6c878;
+    --mint:#bfe0d0;
+    --pink:#f0d4dc;
+    --shadow:0 10px 30px rgba(120,150,180,.16);
+    --shadow-sm:0 4px 14px rgba(120,150,180,.12);
+    --radius:24px;
+    --radius-sm:16px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    font-family:'Nunito',sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(120% 80% at 0% 0%, #eaf3fb 0%, transparent 55%),
+      radial-gradient(120% 80% at 100% 0%, #f7f1e6 0%, transparent 50%),
+      radial-gradient(140% 90% at 50% 100%, #e3eef9 0%, transparent 60%),
+      #fbf8f2;
+    background-attachment:fixed;
+    min-height:100%;
+    overflow-x:hidden;
+  }
+  .app{max-width:480px;margin:0 auto;padding:22px 18px 110px;position:relative}
+  h1,h2,h3,.display{font-family:'Quicksand',sans-serif}
+
+  /* ---------- header ---------- */
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;animation:fade .6s ease both}
+  .brand{display:flex;align-items:center;gap:9px}
+  .brand .logo{font-size:26px;filter:drop-shadow(0 2px 4px rgba(160,180,210,.4))}
+  .brand h1{font-size:22px;font-weight:700;letter-spacing:.5px;color:var(--ink)}
+  .level-chip{
+    display:flex;align-items:center;gap:8px;background:var(--white);
+    padding:7px 13px;border-radius:30px;box-shadow:var(--shadow-sm);font-weight:800;font-size:13px
+  }
+  .level-chip .star{color:var(--gold)}
+
+  /* ---------- cards ---------- */
+  .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px;animation:rise .6s ease both}
+  .card.soft{background:linear-gradient(160deg,var(--sky-pale),var(--white))}
+  .section-title{font-family:'Quicksand';font-weight:700;font-size:16px;margin:4px 2px 12px;display:flex;align-items:center;gap:7px;color:var(--ink)}
+
+  /* ---------- hero / greeting ---------- */
+  .hero{background:linear-gradient(150deg,#bcd8f1 0%,#dceaf7 55%,#f3ecdd 100%);position:relative;overflow:hidden}
+  .hero::after{content:"✨";position:absolute;right:-6px;top:-10px;font-size:90px;opacity:.18;transform:rotate(8deg)}
+  .hero .hi{font-size:14px;color:#52677d;font-weight:700;margin-bottom:3px}
+  .hero .name{font-family:'Quicksand';font-size:27px;font-weight:700;color:var(--ink);margin-bottom:4px}
+  .hero .date{font-size:13px;color:#5e7488;font-weight:600}
+
+  /* ---------- progress ring ---------- */
+  .ring-row{display:flex;align-items:center;gap:18px;margin-top:16px}
+  .ring{position:relative;width:84px;height:84px;flex-shrink:0}
+  .ring svg{transform:rotate(-90deg)}
+  .ring .pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring .pct b{font-family:'Quicksand';font-size:20px;font-weight:700;line-height:1}
+  .ring .pct small{font-size:9px;color:var(--ink-soft);font-weight:700;letter-spacing:.5px}
+  .lvl-info{flex:1}
+  .lvl-info .lbl{font-size:12px;color:#52677d;font-weight:700}
+  .lvl-info .pts{font-family:'Quicksand';font-size:18px;font-weight:700}
+  .bar{height:8px;border-radius:10px;background:rgba(255,255,255,.6);overflow:hidden;margin-top:7px}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:10px;transition:width .6s ease}
+  .bar.mini{height:6px;background:var(--sky-pale)}
+
+  /* ---------- mood quick ---------- */
+  .mood-row{display:flex;justify-content:space-between;gap:6px}
+  .mood-btn{flex:1;background:var(--beige-soft);border:2px solid transparent;border-radius:var(--radius-sm);padding:11px 0;font-size:24px;cursor:pointer;transition:.2s;text-align:center}
+  .mood-btn:active{transform:scale(.92)}
+  .mood-btn.sel{background:var(--sky-soft);border-color:var(--accent);transform:translateY(-3px);box-shadow:var(--shadow-sm)}
+
+  /* ---------- habit / task items ---------- */
+  .item{display:flex;align-items:center;gap:12px;padding:13px 12px;border-radius:var(--radius-sm);background:var(--cream);margin-bottom:9px;transition:.2s;cursor:pointer}
+  .item:active{transform:scale(.985)}
+  .item.done{background:var(--sky-pale)}
+  .check{width:26px;height:26px;border-radius:9px;border:2.5px solid var(--sky);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;transition:.2s;background:transparent}
+  .item.done .check{background:var(--accent);border-color:var(--accent)}
+  .item .emoji{font-size:21px;flex-shrink:0}
+  .item .txt{flex:1;font-weight:700;font-size:15px}
+  .item.done .txt{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:rgba(127,176,221,.6)}
+  .streak{display:flex;align-items:center;gap:3px;font-size:12px;font-weight:800;color:#d99a3e;background:#fbf1dd;padding:4px 9px;border-radius:20px;flex-shrink:0}
+  .del{color:#c9b6b6;font-size:18px;padding:0 4px;flex-shrink:0}
+
+  /* ---------- add row ---------- */
+  .add-row{display:flex;gap:8px;margin-top:6px}
+  .add-row input{flex:1;border:2px solid var(--sky-soft);background:var(--white);border-radius:14px;padding:11px 14px;font-family:'Nunito';font-size:14px;font-weight:600;color:var(--ink);outline:none}
+  .add-row input:focus{border-color:var(--accent)}
+  .add-row button{background:var(--accent);color:#fff;border:none;border-radius:14px;width:46px;font-size:22px;font-weight:700;cursor:pointer}
+  .add-row button:active{transform:scale(.9)}
+
+  /* ---------- goals ---------- */
+  .goal{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:16px;margin-bottom:13px;animation:rise .5s ease both}
+  .goal-head{display:flex;align-items:center;gap:11px;cursor:pointer}
+  .goal-emoji{width:44px;height:44px;border-radius:14px;background:var(--sky-pale);display:flex;align-items:center;justify-content:center;font-size:23px;flex-shrink:0}
+  .goal-head .g-title{flex:1}
+  .goal-head .g-title b{font-family:'Quicksand';font-weight:700;font-size:16px;display:block}
+  .goal-head .g-title span{font-size:12px;color:var(--ink-soft);font-weight:700}
+  .chev{color:var(--sky);font-size:14px;transition:.3s}
+  .goal.open .chev{transform:rotate(90deg)}
+  .steps{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .goal.open .steps{max-height:600px}
+  .step{display:flex;align-items:center;gap:10px;padding:9px 4px;cursor:pointer}
+  .step .sc{width:21px;height:21px;border-radius:7px;border:2px solid var(--mint);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;transition:.2s}
+  .step.done .sc{background:#7cc6a6;border-color:#7cc6a6}
+  .step .stxt{font-size:14px;font-weight:600}
+  .step.done .stxt{color:var(--ink-soft);text-decoration:line-through}
+
+  /* ---------- quote ---------- */
+  .quote{background:linear-gradient(150deg,#f3ecdd,#fbf8f2);font-style:italic;text-align:center}
+  .quote p{font-family:'Quicksand';font-size:16px;font-weight:600;line-height:1.5;color:#54657a}
+  .quote .mark{font-size:30px;color:var(--gold);line-height:0;display:block;margin-bottom:6px}
+
+  /* ---------- pomodoro ---------- */
+  .timer-wrap{text-align:center}
+  .timer-display{font-family:'Quicksand';font-size:64px;font-weight:700;letter-spacing:1px;margin:8px 0;color:var(--ink)}
+  .timer-sub{font-size:13px;font-weight:700;color:var(--ink-soft);margin-bottom:18px}
+  .timer-input{width:100%;border:2px solid var(--sky-soft);background:var(--white);border-radius:14px;padding:11px 14px;font-family:'Nunito';font-size:14px;font-weight:600;text-align:center;color:var(--ink);outline:none;margin-bottom:16px}
+  .timer-input:focus{border-color:var(--accent)}
+  .timer-btns{display:flex;gap:10px}
+  .tbtn{flex:1;border:none;border-radius:16px;padding:14px;font-family:'Quicksand';font-weight:700;font-size:15px;cursor:pointer;transition:.2s}
+  .tbtn:active{transform:scale(.95)}
+  .tbtn.primary{background:var(--accent);color:#fff}
+  .tbtn.ghost{background:var(--beige-soft);color:var(--ink)}
+  .mode-row{display:flex;gap:8px;margin-bottom:18px}
+  .mode{flex:1;padding:9px;border-radius:13px;background:var(--beige-soft);text-align:center;font-weight:700;font-size:13px;cursor:pointer;border:2px solid transparent}
+  .mode.sel{background:var(--sky-soft);border-color:var(--accent)}
+
+  /* ---------- mood diary ---------- */
+  .mood-log{display:flex;align-items:center;gap:12px;padding:11px 6px;border-bottom:1px solid var(--sky-pale)}
+  .mood-log:last-child{border:none}
+  .mood-log .me{font-size:24px}
+  .mood-log .md{font-size:12px;color:var(--ink-soft);font-weight:700}
+  .mood-log .mn{font-size:14px;font-weight:600;flex:1}
+
+  .empty{text-align:center;color:var(--ink-soft);font-weight:600;font-size:14px;padding:18px 8px}
+
+  /* ---------- bottom nav ---------- */
+  .nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-top:1px solid #eef1f5;display:flex;justify-content:space-around;padding:9px 6px 14px;z-index:50}
+  .nav button{background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:5px 9px;border-radius:14px;transition:.2s}
+  .nav .ic{font-size:21px;filter:grayscale(.4);opacity:.6;transition:.2s}
+  .nav .lb{font-size:10px;font-weight:800;color:var(--ink-soft)}
+  .nav button.active .ic{filter:none;opacity:1;transform:translateY(-2px)}
+  .nav button.active .lb{color:var(--accent)}
+
+  .view{display:none}
+  .view.active{display:block}
+
+  .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:30px;font-weight:700;font-size:14px;opacity:0;transition:.35s;z-index:100;pointer-events:none;box-shadow:var(--shadow)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ---------- AI помощник «Лучик» ---------- */
+  .fab{position:fixed;bottom:86px;right:16px;width:60px;height:60px;border-radius:50%;border:none;
+    background:linear-gradient(150deg,#9fc3e6,#e6c878);color:#fff;font-size:28px;cursor:pointer;
+    box-shadow:0 8px 24px rgba(120,150,180,.4);z-index:60;display:flex;align-items:center;justify-content:center;
+    animation:floaty 3s ease-in-out infinite}
+  .fab:active{transform:scale(.9)}
+  .fab .ping{position:absolute;inset:0;border-radius:50%;border:2px solid #9fc3e6;animation:ping 2.4s ease-out infinite;opacity:0}
+  @media(min-width:481px){.fab{right:calc(50% - 240px + 16px)}}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  @keyframes ping{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.6);opacity:0}}
+
+  .chat-overlay{position:fixed;inset:0;background:rgba(58,74,92,.35);backdrop-filter:blur(3px);z-index:80;
+    display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:.3s}
+  .chat-overlay.show{opacity:1;pointer-events:auto}
+  .chat-panel{width:100%;max-width:480px;height:82vh;background:var(--cream);border-radius:28px 28px 0 0;
+    display:flex;flex-direction:column;transform:translateY(40px);transition:.32s;box-shadow:0 -10px 40px rgba(80,110,140,.25)}
+  .chat-overlay.show .chat-panel{transform:translateY(0)}
+  .chat-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;
+    background:linear-gradient(150deg,#bcd8f1,#dceaf7);border-radius:28px 28px 0 0}
+  .chat-id{display:flex;align-items:center;gap:11px}
+  .chat-id .av{width:42px;height:42px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:23px;box-shadow:var(--shadow-sm)}
+  .chat-id b{font-family:'Quicksand';font-size:17px;font-weight:700;display:block;line-height:1.1}
+  .chat-id small{font-size:11px;color:#52677d;font-weight:700}
+  .chat-close{background:rgba(255,255,255,.6);border:none;width:34px;height:34px;border-radius:50%;font-size:15px;color:var(--ink);cursor:pointer;font-weight:700}
+  .chat-msgs{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:11px}
+  .bubble{max-width:80%;padding:12px 15px;border-radius:18px;font-size:14.5px;font-weight:600;line-height:1.5;animation:rise .35s ease both;white-space:pre-wrap;word-wrap:break-word}
+  .bubble.bot{background:var(--white);color:var(--ink);align-self:flex-start;border-bottom-left-radius:5px;box-shadow:var(--shadow-sm)}
+  .bubble.user{background:linear-gradient(150deg,#9fc3e6,#7fb0dd);color:#fff;align-self:flex-end;border-bottom-right-radius:5px}
+  .bubble.typing{display:flex;gap:5px;align-self:flex-start;background:var(--white);box-shadow:var(--shadow-sm)}
+  .bubble.typing span{width:8px;height:8px;border-radius:50%;background:#bcd0e4;animation:blink 1.2s infinite}
+  .bubble.typing span:nth-child(2){animation-delay:.2s}.bubble.typing span:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+  .chat-input{display:flex;gap:9px;padding:13px 14px;background:var(--white);border-top:1px solid #eef1f5}
+  .chat-input input{flex:1;border:2px solid var(--sky-soft);background:var(--cream);border-radius:22px;padding:12px 16px;font-family:'Nunito';font-size:14.5px;font-weight:600;color:var(--ink);outline:none}
+  .chat-input input:focus{border-color:var(--accent)}
+  .chat-input button{background:var(--accent);color:#fff;border:none;width:46px;height:46px;border-radius:50%;font-size:18px;cursor:pointer;flex-shrink:0}
+  .chat-input button:active{transform:scale(.9)}
+  .chat-input button:disabled{opacity:.5}
+
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  .d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.19s}.d4{animation-delay:.26s}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand"><span class="logo">✨</span><h1>Сияй</h1></div>
+    <div class="level-chip"><span class="star">⭐</span><span id="chipLvl">Ур. 1</span></div>
+  </div>
+
+  <!-- ============ ГЛАВНАЯ ============ -->
+  <div class="view active" id="v-home">
+    <div class="card hero d1">
+      <div class="hi">Привет 💛</div>
+      <div class="name" id="heroName">Нияра</div>
+      <div class="date" id="heroDate"></div>
+      <div class="ring-row">
+        <div class="ring">
+          <svg width="84" height="84">
+            <circle cx="42" cy="42" r="36" stroke="rgba(255,255,255,.55)" stroke-width="8" fill="none"/>
+            <circle id="ringFill" cx="42" cy="42" r="36" stroke="url(#grad)" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="226" stroke-dashoffset="226"/>
+            <defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fb0dd"/><stop offset="1" stop-color="#e6c878"/></linearGradient></defs>
+          </svg>
+          <div class="pct"><b id="ringPct">0%</b><small>СЕГОДНЯ</small></div>
+        </div>
+        <div class="lvl-info">
+          <div class="lbl">Уровень <span id="lvlNum">1</span> · <span id="lvlTitle">Новая звёздочка</span></div>
+          <div class="pts"><span id="ptsNow">0</span> ✨ очков</div>
+          <div class="bar"><i id="lvlBar" style="width:0%"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card soft d2">
+      <div class="section-title">🌙 Как ты сегодня?</div>
+      <div class="mood-row" id="moodQuick">
+        <button class="mood-btn" data-m="1">😞</button>
+        <button class="mood-btn" data-m="2">😕</button>
+        <button class="mood-btn" data-m="3">😐</button>
+        <button class="mood-btn" data-m="4">🙂</button>
+        <button class="mood-btn" data-m="5">😄</button>
+      </div>
+    </div>
+
+    <div class="section-title d3">✅ Привычки на сегодня</div>
+    <div id="homeHabits" class="d3"></div>
+
+    <div class="section-title d4" style="margin-top:18px">📝 Дела на сегодня</div>
+    <div class="card d4">
+      <div id="homeTasks"></div>
+      <div class="add-row">
+        <input id="taskInput" placeholder="Добавить дело…" maxlength="60">
+        <button onclick="addTask()">＋</button>
+      </div>
+    </div>
+
+    <div class="card quote d4">
+      <span class="mark">"</span>
+      <p id="quoteText"></p>
+    </div>
+  </div>
+
+  <!-- ============ ЦЕЛИ ============ -->
+  <div class="view" id="v-goals">
+    <div class="card hero d1">
+      <div class="hi">Лето мечты ☀️</div>
+      <div class="name">Мои цели</div>
+      <div class="date">Маленькие шаги каждый день → большой результат</div>
+    </div>
+    <div id="goalsList"></div>
+  </div>
+
+  <!-- ============ ПРИВЫЧКИ ============ -->
+  <div class="view" id="v-habits">
+    <div class="section-title d1" style="font-size:20px">✨ Мои привычки</div>
+    <div class="card d1">
+      <div id="habitsList"></div>
+      <div class="add-row">
+        <input id="habitInput" placeholder="Новая привычка…" maxlength="40">
+        <button onclick="addHabit()">＋</button>
+      </div>
+    </div>
+    <div class="card soft d2">
+      <div class="section-title">🔥 Твои серии</div>
+      <div id="streakBoard"></div>
+    </div>
+  </div>
+
+  <!-- ============ ДНЕВНИК ============ -->
+  <div class="view" id="v-mood">
+    <div class="section-title d1" style="font-size:20px">🌙 Дневник настроения</div>
+    <div class="card d1">
+      <div class="section-title">Что чувствуешь сейчас?</div>
+      <div class="mood-row" id="moodPick" style="margin-bottom:14px">
+        <button class="mood-btn" data-m="1">😞</button>
+        <button class="mood-btn" data-m="2">😕</button>
+        <button class="mood-btn" data-m="3">😐</button>
+        <button class="mood-btn" data-m="4">🙂</button>
+        <button class="mood-btn" data-m="5">😄</button>
+      </div>
+      <div class="add-row">
+        <input id="moodNote" placeholder="Пара слов о дне (по желанию)…" maxlength="80">
+        <button onclick="saveMood()">✓</button>
+      </div>
+    </div>
+    <div class="card d2">
+      <div class="section-title">📖 Последние записи</div>
+      <div id="moodHistory"></div>
+    </div>
+  </div>
+
+  <!-- ============ ФОКУС ============ -->
+  <div class="view" id="v-focus">
+    <div class="section-title d1" style="font-size:20px">⏱ Фокус</div>
+    <div class="card timer-wrap d1">
+      <div class="mode-row">
+        <div class="mode sel" data-min="25">Учёба 25м</div>
+        <div class="mode" data-min="15">Практика 15м</div>
+        <div class="mode" data-min="5">Отдых 5м</div>
+      </div>
+      <input class="timer-input" id="focusTask" placeholder="Над чем работаешь? (вокал, англ., домашка…)" maxlength="40">
+      <div class="timer-display" id="timerDisplay">25:00</div>
+      <div class="timer-sub" id="timerSub">Нажми «старт» и сосредоточься 🎯</div>
+      <div class="timer-btns">
+        <button class="tbtn primary" id="startBtn" onclick="toggleTimer()">Старт</button>
+        <button class="tbtn ghost" onclick="resetTimer()">Сброс</button>
+      </div>
+    </div>
+    <div class="card soft d2">
+      <div class="section-title">💡 Как это работает</div>
+      <p style="font-size:14px;font-weight:600;color:#54657a;line-height:1.6">Работай без отвлечений, пока идёт таймер, а потом — заслуженный отдых. За каждый завершённый фокус ты получаешь <b>+15 ✨</b>. Идеально для пения, фортепиано и языков!</p>
+    </div>
+  </div>
+</div>
+
+<div class="nav">
+  <button class="active" data-view="home"><span class="ic">🏠</span><span class="lb">Главная</span></button>
+  <button data-view="goals"><span class="ic">🎯</span><span class="lb">Цели</span></button>
+  <button data-view="habits"><span class="ic">✨</span><span class="lb">Привычки</span></button>
+  <button data-view="mood"><span class="ic">🌙</span><span class="lb">Дневник</span></button>
+  <button data-view="focus"><span class="ic">⏱</span><span class="lb">Фокус</span></button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ============ AI ПОМОЩНИК «ЛУЧИК» ============ -->
+<button class="fab" id="fab" onclick="openChat()"><span class="ping"></span>☀️</button>
+<div class="chat-overlay" id="chatOverlay">
+  <div class="chat-panel">
+    <div class="chat-head">
+      <div class="chat-id">
+        <div class="av">☀️</div>
+        <div><b>Лучик</b><small>твой помощник</small></div>
+      </div>
+      <button class="chat-close" onclick="closeChat()">✕</button>
+    </div>
+    <div class="chat-msgs" id="chatMsgs"></div>
+    <div class="chat-input">
+      <input id="chatField" placeholder="Напиши Лучику…" maxlength="500">
+      <button id="chatSend" onclick="sendChat()">➤</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   СИЯЙ ✨ — персональное приложение для Нияры
+   Данные сохраняются между сессиями (window.storage) с
+   запасным вариантом в памяти, чтобы всё работало всегда.
+   ============================================================ */
+
+const KEY = 'siyai:data';
+const todayStr = () => { const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
+
+const QUOTES = [
+  "Ты не обязана быть идеальной — достаточно быть собой и продолжать идти.",
+  "Маленький шаг сегодня важнее большого плана на потом.",
+  "Голос, который ты тренируешь сейчас, однажды услышат все.",
+  "Дисциплина — это просто любовь к себе будущей.",
+  "Ты уже умнее и сильнее, чем была вчера.",
+  "Сцена ждёт тех, кто репетирует, когда никто не смотрит.",
+  "Каждая привычка — кирпичик твоей мечты.",
+  "Не сравнивай свою главу 1 с чьей-то главой 20.",
+  "Сияй так ярко, как умеешь только ты ✨",
+  "Сегодня — отличный день сделать одну маленькую вещь для мечты."
+];
+
+const DEFAULT = {
+  profile:{ name:'Нияра', points:0 },
+  habits:[
+    {id:'h1', emoji:'💧', label:'Выпить воды',           hist:{}},
+    {id:'h2', emoji:'☀️', label:'Встать вовремя',         hist:{}},
+    {id:'h3', emoji:'🎤', label:'Попеть 10 минут',        hist:{}},
+    {id:'h4', emoji:'🎹', label:'Фортепиано',             hist:{}},
+    {id:'h5', emoji:'🗣️', label:'Урок языка',             hist:{}},
+    {id:'h6', emoji:'🤸', label:'Подвигаться / танцы',    hist:{}},
+    {id:'h7', emoji:'📖', label:'Узнать что-то новое',    hist:{}},
+    {id:'h8', emoji:'🌙', label:'Лечь спать вовремя',     hist:{}}
+  ],
+  goals:[
+    {id:'g1', emoji:'🎤', title:'Развивать вокал', open:false, steps:[
+      {t:'Петь по 10 минут каждый день', d:false},
+      {t:'Найти 3 песни для распевки', d:false},
+      {t:'Записать своё пение на телефон', d:false},
+      {t:'Посмотреть урок по дыханию', d:false}
+    ]},
+    {id:'g2', emoji:'🎹', title:'Фортепиано с нуля', open:false, steps:[
+      {t:'Выучить названия клавиш', d:false},
+      {t:'Освоить гамму до мажор', d:false},
+      {t:'Разучить первую простую мелодию', d:false},
+      {t:'Заниматься 4 раза в неделю', d:false}
+    ]},
+    {id:'g3', emoji:'🇬🇧', title:'Подтянуть английский', open:false, steps:[
+      {t:'Учить 5 новых слов в день', d:false},
+      {t:'Смотреть видео с субтитрами', d:false},
+      {t:'Вести мини-дневник на английском', d:false}
+    ]},
+    {id:'g4', emoji:'🇰🇿', title:'Подтянуть казахский', open:false, steps:[
+      {t:'Учить 5 слов в день', d:false},
+      {t:'Читать короткие тексты', d:false},
+      {t:'Говорить с близкими на казахском', d:false}
+    ]},
+    {id:'g5', emoji:'⏰', title:'Режим и тайм-менеджмент', open:false, steps:[
+      {t:'Ложиться и вставать в одно время', d:false},
+      {t:'Планировать 3 главных дела на день', d:false},
+      {t:'Готовить вещи с вечера', d:false}
+    ]},
+    {id:'g6', emoji:'🏃‍♀️', title:'Активность и спорт', open:false, steps:[
+      {t:'Двигаться каждый день, что нравится', d:false},
+      {t:'Найти любимый вид активности', d:false},
+      {t:'Прогулка на свежем воздухе', d:false}
+    ]},
+    {id:'g7', emoji:'🥗', title:'Заботиться о себе', open:false, steps:[
+      {t:'Не пропускать завтрак', d:false},
+      {t:'Добавлять фрукты и овощи', d:false},
+      {t:'Пить достаточно воды', d:false}
+    ]},
+    {id:'g8', emoji:'📚', title:'Расширять кругозор', open:false, steps:[
+      {t:'Читать или слушать что-то новое', d:false},
+      {t:'Узнать 1 интересный факт в день', d:false},
+      {t:'Посмотреть фильм с глубоким смыслом', d:false}
+    ]},
+    {id:'g9', emoji:'💰', title:'Начать зарабатывать', open:false, steps:[
+      {t:'Записать свои таланты и навыки', d:false},
+      {t:'Придумать 3 идеи, как заработать', d:false},
+      {t:'Сделать первый маленький шаг', d:false}
+    ]},
+    {id:'g10', emoji:'🎯', title:'Понять свои цели в жизни', open:false, steps:[
+      {t:'Написать, что приносит радость', d:false},
+      {t:'Представить себя через 5 лет', d:false},
+      {t:'Выбрать 1 большую мечту', d:false}
+    ]}
+  ],
+  tasks:[],
+  moods:{},
+  chat:[]
+};
+
+let state = JSON.parse(JSON.stringify(DEFAULT));
+let timer = {min:25, total:25*60, left:25*60, running:false, int:null};
+
+/* ---------- storage ---------- */
+async function load(){
+  try{
+    const r = await window.storage.get(KEY);
+    if(r && r.value){ state = Object.assign(JSON.parse(JSON.stringify(DEFAULT)), JSON.parse(r.value)); }
+  }catch(e){ /* первый запуск или storage недоступен */ }
+  renderAll();
+}
+async function save(){
+  try{ await window.storage.set(KEY, JSON.stringify(state)); }catch(e){}
+}
+
+/* ---------- points & levels ---------- */
+const LEVELS = ['Новая звёздочка','Восходящая звезда','Яркий свет','Настоящая звезда','Суперстар ✨'];
+function levelData(){
+  const p = state.profile.points;
+  const lvl = Math.min(LEVELS.length, Math.floor(p/100)+1);
+  const into = p % 100;
+  return {lvl, title:LEVELS[lvl-1], into, pct: Math.round(into)};
+}
+function addPoints(n){ state.profile.points = Math.max(0, state.profile.points + n); }
+
+function toast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),1700);
+}
+
+/* ---------- streak calc ---------- */
+function streakOf(habit){
+  let s=0; const d=new Date();
+  while(true){
+    const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    if(habit.hist[key]){ s++; d.setDate(d.getDate()-1); } else break;
+  }
+  return s;
+}
+
+/* ---------- render ---------- */
+function renderAll(){ renderHome(); renderGoals(); renderHabits(); renderMood(); }
+
+function renderHome(){
+  document.getElementById('heroName').textContent = state.profile.name;
+  const opts={weekday:'long', day:'numeric', month:'long'};
+  document.getElementById('heroDate').textContent = new Date().toLocaleDateString('ru-RU',opts);
+
+  const ld=levelData();
+  document.getElementById('chipLvl').textContent='Ур. '+ld.lvl;
+  document.getElementById('lvlNum').textContent=ld.lvl;
+  document.getElementById('lvlTitle').textContent=ld.title;
+  document.getElementById('ptsNow').textContent=state.profile.points;
+  document.getElementById('lvlBar').style.width=ld.pct+'%';
+
+  // today ring = % habits done today
+  const t=todayStr();
+  const done=state.habits.filter(h=>h.hist[t]).length;
+  const pct = state.habits.length? Math.round(done/state.habits.length*100):0;
+  document.getElementById('ringPct').textContent=pct+'%';
+  const circ=226; document.getElementById('ringFill').style.strokeDashoffset = circ-(circ*pct/100);
+
+  // mood quick selected
+  const m=state.moods[t];
+  document.querySelectorAll('#moodQuick .mood-btn').forEach(b=>b.classList.toggle('sel', m && +b.dataset.m===m.score));
+
+  // habits (home)
+  const hh=document.getElementById('homeHabits'); hh.innerHTML='';
+  state.habits.forEach(h=>{
+    const on=!!h.hist[t]; const st=streakOf(h);
+    const el=document.createElement('div');
+    el.className='item'+(on?' done':'');
+    el.innerHTML=`<div class="check">${on?'✓':''}</div><span class="emoji">${h.emoji}</span><span class="txt">${h.label}</span>${st>0?`<span class="streak">🔥 ${st}</span>`:''}`;
+    el.onclick=()=>toggleHabit(h.id);
+    hh.appendChild(el);
+  });
+
+  // tasks (home)
+  renderTasks();
+
+  document.getElementById('quoteText').textContent = QUOTES[new Date().getDate() % QUOTES.length];
+}
+
+function renderTasks(){
+  const t=todayStr();
+  const wrap=document.getElementById('homeTasks'); wrap.innerHTML='';
+  const todays=state.tasks.filter(x=>x.date===t);
+  if(!todays.length){ wrap.innerHTML='<div class="empty">Пока пусто — добавь первое дело 💫</div>'; return; }
+  todays.forEach(x=>{
+    const el=document.createElement('div');
+    el.className='item'+(x.done?' done':'');
+    el.innerHTML=`<div class="check">${x.done?'✓':''}</div><span class="txt">${x.text}</span><span class="del">✕</span>`;
+    el.querySelector('.del').onclick=(e)=>{e.stopPropagation();delTask(x.id);};
+    el.onclick=()=>toggleTask(x.id);
+    wrap.appendChild(el);
+  });
+}
+
+function renderGoals(){
+  const wrap=document.getElementById('goalsList'); wrap.innerHTML='';
+  state.goals.forEach(g=>{
+    const total=g.steps.length, done=g.steps.filter(s=>s.d).length;
+    const pct=total?Math.round(done/total*100):0;
+    const el=document.createElement('div');
+    el.className='goal'+(g.open?' open':'');
+    let stepsHtml='';
+    g.steps.forEach((s,i)=>{
+      stepsHtml+=`<div class="step${s.d?' done':''}" data-g="${g.id}" data-i="${i}"><div class="sc">${s.d?'✓':''}</div><span class="stxt">${s.t}</span></div>`;
+    });
+    el.innerHTML=`
+      <div class="goal-head">
+        <div class="goal-emoji">${g.emoji}</div>
+        <div class="g-title"><b>${g.title}</b><span>${done} из ${total} шагов · ${pct}%</span>
+          <div class="bar mini" style="margin-top:6px"><i style="width:${pct}%"></i></div>
+        </div>
+        <span class="chev">▶</span>
+      </div>
+      <div class="steps">${stepsHtml}</div>`;
+    el.querySelector('.goal-head').onclick=()=>{ g.open=!g.open; renderGoals(); save(); };
+    el.querySelectorAll('.step').forEach(st=>{
+      st.onclick=()=>toggleStep(g.id, +st.dataset.i);
+    });
+    wrap.appendChild(el);
+  });
+}
+
+function renderHabits(){
+  const t=todayStr();
+  const wrap=document.getElementById('habitsList'); wrap.innerHTML='';
+  state.habits.forEach(h=>{
+    const on=!!h.hist[t]; const st=streakOf(h);
+    const el=document.createElement('div');
+    el.className='item'+(on?' done':'');
+    el.innerHTML=`<div class="check">${on?'✓':''}</div><span class="emoji">${h.emoji}</span><span class="txt">${h.label}</span>${st>0?`<span class="streak">🔥 ${st}</span>`:''}<span class="del">✕</span>`;
+    el.querySelector('.del').onclick=(e)=>{e.stopPropagation();delHabit(h.id);};
+    el.onclick=()=>toggleHabit(h.id);
+    wrap.appendChild(el);
+  });
+  // streak board
+  const sb=document.getElementById('streakBoard'); sb.innerHTML='';
+  const sorted=[...state.habits].sort((a,b)=>streakOf(b)-streakOf(a));
+  sorted.slice(0,5).forEach(h=>{
+    const st=streakOf(h);
+    const el=document.createElement('div');
+    el.style.cssText='display:flex;align-items:center;gap:10px;padding:8px 2px';
+    el.innerHTML=`<span style="font-size:19px">${h.emoji}</span><span style="flex:1;font-weight:700;font-size:14px">${h.label}</span><span class="streak">🔥 ${st} дн.</span>`;
+    sb.appendChild(el);
+  });
+}
+
+function renderMood(){
+  const t=todayStr();
+  const m=state.moods[t];
+  document.querySelectorAll('#moodPick .mood-btn').forEach(b=>b.classList.toggle('sel', m && +b.dataset.m===m.score));
+  const FACE={1:'😞',2:'😕',3:'😐',4:'🙂',5:'😄'};
+  const wrap=document.getElementById('moodHistory'); wrap.innerHTML='';
+  const days=Object.keys(state.moods).sort().reverse().slice(0,10);
+  if(!days.length){ wrap.innerHTML='<div class="empty">Здесь появятся твои записи 🌙</div>'; return; }
+  days.forEach(d=>{
+    const mo=state.moods[d];
+    const dd=new Date(d).toLocaleDateString('ru-RU',{day:'numeric',month:'short'});
+    const el=document.createElement('div');
+    el.className='mood-log';
+    el.innerHTML=`<span class="me">${FACE[mo.score]}</span><div style="flex:1"><div class="md">${dd}</div>${mo.note?`<div class="mn">${mo.note}</div>`:''}</div>`;
+    wrap.appendChild(el);
+  });
+}
+
+/* ---------- actions ---------- */
+function toggleHabit(id){
+  const t=todayStr(); const h=state.habits.find(x=>x.id===id);
+  if(h.hist[t]){ delete h.hist[t]; addPoints(-5); }
+  else { h.hist[t]=true; addPoints(5); const s=streakOf(h); toast(s>1?`🔥 Серия ${s} дней! +5 ✨`:'Молодец! +5 ✨'); }
+  save(); renderHome(); renderHabits();
+}
+function addHabit(){
+  const inp=document.getElementById('habitInput'); const v=inp.value.trim();
+  if(!v) return;
+  state.habits.push({id:'h'+Date.now(), emoji:'⭐', label:v, hist:{}});
+  inp.value=''; save(); renderHome(); renderHabits();
+}
+function delHabit(id){
+  state.habits=state.habits.filter(x=>x.id!==id); save(); renderHome(); renderHabits();
+}
+
+function addTask(){
+  const inp=document.getElementById('taskInput'); const v=inp.value.trim();
+  if(!v) return;
+  state.tasks.push({id:'t'+Date.now(), text:v, done:false, date:todayStr()});
+  inp.value=''; save(); renderTasks();
+}
+function toggleTask(id){
+  const x=state.tasks.find(t=>t.id===id);
+  x.done=!x.done; addPoints(x.done?10:-10);
+  if(x.done) toast('Дело сделано! +10 ✨');
+  save(); renderHome(); renderTasks();
+}
+function delTask(id){ state.tasks=state.tasks.filter(t=>t.id!==id); save(); renderTasks(); }
+
+function toggleStep(gid,i){
+  const g=state.goals.find(x=>x.id===gid); const s=g.steps[i];
+  s.d=!s.d; addPoints(s.d?20:-20);
+  if(s.d){ const done=g.steps.filter(x=>x.d).length; toast(done===g.steps.length?'🎉 Цель выполнена! +20 ✨':'Шаг закрыт! +20 ✨'); }
+  save(); renderGoals(); renderHome();
+}
+
+function pickMood(score){
+  const t=todayStr();
+  const note = (document.getElementById('moodNote')||{}).value || (state.moods[t]?state.moods[t].note:'') || '';
+  const wasNew=!state.moods[t];
+  state.moods[t]={score, note};
+  if(wasNew) addPoints(5);
+  save(); renderHome(); renderMood();
+}
+function saveMood(){
+  const sel=document.querySelector('#moodPick .mood-btn.sel');
+  const t=todayStr();
+  const score = sel? +sel.dataset.m : (state.moods[t]?state.moods[t].score:3);
+  const note=document.getElementById('moodNote').value.trim();
+  const wasNew=!state.moods[t];
+  state.moods[t]={score, note};
+  if(wasNew) addPoints(5);
+  document.getElementById('moodNote').value='';
+  toast('Записано 🌙'+(wasNew?' +5 ✨':''));
+  save(); renderHome(); renderMood();
+}
+
+/* ---------- pomodoro ---------- */
+function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
+function setMode(min){
+  timer.min=min; timer.total=min*60; timer.left=min*60; timer.running=false;
+  clearInterval(timer.int); document.getElementById('startBtn').textContent='Старт';
+  document.getElementById('timerDisplay').textContent=fmt(timer.left);
+  document.getElementById('timerSub').textContent='Нажми «старт» и сосредоточься 🎯';
+}
+function toggleTimer(){
+  if(timer.running){
+    timer.running=false; clearInterval(timer.int);
+    document.getElementById('startBtn').textContent='Продолжить';
+    document.getElementById('timerSub').textContent='Пауза ⏸';
+    return;
+  }
+  timer.running=true; document.getElementById('startBtn').textContent='Пауза';
+  const task=document.getElementById('focusTask').value.trim();
+  document.getElementById('timerSub').textContent=task?('Фокус: '+task+' 🎯'):'Идёт фокус 🎯';
+  timer.int=setInterval(()=>{
+    timer.left--;
+    document.getElementById('timerDisplay').textContent=fmt(timer.left);
+    if(timer.left<=0){
+      clearInterval(timer.int); timer.running=false;
+      document.getElementById('startBtn').textContent='Старт';
+      if(timer.min!==5){ addPoints(15); toast('🎉 Фокус завершён! +15 ✨'); renderHome(); }
+      else { toast('Отдых окончен 🌟'); }
+      document.getElementById('timerSub').textContent='Готово! Ты большая молодец 💛';
+      timer.left=timer.total;
+      setTimeout(()=>document.getElementById('timerDisplay').textContent=fmt(timer.left),1500);
+      save();
+    }
+  },1000);
+}
+function resetTimer(){ setMode(timer.min); }
+
+/* ---------- nav ---------- */
+document.querySelectorAll('.nav button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.getElementById('v-'+b.dataset.view).classList.add('active');
+    window.scrollTo(0,0);
+  };
+});
+document.querySelectorAll('#moodQuick .mood-btn').forEach(b=>b.onclick=()=>pickMood(+b.dataset.m));
+document.querySelectorAll('#moodPick .mood-btn').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#moodPick .mood-btn').forEach(x=>x.classList.remove('sel'));
+  b.classList.add('sel');
+});
+document.querySelectorAll('.mode').forEach(m=>m.onclick=()=>{
+  document.querySelectorAll('.mode').forEach(x=>x.classList.remove('sel'));
+  m.classList.add('sel'); setMode(+m.dataset.min);
+});
+document.getElementById('taskInput').addEventListener('keydown',e=>{if(e.key==='Enter')addTask();});
+document.getElementById('habitInput').addEventListener('keydown',e=>{if(e.key==='Enter')addHabit();});
+
+/* ---------- AI помощник «Лучик» ---------- */
+const BOT_SYS = `Тебя зовут Лучик — тёплый, добрый AI-помощник внутри приложения «Сияй» для Нияры, девочки 13 лет из Казахстана. Ты как поддерживающая старшая сестра и наставница: общаешься живо, на равных, без занудства и нравоучений, в меру используешь эмодзи.
+
+Ты помогаешь Нияре с её целями на лето: развивать вокал, осваивать фортепиано с нуля, подтянуть английский и казахский, наладить режим дня и тайм-менеджмент, быть активной, бережно заботиться о себе, расширять кругозор, начать зарабатывать и понять свои жизненные цели. Она амбициозная и активная, любит музыку, кино и шоу-бизнес, мечтает о сцене. Над дисциплиной пока работает — мягко поддерживай, хвали за маленькие шаги, помогай разбивать большое на простые действия.
+
+Правила:
+- Отвечай коротко и по делу (2–5 предложений), тепло и понятно.
+- Задавай не больше одного вопроса за раз, не заваливай.
+- Радуйся её успехам, даже самым маленьким.
+- По здоровью и питанию давай только мягкие, добрые советы (вода, сон, движение, разнообразная еда, забота о себе). Никогда не предлагай диет, подсчёта калорий, контроля веса или жёстких нагрузок.
+- Не делай за неё школьную работу — помогай разобраться самой.
+- Если она расстроена или столкнулась с серьёзной проблемой (буллинг, сильная тревога, конфликты дома, что-то небезопасное) — выслушай, поддержи и мягко посоветуй поговорить с близким взрослым, которому она доверяет. Ты не заменяешь живых людей и специалистов.
+- Всегда отвечай на русском языке.`;
+
+const BOT_HELLO = "Привет, Нияра! Я Лучик ☀️ Твой личный помощник. Могу подсказать с целями, учёбой, режимом или просто поддержать. С чего начнём? 💛";
+let chatBusy = false;
+
+function openChat(){
+  document.getElementById('chatOverlay').classList.add('show');
+  if(!state.chat || !state.chat.length){ state.chat=[{role:'assistant', content:BOT_HELLO}]; }
+  renderChat();
+  setTimeout(()=>document.getElementById('chatField').focus(),300);
+}
+function closeChat(){ document.getElementById('chatOverlay').classList.remove('show'); }
+
+function renderChat(){
+  const box=document.getElementById('chatMsgs'); box.innerHTML='';
+  state.chat.forEach(m=>{
+    const b=document.createElement('div');
+    b.className='bubble '+(m.role==='user'?'user':'bot');
+    b.textContent=m.content;
+    box.appendChild(b);
+  });
+  box.scrollTop=box.scrollHeight;
+}
+
+function showTyping(){
+  const box=document.getElementById('chatMsgs');
+  const t=document.createElement('div');
+  t.className='bubble typing'; t.id='typing';
+  t.innerHTML='<span></span><span></span><span></span>';
+  box.appendChild(t); box.scrollTop=box.scrollHeight;
+}
+function hideTyping(){ const t=document.getElementById('typing'); if(t) t.remove(); }
+
+async function sendChat(){
+  if(chatBusy) return;
+  const f=document.getElementById('chatField');
+  const text=f.value.trim();
+  if(!text) return;
+  f.value='';
+  state.chat.push({role:'user', content:text});
+  renderChat(); save();
+
+  chatBusy=true;
+  document.getElementById('chatSend').disabled=true;
+  showTyping();
+
+  const recent = state.chat.slice(-20).map(m=>({role:m.role, content:m.content}));
+
+  try{
+    const res = await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:1000,
+        system:BOT_SYS,
+        messages:recent
+      })
+    });
+    const data=await res.json();
+    const reply=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n').trim()
+      || "Хм, я немного задумался 🌙 Спроси ещё раз?";
+    hideTyping();
+    state.chat.push({role:'assistant', content:reply});
+  }catch(e){
+    hideTyping();
+    state.chat.push({role:'assistant', content:"Ой, я сейчас не могу ответить 💛 Похоже, нет соединения. Проверь интернет и напиши мне снова!"});
+  }
+
+  if(state.chat.length>40) state.chat=state.chat.slice(-40);
+  renderChat(); save();
+  chatBusy=false;
+  document.getElementById('chatSend').disabled=false;
+}
+
+document.getElementById('chatField').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat();});
+
+load();
+</script>
+</body>
+</html>
