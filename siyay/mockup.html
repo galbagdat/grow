@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сияй ✨ — превью продукта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'Nunito',sans-serif;color:#3a4a5c;min-height:100vh;
+    background:
+      radial-gradient(120% 80% at 0% 0%, #eaf3fb 0%, transparent 55%),
+      radial-gradient(120% 80% at 100% 0%, #f7f1e6 0%, transparent 50%),
+      radial-gradient(140% 90% at 50% 100%, #e3eef9 0%, transparent 60%),
+      #fbf8f2;
+    padding:38px 30px 44px;overflow-x:hidden;
+  }
+  .head{text-align:center;margin-bottom:30px}
+  .head .logo{font-family:'Quicksand';font-size:46px;font-weight:700;letter-spacing:.5px}
+  .head .sub{font-size:16px;font-weight:700;color:#5e7488;margin-top:6px}
+  .head .pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+  .head .pill{background:rgba(255,255,255,.75);box-shadow:0 4px 14px rgba(120,150,180,.12);
+    border-radius:30px;padding:7px 16px;font-size:13px;font-weight:800;color:#52677d}
+
+  .rack{display:flex;gap:14px;justify-content:center;align-items:flex-start;flex-wrap:nowrap}
+  .col{display:flex;flex-direction:column;align-items:center;gap:12px}
+  .phone{
+    width:300px;padding:11px;background:linear-gradient(160deg,#2b3543,#1c242f);
+    border-radius:40px;box-shadow:0 22px 50px rgba(60,80,110,.28), inset 0 0 0 2px rgba(255,255,255,.05);
+    position:relative;
+  }
+  .phone::before{content:"";position:absolute;top:20px;left:50%;transform:translateX(-50%);
+    width:90px;height:7px;background:#0d1118;border-radius:10px;z-index:3}
+  .phone iframe{width:278px;height:588px;border:none;border-radius:30px;background:#fff;display:block}
+  .cap{font-family:'Quicksand';font-weight:700;font-size:15px;color:#3a4a5c}
+  .cap small{display:block;font-family:'Nunito';font-weight:700;font-size:12px;color:#7e92a6;margin-top:2px}
+  .foot{text-align:center;margin-top:34px;font-size:13px;font-weight:700;color:#7e92a6}
+</style>
+</head>
+<body>
+  <div class="head">
+    <div class="logo">Сияй ✨</div>
+    <div class="sub">Личный помощник для роста и привычек подростка</div>
+    <div class="pills">
+      <span class="pill">🎯 Цели по шагам</span>
+      <span class="pill">🔥 Привычки и серии</span>
+      <span class="pill">🌙 Дневник настроения</span>
+      <span class="pill">⏱ Фокус-таймер</span>
+      <span class="pill">☀️ AI-помощник «Лучик»</span>
+    </div>
+  </div>
+
+  <div class="rack" id="rack"></div>
+
+  <div class="foot">Рабочий прототип · оффлайн-функции + AI-чат · galbagdat.github.io/icu-kz-landing/siyay</div>
+
+<script>
+/* Each screen injects code via the iframe's own eval so it runs in the
+   app's global scope (where `state`, `renderAll`, etc. are visible —
+   `let state` is not exposed as a window property). */
+const PRELUDE = `
+  function key(off){var d=new Date();d.setDate(d.getDate()-off);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  function streak(h,n){for(var i=0;i<n;i++)h.hist[key(i)]=true;}
+  function nav(v){var b=document.querySelector('.nav button[data-view="'+v+'"]');if(b)b.click();}
+`;
+const SCREENS = [
+  {cap:'Главная', sub:'Прогресс · привычки · настроение', code:`
+    state.profile.points=340;
+    streak(state.habits[0],12); streak(state.habits[1],5); streak(state.habits[2],3);
+    state.habits[3].hist[key(0)]=true; state.habits[4].hist[key(0)]=true;
+    state.moods[key(0)]={score:4};
+    renderAll();`},
+  {cap:'Цели', sub:'Большое — это маленькие шаги', code:`
+    state.profile.points=340;
+    state.goals[0].open=true; state.goals[0].steps[0].d=true; state.goals[0].steps[1].d=true;
+    state.goals[1].steps[0].d=true;
+    state.goals[2].steps.forEach(function(s){s.d=true;});
+    state.goals[4].steps[0].d=true;
+    renderAll(); nav('goals');`},
+  {cap:'Привычки', sub:'Серии 🔥 и доска лидеров', code:`
+    streak(state.habits[0],12); streak(state.habits[1],5); streak(state.habits[2],3);
+    streak(state.habits[3],8); state.habits[4].hist[key(0)]=true;
+    renderAll(); nav('habits');`},
+  {cap:'Фокус', sub:'Помодоро 25 / 15 / 5', code:`
+    renderAll(); nav('focus');`},
+  {cap:'Лучик ☀️', sub:'Тёплый AI-наставник', code:`
+    state.chat=[
+      {role:'assistant', content:'Привет, Нияра! Я Лучик ☀️ Чем сегодня займёмся?'},
+      {role:'user', content:'Не хочу заниматься фортепиано 😔'},
+      {role:'assistant', content:'Это нормально 💛 Давай начнём всего с 5 минут — просто сыграй гамму. Часто после старта хочется продолжить. Попробуем?'},
+      {role:'user', content:'Ладно, попробую ✨'},
+      {role:'assistant', content:'Ты молодец! Я в тебя верю 🌟 Поставь таймер на вкладке «Фокус» — я рядом.'}
+    ];
+    openChat(); renderChat();`},
+];
+
+const rack=document.getElementById('rack');
+SCREENS.forEach(s=>{
+  const col=document.createElement('div'); col.className='col';
+  const phone=document.createElement('div'); phone.className='phone';
+  const ifr=document.createElement('iframe');
+  ifr.src='index.html';
+  ifr.addEventListener('load',()=>{
+    setTimeout(()=>{ try{ ifr.contentWindow.eval(PRELUDE+s.code); }catch(e){ console.warn('mockup setup failed',e); } }, 400);
+  });
+  phone.appendChild(ifr);
+  const cap=document.createElement('div'); cap.className='cap';
+  cap.innerHTML=s.cap+'<small>'+s.sub+'</small>';
+  col.appendChild(phone); col.appendChild(cap);
+  rack.appendChild(col);
+});
+</script>
+</body>
+</html>
