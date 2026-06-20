@@ -206,15 +206,6 @@
   .sakura-tree .bloom{transform-box:fill-box;transform-origin:center;animation:bloom 5s ease-in-out infinite}
   @keyframes bloom{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
   .closing-word{font-family:'Marck Script';font-size:26px;color:var(--gold);margin-top:10px}
-  /* ── Kaspi-шаги ── */
-  .kaspi-steps{display:grid;gap:16px;max-width:620px;margin:0 auto}
-  .kstep{background:rgba(255,255,255,.55);border:1px solid var(--gold-soft);border-radius:14px;
-    padding:24px 20px;text-align:center;box-shadow:0 8px 26px rgba(79,70,60,.06)}
-  .knum{width:54px;height:54px;border-radius:50%;margin:0 auto 14px;
-    background:linear-gradient(var(--bordo),var(--bordo-deep));color:#fbe9d2;
-    font-family:'Cormorant Garamond',serif;font-size:24px;display:flex;align-items:center;justify-content:center;
-    box-shadow:0 6px 16px rgba(124,34,48,.3)}
-  .kstep p{color:var(--ink);font-size:16px;line-height:1.5}
   /* ── Форма RSVP ── */
   .rsvp{max-width:600px;margin:0 auto;text-align:left}
   .fld-label{display:block;text-align:center;font-size:12px;letter-spacing:3px;text-transform:uppercase;
@@ -237,7 +228,6 @@
     box-shadow:0 16px 50px rgba(79,70,60,.18)}
   .final-photo .closing-word{margin-top:16px}
   @media(min-width:620px){
-    .kaspi-steps{grid-template-columns:repeat(3,1fr)}
     .choices{grid-template-columns:1fr 1fr}
   }
   .final-art{max-width:300px;margin:8px auto 0;padding:0 24px 34px;text-align:center}
@@ -464,6 +454,10 @@
     </p>
     <p style="text-align:center;font-size:13px;color:var(--ink-soft);margin:-10px 0 16px;letter-spacing:.5px">Нажмите на карточку, чтобы отметить свой подарок</p>
     <div class="gifts">
+      <div class="gift" data-gift="Наполнение приданого"><span class="gift-check">✦</span>
+        <h3>Наполнение приданого</h3>
+        <p>Предметы для семейного очага — для родного сандыка.</p>
+      </div>
 <div class="gift" data-gift="Сертификат"><span class="gift-check">✦</span>
         <h3>Сертификат</h3>
         <p>В ювелирный салон, магазин для дома или на тёплый отдых.</p>
@@ -475,10 +469,6 @@
       <div class="gift" data-gift="Спальный гарнитур"><span class="gift-check">✦</span>
         <h3>Спальный гарнитур</h3>
         <p>Ваш вклад в уют и тепло будущего дома Даяны.</p>
-      </div>
-      <div class="gift" data-gift="Копилка будущего (денежный подарок)"><span class="gift-check">✦</span>
-        <h3>Копилка будущего</h3>
-        <p>Символический денежный подарок Даяне — сумма от сердца.</p>
       </div>
     </div>
   </section>

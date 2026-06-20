@@ -187,14 +187,6 @@
   .tradition p{color:var(--ink);font-size:16px;line-height:1.8}
 
   .closing-word{font-family:'Marck Script';font-size:26px;color:var(--gold);margin-top:10px}
-  .kaspi-steps{display:grid;gap:16px;max-width:620px;margin:0 auto}
-  .kstep{background:rgba(255,255,255,.55);border:1px solid var(--gold-soft);border-radius:14px;
-    padding:24px 20px;text-align:center;box-shadow:0 8px 26px rgba(79,70,60,.06)}
-  .knum{width:54px;height:54px;border-radius:50%;margin:0 auto 14px;
-    background:linear-gradient(var(--bordo),var(--bordo-deep));color:#fbe9d2;
-    font-family:'Cormorant Garamond',serif;font-size:24px;display:flex;align-items:center;justify-content:center;
-    box-shadow:0 6px 16px rgba(124,34,48,.3)}
-  .kstep p{color:var(--ink);font-size:16px;line-height:1.5}
   .rsvp{max-width:600px;margin:0 auto;text-align:left}
   .fld-label{display:block;text-align:center;font-size:12px;letter-spacing:3px;text-transform:uppercase;
     color:var(--gold);margin:18px 0 10px}
@@ -215,7 +207,6 @@
     box-shadow:0 16px 50px rgba(79,70,60,.18)}
   .final-photo .closing-word{margin-top:16px}
   @media(min-width:620px){
-    .kaspi-steps{grid-template-columns:repeat(3,1fr)}
     .choices{grid-template-columns:1fr 1fr}
     .detail-row{flex-direction:row;justify-content:center;gap:50px;flex-wrap:wrap}
     .detail{min-width:150px}
@@ -431,6 +422,10 @@
     </p>
     <p style="text-align:center;font-size:13px;color:var(--ink-soft);margin:-10px 0 16px;letter-spacing:.5px">Сыйлығыңызды белгілеу үшін картаны басыңыз</p>
     <div class="gifts">
+      <div class="gift" data-gift="Жасауды толтыру"><span class="gift-check">✦</span>
+        <h3>Жасауды толтыру</h3>
+        <p>Отбасылық ошақ үшін заттар — туған сандыққа.</p>
+      </div>
 <div class="gift" data-gift="Сертификат"><span class="gift-check">✦</span>
         <h3>Сертификат</h3>
         <p>Зергерлік салонға, үй дүкеніне немесе жылы демалысқа.</p>
@@ -442,10 +437,6 @@
       <div class="gift" data-gift="Жатын бөлме жиһазы"><span class="gift-check">✦</span>
         <h3>Жатын бөлме жиһазы</h3>
         <p>Даянаның болашақ үйінің жайлылығы мен жылуына үлесіңіз.</p>
-      </div>
-      <div class="gift" data-gift="Болашақ қоры (ақшалай сыйлық)"><span class="gift-check">✦</span>
-        <h3>Болашақ қоры</h3>
-        <p>Даянаға символдық ақшалай сыйлық — жүректен шыққан сома.</p>
       </div>
     </div>
   </section>
