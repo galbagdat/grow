@@ -121,8 +121,12 @@
   .gift-intro{max-width:560px;margin:0 auto 30px;text-align:center;color:var(--ink-soft);font-size:16px}
   .gifts{display:grid;gap:14px}
   .gift{background:rgba(255,255,255,.55);border:1px solid var(--gold-soft);border-radius:12px;
-    padding:20px 22px;transition:transform .3s,box-shadow .3s}
+    padding:20px 22px;transition:transform .3s,box-shadow .3s;cursor:pointer;position:relative}
   .gift:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(230,184,194,.22)}
+  .gift.sel{background:var(--sakura-soft);border-color:var(--bordo);box-shadow:0 6px 20px rgba(124,34,48,.12)}
+  .gift.sel h3{color:var(--bordo)}
+  .gift .gift-check{position:absolute;top:12px;right:14px;font-size:16px;opacity:0;transition:opacity .2s}
+  .gift.sel .gift-check{opacity:1}
   .gift h3{font-size:18px;color:var(--ink);font-style:italic;margin-bottom:4px}
   .gift p{font-size:14px;color:var(--ink-soft);line-height:1.55}
 
@@ -443,24 +447,25 @@
       Но если захотите порадовать Даяну на её новом светлом пути,
       мы бережно собрали несколько идей — выбирайте то, что ближе сердцу.
     </p>
+    <p style="text-align:center;font-size:13px;color:var(--ink-soft);margin:-10px 0 16px;letter-spacing:.5px">Нажмите на карточку, чтобы отметить свой подарок</p>
     <div class="gifts">
-      <div class="gift">
+      <div class="gift" data-gift="Наполнение приданого"><span class="gift-check">✦</span>
         <h3>Наполнение приданого</h3>
         <p>Корпе, текстиль и предметы для семейного очага — для родного сандыка.</p>
       </div>
-<div class="gift">
+      <div class="gift" data-gift="Сертификат"><span class="gift-check">✦</span>
         <h3>Сертификат</h3>
         <p>В ювелирный салон, магазин для дома или на тёплый отдых.</p>
       </div>
-      <div class="gift">
+      <div class="gift" data-gift="Вклад в путешествие"><span class="gift-check">✦</span>
         <h3>Вклад в путешествие</h3>
         <p>Частичка будущих светлых воспоминаний Даяны.</p>
       </div>
-      <div class="gift">
+      <div class="gift" data-gift="Спальный гарнитур"><span class="gift-check">✦</span>
         <h3>Спальный гарнитур</h3>
         <p>Ваш вклад в уют и тепло будущего дома Даяны.</p>
       </div>
-      <div class="gift">
+      <div class="gift" data-gift="Копилка будущего (денежный подарок)"><span class="gift-check">✦</span>
         <h3>Копилка будущего</h3>
         <p>Символический денежный подарок Даяне — 100 000 ₸ или больше, сумма от сердца.</p>
       </div>
@@ -642,6 +647,13 @@
   document.getElementById('calBtn').href = url;
 })();
 
+/* ── Выбор подарков ── */
+(function(){
+  document.querySelectorAll('.gift[data-gift]').forEach(g=>{
+    g.addEventListener('click',()=>g.classList.toggle('sel'));
+  });
+})();
+
 /* ── RSVP → WhatsApp ── */
 (function(){
   const phone='77077337217';
@@ -655,9 +667,11 @@
   if(send) send.addEventListener('click',()=>{
     const name=(document.getElementById('rsvp-name').value||'').trim();
     const wish=(document.getElementById('rsvp-wish').value||'').trim();
+    const selected=[...document.querySelectorAll('.gift.sel')].map(g=>g.dataset.gift);
     let msg='Сырға салу — подтверждение присутствия в честь Даяны.\n';
     msg+='Имя: '+(name||'—')+'\n';
     msg+='Ответ: '+(answer||'—');
+    if(selected.length) msg+='\nПодарок: '+selected.join(', ');
     if(wish) msg+='\nПожелания: '+wish;
     window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(msg),'_blank');
   });
