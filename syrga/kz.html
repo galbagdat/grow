@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="kk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Сырға салу · Даяна · 15 августа 2026</title>
+<title>Сырға салу · Даяна · 2026 жылғы 15 тамыз</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&family=Marck+Script&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#fbf8f2;       /* молочно-белый фон */
-    --ivory:#f4ecdd;       /* айвори */
-    --sakura:#e6b8c2;      /* пудрово-розовый акцент */
-    --sakura-soft:#f6e6e9; /* мягкая сакура */
-    --gold:#b8964a;        /* тёплое золото орнамента */
-    --gold-soft:#d8c08a;   /* светлое золото */
-    --ink:#4f463c;         /* тёплый коричневый текст */
-    --ink-soft:#8a7d6e;    /* приглушённый текст */
-    --bordo:#7c2230;       /* бордовый акцент юрты */
-    --bordo-deep:#5f1923;  /* глубокий бордовый */
+    --paper:#fbf8f2;
+    --ivory:#f4ecdd;
+    --sakura:#e6b8c2;
+    --sakura-soft:#f6e6e9;
+    --gold:#b8964a;
+    --gold-soft:#d8c08a;
+    --ink:#4f463c;
+    --ink-soft:#8a7d6e;
+    --bordo:#7c2230;
+    --bordo-deep:#5f1923;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -31,7 +31,6 @@
     overflow-x:hidden;
     position:relative;
   }
-  /* тонкая бумажная текстура */
   body::before{
     content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
     background:
@@ -39,29 +38,29 @@
       radial-gradient(circle at 85% 80%, rgba(216,192,138,.10), transparent 45%);
   }
   .wrap{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:0 24px}
-
-  /* ── Орнаментальный разделитель ── */
   .ornament{display:flex;justify-content:center;margin:22px 0;opacity:.85}
   .ornament svg{width:140px;height:auto}
-
   h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:.3px}
 
   /* Переключатель языка */
-  .lang-switch{position:fixed;top:16px;right:16px;z-index:9999;display:flex;gap:6px}
-  .lang-btn{padding:6px 14px;border-radius:20px;font-size:12px;letter-spacing:1px;
+  .lang-switch{
+    position:fixed;top:16px;right:16px;z-index:9999;
+    display:flex;gap:6px;
+  }
+  .lang-btn{
+    padding:6px 14px;border-radius:20px;font-size:12px;letter-spacing:1px;
     border:1px solid var(--gold-soft);background:rgba(251,248,242,.92);
     backdrop-filter:blur(4px);color:var(--gold);cursor:pointer;
-    text-decoration:none;transition:.2s;font-family:'Montserrat',sans-serif}
+    text-decoration:none;transition:.2s;font-family:'Montserrat',sans-serif;
+  }
   .lang-btn.active{background:var(--gold);color:#fff;border-color:var(--gold)}
   .lang-btn:hover:not(.active){background:var(--sakura-soft)}
 
-  /* ── Лепестки сакуры ── */
   #petals{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
   .petal{position:absolute;top:-30px;border-radius:0 70% 0 70%;
     background:linear-gradient(135deg,var(--sakura),var(--sakura-soft));
     opacity:.55;will-change:transform}
 
-  /* ── Кнопка мелодии ── */
   #music{
     position:fixed;right:18px;bottom:18px;z-index:10;
     width:50px;height:50px;border-radius:50%;border:1px solid var(--gold-soft);
@@ -72,7 +71,6 @@
   #music.playing{background:var(--sakura-soft);animation:pulse 2.4s infinite ease-in-out}
   @keyframes pulse{50%{box-shadow:0 0 0 8px rgba(230,184,194,.18)}}
 
-  /* ── Обложка ── */
   .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;
     justify-content:center;text-align:center;padding:60px 24px}
   .eyebrow{font-family:'Montserrat';font-size:13px;letter-spacing:5px;text-transform:uppercase;
@@ -84,7 +82,6 @@
   .scroll-hint{margin-top:54px;color:var(--gold);font-size:22px;animation:bob 2.2s infinite}
   @keyframes bob{50%{transform:translateY(8px)}}
 
-  /* ── Секции ── */
   section{padding:10px 0}
   .reveal{opacity:0;transform:translateY(26px);transition:opacity 1s ease,transform 1s ease}
   .reveal.in{opacity:1;transform:none}
@@ -93,9 +90,7 @@
   .block-title{text-align:center;font-size:clamp(28px,6vw,40px);font-style:italic;
     color:var(--ink);margin-bottom:26px}
   .lead{text-align:center;font-size:18px;color:var(--ink);max-width:560px;margin:0 auto}
-  .soft{color:var(--ink-soft)}
 
-  /* ── Имя Даяны (медальон) ── */
   .name-medallion{width:200px;height:200px;margin:8px auto 30px;border-radius:50%;
     border:1px solid var(--gold-soft);display:flex;flex-direction:column;align-items:center;
     justify-content:center;background:radial-gradient(circle,var(--sakura-soft),var(--paper));
@@ -104,11 +99,9 @@
   .name-medallion .sub{font-size:11px;letter-spacing:3px;text-transform:uppercase;
     color:var(--gold);margin-top:6px}
 
-  /* ── Карточка деталей ── */
   .card{background:rgba(255,255,255,.6);border:1px solid var(--gold-soft);border-radius:14px;
     padding:38px 30px;text-align:center;box-shadow:0 10px 40px rgba(79,70,60,.07)}
   .detail-row{display:flex;flex-direction:column;gap:22px;margin:8px 0 28px}
-  .detail{}
   .detail .d-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
   .detail .d-value{font-family:'Cormorant Garamond';font-size:24px;color:var(--ink);margin-top:4px}
   .detail .d-value.small{font-size:19px}
@@ -120,13 +113,11 @@
   .btn-ghost{background:transparent;color:var(--gold)}
   .btn-ghost:hover{background:var(--sakura-soft)}
 
-  /* ── Обратный отсчёт ── */
   .countdown{display:flex;justify-content:center;gap:18px;margin-top:6px}
   .cd-cell{min-width:70px}
   .cd-num{font-family:'Cormorant Garamond';font-size:40px;color:var(--sakura);line-height:1}
   .cd-word{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-soft);margin-top:6px}
 
-  /* ── Подарки ── */
   .gift-intro{max-width:560px;margin:0 auto 30px;text-align:center;color:var(--ink-soft);font-size:16px}
   .gifts{display:grid;gap:14px}
   .gift{background:rgba(255,255,255,.55);border:1px solid var(--gold-soft);border-radius:12px;
@@ -139,7 +130,6 @@
   .gift h3{font-size:18px;color:var(--ink);font-style:italic;margin-bottom:4px}
   .gift p{font-size:14px;color:var(--ink-soft);line-height:1.55}
 
-  /* ── Подвал ── */
   footer{text-align:center;padding:30px 24px 70px}
   .tamga{width:78px;height:78px;margin:0 auto 18px;border-radius:50%;border:1px dashed var(--gold-soft);
     display:flex;align-items:center;justify-content:center;color:var(--gold-soft);font-size:11px;
@@ -148,7 +138,6 @@
   footer .contact{font-size:14px;color:var(--ink-soft)}
   footer .uran{font-family:'Marck Script';font-size:20px;color:var(--gold);margin-top:18px}
 
-  /* ── Интро: 3D-юрта → двери → фото ── */
   body.intro-lock{overflow:hidden}
   #yurt-intro{position:fixed;inset:0;z-index:9000;display:flex;flex-direction:column;
     align-items:center;justify-content:center;padding:24px;
@@ -191,22 +180,13 @@
     text-transform:uppercase;color:var(--bordo);cursor:pointer;transition:opacity .5s;animation:bob 2.4s infinite}
   .enter-hint.gone{opacity:0;pointer-events:none}
 
-  /* ── Блок о традиции ── */
   .tradition{background:rgba(246,230,233,.45);border:1px solid var(--gold-soft);border-radius:14px;
     padding:30px 26px;max-width:600px;margin:6px auto 0;text-align:center}
   .tradition .t-title{font-family:'Cormorant Garamond';font-style:italic;font-size:26px;
     color:var(--bordo);margin-bottom:12px}
   .tradition p{color:var(--ink);font-size:16px;line-height:1.8}
 
-  /* ── Цветущая сакура (финал) ── */
-  .sakura-tree{max-width:480px;margin:6px auto 0;padding:0 24px 26px;text-align:center}
-  .sakura-tree svg{width:100%;height:auto;display:block;overflow:visible}
-  .sakura-tree .canopy{transform-origin:210px 200px;animation:sway 6.5s ease-in-out infinite}
-  @keyframes sway{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
-  .sakura-tree .bloom{transform-box:fill-box;transform-origin:center;animation:bloom 5s ease-in-out infinite}
-  @keyframes bloom{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
   .closing-word{font-family:'Marck Script';font-size:26px;color:var(--gold);margin-top:10px}
-  /* ── Kaspi-шаги ── */
   .kaspi-steps{display:grid;gap:16px;max-width:620px;margin:0 auto}
   .kstep{background:rgba(255,255,255,.55);border:1px solid var(--gold-soft);border-radius:14px;
     padding:24px 20px;text-align:center;box-shadow:0 8px 26px rgba(79,70,60,.06)}
@@ -215,7 +195,6 @@
     font-family:'Cormorant Garamond',serif;font-size:24px;display:flex;align-items:center;justify-content:center;
     box-shadow:0 6px 16px rgba(124,34,48,.3)}
   .kstep p{color:var(--ink);font-size:16px;line-height:1.5}
-  /* ── Форма RSVP ── */
   .rsvp{max-width:600px;margin:0 auto;text-align:left}
   .fld-label{display:block;text-align:center;font-size:12px;letter-spacing:3px;text-transform:uppercase;
     color:var(--gold);margin:18px 0 10px}
@@ -231,7 +210,6 @@
   .choice.sel{background:var(--sakura-soft);border-color:var(--bordo);color:var(--bordo);font-weight:500}
   .rsvp-btn{width:100%;margin-top:24px;font-size:15px;letter-spacing:2px}
   .rsvp-note{text-align:center;font-size:12px;color:var(--ink-soft);margin-top:12px}
-  /* ── Финальное фото ── */
   .final-photo{max-width:760px;margin:10px auto 0;padding:0 24px 34px;text-align:center}
   .final-photo img{width:100%;height:auto;display:block;border-radius:16px;
     box-shadow:0 16px 50px rgba(79,70,60,.18)}
@@ -239,12 +217,6 @@
   @media(min-width:620px){
     .kaspi-steps{grid-template-columns:repeat(3,1fr)}
     .choices{grid-template-columns:1fr 1fr}
-  }
-  .final-art{max-width:300px;margin:8px auto 0;padding:0 24px 34px;text-align:center}
-  .final-art svg{width:100%;height:auto;display:block;overflow:visible}
-  .final-art .plume{transform-box:fill-box;transform-origin:bottom center;animation:sway 5s ease-in-out infinite}
-
-  @media(min-width:620px){
     .detail-row{flex-direction:row;justify-content:center;gap:50px;flex-wrap:wrap}
     .detail{min-width:150px}
   }
@@ -256,7 +228,13 @@
 </head>
 <body>
 
-<!-- ░░ ИНТРО: 3D-ЮРТА → ДВЕРИ → ФОТО ░░ -->
+<!-- Переключатель языка -->
+<div class="lang-switch">
+  <a class="lang-btn" href="index.html">РУ</a>
+  <a class="lang-btn active" href="kz.html">ҚАЗ</a>
+</div>
+
+<!-- ИНТРО: 3D-юрта -->
 <div id="yurt-intro">
   <div class="yurt">
     <svg class="yurt-dome" viewBox="0 0 340 150" xmlns="http://www.w3.org/2000/svg">
@@ -281,7 +259,6 @@
       <path d="M146 36 H194 M170 26 V46 M154 30 L186 42 M186 30 L154 42" stroke="var(--gold-soft)" stroke-width="1"/>
       <circle cx="170" cy="36" r="2.6" fill="var(--bordo)"/>
     </svg>
-
     <div class="yurt-wall">
     <div class="yurt-body">
       <div class="door-reveal"></div>
@@ -308,56 +285,46 @@
         <span class="handle"></span>
       </div>
     </div>
-    </div><!-- /yurt-wall -->
-
-    <div class="enter-hint">нажмите, чтобы открыть юрту ✦</div>
+    </div>
+    <div class="enter-hint">кіру үшін басыңыз ✦</div>
   </div>
   <div class="yurt-photo-full"></div>
 </div>
 
-<!-- Переключатель языка -->
-<div class="lang-switch">
-  <a class="lang-btn active" href="index.html">РУ</a>
-  <a class="lang-btn" href="kz.html">ҚАЗ</a>
-</div>
-
-<!-- Лепестки сакуры -->
 <div id="petals"></div>
-
-<!-- Кнопка мелодии: пауза/продолжить -->
-<button id="music" aria-label="Мелодия" title="Мелодия">♪</button>
+<button id="music" aria-label="Әуен" title="Әуен">♪</button>
 <div id="yt-player" aria-hidden="true" style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none"></div>
 
-<!-- ░░ ОБЛОЖКА ░░ -->
+<!-- ОБЛОЖКА -->
 <header class="hero">
-  <div class="eyebrow">приглашение</div>
+  <div class="eyebrow">шақыру</div>
   <h1>Сырға салу<span class="kz">сырға салу тойы</span></h1>
-  <p>Приглашаем разделить волнующий и светлый момент нашей семьи —<br>в честь нашей Даяны</p>
+  <p>Отбасымыздың жарық және қуанышты сәтін бірге бөлісуге шақырамыз —<br>біздің Даянамыздың құрметіне</p>
   <div class="scroll-hint">⌄</div>
 </header>
 
 <div class="wrap">
 
-  <!-- ░░ ПРИГЛАШЕНИЕ ░░ -->
+  <!-- ПРИГЛАШЕНИЕ -->
   <section class="reveal">
-    <div class="label">с любовью</div>
-    <h2 class="block-title">Дорогие родные и близкие!</h2>
+    <div class="label">сүйіспеншілікпен</div>
+    <h2 class="block-title">Қадірлі туыстар мен жақындар!</h2>
     <p class="lead">
-      Этот день наполнен особым трепетом для нашей семьи.
-      Мы с радостью приглашаем вас разделить с нами тёплый и волнующий момент —
-      <em>Сырға салу</em> в честь нашей Даяны.
-      Ваше присутствие сделает этот день по-настоящему светлым и незабываемым.
+      Бұл күн біздің отбасымыз үшін ерекше толқыныспен толы.
+      Біз сіздерді жылы және қуанышты сәтті бірге бөлісуге шақырамыз —
+      біздің Даянамыздың <em>Сырға салу</em> тойына.
+      Сіздердің қатысуларыңыз бұл күнді шын мәнінде жарық және ұмытылмас етеді.
     </p>
   </section>
 
   <section class="reveal" style="margin-top:30px">
-    <div class="label">казахская традиция</div>
+    <div class="label">қазақ дәстүрі</div>
     <div class="tradition">
-      <div class="t-title">Что такое Сырға салу</div>
+      <div class="t-title">Сырға салу дегеніміз не</div>
       <p>
-        Сырға салу — одна из самых тёплых казахских традиций: родные жениха
-        надевают девушке серьги в знак того, что её с любовью приняли в новую семью.
-        Этот светлый обряд скрепляет согласие двух семей и открывает новую главу в жизни.
+        Сырға салу — ең жылы қазақ дәстүрлерінің бірі: күйеу жігіттің туыстары
+        қызға сырға тағады, бұл оны жаңа отбасына сүйіспеншілікпен қабылдағанының белгісі.
+        Бұл жарық рәсім екі отбасының келісімін бекітіп, өмірде жаңа бет ашады.
       </p>
     </div>
   </section>
@@ -372,24 +339,24 @@
     </svg>
   </div>
 
-  <!-- ░░ О ДАЯНЕ ░░ -->
+  <!-- О ДАЯНЕ -->
   <section class="reveal">
-    <div class="label">слова мамы</div>
+    <div class="label">ананың сөзі</div>
     <div class="name-medallion">
       <div class="nm">Даяна</div>
       <div class="sub">Dayana</div>
     </div>
     <p class="lead">
-      Доченька моя, ты — наш самый светлый рассвет.
-      Совсем недавно ты держалась за мою руку, делая первые шаги, —
-      а сегодня делаешь свой шаг в новую, взрослую жизнь.
+      Қызым, сен — біздің ең жарық таңымызсың.
+      Жақында ғана алғашқы қадамдарыңда қолымнан ұстап едің, —
+      ал бүгін ересек, жаңа өмірге өз қадамыңды жасап жатырсың.
       <br><br>
-      Ты выросла нежной, как весенний цвет, и сильной, как горная река;
-      в тебе живёт вся наша любовь, наша молитва и наша гордость.
-      Пусть этот день станет началом самой красивой главы твоей судьбы, родная.
+      Сен көктемгі гүл сияқты нәзік, тау өзені сияқты мықты өстің;
+      сенде біздің барлық сүйіспеншілігіміз, дұғамыз және мақтанышымыз тіршілік етеді.
+      Бұл күн сенің тағдырыңның ең әдемі тарауының басы болсын, қызым.
     </p>
     <div class="btns" style="margin-top:24px">
-      <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=RF9wHFw3kTw" target="_blank" rel="noopener">♫ Послушать нашу мелодию</a>
+      <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=RF9wHFw3kTw" target="_blank" rel="noopener">♫ Әуенімізді тыңдау</a>
     </div>
   </section>
 
@@ -403,42 +370,42 @@
     </svg>
   </div>
 
-  <!-- ░░ ДЕТАЛИ СОБЫТИЯ ░░ -->
+  <!-- ДЕТАЛИ -->
   <section class="reveal">
-    <div class="label">когда и где</div>
-    <h2 class="block-title">Детали торжества</h2>
+    <div class="label">қашан және қайда</div>
+    <h2 class="block-title">Той мәліметтері</h2>
     <div class="card">
       <div class="detail-row">
         <div class="detail">
-          <div class="d-label">Дата</div>
-          <div class="d-value">15 августа 2026</div>
+          <div class="d-label">Күні</div>
+          <div class="d-value">2026 жылғы 15 тамыз</div>
         </div>
         <div class="detail">
-          <div class="d-label">Время</div>
+          <div class="d-label">Уақыты</div>
           <div class="d-value">16:00</div>
         </div>
         <div class="detail">
-          <div class="d-label">Город</div>
+          <div class="d-label">Қала</div>
           <div class="d-value">Астана</div>
         </div>
         <div class="detail">
-          <div class="d-label">Место</div>
-          <div class="d-value small">Ресторан «Сандык»</div>
+          <div class="d-label">Орны</div>
+          <div class="d-value small">«Сандық» мейрамханасы</div>
         </div>
       </div>
       <div class="btns">
-        <a class="btn btn-ghost" href="https://maps.app.goo.gl/ERLTryjmpzMB6qfdA" target="_blank" rel="noopener">Построить маршрут</a>
-        <a class="btn btn-primary" id="calBtn" target="_blank" rel="noopener">Добавить в календарь</a>
+        <a class="btn btn-ghost" href="https://maps.app.goo.gl/ERLTryjmpzMB6qfdA" target="_blank" rel="noopener">Маршрут құру</a>
+        <a class="btn btn-primary" id="calBtn" target="_blank" rel="noopener">Күнтізбеге қосу</a>
       </div>
     </div>
   </section>
 
-  <!-- ░░ ОБРАТНЫЙ ОТСЧЁТ ░░ -->
+  <!-- ОБРАТНЫЙ ОТСЧЁТ -->
   <section class="reveal" style="margin-top:40px">
-    <div class="label">до встречи осталось</div>
+    <div class="label">кездесуге дейін қалды</div>
     <div class="countdown" id="countdown">
-      <div class="cd-cell"><div class="cd-num" id="cd-d">—</div><div class="cd-word">дней</div></div>
-      <div class="cd-cell"><div class="cd-num" id="cd-h">—</div><div class="cd-word">часов</div></div>
+      <div class="cd-cell"><div class="cd-num" id="cd-d">—</div><div class="cd-word">күн</div></div>
+      <div class="cd-cell"><div class="cd-num" id="cd-h">—</div><div class="cd-word">сағат</div></div>
       <div class="cd-cell"><div class="cd-num" id="cd-m">—</div><div class="cd-word">минут</div></div>
     </div>
   </section>
@@ -453,75 +420,74 @@
     </svg>
   </div>
 
-  <!-- ░░ ПОДАРКИ ░░ -->
+  <!-- ПОДАРКИ -->
   <section class="reveal">
-    <div class="label">с любовью о подарках</div>
-    <h2 class="block-title">Если душа подскажет</h2>
+    <div class="label">сыйлықтар туралы сүйіспеншілікпен</div>
+    <h2 class="block-title">Жүрек айтса</h2>
     <p class="gift-intro">
-      Ваше присутствие — уже самый дорогой для нас подарок.
-      Но если захотите порадовать Даяну на её новом светлом пути,
-      мы бережно собрали несколько идей — выбирайте то, что ближе сердцу.
+      Сіздердің қатысуларыңыз — бізге ең қымбат сыйлық.
+      Бірақ Даянаны оның жарық жолында қуантқыңыз келсе,
+      бірнеше идея жинадық — жүрегіңізге жақынын таңдаңыз.
     </p>
-    <p style="text-align:center;font-size:13px;color:var(--ink-soft);margin:-10px 0 16px;letter-spacing:.5px">Нажмите на карточку, чтобы отметить свой подарок</p>
+    <p style="text-align:center;font-size:13px;color:var(--ink-soft);margin:-10px 0 16px;letter-spacing:.5px">Сыйлығыңызды белгілеу үшін картаны басыңыз</p>
     <div class="gifts">
-      <div class="gift" data-gift="Наполнение приданого"><span class="gift-check">✦</span>
-        <h3>Наполнение приданого</h3>
-        <p>Корпе, текстиль и предметы для семейного очага — для родного сандыка.</p>
+      <div class="gift" data-gift="Жасауды толтыру"><span class="gift-check">✦</span>
+        <h3>Жасауды толтыру</h3>
+        <p>Корпе, тоқыма және отбасылық ошақ үшін заттар — туған сандыққа.</p>
       </div>
       <div class="gift" data-gift="Сертификат"><span class="gift-check">✦</span>
         <h3>Сертификат</h3>
-        <p>В ювелирный салон, магазин для дома или на тёплый отдых.</p>
+        <p>Зергерлік салонға, үй дүкеніне немесе жылы демалысқа.</p>
       </div>
-      <div class="gift" data-gift="Вклад в путешествие"><span class="gift-check">✦</span>
-        <h3>Вклад в путешествие</h3>
-        <p>Частичка будущих светлых воспоминаний Даяны.</p>
+      <div class="gift" data-gift="Саяхатқа үлес"><span class="gift-check">✦</span>
+        <h3>Саяхатқа үлес</h3>
+        <p>Даянаның болашақ жарық естеліктерінің бір бөлігі.</p>
       </div>
-      <div class="gift" data-gift="Спальный гарнитур"><span class="gift-check">✦</span>
-        <h3>Спальный гарнитур</h3>
-        <p>Ваш вклад в уют и тепло будущего дома Даяны.</p>
+      <div class="gift" data-gift="Жатын бөлме жиһазы"><span class="gift-check">✦</span>
+        <h3>Жатын бөлме жиһазы</h3>
+        <p>Даянаның болашақ үйінің жайлылығы мен жылуына үлесіңіз.</p>
       </div>
-      <div class="gift" data-gift="Копилка будущего (денежный подарок)"><span class="gift-check">✦</span>
-        <h3>Копилка будущего</h3>
-        <p>Символический денежный подарок Даяне — 100 000 ₸ или больше, сумма от сердца.</p>
+      <div class="gift" data-gift="Болашақ қоры (ақшалай сыйлық)"><span class="gift-check">✦</span>
+        <h3>Болашақ қоры</h3>
+        <p>Даянаға символдық ақшалай сыйлық — 100 000 ₸ немесе одан көп, жүректен шыққан сома.</p>
       </div>
     </div>
   </section>
 
   <section class="reveal" style="margin-top:34px">
-    <div class="label">денежный подарок</div>
-    <h2 class="block-title">Подарок через Kaspi</h2>
+    <div class="label">ақшалай сыйлық</div>
+    <h2 class="block-title">Kaspi арқылы сыйлық</h2>
     <div class="kaspi-steps">
-      <div class="kstep"><div class="knum">1</div><p>Перейдите по ссылке Kaspi</p></div>
-      <div class="kstep"><div class="knum">2</div><p>Укажите любую комфортную сумму</p></div>
-      <div class="kstep"><div class="knum">3</div><p>В комментарии — ваше имя</p></div>
+      <div class="kstep"><div class="knum">1</div><p>Kaspi сілтемесіне өтіңіз</p></div>
+      <div class="kstep"><div class="knum">2</div><p>Ыңғайлы кез келген соманы көрсетіңіз</p></div>
+      <div class="kstep"><div class="knum">3</div><p>Түсініктемеде — сіздің атыңыз</p></div>
     </div>
     <div class="btns" style="margin-top:22px">
-      <!-- ↓ вставьте вашу ссылку Kaspi (Kaspi Gold / перевод) -->
-      <a class="btn btn-primary" href="https://kaspi.kz/pay/transfer?phone=77788607945" target="_blank" rel="noopener">Открыть Kaspi</a>
+      <a class="btn btn-primary" href="https://kaspi.kz/pay/transfer?phone=77788607945" target="_blank" rel="noopener">Kaspi ашу</a>
     </div>
   </section>
 
   <section class="reveal" style="margin-top:40px">
-    <div class="label">будем рады вашему ответу</div>
-    <h2 class="block-title">Подтвердите ваше присутствие</h2>
+    <div class="label">жауабыңызды күтеміз</div>
+    <h2 class="block-title">Қатысуыңызды растаңыз</h2>
     <div class="rsvp card">
-      <label class="fld-label">Имя и фамилия</label>
-      <input id="rsvp-name" class="fld" type="text" placeholder="Ваше имя">
-      <label class="fld-label">Сможете ли вы прийти?</label>
+      <label class="fld-label">Аты-жөні</label>
+      <input id="rsvp-name" class="fld" type="text" placeholder="Сіздің атыңыз">
+      <label class="fld-label">Келе аласыз ба?</label>
       <div class="choices">
-        <button type="button" class="choice" data-v="Да, я буду 🤍">Да, я буду! 🤍</button>
-        <button type="button" class="choice" data-v="К сожалению, не смогу">К сожалению, не смогу</button>
+        <button type="button" class="choice" data-v="Иә, мен боламын 🤍">Иә, боламын! 🤍</button>
+        <button type="button" class="choice" data-v="Өкінішке орай, келе алмаймын">Өкінішке орай, келе алмаймын</button>
       </div>
-      <label class="fld-label">Пожелания Даяне (необязательно)</label>
-      <textarea id="rsvp-wish" class="fld" rows="4" placeholder="Тёплые слова..."></textarea>
-      <button type="button" id="rsvp-send" class="btn btn-primary rsvp-btn">Подтвердить в WhatsApp</button>
-      <div class="rsvp-note">Ответ откроется в WhatsApp — просто нажмите «отправить»</div>
+      <label class="fld-label">Даянаға тілек (міндетті емес)</label>
+      <textarea id="rsvp-wish" class="fld" rows="4" placeholder="Жылы сөздер..."></textarea>
+      <button type="button" id="rsvp-send" class="btn btn-primary rsvp-btn">WhatsApp арқылы растау</button>
+      <div class="rsvp-note">Жауап WhatsApp-та ашылады — жай ғана «жіберу» түймесін басыңыз</div>
     </div>
   </section>
 
-</div><!-- /wrap -->
+</div>
 
-<!-- ░░ ПОДВАЛ ░░ -->
+<!-- ПОДВАЛ -->
 <footer class="reveal">
   <div class="ornament" style="margin-bottom:26px">
     <svg viewBox="0 0 140 30" fill="none" stroke="var(--gold)" stroke-width="1.4">
@@ -529,24 +495,20 @@
       <circle cx="70" cy="15" r="2.4" fill="var(--sakura)" stroke="none"/>
     </svg>
   </div>
-  <!-- ↓ вместо рамки вставьте изображение тамги рода Арғын: <img src="tamga.png"> -->
-  <div class="tamga">тамга<br>рода Арғын</div>
-  <div class="closing">Будем счастливы видеть вас в этот особенный день</div>
+  <div class="tamga">тамға<br>Арғын руы</div>
+  <div class="closing">Бұл ерекше күні сізді көргенімізге қуанышты боламыз</div>
   <div class="contact">
-    <a class="btn btn-primary" href="https://wa.me/77077337217?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%9F%D0%BE%D0%B4%D1%82%D0%B2%D0%B5%D1%80%D0%B6%D0%B4%D0%B0%D1%8E%20%D0%BF%D1%80%D0%B8%D1%81%D1%83%D1%82%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%A1%D1%8B%D1%80%D2%93%D0%B0%20%D1%81%D0%B0%D0%BB%D1%83%20%D0%B2%20%D1%87%D0%B5%D1%81%D1%82%D1%8C%20%D0%94%D0%B0%D1%8F%D0%BD%D1%8B%20%F0%9F%A4%8D" target="_blank" rel="noopener">Подтвердить в WhatsApp</a>
+    <a class="btn btn-primary" href="https://wa.me/77077337217?text=%D0%A1%D1%8B%D1%80%D2%93%D0%B0%20%D1%81%D0%B0%D0%BB%D1%83%20—%20%D0%94%D0%B0%D1%8F%D0%BD%D0%B0%D0%BD%D1%8B%D2%A3%20%D1%82%D0%BE%D0%B9%D1%8B%D0%BD%D0%B0%20%D0%BA%D0%B0%D1%82%D1%8B%D1%81%D1%83%D0%B4%D1%8B%20%D1%80%D0%B0%D1%81%D1%82%D0%B0%D1%83%20%F0%9F%A4%8D" target="_blank" rel="noopener">WhatsApp арқылы растау</a>
   </div>
   <div class="uran">Ақжол!</div>
 </footer>
 
-<!-- ░░ ФИНАЛЬНОЕ ФОТО ░░ -->
 <section class="final-photo reveal">
-  <img src="syrga-photo.png" alt="Сырға салу — приглашение">
-  <div class="closing-word">С любовью, Галия Маргулан</div>
+  <img src="syrga-photo.png" alt="Сырға салу — шақыру">
+  <div class="closing-word">Сүйіспеншілікпен, Ғалия Марғұлан</div>
 </section>
 
-
 <script>
-/* ── Лепестки сакуры ── */
 (function(){
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce) return;
@@ -556,8 +518,7 @@
     const p = document.createElement('div');
     p.className = 'petal';
     const size = 8 + Math.random()*10;
-    p.style.width = size+'px';
-    p.style.height = size+'px';
+    p.style.width = size+'px'; p.style.height = size+'px';
     p.style.left = Math.random()*100+'vw';
     const dur = 9 + Math.random()*9;
     const delay = -Math.random()*dur;
@@ -566,15 +527,10 @@
     box.appendChild(p);
   }
   const style = document.createElement('style');
-  style.textContent = `@keyframes fall{
-    0%{transform:translateY(-30px) translateX(0) rotate(0deg)}
-    50%{transform:translateY(50vh) translateX(40px) rotate(180deg)}
-    100%{transform:translateY(105vh) translateX(-20px) rotate(360deg)}
-  }`;
+  style.textContent = `@keyframes fall{0%{transform:translateY(-30px) translateX(0) rotate(0deg)}50%{transform:translateY(50vh) translateX(40px) rotate(180deg)}100%{transform:translateY(105vh) translateX(-20px) rotate(360deg)}}`;
   document.head.appendChild(style);
 })();
 
-/* ── Появление секций при прокрутке ── */
 (function(){
   const els = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries)=>{
@@ -583,7 +539,6 @@
   els.forEach(el=>io.observe(el));
 })();
 
-/* ── Фоновая мелодия: официальный YouTube, старт при входе (бесплатно) ── */
 (function(){
   const btn=document.getElementById('music');
   let player=null, ready=false;
@@ -597,20 +552,15 @@
       events:{onReady:function(){ ready=true; start(); }, onStateChange:updateBtn}
     });
   };
-  function start(){
-    if(!ready||!player) return;
-    try{ player.unMute(); player.setVolume(55); player.playVideo(); }catch(e){}
-  }
+  function start(){ if(!ready||!player) return; try{ player.unMute(); player.setVolume(55); player.playVideo(); }catch(e){} }
   window.__startMelody=start;
   function updateBtn(){
     if(!btn||!player||!player.getPlayerState) return;
     if(player.getPlayerState()===1){ btn.classList.add('playing'); btn.textContent='❚❚'; }
     else{ btn.classList.remove('playing'); btn.textContent='♪'; }
   }
-  // старт при первом касании экрана (обходит блокировку автозвука)
   function gesture(){ start(); document.removeEventListener('pointerdown',gesture); }
   document.addEventListener('pointerdown',gesture);
-  // кнопка ♪ — пауза/продолжить
   if(btn) btn.addEventListener('click',function(){
     if(!ready||!player) return;
     if(player.getPlayerState()===1) player.pauseVideo();
@@ -619,22 +569,19 @@
   });
 })();
 
-/* ── Обратный отсчёт ── */
 (function(){
   const target = new Date('2026-08-15T16:00:00+05:00').getTime();
   const dEl=document.getElementById('cd-d'), hEl=document.getElementById('cd-h'), mEl=document.getElementById('cd-m');
   function tick(){
     const diff = target - Date.now();
     if(diff<=0){ dEl.textContent='0';hEl.textContent='0';mEl.textContent='0'; return; }
-    const d=Math.floor(diff/86400000);
-    const h=Math.floor(diff%86400000/3600000);
-    const m=Math.floor(diff%3600000/60000);
-    dEl.textContent=d; hEl.textContent=h; mEl.textContent=m;
+    dEl.textContent=Math.floor(diff/86400000);
+    hEl.textContent=Math.floor(diff%86400000/3600000);
+    mEl.textContent=Math.floor(diff%3600000/60000);
   }
   tick(); setInterval(tick,30000);
 })();
 
-/* ── Интро: 3D-юрта → двери → фото ── */
 (function(){
   const intro=document.getElementById('yurt-intro');
   if(!intro) return;
@@ -653,23 +600,20 @@
 })();
 
 (function(){
-  const text = encodeURIComponent('Сырға салу в честь Даяны');
-  const details = encodeURIComponent('Приглашение на семейное торжество Сырға салу');
-  const location = encodeURIComponent('Ресторан «Сандык», Астана');
-  // 16:00 Астана (UTC+5) = 11:00 UTC; конец условно 19:00 местного = 14:00 UTC
+  const text = encodeURIComponent('Сырға салу — Даянаның тойы');
+  const details = encodeURIComponent('Сырға салу отбасылық тойына шақыру');
+  const location = encodeURIComponent('«Сандық» мейрамханасы, Астана');
   const dates = '20260815T110000Z/20260815T140000Z';
   const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${dates}&location=${location}&details=${details}`;
   document.getElementById('calBtn').href = url;
 })();
 
-/* ── Выбор подарков ── */
 (function(){
   document.querySelectorAll('.gift[data-gift]').forEach(g=>{
     g.addEventListener('click',()=>g.classList.toggle('sel'));
   });
 })();
 
-/* ── RSVP → WhatsApp ── */
 (function(){
   const phone='77077337217';
   const choices=document.querySelectorAll('.choice');
@@ -683,11 +627,11 @@
     const name=(document.getElementById('rsvp-name').value||'').trim();
     const wish=(document.getElementById('rsvp-wish').value||'').trim();
     const selected=[...document.querySelectorAll('.gift.sel')].map(g=>g.dataset.gift);
-    let msg='Сырға салу — подтверждение присутствия в честь Даяны.\n';
-    msg+='Имя: '+(name||'—')+'\n';
-    msg+='Ответ: '+(answer||'—');
-    if(selected.length) msg+='\nПодарок: '+selected.join(', ');
-    if(wish) msg+='\nПожелания: '+wish;
+    let msg='Сырға салу — Даянаның тойына қатысуды растау.\n';
+    msg+='Аты-жөні: '+(name||'—')+'\n';
+    msg+='Жауап: '+(answer||'—');
+    if(selected.length) msg+='\nСыйлық: '+selected.join(', ');
+    if(wish) msg+='\nТілек: '+wish;
     window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(msg),'_blank');
   });
 })();
