@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tumar Family Academy — Launch Control</title>
+<meta name="description" content="Центр управления запуском образовательной программы Tumar Family Academy для наследников UHNW-семей Центральной Азии.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230e1b33'/><text x='16' y='23' font-size='20' text-anchor='middle' fill='%23B88A3E'>T</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0e1b33; --navy2:#1F3864; --ink:#14213a;
+  --bronze:#B88A3E; --bronze-d:#8f6a2c; --bronze-l:#d9b873;
+  --ivory:#f6f1e7; --ivory2:#efe7d6; --paper:#fbf8f1;
+  --card:#ffffff; --line:#e6dcc6; --line2:#d8cbb0;
+  --muted:#736b58; --muted2:#9a917c;
+  --red:#a8493f; --redbg:#f7e9e6;
+  --green:#3f7d5a; --greenbg:#e7f0ea;
+  --amber:#c08a2c; --amberbg:#f7eed9;
+  --display:'Cormorant Garamond',Georgia,serif;
+  --body:'Manrope',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:'Spline Sans Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--ivory);color:var(--ink);line-height:1.5;font-size:15px;-webkit-font-smoothing:antialiased}
+.app{display:flex;min-height:100vh}
+.side{width:248px;background:var(--navy);color:#e8e2d4;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto;border-right:1px solid #000}
+.brand{padding:24px 22px 18px;border-bottom:1px solid rgba(255,255,255,.08)}
+.brand .kicker{font-size:10px;letter-spacing:.22em;color:var(--bronze-l);text-transform:uppercase;font-weight:600}
+.brand h1{font-family:var(--display);font-size:27px;font-weight:600;color:#fff;line-height:1.05;margin-top:7px}
+.brand .sub{font-size:11px;color:#9aa6bd;margin-top:6px;letter-spacing:.02em}
+.nav{padding:12px 12px 30px}
+.nav button{display:flex;align-items:center;gap:11px;width:100%;background:none;border:none;color:#bcc5d8;font-family:var(--body);font-size:13.5px;font-weight:500;text-align:left;padding:10px 12px;border-radius:9px;cursor:pointer;transition:.15s;margin-bottom:2px}
+.nav button:hover{background:rgba(255,255,255,.06);color:#fff}
+.nav button.on{background:linear-gradient(90deg,rgba(184,138,62,.22),rgba(184,138,62,.05));color:#fff;box-shadow:inset 2px 0 0 var(--bronze)}
+.nav .ico{width:18px;text-align:center;font-size:14px;flex-shrink:0;opacity:.9}
+.nav .grouplbl{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#6b7691;padding:16px 12px 6px;font-weight:600}
+.main{flex:1;min-width:0}
+.topbar{background:var(--paper);border-bottom:1px solid var(--line);padding:13px 34px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:30;backdrop-filter:blur(6px);gap:14px}
+.topbar .ttl{font-family:var(--display);font-size:25px;font-weight:600;color:var(--navy)}
+.topbar .meta{font-size:12px;color:var(--muted)}
+.topright{display:flex;align-items:center;gap:14px}
+.lang{display:flex;border:1px solid var(--line2);border-radius:8px;overflow:hidden}
+.lang button{border:none;background:#fff;color:var(--muted);font-family:var(--body);font-weight:700;font-size:12px;padding:6px 12px;cursor:pointer;letter-spacing:.05em}
+.lang button.on{background:var(--navy);color:#fff}
+.wrap{padding:30px 34px 70px;max-width:1180px}
+h2.sec{font-family:var(--display);font-size:23px;color:var(--navy);font-weight:600;margin:6px 0 4px}
+.lead{color:var(--muted);font-size:14px;max-width:760px;margin-bottom:22px}
+.eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--bronze-d);font-weight:700;margin-bottom:9px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 1px 2px rgba(20,33,58,.03)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1000px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:17px 18px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--bronze)}
+.kpi .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.kpi .val{font-family:var(--mono);font-size:30px;font-weight:600;color:var(--navy);margin-top:7px;line-height:1}
+.kpi .val small{font-size:14px;color:var(--muted2)}
+.kpi .note{font-size:11.5px;color:var(--muted2);margin-top:6px}
+.kpi.warn::before{background:var(--red)}.kpi.ok::before{background:var(--green)}
+.bar{height:9px;background:var(--ivory2);border-radius:6px;overflow:hidden;margin-top:9px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--bronze),var(--bronze-l));border-radius:6px;transition:width .5s}
+.bar.nv i{background:linear-gradient(90deg,var(--navy2),#3a5e8c)}
+.bdg{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;letter-spacing:.02em}
+.bdg.todo{background:var(--ivory2);color:var(--muted)}.bdg.prog{background:var(--amberbg);color:var(--amber)}.bdg.done{background:var(--greenbg);color:var(--green)}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:10px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.num{font-family:var(--mono);text-align:right}
+.tbl-wrap{background:var(--card);border:1px solid var(--line);border-radius:13px;overflow:hidden}
+.role{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:0;overflow:hidden}
+.role .hd{padding:20px 22px;color:#fff;position:relative}
+.role.founder .hd{background:linear-gradient(135deg,var(--navy),var(--navy2))}
+.role.lead .hd{background:linear-gradient(135deg,#5a4520,var(--bronze-d))}
+.role.pm .hd{background:linear-gradient(135deg,#2c4a4a,#3f6d63)}
+.role .av{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:21px;font-weight:600;border:1.5px solid rgba(255,255,255,.4)}
+.role .nm{font-family:var(--display);font-size:21px;font-weight:600;margin-top:11px}
+.role .rl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.82;margin-top:2px;font-weight:600}
+.role .bd{padding:18px 22px}
+.role .bd .h{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--bronze-d);font-weight:700;margin:4px 0 8px}
+.role ul{list-style:none;margin-bottom:14px}
+.role li{font-size:13px;padding:5px 0 5px 18px;position:relative;color:var(--ink)}
+.role li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--bronze)}
+.flight{position:relative;padding:30px 10px 10px;overflow-x:auto}
+.flight-line{display:flex;min-width:760px;position:relative}
+.fp-spine{position:absolute;top:46px;left:6%;right:6%;height:2px;background:repeating-linear-gradient(90deg,var(--bronze) 0 10px,transparent 10px 18px)}
+.station{flex:1;position:relative;text-align:center;z-index:2}
+.station .pin{width:54px;height:54px;border-radius:50%;background:var(--card);border:2px solid var(--bronze);display:flex;align-items:center;justify-content:center;font-size:22px;margin:18px auto 12px;box-shadow:0 3px 10px rgba(20,33,58,.1)}
+.station.clash .pin{border-color:var(--red);background:var(--redbg)}
+.station .mn{font-family:var(--display);font-size:17px;font-weight:600;color:var(--navy)}
+.station .ct{font-size:12px;color:var(--bronze-d);font-weight:600;margin-top:1px}
+.station .dt{font-size:11px;color:var(--muted);margin-top:3px}
+.station .tp{font-size:11px;color:var(--muted2);margin-top:5px;max-width:140px;margin:5px auto 0}
+.cal-yr{font-family:var(--display);font-size:20px;color:var(--bronze-d);font-weight:600;margin:24px 0 12px;display:flex;align-items:center;gap:12px}
+.cal-yr::after{content:'';flex:1;height:1px;background:var(--line2)}
+.cmonth{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:14px 15px;border-left:3px solid var(--line2)}
+.cmonth.mod{border-left-color:var(--bronze);background:linear-gradient(180deg,#fff,#fdf9f0)}
+.cmonth.clash{border-left-color:var(--red)}
+.cmonth .mo{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.cmonth .ev{font-size:12.5px;margin-top:7px;color:var(--ink);padding-left:14px;position:relative;line-height:1.35}
+.cmonth .ev::before{content:'›';position:absolute;left:0;color:var(--bronze);font-weight:700}
+.cmonth .ev.hi{font-weight:700;color:var(--navy)}
+.cal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+@media(max-width:820px){.cal-grid{grid-template-columns:repeat(2,1fr)}}
+input[type=text],input[type=number],input[type=tel],select,textarea{font-family:var(--body);font-size:13.5px;border:1px solid var(--line2);border-radius:8px;padding:8px 11px;background:#fff;color:var(--ink);width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--bronze)}
+select{cursor:pointer}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;margin-bottom:5px}
+.btn{font-family:var(--body);font-weight:600;font-size:13px;border:none;border-radius:9px;padding:10px 16px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:7px}
+.btn.pri{background:var(--navy);color:#fff}.btn.pri:hover{background:var(--navy2)}
+.btn.wa{background:#25D366;color:#063}.btn.wa:hover{filter:brightness(.95)}
+.btn.gh{background:none;border:1px solid var(--line2);color:var(--muted)}.btn.gh:hover{border-color:var(--bronze);color:var(--bronze-d)}
+.btn.sm{padding:6px 11px;font-size:12px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:20px;border:1px solid var(--line2);background:#fff;color:var(--muted);cursor:pointer;transition:.15s}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.persona{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.persona .hd{padding:20px 22px;background:linear-gradient(135deg,var(--ink),var(--navy2));color:#fff}
+.persona.ng .hd{background:linear-gradient(135deg,#4a3a1c,var(--bronze-d))}
+.persona .tag{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.8;font-weight:600}
+.persona .nm{font-family:var(--display);font-size:23px;font-weight:600;margin-top:4px}
+.persona .age{font-size:12.5px;opacity:.85;margin-top:2px}
+.persona .bd{padding:18px 22px}
+.persona .row{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.persona .row:last-child{border:none}
+.persona .row .k{font-weight:700;color:var(--bronze-d);min-width:118px;flex-shrink:0;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;padding-top:1px}
+.persona .row .v{color:var(--ink)}
+.doc{display:flex;align-items:center;gap:13px;padding:12px 15px;border:1px solid var(--line);border-radius:11px;background:#fff;margin-bottom:9px}
+.doc .ic{width:38px;height:38px;border-radius:9px;background:var(--ivory2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.doc .info{flex:1;min-width:0}
+.doc .dn{font-weight:600;font-size:13.5px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc .dm{font-size:11.5px;color:var(--muted2);margin-top:2px}
+.catbar{display:flex;gap:7px;flex-wrap:wrap;margin:6px 0 18px}
+.log{font-size:12.5px;border-left:2px solid var(--line2);padding:9px 0 9px 14px;margin-bottom:3px;position:relative}
+.log::before{content:'';position:absolute;left:-5px;top:14px;width:8px;height:8px;border-radius:50%;background:var(--bronze)}
+.log .lt{font-size:10.5px;color:var(--muted2);font-family:var(--mono)}
+.callout{background:linear-gradient(135deg,#fdf6e8,#f9efd8);border:1px solid var(--line2);border-left:3px solid var(--bronze);border-radius:11px;padding:16px 18px;margin:16px 0;font-size:13.5px}
+.callout.red{background:var(--redbg);border-left-color:var(--red)}
+.callout.blue{background:#eef3f9;border-left-color:var(--navy2)}
+.callout b{color:var(--navy)}
+.src{font-size:11px;color:var(--muted2);font-style:italic;margin-top:10px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:900px){.split{grid-template-columns:1fr}}
+.mini{font-size:11.5px;color:var(--muted)}
+.inline-edit{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pill{font-family:var(--mono);font-size:12px;background:var(--ivory2);padding:2px 8px;border-radius:6px;color:var(--navy)}
+.tr-flag{font-size:10px;color:var(--bronze-d);font-style:italic;margin-left:6px}
+.spin{display:inline-block;width:11px;height:11px;border:2px solid var(--line2);border-top-color:var(--bronze);border-radius:50%;animation:sp .7s linear infinite;vertical-align:-1px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.hidden{display:none!important}
+::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-thumb{background:var(--line2);border-radius:6px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:10px;font-size:13.5px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:100;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:760px){.side{position:fixed;left:-260px;transition:.25s;z-index:60}.side.open{left:0}.wrap{padding:20px 16px 60px}.topbar{padding:12px 16px}.menu-btn{display:flex!important}.topbar .ttl{font-size:20px}}
+.menu-btn{display:none;background:var(--navy);color:#fff;border:none;width:36px;height:36px;border-radius:9px;font-size:17px;cursor:pointer;align-items:center;justify-content:center}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side" id="side">
+    <div class="brand">
+      <div class="kicker">Tumar Family Office</div>
+      <h1>Family<br>Academy</h1>
+      <div class="sub" id="brandSub">Центр управления запуском · 2026–2028</div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:13px;min-width:0">
+        <button class="menu-btn" onclick="document.getElementById('side').classList.toggle('open')">☰</button>
+        <div class="ttl" id="viewTitle">Обзор</div>
+      </div>
+      <div class="topright">
+        <div class="meta" id="topMeta"></div>
+        <div class="lang"><button id="lru" onclick="setLang('ru')">RU</button><button id="len" onclick="setLang('en')">EN</button></div>
+      </div>
+    </div>
+    <div class="wrap" id="wrap"></div>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ STORE ============ */
+const KEY='tumar_launch_v2';
+const mem={};
+const store={
+  get(k,d){try{const v=localStorage.getItem(KEY+':'+k);return v==null?(k in mem?mem[k]:d):JSON.parse(v)}catch(e){return k in mem?mem[k]:d}},
+  set(k,v){mem[k]=v;try{localStorage.setItem(KEY+':'+k,JSON.stringify(v))}catch(e){}}
+};
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200)}
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=n=>'$'+Math.round(n).toLocaleString('en-US');
+
+/* ============ LANG ============ */
+let LANG=store.get('lang','ru');
+const L=(ru,en)=>({ru,en});
+function T(x){if(x&&typeof x==='object'&&('ru' in x||'en' in x))return x[LANG]??x.ru??x.en??'';return x}
+function setLang(l){LANG=l;store.set('lang',l);document.documentElement.lang=l;syncLangUI();buildNav();$('#viewTitle').textContent=T(UI[CUR]);render()}
+function syncLangUI(){$('#lru').classList.toggle('on',LANG==='ru');$('#len').classList.toggle('on',LANG==='en');$('#brandSub').textContent=T(L('Центр управления запуском · 2026–2028','Launch control center · 2026–2028'))}
+
+/* ============ AI TRANSLATION ============ */
+async function aiTranslate(text,target){
+  // target: 'ru' | 'en'. Returns translated string or null if unavailable.
+  const tgt=target==='ru'?'Russian':'English';
+  try{
+    const ctrl=new Promise((_,rej)=>setTimeout(()=>rej('timeout'),9000));
+    const req=fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,
+        messages:[{role:'user',content:'You are translating short project-management entries for a family-office education programme. Translate the text below into '+tgt+'. Keep proper names, brand names and city names natural. Return ONLY the translation as plain text — no quotes, no notes.\n\n'+text}]})});
+    const r=await Promise.race([req,ctrl]);
+    const d=await r.json();
+    const out=(d.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('').trim();
+    return out||null;
+  }catch(e){return null}
+}
+
+/* ============ DATA ============ */
+const MODULES=[
+  {n:L('Модуль 1','Module 1'),city:L('Дубай · DIFC','Dubai · DIFC'),date:L('20–21 сент 2026','20–21 Sep 2026'),ico:'🏙️',topic:L('Семейное управление и архитектура капитала','Family governance & capital architecture'),low:97100,base:149600,high:226600},
+  {n:L('Модуль 2','Module 2'),city:L('Сингапур','Singapore'),date:L('8–9 ноя 2026','8–9 Nov 2026'),ico:'🌃',topic:L('Преемственность и операционное лидерство','Succession & operating leadership'),low:79800,base:127100,high:196350,clash:true},
+  {n:L('Модуль 3','Module 3'),city:L('Цюрих / Женева','Zurich / Geneva'),date:L('1–2 ноя 2026','1–2 Nov 2026'),ico:'🏔️',topic:L('Психология, коммуникация, семейная динамика','Psychology, communication, family dynamics'),low:90250,base:140250,high:214500,clash:true},
+  {n:L('Модуль 4','Module 4'),city:L('Палм-Бич · FOX','Palm Beach · FOX'),date:L('март 2027','March 2027'),ico:'🌴',topic:L('Международный обмен в стиле FOX (финал)','FOX-style international exchange (finale)'),low:185350,base:284900,high:426250}
+];
+const PROG_TOTAL={low:452500,base:701850,high:1063700,contingency:807000,optionB:630900,maxAdverse:899000};
+const SENS=[
+  [L('База — Вариант A (FOX, Палм-Бич)','Base — Option A (FOX, Palm Beach)'),701850,'—',L('RFP успешны, нет накладок по датам','RFPs successful, no date clashes')],
+  [L('База — Вариант B (Нью-Йорк)','Base — Option B (New York)'),630900,'−$71K',L('Без сборов FOX, вся кураторская нагрузка на Tumar','No FOX fees; full curation burden on Tumar')],
+  [L('+15% инфляция по отелям','+15% hotel inflation'),757850,'+$56K',L('Все ставки на 15% выше бенчмарков июня 2026','All rates 15% above June 2026 benchmarks')],
+  [L('Конференц-залы по полному тарифу','Conference rooms at full day-rate'),749000,'+$100K',L('Без скидок, $18–25K/день — крупнейшая переменная','No waiver, $18–25K/day — biggest swing variable')],
+  [L('Клэш с FinTech Festival (Сингапур)','SG FinTech Festival clash'),721850,'+$20K',L('Премия к отелю Модуля 2 +25%','Module 2 hotel premium +25%')],
+  [L('Франк +10% к доллару','CHF +10% vs USD'),720850,'+$19K',L('Рост стоимости Модуля 3','Module 3 cost increase')],
+  [L('30 участников вместо 25','30 participants instead of 25'),743850,'+$42K',L('Переменные расходы +20%','Variable costs +20%')],
+  [L('Максимально неблагоприятный','Maximum adverse scenario'),899000,'+$250K+',L('Все риски одновременно — HIGH-кейс','All risks at once — use HIGH case')]
+];
+const TEAM={
+  galiya:{name:L('Галия','Galiya'),role:L('Основатель проекта','Project Founder'),av:'Г',cls:'founder',
+    own:[L('Видение, стандарт качества и репутация программы','Vision, quality standard and reputation of the programme'),L('Ключевые отношения и набор семей-основателей','Key relationships and recruitment of founding families'),L('Стратегические партнёрства: банки, FOX, университеты','Strategic partnerships: banks, FOX, universities'),L('Цена за семью и финальные решения','Price per family and final decisions')],
+    focus:[L('Семьи-основатели подтверждены','Founding families confirmed'),L('Партнёрства подписаны','Partnerships signed'),L('Цена и юнит-экономика заданы','Price and unit economics set')]},
+  alisher:{name:L('Алишер','Alisher'),role:L('Руководитель проекта','Project Lead'),av:'А',cls:'lead',
+    own:[L('Образовательная программа и содержание 4 блоков','Educational programme and content of 4 blocks'),L('Подтверждение спикеров и партнёрских университетов','Confirming speakers and partner universities'),L('Академический дизайн модулей и межсессионные задания','Module academic design and inter-session assignments'),L('Общий контроль бюджета и реализации','Overall control of budget and delivery')],
+    focus:[L('Готовность контента по модулям','Content readiness per module'),L('Спикеры подтверждены','Speakers confirmed'),L('Бюджет в рамках плана','Budget on plan')]},
+  bruna:{name:L('Бруна','Bruna'),role:L('Менеджер проекта','Project Manager'),av:'Б',cls:'pm',
+    own:[L('Операции, логистика, отели и RFP, перелёты','Operations, logistics, hotels & RFPs, flights'),L('Презентации, переводы (RU/EN), материалы','Presentations, translations (RU/EN), materials'),L('Управление документами и единое хранилище','Document management and single source of truth'),L('Трекинг сроков и еженедельный статус-репорт','Deadline tracking and weekly status report')],
+    focus:[L('Задачи закрыты в срок','Tasks closed on time'),L('RFP собраны по 4 локациям','RFPs collected for 4 locations'),L('Логистика и материалы готовы','Logistics and materials ready')]}
+};
+const PHASES=[L('Фундамент','Foundation'),L('Контент и спикеры','Content & speakers'),L('Логистика','Logistics'),L('Набор группы','Recruitment'),L('Подготовка к проведению','Delivery prep')];
+let TASKS=[
+  {id:1,t:L('Финализировать образовательную программу (4 блока)','Finalize the educational programme (4 blocks)'),o:'alisher',ph:0,due:'2026-07-15',pct:85},
+  {id:2,t:L('Разрешить конфликт дат Модуль 2 / Модуль 3 (оба в ноябре)','Resolve date clash between Module 2 and Module 3 (both in November)'),o:'alisher',ph:0,due:'2026-06-30',pct:0,crit:true},
+  {id:3,t:L('Установить цену за семью и юнит-экономику','Set price per family and unit economics'),o:'galiya',ph:0,due:'2026-06-30',pct:0,crit:true},
+  {id:4,t:L('Перевести программу на EN, собрать в презентацию','Translate programme to EN and assemble a presentation'),o:'bruna',ph:0,due:'2026-07-10',pct:40},
+  {id:5,t:L('Презентация для партнёров и стейкхолдеров','Partner and stakeholder presentation'),o:'bruna',ph:0,due:'2026-07-18',pct:30},
+  {id:6,t:L('Юридические шаблоны: договор участия, NDA, оплата','Legal templates: participation agreement, NDA, payment'),o:'galiya',ph:0,due:'2026-07-25',pct:10},
+  {id:7,t:L('Проверить «AI-список» спикеров (реальность, дубли, Уорд †2020)','Validate the AI speaker list (real, duplicates, Ward †2020)'),o:'bruna',ph:1,due:'2026-07-05',pct:20},
+  {id:8,t:L('Подтвердить 8–12 ключевых спикеров (письма-приглашения)','Confirm 8–12 key speakers (invitation letters)'),o:'alisher',ph:1,due:'2026-08-10',pct:15},
+  {id:9,t:L('Партнёрские университеты: IMD, DIFC, HEC Qatar — outreach','Partner universities: IMD, DIFC, HEC Qatar — outreach'),o:'alisher',ph:1,due:'2026-08-01',pct:10},
+  {id:10,t:L('RFP отели — Дубай (One&Only / Four Seasons DIFC)','Hotel RFP — Dubai (One&Only / Four Seasons DIFC)'),o:'bruna',ph:2,due:'2026-07-12',pct:25},
+  {id:11,t:L('RFP отели — Сингапур (Raffles), проверить даты FinTech Festival','Hotel RFP — Singapore (Raffles), check FinTech Festival dates'),o:'bruna',ph:2,due:'2026-07-15',pct:15},
+  {id:12,t:L('RFP отели — Цюрих/Женева (Baur au Lac / FS des Bergues)','Hotel RFP — Zurich/Geneva (Baur au Lac / FS des Bergues)'),o:'bruna',ph:2,due:'2026-07-15',pct:15},
+  {id:13,t:L('RFP отели — Палм-Бич (Breakers) / Нью-Йорк','Hotel RFP — Palm Beach (Breakers) / New York'),o:'bruna',ph:2,due:'2026-07-20',pct:10},
+  {id:14,t:L('Подтвердить регистрацию FOX 2027 и участие Сары Гамильтон','Confirm FOX 2027 registration and Sara Hamilton'),o:'alisher',ph:2,due:'2026-09-01',pct:0},
+  {id:15,t:L('Культурная и деловая программа по 4 локациям','Cultural and business programme for 4 locations'),o:'bruna',ph:2,due:'2026-08-15',pct:5},
+  {id:16,t:L('Long-list целевых семей (30–40 имён)','Long-list of target families (30–40 names)'),o:'galiya',ph:3,due:'2026-07-08',pct:35},
+  {id:17,t:L('Партнёрства с банками (Halyk, Freedom, Citi) для рефералов','Bank partnerships (Halyk, Freedom, Citi) for referrals'),o:'galiya',ph:3,due:'2026-07-30',pct:15},
+  {id:18,t:L('Подход к 1-й группе (закрыть 6–10 семей)','Approach the first cohort (close 6–10 families)'),o:'galiya',ph:3,due:'2026-08-31',pct:0,crit:true},
+  {id:19,t:L('Договоры с семьями группы 1','Agreements with cohort 1 families'),o:'alisher',ph:3,due:'2026-09-05',pct:0},
+  {id:20,t:L('Логистика: визы, трансферы, размещение группы 1','Logistics: visas, transfers, accommodation for cohort 1'),o:'bruna',ph:4,due:'2026-09-10',pct:0},
+  {id:21,t:L('Синхронный перевод (EN/RU) на всех модулях','Simultaneous interpretation (EN/RU) at all modules'),o:'bruna',ph:4,due:'2026-09-12',pct:0},
+  {id:22,t:L('Межсессионные задания и материалы участников','Inter-session assignments and participant materials'),o:'alisher',ph:4,due:'2026-09-15',pct:5},
+  {id:23,t:L('Система контроля (это приложение) + еженедельный статус','Control system (this app) + weekly status'),o:'bruna',ph:4,due:'2026-06-25',pct:60},
+  {id:24,t:L('Финмодель v1 + бюджет по сценариям','Financial model v1 + budget by scenario'),o:'galiya',ph:0,due:'2026-07-05',pct:70}
+];
+TASKS=store.get('tasks',TASKS);
+let TASK_SEQ=store.get('taskseq',1000);
+
+const CAL=[
+ ['2026',[
+  [L('Июнь','June'),[['hi',L('Старт проекта · сборка команды','Project kick-off · team assembly')],['',L('Разрешить конфликт дат Модуль 2 / 3','Resolve Module 2 / 3 date clash')],['',L('Установить цену за семью','Set price per family')],['',L('Система контроля запущена','Control system live')]]],
+  [L('Июль','July'),[['',L('RFP в отели по 4 локациям','Hotel RFPs across 4 locations')],['',L('Проверка и подтверждение спикеров','Validate and confirm speakers')],['',L('Первые контакты с банками-партнёрами','First contacts with partner banks')],['',L('Long-list целевых семей','Long-list of target families')]]],
+  [L('Август','August'),[['',L('Закрыть набор 1-й группы (6–10 семей)','Close cohort 1 (6–10 families)')],['',L('Договоры и оплата','Agreements and payment')],['',L('Визы и логистика','Visas and logistics')],['',L('Финал материалов и презентаций','Finalize materials and presentations')]]],
+  [L('Сентябрь','September'),[['mod',L('МОДУЛЬ 1 — Дубай (20–21 сент)','MODULE 1 — Dubai (20–21 Sep)')],['',L('Семейное управление и капитал','Family governance and capital')],['',L('Старт межсессионных заданий','Inter-session assignments begin')]]],
+  [L('Октябрь','October'),[['',L('Пост-модуль 1: разбор','Post-Module 1 debrief')],['',L('Подготовка Модулей 2 и 3','Prep for Modules 2 and 3')],['',L('Проверка результатов заданий','Review assignment results')]]],
+  [L('Ноябрь','November'),[['clash',L('МОДУЛЬ 2 — Сингапур (8–9 ноя)','MODULE 2 — Singapore (8–9 Nov)')],['clash',L('МОДУЛЬ 3 — Цюрих/Женева (1–2 ноя)','MODULE 3 — Zurich/Geneva (1–2 Nov)')],['',L('⚠ Конфликт дат — развести заранее','⚠ Date clash — separate in advance')]]],
+  [L('Декабрь','December'),[['',L('Разбор модулей 2–3','Debrief Modules 2–3')],['',L('Подготовка Модуля 4 (FOX/США)','Prep Module 4 (FOX/USA)')],['',L('Бронь Палм-Бич за 9 мес','Book Palm Beach 9 months ahead')]]]
+ ]],
+ ['2027',[
+  [L('Январь','January'),[['',L('Подготовка Модуля 4, регистрация FOX','Prep Module 4, FOX registration')],['',L('Промежуточный отчёт семьям','Interim report to families')]]],
+  [L('Февраль','February'),[['',L('Опционально: М4 Нью-Йорк, вариант B (8–12 фев)','Optional: M4 New York, Option B (8–12 Feb)')]]],
+  [L('Март','March'),[['mod',L('МОДУЛЬ 4 — Палм-Бич FOX (финал группы 1)','MODULE 4 — Palm Beach FOX (cohort 1 finale)')],['',L('Сара Гамильтон, peer-сеть','Sara Hamilton, peer network')]]],
+  [L('Апрель','April'),[['',L('Выпуск группы 1','Cohort 1 graduation')],['',L('Кейсы, отзывы, алюмни-сеть','Case studies, testimonials, alumni network')]]],
+  [L('Май','May'),[['',L('Анализ итогов, финмодель v2','Results analysis, financial model v2')],['',L('Решение о запуске группы 2','Decision to launch cohort 2')]]],
+  [L('Июнь','June'),[['',L('Запуск набора группы 2','Launch cohort 2 recruitment')],['',L('Обновление программы по урокам','Update programme from lessons learned')]]],
+  [L('Июль','July'),[['',L('RFP отели для группы 2','Hotel RFPs for cohort 2')],['',L('Подтверждение спикеров','Confirm speakers')]]],
+  [L('Август','August'),[['',L('Закрытие набора группы 2','Close cohort 2 recruitment')],['',L('Договоры','Agreements')]]],
+  [L('Сентябрь','September'),[['mod',L('МОДУЛЬ 1 (группа 2) — Дубай','MODULE 1 (cohort 2) — Dubai')]]],
+  [L('Октябрь','October'),[['',L('Разбор, подготовка модулей 2–3','Debrief, prep Modules 2–3')]]],
+  [L('Ноябрь','November'),[['mod',L('МОДУЛИ 2 и 3 (группа 2)','MODULES 2 and 3 (cohort 2)')]]],
+  [L('Декабрь','December'),[['',L('Подготовка Модуля 4 (группа 2)','Prep Module 4 (cohort 2)')]]]
+ ]],
+ ['2028',[
+  [L('Январь','January'),[['',L('Подготовка Модуля 4, FOX 2028','Prep Module 4, FOX 2028')]]],
+  [L('Февраль','February'),[['',L('Опциональный вариант Нью-Йорк','Optional New York variant')]]],
+  [L('Март','March'),[['mod',L('МОДУЛЬ 4 (группа 2) — финал','MODULE 4 (cohort 2) — finale')]]],
+  [L('Апрель','April'),[['',L('Выпуск группы 2','Cohort 2 graduation')]]],
+  [L('Май','May'),[['',L('Масштабирование: региональные точки (Астана/Алматы)','Scaling: regional touchpoints (Astana/Almaty)')]]],
+  [L('Июнь','June'),[['',L('Стратегия 3-го года и устойчивая модель','Year 3 strategy and sustainable model')]]]
+ ]]
+];
+const MARKET=[
+  {v:'~6',l:L('Долларовых миллиардеров','USD billionaires'),n:L('Forbes / Forbes Kazakhstan','Forbes / Forbes Kazakhstan')},
+  {v:'~137',l:L('Состояние >$100 млн (центимиллионеры)','Wealth >$100M (centi-millionaires)'),n:L('New World Wealth / Henley','New World Wealth / Henley')},
+  {v:'~36 000',l:L('Долларовых миллионеров (>$1 млн)','USD millionaires (>$1M)'),n:L('New World Wealth, 2024','New World Wealth, 2024')},
+  {v:'$40–47 млрд',l:L('Совокупно у Топ-50 Forbes KZ','Combined wealth of Forbes KZ Top-50'),n:L('Forbes Kazakhstan','Forbes Kazakhstan')},
+  {v:'150–300',l:L('UHNW-семей (>$30 млн) в Казахстане','UHNW families (>$30M) in Kazakhstan'),n:L('Оценка по Knight Frank / Wealth-X','Estimate via Knight Frank / Wealth-X')},
+  {v:'400–1000',l:L('Наследников в UHNW-семьях (2–4 на семью)','Heirs in UHNW families (2–4 per family)'),n:L('Расчётная оценка','Calculated estimate')}
+];
+const PYRAMID=[[L('Миллиардеры (>$1 млрд)','Billionaires (>$1B)'),'6',6],[L('Центимиллионеры (>$100 млн)','Centi-millionaires (>$100M)'),'137',55],[L('UHNW (>$30 млн)','UHNW (>$30M)'),'150–300',38],[L('Миллионеры (>$1 млн)','Millionaires (>$1M)'),'36 000',18]];
+const PERSONAS={
+  founder:{tag:L('Поколение основателей','Founder generation'),name:L('Основатель капитала','Wealth founder'),age:L('55–72 года · self-made, постсоветский предприниматель','55–72 years · self-made, post-Soviet entrepreneur'),cls:'',
+    rows:[
+     [L('Капитал','Capital'),L('$50 млн – $3 млрд; первое поколение, заработано в 1990–2010-х','$50M – $3B; first generation, built in the 1990s–2010s')],
+     [L('Сектора','Sectors'),L('ГМК и металлы, нефтегаз, банки/финтех, строительство и недвижимость, ритейл/FMCG, агро, телеком','Mining & metals, oil & gas, banking/fintech, construction & real estate, retail/FMCG, agri, telecom')],
+     [L('Семья','Family'),L('2–5 детей, часто учатся/живут за рубежом (UK, US, ОАЭ, РФ)','2–5 children, often study/live abroad (UK, US, UAE, Russia)')],
+     [L('Боли','Pain points'),L('Нет плана преемственности и семейной конституции; «третье поколение всё растратит»; синдром основателя; дети за границей не хотят возвращаться; нет структуры управления; налоги и юрисдикции','No succession plan or family constitution; "the third generation destroys the wealth"; founder\'s syndrome; children abroad reluctant to return; no governance structure; tax and jurisdictions')],
+     [L('Триггеры','Triggers'),L('Проблемы со здоровьем; провал преемственности у знакомых; вход ребёнка в бизнес; крупная сделка/ликвидность','Health scare; a peer\'s failed succession; a child entering the business; a major deal/liquidity event')],
+     [L('Решение','Decision'),L('Решает основатель — всё чаще вместе с супругой и старшим наследником','The founder decides — increasingly together with spouse and eldest heir')],
+     [L('Где найти','Where to find'),L('Через банки и private banking, YPO, бизнес-ассоциации, личные рекомендации, Tumar FO','Via banks and private banking, YPO, business associations, personal referrals, Tumar FO')]
+    ]},
+  nextgen:{tag:L('Следующее поколение','Next generation'),name:L('Наследник','The heir'),age:L('20–35 лет · бикультурный, образован за рубежом','20–35 years · bicultural, educated abroad'),cls:'ng',
+    rows:[
+     [L('Образование','Education'),L('LSE, UCL, US Ivy, INSEAD; свободный английский, иногда без бизнес-практики дома','LSE, UCL, US Ivy, INSEAD; fluent English, sometimes no business experience at home')],
+     [L('Идентичность','Identity'),L('Хочет собственную роль, а не ярлык «сын/дочь владельца»; guilt of wealth','Wants their own role, not the "owner\'s son/daughter" label; guilt of wealth')],
+     [L('Интересы','Interests'),L('ESG и импакт, технологии, венчур, собственные проекты','ESG and impact, technology, venture, own ventures')],
+     [L('Боли','Pain points'),L('Неясная роль в семейном бизнесе; напряжение с основателем; финансовая грамотность при большом капитале; одиночество в своём опыте','Unclear role in the family business; tension with the founder; financial literacy despite large wealth; isolation in their experience')],
+     [L('Чего хочет','What they want'),L('Сеть равных с похожим бэкграундом; навыки; признание через результат','A peer network with a similar background; skills; recognition through results')],
+     [L('Роль в продаже','Role in the sale'),L('Часто инициатор и «адвокат» программы внутри семьи','Often the initiator and internal advocate for the programme')]
+    ]}
+};
+const DOC_CATS=[
+  {id:'program',lbl:L('Программа','Programme'),ico:'📚'},
+  {id:'speakers',lbl:L('Спикеры','Speakers'),ico:'🎤'},
+  {id:'decks',lbl:L('Презентации','Presentations'),ico:'📊'},
+  {id:'hotels',lbl:L('Отели / RFP','Hotels / RFP'),ico:'🏨'},
+  {id:'legal',lbl:L('Юридические','Legal'),ico:'⚖️'},
+  {id:'finance',lbl:L('Финансы','Finance'),ico:'💰'},
+  {id:'outreach',lbl:L('Письма / Outreach','Letters / Outreach'),ico:'✉️'},
+  {id:'other',lbl:L('Прочее','Other'),ico:'📁'}
+];
+const catLbl=id=>{const c=DOC_CATS.find(x=>x.id===id);return c?T(c.lbl):id};
+const catIco=id=>{const c=DOC_CATS.find(x=>x.id===id);return c?c.ico:'📁'};
+let DOCS=store.get('docs',[
+  {id:1,name:L('Образовательная программа (4 блока)','Educational programme (4 blocks)'),cat:'program',link:'',meta:L('Word · черновик','Word · draft')},
+  {id:2,name:L('Стратегия локаций и отелей','Location and hotel strategy'),cat:'hotels',link:'',meta:L('Word · бенчмарки и стоимость','Word · benchmarks and costs')},
+  {id:3,name:L('Список спикеров (на проверке)','Speaker list (under validation)'),cat:'speakers',link:'',meta:L('требует валидации','needs validation')}
+]);
+let DOC_SEQ=store.get('docseq',1000);
+let CONTACTS=store.get('contacts',{galiya:'',alisher:'',bruna:''});
+let NLOG=store.get('nlog',[]);
+
+/* ============ UI STRINGS ============ */
+const UI={
+  ready:L('Готовность к запуску','Launch readiness'),
+  // nav
+  overview:L('Обзор','Overview'),team:L('Команда и роли','Team & roles'),strategy:L('Стратегия запуска','Launch strategy'),
+  calendar:L('Календарь · 24 мес','Calendar · 24 mo'),tasks:L('План и задачи','Plan & tasks'),control:L('Метрики и контроль','Metrics & control'),
+  market:L('Анализ рынка','Market analysis'),client:L('Портрет клиента','Client portrait'),budget:L('Бюджет программы','Programme budget'),
+  docs:L('Документы и файлы','Documents & files'),notify:L('Уведомления WhatsApp','WhatsApp notifications'),
+  gLaunch:L('Запуск','Launch'),gAnalytics:L('Аналитика','Analytics'),gOps:L('Операции','Operations')
+};
+const VIEWS=[
+  {id:'overview',ico:'◆',grp:''},{id:'team',ico:'❖',grp:''},
+  {id:'strategy',ico:'➤',grp:'gLaunch'},{id:'calendar',ico:'▤',grp:'gLaunch'},{id:'tasks',ico:'✓',grp:'gLaunch'},{id:'control',ico:'◎',grp:'gLaunch'},
+  {id:'market',ico:'▲',grp:'gAnalytics'},{id:'client',ico:'☺',grp:'gAnalytics'},{id:'budget',ico:'$',grp:'gAnalytics'},
+  {id:'docs',ico:'▦',grp:'gOps'},{id:'notify',ico:'✆',grp:'gOps'}
+];
+function buildNav(){
+  let h='',lastGrp=null;
+  VIEWS.forEach(v=>{
+    if(v.grp!==lastGrp){if(v.grp)h+=`<div class="grouplbl">${T(UI[v.grp])}</div>`;lastGrp=v.grp}
+    h+=`<button data-v="${v.id}" onclick="go('${v.id}')"><span class="ico">${v.ico}</span>${T(UI[v.id])}</button>`;
+  });
+  $('#nav').innerHTML=h;
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===CUR));
+}
+let CUR='overview';
+function go(id){CUR=id;document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===id));$('#viewTitle').textContent=T(UI[id]);document.getElementById('side').classList.remove('open');render()}
+
+/* ============ HELPERS ============ */
+function overallPct(){return Math.round(TASKS.reduce((a,t)=>a+t.pct,0)/TASKS.length)}
+function ownerPct(o){const ts=TASKS.filter(t=>t.o===o);return ts.length?Math.round(ts.reduce((a,t)=>a+t.pct,0)/ts.length):0}
+function daysTo(d){return Math.ceil((new Date(d)-new Date())/864e5)}
+function statusOf(p){return p>=100?'done':p>0?'prog':'todo'}
+function statusLbl(p){return p>=100?T(L('Готово','Done')):p>0?T(L('В работе','In progress')):T(L('Не начато','Not started'))}
+function overdue(t){return t.pct<100&&daysTo(t.due)<0}
+function tt(x){return T(x)} // task/doc text holder accessor
+
+/* ============ RENDER ============ */
+function render(){
+  $('#topMeta').innerHTML=`${T(UI.ready)} · <b style="color:var(--bronze-d)">${overallPct()}%</b>`;
+  $('#wrap').innerHTML=({overview:vOverview,team:vTeam,strategy:vStrategy,calendar:vCalendar,tasks:vTasks,control:vControl,market:vMarket,client:vClient,budget:vBudget,docs:vDocs,notify:vNotify}[CUR])();
+  if(CUR==='tasks')bindTasks();
+  if(CUR==='notify')fillTpl();
+}
+
+function vOverview(){
+  const op=overallPct(),d1=daysTo('2026-09-20');
+  const fam=store.get('families',8),sp=store.get('speakers',2),rfp=store.get('rfp',0);
+  const sc=store.get('scenario','base');
+  const scTotal={low:PROG_TOTAL.low,base:PROG_TOTAL.base,high:PROG_TOTAL.high}[sc];
+  const scName={low:T(L('минимум','minimum')),base:T(L('база','base')),high:T(L('максимум','maximum'))}[sc];
+  return `
+  <div class="eyebrow">${T(L('Закрытая программа для UHNW-семей Центральной Азии','Closed programme for UHNW families of Central Asia'))}</div>
+  <h2 class="sec">${T(L('Первая группа стартует в Дубае','The first cohort starts in Dubai'))}</h2>
+  <p class="lead">${T(L('Образовательная программа для наследников: 4 выездных модуля за один цикл. Ниже — пульс запуска. Все цифры живые: меняйте задачи, бюджет, набор — панель пересчитывает готовность.','An education programme for heirs: 4 travelling modules per cycle. Below is the launch pulse. Every figure is live — change tasks, budget, recruitment and the panel recomputes readiness.'))}</p>
+  <div class="grid g4" style="margin-bottom:18px">
+    <div class="kpi ${op<40?'warn':op>70?'ok':''}"><div class="lbl">${T(UI.ready)}</div><div class="val">${op}<small>%</small></div><div class="bar"><i style="width:${op}%"></i></div></div>
+    <div class="kpi ${d1<60?'warn':''}"><div class="lbl">${T(L('Дней до Модуля 1','Days to Module 1'))}</div><div class="val">${d1}</div><div class="note">${T(L('Дубай · 20 сент 2026','Dubai · 20 Sep 2026'))}</div></div>
+    <div class="kpi"><div class="lbl">${T(L('Семей в группе','Families in cohort'))}</div><div class="val">${fam}<small> / 6–10</small></div><div class="note">${T(L('цель закрытого клуба','closed-club target'))}</div></div>
+    <div class="kpi"><div class="lbl">${T(L('Бюджет программы','Programme budget'))}</div><div class="val" style="font-size:23px">${fmt(scTotal)}</div><div class="note">${T(L('сценарий','scenario'))}: ${scName}</div></div>
+  </div>
+  <div class="grid g3" style="margin-bottom:22px">
+    <div class="kpi"><div class="lbl">${T(L('Спикеров подтверждено','Speakers confirmed'))}</div><div class="val">${sp}<small> / 12</small></div><div class="bar nv"><i style="width:${sp/12*100}%"></i></div></div>
+    <div class="kpi"><div class="lbl">${T(L('RFP по отелям собрано','Hotel RFPs collected'))}</div><div class="val">${rfp}<small> / 4</small></div><div class="bar nv"><i style="width:${rfp/4*100}%"></i></div></div>
+    <div class="kpi ${TASKS.filter(overdue).length?'warn':''}"><div class="lbl">${T(L('Просрочено задач','Overdue tasks'))}</div><div class="val">${TASKS.filter(overdue).length}</div><div class="note">${TASKS.filter(overdue).length?T(L('требуют внимания','need attention')):T(L('всё в графике','all on track'))}</div></div>
+  </div>
+  <h3 style="font-family:var(--display);font-size:19px;color:var(--navy);margin:6px 0 14px">${T(L('Маршрут программы — один цикл','Programme route — one cycle'))}</h3>
+  <div class="card" style="padding:6px 6px 14px"><div class="flight"><div class="flight-line"><div class="fp-spine"></div>
+    ${MODULES.map(m=>`<div class="station ${m.clash?'clash':''}"><div class="pin">${m.ico}</div><div class="mn">${T(m.n).split(' ')[1]}</div><div class="ct">${T(m.city)}</div><div class="dt">${T(m.date)}</div><div class="tp">${esc(T(m.topic))}</div></div>`).join('')}
+  </div></div></div>
+  <div class="callout red" style="margin-top:22px"><b>${T(L('3 решения блокируют старт.','3 decisions block the start.'))}</b> ${T(L('Конфликт дат Модулей 2 и 3 (оба в ноябре 2026) · цена за семью не задана · набор первой группы не закрыт. Пока они не решены, бюджет и экономика остаются гипотезой.','Module 2 & 3 date clash (both November 2026) · price per family not set · first cohort not closed. Until resolved, budget and economics stay hypothetical.'))}</div>
+  <div class="split" style="margin-top:8px">
+    <div class="card"><div class="eyebrow">${T(L('Что дальше — 30 дней','Next 30 days'))}</div>
+      ${TASKS.filter(t=>t.pct<100).sort((a,b)=>new Date(a.due)-new Date(b.due)).slice(0,5).map(t=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px"><span>${esc(T(t.t))}</span><span class="mini" style="white-space:nowrap;color:${overdue(t)?'var(--red)':'var(--muted)'}">${t.due.slice(5)}</span></div>`).join('')}
+    </div>
+    <div class="card"><div class="eyebrow">${T(L('Готовность по ролям','Readiness by role'))}</div>
+      ${['galiya','alisher','bruna'].map(o=>`<div style="margin:11px 0"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><b>${T(TEAM[o].name)}</b><span class="pill">${ownerPct(o)}%</span></div><div class="bar"><i style="width:${ownerPct(o)}%"></i></div><div class="mini" style="margin-top:3px">${T(TEAM[o].role)}</div></div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function vTeam(){
+  return `<h2 class="sec">${T(UI.team)}</h2>
+  <p class="lead">${T(L('Три зоны ответственности. Галия задаёт направление и закрывает отношения, Алишер отвечает за содержание и реализацию, Бруна держит операции и сроки.','Three zones of responsibility. Galiya sets direction and closes relationships, Alisher owns content and delivery, Bruna runs operations and deadlines.'))}</p>
+  <div class="grid g3">
+  ${['galiya','alisher','bruna'].map(k=>{const r=TEAM[k];return `<div class="role ${r.cls}"><div class="hd"><div class="av">${r.av}</div><div class="nm">${T(r.name)}</div><div class="rl">${T(r.role)}</div></div>
+    <div class="bd"><div class="h">${T(L('Зона ответственности','Area of responsibility'))}</div><ul>${r.own.map(x=>`<li>${esc(T(x))}</li>`).join('')}</ul>
+      <div class="h">${T(L('Фокус контроля','Control focus'))}</div><ul>${r.focus.map(x=>`<li>${esc(T(x))}</li>`).join('')}</ul>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px"><span class="mini">${T(L('Готовность зоны','Zone readiness'))}</span><span class="pill">${ownerPct(k)}%</span></div>
+      <div class="bar"><i style="width:${ownerPct(k)}%"></i></div>
+      <div class="mini" style="margin-top:8px">${T(L('Задач в зоне','Tasks in zone'))}: ${TASKS.filter(t=>t.o===k).length} · ${T(L('просрочено','overdue'))}: ${TASKS.filter(t=>t.o===k&&overdue(t)).length}</div></div></div>`}).join('')}
+  </div>
+  <div class="callout" style="margin-top:20px"><b>${T(L('Правило передачи.','Hand-off rule.'))}</b> ${T(L('Любая задача проходит цепочку «контент (Алишер) → операции (Бруна) → решение (Галия)». Бруна ведёт единый трекер и шлёт еженедельный статус в WhatsApp.','Every task follows the chain "content (Alisher) → operations (Bruna) → decision (Galiya)". Bruna keeps the single tracker and sends the weekly status to WhatsApp.'))}</div>`;
+}
+
+function vStrategy(){
+  const ph=[
+    {n:L('Фаза 0 · Фундамент','Phase 0 · Foundation'),d:L('Июнь–Август 2026','June–August 2026'),c:L('Закрыть 3 блокера, собрать материалы и юр. базу','Close 3 blockers, assemble materials and legal base'),own:L('Галия + Алишер','Galiya + Alisher'),items:[L('Финал программы и разрешение конфликта дат','Finalize programme and resolve date clash'),L('Цена за семью и финмодель v1','Price per family and financial model v1'),L('Юр. шаблоны: договор, NDA, оплата','Legal templates: agreement, NDA, payment'),L('Презентация для партнёров (RU/EN)','Partner presentation (RU/EN)')]},
+    {n:L('Фаза 1 · Набор группы','Phase 1 · Recruitment'),d:L('Июнь–Август 2026','June–August 2026'),c:L('Закрыть первую группу из 6–10 семей','Close the first cohort of 6–10 families'),own:L('Галия','Galiya'),items:[L('Long-list 30–40 целевых семей','Long-list of 30–40 target families'),L('Партнёрства с банками для рефералов (Halyk, Freedom, Citi)','Bank partnerships for referrals (Halyk, Freedom, Citi)'),L('Личные встречи основателя с семьями','Founder\'s personal meetings with families'),L('Договоры и предоплата','Agreements and prepayment')]},
+    {n:L('Фаза 2 · Контент и логистика','Phase 2 · Content & logistics'),d:L('Июль–Сентябрь 2026','July–September 2026'),c:L('Спикеры, RFP по отелям, программы на местах','Speakers, hotel RFPs, on-site programmes'),own:L('Алишер + Бруна','Alisher + Bruna'),items:[L('Проверка и подтверждение 8–12 спикеров','Validate and confirm 8–12 speakers'),L('RFP по 4 локациям, выбор отелей','RFPs across 4 locations, hotel selection'),L('FOX 2027 и культурно-деловые программы','FOX 2027 and cultural-business programmes'),L('Визы, перелёты, синхронный перевод','Visas, flights, simultaneous interpretation')]},
+    {n:L('Фаза 3 · Проведение группы 1','Phase 3 · Delivering cohort 1'),d:L('Сент 2026 – Март 2027','Sep 2026 – Mar 2027'),c:L('4 модуля: Дубай → Сингапур → Цюрих → Палм-Бич','4 modules: Dubai → Singapore → Zurich → Palm Beach'),own:L('Вся команда','Whole team'),items:[L('Модуль 1 — Дубай (сент)','Module 1 — Dubai (Sep)'),L('Модули 2–3 — Сингапур и Цюрих (ноя)','Modules 2–3 — Singapore and Zurich (Nov)'),L('Межсессионные задания и сопровождение','Inter-session assignments and support'),L('Модуль 4 — FOX Палм-Бич (март)','Module 4 — FOX Palm Beach (Mar)')]},
+    {n:L('Фаза 4 · Итоги и масштаб','Phase 4 · Results & scale'),d:L('Апр 2027 – Июнь 2028','Apr 2027 – Jun 2028'),c:L('Алюмни-сеть, кейсы, запуск второй группы','Alumni network, case studies, launch cohort 2'),own:L('Галия + Алишер','Galiya + Alisher'),items:[L('Разбор, отзывы, кейсы','Debrief, testimonials, case studies'),L('Финмодель v2 и решение о группе 2','Financial model v2 and cohort 2 decision'),L('Набор и проведение группы 2','Recruit and deliver cohort 2'),L('Региональные точки (Астана/Алматы)','Regional touchpoints (Astana/Almaty)')]}
+  ];
+  return `<h2 class="sec">${T(UI.strategy)}</h2>
+  <p class="lead">${T(L('От набора первой группы до устойчивой модели за два года. Пять фаз; первые три идут параллельно летом 2026, иначе модуль в сентябре не успеть.','From recruiting the first cohort to a sustainable model in two years. Five phases; the first three run in parallel over summer 2026, otherwise the September module won\'t be ready.'))}</p>
+  ${ph.map((p,i)=>`<div class="card" style="margin-bottom:14px;border-left:3px solid var(--bronze)"><div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px"><div><div style="font-family:var(--display);font-size:20px;color:var(--navy);font-weight:600">${T(p.n)}</div><div class="mini" style="margin-top:2px">${T(p.d)} · ${T(L('ответственные','owners'))}: ${T(p.own)}</div></div><span class="bdg ${i<2?'prog':'todo'}">${T(p.c)}</span></div><div class="grid g2" style="margin-top:12px">${p.items.map(x=>`<div style="font-size:13px;padding-left:16px;position:relative"><span style="position:absolute;left:0;color:var(--bronze);font-weight:700">›</span>${esc(T(x))}</div>`).join('')}</div></div>`).join('')}
+  <div class="callout"><b>${T(L('Критический путь.','Critical path.'))}</b> ${T(L('Чтобы провести Модуль 1 в сентябре, набор группы и RFP по отелям должны идти уже сейчас. Самая большая переменная бюджета — ставки конференц-залов: до закрытия RFP это диапазон, а не цифра.','To deliver Module 1 in September, recruitment and hotel RFPs must run now. The biggest budget variable is conference-room rates: until RFPs close, it\'s a range, not a number.'))}</div>`;
+}
+
+function vCalendar(){
+  return `<h2 class="sec">${T(L('Календарь запуска · 24 месяца','Launch calendar · 24 months'))}</h2>
+  <p class="lead">${T(L('Июнь 2026 — июнь 2028. Золотым отмечены модули, красным — конфликт дат. Второй цикл повторяет маршрут осенью 2027.','June 2026 — June 2028. Gold marks modules, red marks the date clash. The second cycle repeats the route in autumn 2027.'))}</p>
+  ${CAL.map(([yr,months])=>`<div class="cal-yr">${yr}</div><div class="cal-grid">${months.map(([mo,evs])=>{const isMod=evs.some(e=>e[0]==='mod');const isClash=evs.some(e=>e[0]==='clash');return `<div class="cmonth ${isClash?'clash':isMod?'mod':''}"><div class="mo">${T(mo)}</div>${evs.map(e=>`<div class="ev ${e[0]==='mod'||e[0]==='clash'||e[0]==='hi'?'hi':''}">${esc(T(e[1]))}</div>`).join('')}</div>`}).join('')}</div>`).join('')}`;
+}
+
+let taskFilter='all';
+function vTasks(){
+  const owners=[['all',L('Все','All')],['galiya',L('Галия','Galiya')],['alisher',L('Алишер','Alisher')],['bruna',L('Бруна','Bruna')]];
+  const list=TASKS.filter(t=>taskFilter==='all'||t.o===taskFilter);
+  return `<h2 class="sec">${T(L('План и задачи запуска','Launch plan & tasks'))}</h2>
+  <p class="lead">${T(L('Задачи по фазам. Меняйте статус и процент — готовность по ролям и общий прогресс пересчитываются. Новую задачу можно добавить на любом языке — она тут же переводится и синхронизируется.','Tasks by phase. Change status and percent — role readiness and overall progress recompute. Add a new task in either language — it is instantly translated and synced.'))}</p>
+  <div class="grid g3" style="margin-bottom:18px">
+    <div class="kpi"><div class="lbl">${T(L('Общая готовность','Overall readiness'))}</div><div class="val">${overallPct()}<small>%</small></div><div class="bar"><i style="width:${overallPct()}%"></i></div></div>
+    <div class="kpi"><div class="lbl">${T(L('Готово задач','Tasks done'))}</div><div class="val">${TASKS.filter(t=>t.pct>=100).length}<small> / ${TASKS.length}</small></div></div>
+    <div class="kpi ${TASKS.filter(overdue).length?'warn':'ok'}"><div class="lbl">${T(L('Просрочено','Overdue'))}</div><div class="val">${TASKS.filter(overdue).length}</div></div>
+  </div>
+  <div class="card" style="margin-bottom:16px"><div class="eyebrow">${T(L('Добавить задачу','Add a task'))} · ${LANG==='ru'?'RU':'EN'} → ${LANG==='ru'?'EN':'RU'}</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+      <div style="flex:1;min-width:240px"><input type="text" id="ntName" placeholder="${T(L('Текст задачи на текущем языке…','Task text in current language…'))}"></div>
+      <div><select id="ntOwner">${['galiya','alisher','bruna'].map(k=>`<option value="${k}">${T(TEAM[k].name)}</option>`).join('')}</select></div>
+      <div><input type="date" id="ntDue" value="2026-08-01" style="width:150px"></div>
+      <button class="btn pri sm" onclick="addTask()">${T(L('Добавить','Add'))}</button>
+    </div>
+    <div class="mini" style="margin-top:7px">${T(L('Перевод на второй язык подставится автоматически при наличии связи; офлайн — текст можно отредактировать вручную.','The other-language translation fills in automatically when online; offline, the text can be edited manually.'))}</div>
+  </div>
+  <div class="chips">${owners.map(([k,v])=>`<button class="chip ${taskFilter===k?'on':''}" onclick="setTF('${k}')">${T(v)}${k!=='all'?` · ${ownerPct(k)}%`:''}</button>`).join('')}</div>
+  <div class="tbl-wrap"><table><thead><tr><th style="width:40%">${T(L('Задача','Task'))}</th><th>${T(L('Фаза','Phase'))}</th><th>${T(L('Ответственный','Owner'))}</th><th>${T(L('Срок','Due'))}</th><th>${T(L('Статус','Status'))}</th><th style="width:120px">%</th></tr></thead><tbody>
+  ${list.map(t=>`<tr data-id="${t.id}"><td>${t.crit?'<span class="dot" style="background:var(--red);margin-right:6px"></span>':''}${esc(T(t.t))}${t._tr?`<span class="tr-flag"><span class="spin"></span> ${T(L('перевод…','translating…'))}</span>`:''}</td><td class="mini">${T(PHASES[t.ph])}</td><td>${T(TEAM[t.o].name)}</td><td class="mini" style="color:${overdue(t)?'var(--red)':'var(--muted)'};white-space:nowrap">${t.due.slice(5)}${overdue(t)?' ⚠':''}</td><td><span class="bdg ${statusOf(t.pct)}">${statusLbl(t.pct)}</span></td><td><div class="inline-edit"><input type="range" min="0" max="100" step="5" value="${t.pct}" data-id="${t.id}" style="width:74px"><span class="pill" id="p${t.id}">${t.pct}%</span></div></td></tr>`).join('')}
+  </tbody></table></div>
+  <div style="margin-top:14px"><button class="btn gh sm" onclick="resetTasks()">${T(L('Сбросить к исходному','Reset to defaults'))}</button></div>`;
+}
+function setTF(k){taskFilter=k;render()}
+function bindTasks(){
+  document.querySelectorAll('input[type=range][data-id]').forEach(r=>{
+    r.addEventListener('input',e=>{const id=+e.target.dataset.id,v=+e.target.value;$('#p'+id).textContent=v+'%';const t=TASKS.find(x=>x.id===id);t.pct=v;const tr=e.target.closest('tr');tr.querySelector('.bdg').className='bdg '+statusOf(v);tr.querySelector('.bdg').textContent=statusLbl(v)});
+    r.addEventListener('change',()=>{store.set('tasks',TASKS);$('#topMeta').innerHTML=`${T(UI.ready)} · <b style="color:var(--bronze-d)">${overallPct()}%</b>`});
+  });
+}
+async function addTask(){
+  const name=$('#ntName').value.trim();if(!name){toast(T(L('Введите текст задачи','Enter task text')));return}
+  const other=LANG==='ru'?'en':'ru';
+  const t={id:++TASK_SEQ,t:{ru:name,en:name},o:$('#ntOwner').value,ph:0,due:$('#ntDue').value||'2026-08-01',pct:0,_tr:true};
+  t.t[LANG]=name;t.t[other]=name;
+  TASKS.push(t);store.set('tasks',TASKS);store.set('taskseq',TASK_SEQ);$('#ntName').value='';render();
+  const tr=await aiTranslate(name,other);
+  const ref=TASKS.find(x=>x.id===t.id);if(ref){if(tr)ref.t[other]=tr;ref._tr=false;store.set('tasks',TASKS);if(CUR==='tasks')render();toast(tr?T(L('Задача добавлена и переведена','Task added and translated')):T(L('Задача добавлена (перевод офлайн недоступен)','Task added (translation offline unavailable)')))}
+}
+function resetTasks(){if(confirm(T(L('Сбросить все статусы задач к исходным значениям?','Reset all task statuses to defaults?')))){localStorage.removeItem(KEY+':tasks');localStorage.removeItem(KEY+':taskseq');location.reload()}}
+
+function vControl(){
+  const sets={
+    bruna:{name:L('Бруна · операции и сроки','Bruna · operations & deadlines'),tasks:[10,11,12,13,15,20,21,23,4,5],cls:'pm',kpis:[[L('Задачи в срок','Tasks on time'),`${TASKS.filter(t=>t.o==='bruna'&&!overdue(t)).length}/${TASKS.filter(t=>t.o==='bruna').length}`],[L('RFP собрано','RFPs collected'),`${store.get('rfp',0)}/4`],[L('Готовность логистики','Logistics readiness'),ownerPct('bruna')+'%']]},
+    alisher:{name:L('Алишер · контент и бюджет','Alisher · content & budget'),tasks:[1,2,8,9,14,19,22,24],cls:'lead',kpis:[[L('Спикеров подтверждено','Speakers confirmed'),`${store.get('speakers',2)}/12`],[L('Готовность контента','Content readiness'),ownerPct('alisher')+'%'],[L('Бюджет','Budget'),T(L('по сценарию','by scenario'))]]}
+  };
+  return `<h2 class="sec">${T(UI.control)}</h2>
+  <p class="lead">${T(L('Сводные показатели запуска и отдельные панели контроля для Бруны (операции) и Алишера (содержание и бюджет). Цифры спикеров / RFP / семей задаются здесь.','Launch summary plus dedicated control panels for Bruna (operations) and Alisher (content and budget). Speaker / RFP / family figures are set here.'))}</p>
+  <div class="card" style="margin-bottom:20px"><div class="eyebrow">${T(L('Ручные показатели — обновляйте по факту','Manual figures — update as they change'))}</div>
+    <div class="grid g3">
+      <div class="field"><label>${T(L('Семей в группе','Families in cohort'))}</label><input type="number" min="0" max="12" value="${store.get('families',8)}" onchange="setVal('families',this.value)"></div>
+      <div class="field"><label>${T(L('Спикеров подтверждено','Speakers confirmed'))}</label><input type="number" min="0" max="20" value="${store.get('speakers',2)}" onchange="setVal('speakers',this.value)"></div>
+      <div class="field"><label>${T(L('RFP собрано (из 4)','RFPs collected (of 4)'))}</label><input type="number" min="0" max="4" value="${store.get('rfp',0)}" onchange="setVal('rfp',this.value)"></div>
+    </div></div>
+  <div class="split">${['bruna','alisher'].map(k=>{const s=sets[k];return `<div class="role ${s.cls}"><div class="hd"><div class="rl">${T(L('Панель контроля','Control panel'))}</div><div class="nm" style="font-size:19px">${T(s.name)}</div></div><div class="bd">${s.kpis.map(([l,v])=>`<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px"><span class="mini" style="text-transform:none;font-size:13px">${T(l)}</span><span class="pill">${v}</span></div>`).join('')}<div class="h" style="font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--bronze-d);font-weight:700;margin:14px 0 8px">${T(L('Задачи под контролем','Tasks under control'))}</div>${s.tasks.map(id=>{const t=TASKS.find(x=>x.id===id);if(!t)return'';const txt=T(t.t);return `<div style="display:flex;justify-content:space-between;gap:8px;padding:6px 0;font-size:12.5px"><span style="color:${overdue(t)?'var(--red)':'var(--ink)'}">${esc(txt.slice(0,42))}${txt.length>42?'…':''}</span><span class="pill" style="font-size:11px">${t.pct}%</span></div>`}).join('')}</div></div>`}).join('')}</div>
+  <div class="callout" style="margin-top:20px"><b>${T(L('Фокус Бруны','Bruna\'s focus'))}</b> ${T(L('— чтобы ни одна задача не «провалилась» по сроку. ','— so no task slips its deadline. '))}<b>${T(L('Фокус Алишера','Alisher\'s focus'))}</b> ${T(L('— чтобы к каждому модулю контент и спикеры были готовы, а расходы держались в рамках сценария.','— so content and speakers are ready for every module and costs stay within scenario.'))}</div>`;
+}
+function setVal(k,v){store.set(k,+v);toast(T(L('Сохранено','Saved')));if(CUR==='control')render()}
+
+function vMarket(){
+  return `<h2 class="sec">${T(L('Анализ рынка · состоятельные семьи','Market analysis · wealthy families'))}</h2>
+  <p class="lead">${T(L('Рынок Казахстана и Центральной Азии. Цифры — оценки из открытых отчётов (Forbes Kazakhstan, New World Wealth / Henley, Knight Frank). Это ориентиры, не финальная истина — стоит сверить со свежими отчётами.','The Kazakhstan and Central Asia market. Figures are estimates from public reports (Forbes Kazakhstan, New World Wealth / Henley, Knight Frank). Treat as guidance, not final truth — verify against the latest reports.'))}</p>
+  <div class="grid g3" style="margin-bottom:20px">${MARKET.map(m=>`<div class="kpi"><div class="val" style="font-size:25px">${m.v}</div><div class="lbl" style="text-transform:none;letter-spacing:0;margin-top:6px">${T(m.l)}</div><div class="note">${T(m.n)}</div></div>`).join('')}</div>
+  <div class="split">
+    <div class="card"><div class="eyebrow">${T(L('Великий трансфер капитала','The great wealth transfer'))}</div>
+      <p style="font-size:14px;margin-bottom:10px">${T(L('Первое поколение казахстанских предпринимателей построило капитал в 1990–2010-х. Сегодня большинству основателей <b>55–75 лет</b> — впервые в постсоветской истории идёт массовая передача частного капитала.','Kazakhstan\'s first generation of entrepreneurs built their capital in the 1990s–2010s. Most founders are now <b>55–75</b> — for the first time in post-Soviet history, a mass transfer of private capital is under way.'))}</p>
+      <p style="font-size:14px">${T(L('Пик трансфера — <b>2025–2040 годы</b>. У большинства семей нет ни семейной конституции, ни структуры управления, ни плана преемственности. Инфраструктуры обучения этому в регионе почти нет — это ниша Tumar.','The peak is <b>2025–2040</b>. Most families have neither a family constitution, nor a governance structure, nor a succession plan. There is almost no educational infrastructure for this in the region — that is Tumar\'s niche.'))}</p>
+    </div>
+    <div class="card"><div class="eyebrow">${T(L('Объём рынка для программы','Market size for the programme'))}</div>
+      <table style="font-size:13px"><tbody>
+        <tr><td><b>TAM</b> — ${T(L('все UHNW-семьи ЦА','all UHNW families of Central Asia'))}</td><td class="num">~300–500</td></tr>
+        <tr><td><b>SAM</b> — ${T(L('UHNW-семьи КЗ с вопросом преемственности','KZ UHNW families facing succession'))}</td><td class="num">~150–250</td></tr>
+        <tr><td><b>SOM</b> — ${T(L('реалистично за 2 года (1–2 группы)','realistic over 2 years (1–2 cohorts)'))}</td><td class="num">6–20</td></tr>
+      </tbody></table>
+      <div class="callout" style="margin:14px 0 0"><b>${T(L('Вывод.','Takeaway.'))}</b> ${T(L('Модель «закрытого клуба» из 6–10 семей не требует большого рынка. Решает не объём, а доступ и доверие.','A "closed club" of 6–10 families needs no large market. It\'s decided by access and trust, not volume.'))}</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px"><div class="eyebrow">${T(L('Пирамида капитала · Казахстан (оценка)','Wealth pyramid · Kazakhstan (estimate)'))}</div>
+    ${PYRAMID.map(([l,n,wd])=>`<div style="margin:10px 0"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>${T(l)}</span><span class="pill">${n}</span></div><div class="bar nv"><i style="width:${wd}%"></i></div></div>`).join('')}
+    <div class="src">${T(L('Источники: Forbes Kazakhstan; New World Wealth / Henley & Partners; Knight Frank; UBS Global Wealth Report. Оценки до 2026 г.; уточнять по свежим публикациям.','Sources: Forbes Kazakhstan; New World Wealth / Henley & Partners; Knight Frank; UBS Global Wealth Report. Estimates pre-2026; verify against the latest publications.'))}</div>
+  </div>`;
+}
+
+function vClient(){
+  return `<h2 class="sec">${T(UI.client)}</h2>
+  <p class="lead">${T(L('Программа продаётся двум поколениям сразу. Основатель платит и решает; наследник часто инициирует и «продаёт» идею внутри семьи. Контент и язык под каждого — разные.','The programme sells to two generations at once. The founder pays and decides; the heir often initiates and sells the idea inside the family. Content and language differ for each.'))}</p>
+  <div class="split">${['founder','nextgen'].map(k=>{const p=PERSONAS[k];return `<div class="persona ${p.cls}"><div class="hd"><div class="tag">${T(p.tag)}</div><div class="nm">${T(p.name)}</div><div class="age">${T(p.age)}</div></div><div class="bd">${p.rows.map(([a,b])=>`<div class="row"><div class="k">${T(a)}</div><div class="v">${esc(T(b))}</div></div>`).join('')}</div></div>`}).join('')}</div>
+  <div class="callout" style="margin-top:18px"><b>${T(L('Как заходить.','How to approach.'))}</b> ${T(L('Через доверенный канал — банк, private banking, рекомендацию равного, YPO. Холодная продажа здесь не работает: решает приватность и репутация приглашающего.','Through a trusted channel — a bank, private banking, a peer referral, YPO. Cold selling does not work here: privacy and the inviter\'s reputation decide.'))}</div>`;
+}
+
+function vBudget(){
+  const sc=store.get('scenario','base');
+  const tot={low:PROG_TOTAL.low,base:PROG_TOTAL.base,high:PROG_TOTAL.high}[sc];
+  const scn={low:T(L('мин','min')),base:T(L('база','base')),high:T(L('макс','max'))};
+  return `<h2 class="sec">${T(UI.budget)}</h2>
+  <p class="lead">${T(L('Операционная стоимость одного цикла из 4 модулей. Не включает оклады команды, разработку и выручку — это расходы на проведение. Самая большая неизвестная — ставки конференц-залов (до RFP).','Operating cost of one 4-module cycle. Excludes team salaries, development and revenue — these are delivery costs. The biggest unknown is conference-room rates (until RFP).'))}</p>
+  <div class="chips">${[['low',L('Минимальный','Minimum')],['base',L('Базовый','Base')],['high',L('Максимальный','Maximum')]].map(([k,v])=>`<button class="chip ${sc===k?'on':''}" onclick="setScenario('${k}')">${T(v)}</button>`).join('')}</div>
+  <div class="grid g4" style="margin-bottom:18px">${MODULES.map(m=>`<div class="kpi"><div class="lbl">${T(m.n)} · ${T(m.city).split(' ')[0]}</div><div class="val" style="font-size:21px">${fmt(m[sc])}</div><div class="note">${T(m.date)}</div></div>`).join('')}</div>
+  <div class="grid g3" style="margin-bottom:22px">
+    <div class="kpi ok"><div class="lbl">${T(L('Итого цикл','Cycle total'))} (${scn[sc]})</div><div class="val" style="font-size:24px">${fmt(tot)}</div><div class="note">${T(L('Вариант A (FOX, Палм-Бич)','Option A (FOX, Palm Beach)'))}</div></div>
+    <div class="kpi"><div class="lbl">${T(L('Рекоменд. бюджет с буфером','Recommended budget w/ buffer'))}</div><div class="val" style="font-size:24px">${fmt(PROG_TOTAL.contingency)}</div><div class="note">${T(L('≈ +15% к базе','≈ +15% over base'))}</div></div>
+    <div class="kpi warn"><div class="lbl">${T(L('Макс. неблагоприятный','Maximum adverse'))}</div><div class="val" style="font-size:24px">${fmt(PROG_TOTAL.maxAdverse)}+</div><div class="note">${T(L('все риски сразу','all risks at once'))}</div></div>
+  </div>
+  <h3 style="font-family:var(--display);font-size:18px;color:var(--navy);margin:6px 0 10px">${T(L('Стоимость по модулям — все сценарии','Cost by module — all scenarios'))}</h3>
+  <div class="tbl-wrap" style="margin-bottom:24px"><table><thead><tr><th>${T(L('Модуль','Module'))}</th><th>${T(L('Локация','Location'))}</th><th>${T(L('Даты','Dates'))}</th><th class="num">${T(L('Минимум','Minimum'))}</th><th class="num">${T(L('База','Base'))}</th><th class="num">${T(L('Максимум','Maximum'))}</th></tr></thead><tbody>
+    ${MODULES.map(m=>`<tr><td><b>${T(m.n)}</b></td><td>${T(m.city)}</td><td class="mini">${T(m.date)}</td><td class="num">${fmt(m.low)}</td><td class="num"><b>${fmt(m.base)}</b></td><td class="num">${fmt(m.high)}</td></tr>`).join('')}
+    <tr style="background:var(--paper)"><td colspan="3"><b>${T(L('Итого цикл (Вариант A · FOX)','Cycle total (Option A · FOX)'))}</b></td><td class="num"><b>${fmt(PROG_TOTAL.low)}</b></td><td class="num"><b>${fmt(PROG_TOTAL.base)}</b></td><td class="num"><b>${fmt(PROG_TOTAL.high)}</b></td></tr>
+    <tr><td colspan="3" class="mini">${T(L('Вариант B (Нью-Йорк вместо Палм-Бич, без FOX)','Option B (New York instead of Palm Beach, no FOX)'))}</td><td colspan="3" class="num"><b>${fmt(PROG_TOTAL.optionB)}</b> ${T(L('базовый','base'))}</td></tr>
+  </tbody></table></div>
+  <h3 style="font-family:var(--display);font-size:18px;color:var(--navy);margin:6px 0 10px">${T(L('Анализ чувствительности','Sensitivity analysis'))}</h3>
+  <div class="tbl-wrap"><table><thead><tr><th style="width:36%">${T(L('Сценарий','Scenario'))}</th><th class="num">${T(L('Итого','Total'))}</th><th class="num">Δ</th><th>${T(L('Описание','Description'))}</th></tr></thead><tbody>
+    ${SENS.map(([n,v,d,desc])=>`<tr><td>${esc(T(n))}</td><td class="num">${fmt(v)}</td><td class="num" style="color:${String(d).includes('+')?'var(--red)':'var(--green)'}">${d}</td><td class="mini">${esc(T(desc))}</td></tr>`).join('')}
+  </tbody></table></div>
+  <div class="callout"><b>${T(L('Открытый вопрос — цена за семью.','Open question — price per family.'))}</b> ${T(L('При бюджете цикла ≈ '+fmt(PROG_TOTAL.contingency)+' (с буфером) и группе из 8 семей точка безубыточности по проведению — около '+fmt(PROG_TOTAL.contingency/8)+' на семью, без окладов и прибыли. Рыночный ориентир за цикл — $40–110 тыс.','With a cycle budget of ≈ '+fmt(PROG_TOTAL.contingency)+' (with buffer) and 8 families, the delivery break-even is about '+fmt(PROG_TOTAL.contingency/8)+' per family, before salaries and profit. The market reference per cycle is $40–110K.'))}</div>`;
+}
+function setScenario(s){store.set('scenario',s);render()}
+
+let docCat='all';
+function vDocs(){
+  const list=DOCS.filter(d=>docCat==='all'||d.cat===docCat);
+  return `<h2 class="sec">${T(UI.docs)}</h2>
+  <p class="lead">${T(L('Единый реестр материалов проекта. Название можно ввести на любом языке — оно переводится и хранится на двух языках. Тяжёлые файлы держите в Google Drive ссылкой.','A single registry of project materials. Enter a name in either language — it is translated and stored in both. Keep heavy files in Google Drive via a link.'))}</p>
+  <div class="card" style="margin-bottom:18px"><div class="eyebrow">${T(L('Добавить документ','Add a document'))} · ${LANG==='ru'?'RU→EN':'EN→RU'}</div>
+    <div class="grid g2">
+      <div class="field"><label>${T(L('Название','Name'))}</label><input type="text" id="dn" placeholder="${T(L('Напр. Презентация для партнёров v2','e.g. Partner presentation v2'))}"></div>
+      <div class="field"><label>${T(L('Раздел','Section'))}</label><select id="dc">${DOC_CATS.map(c=>`<option value="${c.id}">${c.ico} ${T(c.lbl)}</option>`).join('')}</select></div>
+    </div>
+    <div class="field"><label>${T(L('Ссылка (Google Drive / Dropbox / др.)','Link (Google Drive / Dropbox / etc.)'))}</label><input type="text" id="dl" placeholder="https://drive.google.com/..."></div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <button class="btn pri sm" onclick="addDoc()">${T(L('Добавить по ссылке','Add by link'))}</button><span class="mini">${T(L('или','or'))}</span>
+      <label class="btn gh sm" style="margin:0">${T(L('Прикрепить файл (до 1,5 МБ)','Attach file (up to 1.5 MB)'))}<input type="file" id="df" class="hidden" onchange="attachFile(this)"></label>
+    </div>
+  </div>
+  <div class="catbar"><button class="chip ${docCat==='all'?'on':''}" onclick="setDocCat('all')">${T(L('Все','All'))} · ${DOCS.length}</button>${DOC_CATS.map(c=>{const n=DOCS.filter(d=>d.cat===c.id).length;return n?`<button class="chip ${docCat===c.id?'on':''}" onclick="setDocCat('${c.id}')">${c.ico} ${T(c.lbl)} · ${n}</button>`:''}).join('')}</div>
+  <div>${list.length?list.map(d=>`<div class="doc"><div class="ic">${catIco(d.cat)}</div><div class="info"><div class="dn">${esc(T(d.name))}${d._tr?`<span class="tr-flag"><span class="spin"></span></span>`:''}</div><div class="dm">${catLbl(d.cat)} · ${esc(T(d.meta||''))}</div></div>${d.data?`<a class="btn gh sm" href="${d.data}" download="${esc(T(d.name))}">${T(L('Скачать','Download'))}</a>`:d.link?`<a class="btn gh sm" href="${esc(d.link)}" target="_blank" rel="noopener">${T(L('Открыть','Open'))}</a>`:''}<button class="btn gh sm" onclick="delDoc(${d.id})">✕</button></div>`).join(''):`<div class="card" style="text-align:center;color:var(--muted)">${T(L('В этом разделе пока пусто.','This section is empty for now.'))}</div>`}</div>`;
+}
+function setDocCat(c){docCat=c;render()}
+async function addDoc(){
+  const n=$('#dn').value.trim();if(!n){toast(T(L('Введите название','Enter a name')));return}
+  const other=LANG==='ru'?'en':'ru';
+  const d={id:++DOC_SEQ,name:{ru:n,en:n},cat:$('#dc').value,link:$('#dl').value.trim(),meta:L('добавлено '+new Date().toLocaleDateString('ru-RU'),'added '+new Date().toLocaleDateString('en-GB')),_tr:true};
+  d.name[LANG]=n;d.name[other]=n;
+  DOCS.unshift(d);store.set('docs',DOCS);store.set('docseq',DOC_SEQ);$('#dn').value='';$('#dl').value='';render();
+  const tr=await aiTranslate(n,other);
+  const ref=DOCS.find(x=>x.id===d.id);if(ref){if(tr)ref.name[other]=tr;ref._tr=false;store.set('docs',DOCS);if(CUR==='docs')render();toast(tr?T(L('Документ добавлен и переведён','Document added and translated')):T(L('Документ добавлен','Document added')))}
+}
+function attachFile(inp){
+  const f=inp.files[0];if(!f)return;
+  if(f.size>1.5*1024*1024){toast(T(L('Файл больше 1,5 МБ — добавьте ссылкой','File over 1.5 MB — add by link')));return}
+  const rd=new FileReader();const other=LANG==='ru'?'en':'ru';
+  rd.onload=async()=>{const d={id:++DOC_SEQ,name:{ru:f.name,en:f.name},cat:$('#dc').value,data:rd.result,meta:L((f.size/1024).toFixed(0)+' КБ · вложение',(f.size/1024).toFixed(0)+' KB · attachment'),_tr:true};DOCS.unshift(d);store.set('docs',DOCS);store.set('docseq',DOC_SEQ);render();const tr=await aiTranslate(f.name,other);const ref=DOCS.find(x=>x.id===d.id);if(ref){if(tr)ref.name[other]=tr;ref._tr=false;store.set('docs',DOCS);if(CUR==='docs')render()}toast(T(L('Файл прикреплён','File attached')))};
+  rd.readAsDataURL(f);
+}
+function delDoc(id){DOCS=DOCS.filter(d=>d.id!==id);store.set('docs',DOCS);render()}
+
+function vNotify(){
+  return `<h2 class="sec">${T(L('Уведомления в WhatsApp','WhatsApp notifications'))}</h2>
+  <p class="lead">${T(L('Соберите сообщение по шаблону и отправьте в WhatsApp одной кнопкой. Шаблон формируется на текущем языке интерфейса — переключите RU/EN, и текст сменится.','Build a message from a template and send it to WhatsApp with one click. The template is generated in the current interface language — switch RU/EN and the text changes.'))}</p>
+  <div class="card" style="margin-bottom:18px"><div class="eyebrow">${T(L('Контакты команды','Team contacts'))}</div>
+    <div class="grid g3">${['galiya','alisher','bruna'].map(k=>`<div class="field"><label>${T(TEAM[k].name)} · ${T(TEAM[k].role)}</label><input type="tel" id="ph_${k}" value="${esc(CONTACTS[k]||'')}" placeholder="+7 700 000 00 00" onchange="saveContact('${k}',this.value)"></div>`).join('')}</div>
+    <div class="mini">${T(L('Телефон в международном формате; пробелы уберутся автоматически.','Phone in international format; spaces are stripped automatically.'))}</div>
+  </div>
+  <div class="split">
+    <div class="card"><div class="eyebrow">${T(L('Новое сообщение','New message'))}</div>
+      <div class="field"><label>${T(L('Кому','To'))}</label><select id="nto" onchange="fillTpl()">${['galiya','alisher','bruna'].map(k=>`<option value="${k}">${T(TEAM[k].name)}</option>`).join('')}</select></div>
+      <div class="field"><label>${T(L('Шаблон','Template'))}</label><select id="ntpl" onchange="fillTpl()">
+        <option value="task">${T(L('Назначение задачи','Task assignment'))}</option>
+        <option value="deadline">${T(L('Напоминание о дедлайне','Deadline reminder'))}</option>
+        <option value="status">${T(L('Еженедельный статус','Weekly status'))}</option>
+        <option value="rfp">${T(L('Запрос по RFP / отелям','RFP / hotels request'))}</option>
+        <option value="free">${T(L('Свободное сообщение','Free message'))}</option>
+      </select></div>
+      <div class="field" id="taskPick"><label>${T(L('Задача (для шаблонов задач)','Task (for task templates)'))}</label><select id="ntask" onchange="fillTpl()">${TASKS.map(t=>`<option value="${t.id}">${esc(T(t.t).slice(0,46))}</option>`).join('')}</select></div>
+      <div class="field"><label>${T(L('Текст','Message'))}</label><textarea id="nmsg" rows="7"></textarea></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn wa" onclick="sendWA()">✆ ${T(L('Открыть в WhatsApp','Open in WhatsApp'))}</button><button class="btn gh" onclick="copyMsg()">${T(L('Скопировать текст','Copy text'))}</button></div>
+    </div>
+    <div class="card"><div class="eyebrow">${T(L('Журнал уведомлений','Notification log'))}</div>
+      <div>${NLOG.length?NLOG.slice(0,18).map(l=>`<div class="log"><div class="lt">${l.time} → ${TEAM[l.to]?T(TEAM[l.to].name):l.to}</div>${esc(l.preview)}</div>`).join(''):`<div class="mini">${T(L('Пока пусто. Отправленные сообщения появятся здесь.','Empty for now. Sent messages will appear here.'))}</div>`}</div>
+    </div>
+  </div>
+  <div class="callout"><b>${T(L('Как это работает.','How it works.'))}</b> ${T(L('Приложение готовит текст и открывает WhatsApp с заполненным сообщением (через wa.me). Для авто-напоминаний по расписанию нужен WhatsApp Business API (Twilio / 360dialog) и сервер — это следующий шаг.','The app prepares the text and opens WhatsApp with the message pre-filled (via wa.me). Scheduled auto-reminders require the WhatsApp Business API (Twilio / 360dialog) and a server — that\'s the next step.'))}</div>`;
+}
+function saveContact(k,v){CONTACTS[k]=v;store.set('contacts',CONTACTS)}
+function fillTpl(){
+  if(CUR!=='notify')return;
+  const tpl=$('#ntpl').value, toK=$('#nto').value, to=T(TEAM[toK].name);
+  const t=TASKS.find(x=>x.id===+($('#ntask')?.value))||TASKS[0];
+  if($('#taskPick'))$('#taskPick').style.display=(tpl==='task'||tpl==='deadline')?'block':'none';
+  let m='';const txt=T(t.t);
+  if(LANG==='ru'){
+    if(tpl==='task')m=`${to}, привет! Назначаю задачу по запуску Tumar Family Academy:\n\n• ${txt}\nСрок: ${t.due}\nФаза: ${T(PHASES[t.ph])}\n\nОтметь, пожалуйста, статус в трекере. Спасибо!`;
+    else if(tpl==='deadline')m=`${to}, напоминание: срок по задаче «${txt}» — ${t.due}. Текущая готовность: ${t.pct}%. Что нужно, чтобы закрыть? 🙏`;
+    else if(tpl==='status')m=`Команда, еженедельный статус Tumar Family Academy:\n\nОбщая готовность: ${overallPct()}%\nГалия: ${ownerPct('galiya')}% · Алишер: ${ownerPct('alisher')}% · Бруна: ${ownerPct('bruna')}%\nПросрочено задач: ${TASKS.filter(overdue).length}\nДней до Модуля 1 (Дубай): ${daysTo('2026-09-20')}\n\nФокус недели — закрыть критические блокеры.`;
+    else if(tpl==='rfp')m=`${to}, по RFP отелей:\n\nСтатус сбора: ${store.get('rfp',0)}/4 локаций.\nЗакрыть: Дубай (One&Only / FS DIFC), Сингапур (Raffles — проверить даты FinTech Festival), Цюрих (Baur au Lac), Палм-Бич (Breakers).\nКонференц-залы — ключевая переменная бюджета, запросить тарифы отдельно. Спасибо!`;
+  }else{
+    if(tpl==='task')m=`Hi ${to}! Assigning a Tumar Family Academy launch task:\n\n• ${txt}\nDue: ${t.due}\nPhase: ${T(PHASES[t.ph])}\n\nPlease mark the status in the tracker. Thanks!`;
+    else if(tpl==='deadline')m=`${to}, reminder: the task "${txt}" is due ${t.due}. Current progress: ${t.pct}%. What do you need to close it? 🙏`;
+    else if(tpl==='status')m=`Team, weekly status for Tumar Family Academy:\n\nOverall readiness: ${overallPct()}%\nGaliya: ${ownerPct('galiya')}% · Alisher: ${ownerPct('alisher')}% · Bruna: ${ownerPct('bruna')}%\nOverdue tasks: ${TASKS.filter(overdue).length}\nDays to Module 1 (Dubai): ${daysTo('2026-09-20')}\n\nFocus of the week — close the critical blockers.`;
+    else if(tpl==='rfp')m=`${to}, on the hotel RFPs:\n\nCollected: ${store.get('rfp',0)}/4 locations.\nTo close: Dubai (One&Only / FS DIFC), Singapore (Raffles — check FinTech Festival dates), Zurich (Baur au Lac), Palm Beach (Breakers).\nConference rooms are the key budget variable — request day-rates separately. Thanks!`;
+  }
+  if($('#nmsg'))$('#nmsg').value=m;
+}
+function sendWA(){
+  const k=$('#nto').value, ph=(CONTACTS[k]||'').replace(/[^\d]/g,''), msg=$('#nmsg').value.trim();
+  if(!msg){toast(T(L('Введите текст','Enter a message')));return}
+  window.open('https://wa.me/'+ph+'?text='+encodeURIComponent(msg),'_blank');
+  NLOG.unshift({time:new Date().toLocaleString(LANG==='ru'?'ru-RU':'en-GB',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}),to:k,preview:msg.slice(0,70)+(msg.length>70?'…':'')});
+  store.set('nlog',NLOG);render();
+}
+function copyMsg(){const m=$('#nmsg').value;navigator.clipboard?.writeText(m).then(()=>toast(T(L('Текст скопирован','Text copied'))),()=>toast(T(L('Не удалось скопировать','Copy failed'))))}
+
+/* ============ INIT ============ */
+document.documentElement.lang=LANG;
+syncLangUI();buildNav();go('overview');
+
+</script>
+</body>
+</html>
