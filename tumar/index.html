@@ -160,6 +160,21 @@ select{cursor:pointer}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(max-width:760px){.side{position:fixed;left:-260px;transition:.25s;z-index:60}.side.open{left:0}.wrap{padding:20px 16px 60px}.topbar{padding:12px 16px}.menu-btn{display:flex!important}.topbar .ttl{font-size:20px}}
 .menu-btn{display:none;background:var(--navy);color:#fff;border:none;width:36px;height:36px;border-radius:9px;font-size:17px;cursor:pointer;align-items:center;justify-content:center}
+/* ---- MODAL ---- */
+.modal-ov{position:fixed;inset:0;background:rgba(14,27,51,.55);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-ov.hidden{display:none}
+.modal-box{background:#fff;border-radius:18px;padding:28px 28px 22px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(14,27,51,.25)}
+.modal-box h3{font-family:var(--display);font-size:21px;color:var(--navy);margin-bottom:18px;font-weight:600}
+.modal-ft{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+/* ---- ICON BUTTONS ---- */
+.ib{background:none;border:none;cursor:pointer;padding:4px 7px;border-radius:6px;font-size:13px;color:var(--muted);transition:.15s;line-height:1;display:inline-flex;align-items:center}
+.ib:hover{background:var(--ivory2);color:var(--navy)}
+.ib.del:hover{background:var(--redbg);color:var(--red)}
+/* ---- ROLE CHIP ---- */
+.role-chips{display:flex;gap:5px;flex-wrap:wrap;padding:10px 12px 14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.rchip{font-size:11px;font-weight:700;padding:5px 10px;border-radius:16px;border:1px solid rgba(255,255,255,.18);color:#bcc5d8;cursor:pointer;transition:.15s;background:none;font-family:var(--body);letter-spacing:.03em}
+.rchip:hover{background:rgba(255,255,255,.08);color:#fff}
+.rchip.on{background:var(--bronze);color:#fff;border-color:var(--bronze)}
 </style>
 </head>
 <body>
@@ -170,6 +185,7 @@ select{cursor:pointer}
       <h1>Family<br>Academy</h1>
       <div class="sub" id="brandSub">Центр управления запуском · 2026–2028</div>
     </div>
+    <div class="role-chips" id="roleChips"></div>
     <nav class="nav" id="nav"></nav>
   </aside>
   <main class="main">
@@ -187,6 +203,9 @@ select{cursor:pointer}
   </main>
 </div>
 <div class="toast" id="toast"></div>
+<div class="modal-ov hidden" id="modalOv" onclick="closeModalOv(event)">
+  <div class="modal-box" id="modalBox" onclick="event.stopPropagation()"></div>
+</div>
 
 <script>
 /* ============ STORE ============ */
@@ -201,11 +220,24 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt=n=>'$'+Math.round(n).toLocaleString('en-US');
 
+/* ============ ROLE ============ */
+let MY_ROLE=store.get('myrole','all');
+function setMyRole(r){MY_ROLE=r;store.set('myrole',r);buildRoleChips();render()}
+function buildRoleChips(){
+  const opts=[['all',L('Все роли','All roles')],['galiya',L('Я — Галия','I am Galiya')],['alisher',L('Я — Алишер','I am Alisher')],['bruna',L('Я — Бруна','I am Bruna')]];
+  $('#roleChips').innerHTML=opts.map(([k,v])=>`<button class="rchip ${MY_ROLE===k?'on':''}" onclick="setMyRole('${k}')">${T(v)}</button>`).join('');
+}
+
+/* ============ MODAL ============ */
+function openModal(html){$('#modalBox').innerHTML=html;$('#modalOv').classList.remove('hidden')}
+function closeModal(){$('#modalOv').classList.add('hidden')}
+function closeModalOv(e){if(e.target===$('#modalOv'))closeModal()}
+
 /* ============ LANG ============ */
 let LANG=store.get('lang','ru');
 const L=(ru,en)=>({ru,en});
 function T(x){if(x&&typeof x==='object'&&('ru' in x||'en' in x))return x[LANG]??x.ru??x.en??'';return x}
-function setLang(l){LANG=l;store.set('lang',l);document.documentElement.lang=l;syncLangUI();buildNav();$('#viewTitle').textContent=T(UI[CUR]);render()}
+function setLang(l){LANG=l;store.set('lang',l);document.documentElement.lang=l;syncLangUI();buildNav();buildRoleChips();$('#viewTitle').textContent=T(UI[CUR]);render()}
 function syncLangUI(){$('#lru').classList.toggle('on',LANG==='ru');$('#len').classList.toggle('on',LANG==='en');$('#brandSub').textContent=T(L('Центр управления запуском · 2026–2028','Launch control center · 2026–2028'))}
 
 /* ============ AI TRANSLATION ============ */
@@ -383,6 +415,35 @@ const VIEWS=[
   {id:'market',ico:'▲',grp:'gAnalytics'},{id:'client',ico:'☺',grp:'gAnalytics'},{id:'budget',ico:'$',grp:'gAnalytics'},
   {id:'docs',ico:'▦',grp:'gOps'},{id:'notify',ico:'✆',grp:'gOps'}
 ];
+/* ============ PERSONAL DASHBOARD ============ */
+function vMyDash(){
+  const r=MY_ROLE;
+  const m=TEAM[r];
+  const myTasks=TASKS.filter(t=>t.o===r);
+  const doneCnt=myTasks.filter(t=>t.pct>=100).length;
+  const overdueCnt=myTasks.filter(overdue).length;
+  const next=myTasks.filter(t=>t.pct<100).sort((a,b)=>new Date(a.due)-new Date(b.due)).slice(0,6);
+  return `
+  <div class="eyebrow">${T(L('Персональный дашборд','Personal dashboard'))}</div>
+  <h2 class="sec">${T(m.name)} · ${T(m.role)}</h2>
+  <p class="lead">${T(L('Только ваши задачи и зона ответственности. Переключитесь на «Все роли» чтобы увидеть полный план.','Your tasks and area of responsibility only. Switch to "All roles" to see the full plan.'))}</p>
+  <div class="grid g3" style="margin-bottom:20px">
+    <div class="kpi"><div class="lbl">${T(L('Готовность зоны','Zone readiness'))}</div><div class="val">${ownerPct(r)}<small>%</small></div><div class="bar"><i style="width:${ownerPct(r)}%"></i></div></div>
+    <div class="kpi"><div class="lbl">${T(L('Выполнено','Done'))}</div><div class="val">${doneCnt}<small> / ${myTasks.length}</small></div></div>
+    <div class="kpi ${overdueCnt?'warn':'ok'}"><div class="lbl">${T(L('Просрочено','Overdue'))}</div><div class="val">${overdueCnt}</div></div>
+  </div>
+  <div class="card" style="margin-bottom:18px">
+    <div class="eyebrow">${T(L('Мои задачи','My tasks'))}</div>
+    <table><thead><tr><th style="width:44%">${T(L('Задача','Task'))}</th><th>${T(L('Фаза','Phase'))}</th><th>${T(L('Срок','Due'))}</th><th>${T(L('Статус','Status'))}</th><th style="width:110px">%</th><th style="width:58px"></th></tr></thead><tbody>
+    ${myTasks.map(t=>`<tr data-id="${t.id}"><td>${t.crit?'<span class="dot" style="background:var(--red);margin-right:6px"></span>':''}${esc(T(t.t))}</td><td class="mini">${T(PHASES[t.ph])}</td><td class="mini" style="color:${overdue(t)?'var(--red)':'var(--muted)'};white-space:nowrap">${t.due.slice(5)}${overdue(t)?' ⚠':''}</td><td><span class="bdg ${statusOf(t.pct)}">${statusLbl(t.pct)}</span></td><td><div class="inline-edit"><input type="range" min="0" max="100" step="5" value="${t.pct}" data-id="${t.id}" style="width:74px"><span class="pill" id="p${t.id}">${t.pct}%</span></div></td><td><button class="ib" onclick="editTask(${t.id})">✏️</button><button class="ib del" onclick="delTask(${t.id})">✕</button></td></tr>`).join('')}
+    </tbody></table>
+  </div>
+  <div class="card"><div class="eyebrow">${T(L('Зона ответственности','Area of responsibility'))}</div>
+    <ul>${m.own.map(x=>`<li style="font-size:13px;padding:6px 0 6px 18px;position:relative;border-bottom:1px solid var(--line)"><span style="position:absolute;left:0;color:var(--bronze)">›</span>${esc(T(x))}</li>`).join('')}</ul>
+    <div style="margin-top:14px"><div class="eyebrow">${T(L('Фокус контроля','Control focus'))}</div><ul>${m.focus.map(x=>`<li style="font-size:13px;padding:5px 0 5px 18px;position:relative"><span style="position:absolute;left:0;color:var(--bronze)">✓</span>${esc(T(x))}</li>`).join('')}</ul></div>
+  </div>`;
+}
+
 function buildNav(){
   let h='',lastGrp=null;
   VIEWS.forEach(v=>{
@@ -407,8 +468,10 @@ function tt(x){return T(x)} // task/doc text holder accessor
 /* ============ RENDER ============ */
 function render(){
   $('#topMeta').innerHTML=`${T(UI.ready)} · <b style="color:var(--bronze-d)">${overallPct()}%</b>`;
-  $('#wrap').innerHTML=({overview:vOverview,team:vTeam,strategy:vStrategy,calendar:vCalendar,tasks:vTasks,control:vControl,market:vMarket,client:vClient,budget:vBudget,docs:vDocs,notify:vNotify}[CUR])();
-  if(CUR==='tasks')bindTasks();
+  // personal dashboard overrides overview when a role is selected
+  const viewFn=(MY_ROLE!=='all'&&CUR==='overview')?vMyDash:({overview:vOverview,team:vTeam,strategy:vStrategy,calendar:vCalendar,tasks:vTasks,control:vControl,market:vMarket,client:vClient,budget:vBudget,docs:vDocs,notify:vNotify}[CUR]);
+  $('#wrap').innerHTML=viewFn();
+  if(CUR==='tasks'||(MY_ROLE!=='all'&&CUR==='overview'))bindTasks();
   if(CUR==='notify')fillTpl();
 }
 
@@ -503,8 +566,8 @@ function vTasks(){
     <div class="mini" style="margin-top:7px">${T(L('Перевод на второй язык подставится автоматически при наличии связи; офлайн — текст можно отредактировать вручную.','The other-language translation fills in automatically when online; offline, the text can be edited manually.'))}</div>
   </div>
   <div class="chips">${owners.map(([k,v])=>`<button class="chip ${taskFilter===k?'on':''}" onclick="setTF('${k}')">${T(v)}${k!=='all'?` · ${ownerPct(k)}%`:''}</button>`).join('')}</div>
-  <div class="tbl-wrap"><table><thead><tr><th style="width:40%">${T(L('Задача','Task'))}</th><th>${T(L('Фаза','Phase'))}</th><th>${T(L('Ответственный','Owner'))}</th><th>${T(L('Срок','Due'))}</th><th>${T(L('Статус','Status'))}</th><th style="width:120px">%</th></tr></thead><tbody>
-  ${list.map(t=>`<tr data-id="${t.id}"><td>${t.crit?'<span class="dot" style="background:var(--red);margin-right:6px"></span>':''}${esc(T(t.t))}${t._tr?`<span class="tr-flag"><span class="spin"></span> ${T(L('перевод…','translating…'))}</span>`:''}</td><td class="mini">${T(PHASES[t.ph])}</td><td>${T(TEAM[t.o].name)}</td><td class="mini" style="color:${overdue(t)?'var(--red)':'var(--muted)'};white-space:nowrap">${t.due.slice(5)}${overdue(t)?' ⚠':''}</td><td><span class="bdg ${statusOf(t.pct)}">${statusLbl(t.pct)}</span></td><td><div class="inline-edit"><input type="range" min="0" max="100" step="5" value="${t.pct}" data-id="${t.id}" style="width:74px"><span class="pill" id="p${t.id}">${t.pct}%</span></div></td></tr>`).join('')}
+  <div class="tbl-wrap"><table><thead><tr><th style="width:36%">${T(L('Задача','Task'))}</th><th>${T(L('Фаза','Phase'))}</th><th>${T(L('Ответственный','Owner'))}</th><th>${T(L('Срок','Due'))}</th><th>${T(L('Статус','Status'))}</th><th style="width:110px">%</th><th style="width:58px"></th></tr></thead><tbody>
+  ${list.map(t=>`<tr data-id="${t.id}"><td>${t.crit?'<span class="dot" style="background:var(--red);margin-right:6px"></span>':''}${esc(T(t.t))}${t._tr?`<span class="tr-flag"><span class="spin"></span> ${T(L('перевод…','translating…'))}</span>`:''}</td><td class="mini">${T(PHASES[t.ph])}</td><td>${T(TEAM[t.o].name)}</td><td class="mini" style="color:${overdue(t)?'var(--red)':'var(--muted)'};white-space:nowrap">${t.due.slice(5)}${overdue(t)?' ⚠':''}</td><td><span class="bdg ${statusOf(t.pct)}">${statusLbl(t.pct)}</span></td><td><div class="inline-edit"><input type="range" min="0" max="100" step="5" value="${t.pct}" data-id="${t.id}" style="width:74px"><span class="pill" id="p${t.id}">${t.pct}%</span></div></td><td style="white-space:nowrap"><button class="ib" onclick="editTask(${t.id})" title="${T(L('Редактировать','Edit'))}">✏️</button><button class="ib del" onclick="delTask(${t.id})" title="${T(L('Удалить','Delete'))}">✕</button></td></tr>`).join('')}
   </tbody></table></div>
   <div style="margin-top:14px"><button class="btn gh sm" onclick="resetTasks()">${T(L('Сбросить к исходному','Reset to defaults'))}</button></div>`;
 }
@@ -525,6 +588,33 @@ async function addTask(){
   const ref=TASKS.find(x=>x.id===t.id);if(ref){if(tr)ref.t[other]=tr;ref._tr=false;store.set('tasks',TASKS);if(CUR==='tasks')render();toast(tr?T(L('Задача добавлена и переведена','Task added and translated')):T(L('Задача добавлена (перевод офлайн недоступен)','Task added (translation offline unavailable)')))}
 }
 function resetTasks(){if(confirm(T(L('Сбросить все статусы задач к исходным значениям?','Reset all task statuses to defaults?')))){localStorage.removeItem(KEY+':tasks');localStorage.removeItem(KEY+':taskseq');location.reload()}}
+
+function delTask(id){if(!confirm(T(L('Удалить задачу?','Delete this task?'))))return;TASKS=TASKS.filter(t=>t.id!==id);store.set('tasks',TASKS);render();toast(T(L('Задача удалена','Task deleted')))}
+
+function editTask(id){
+  const t=TASKS.find(x=>x.id===id);if(!t)return;
+  const phOpts=PHASES.map((p,i)=>`<option value="${i}" ${t.ph===i?'selected':''}>${T(p)}</option>`).join('');
+  const owOpts=['galiya','alisher','bruna'].map(k=>`<option value="${k}" ${t.o===k?'selected':''}>${T(TEAM[k].name)}</option>`).join('');
+  openModal(`<h3>${T(L('Редактировать задачу','Edit task'))}</h3>
+    <div class="field"><label>${T(L('Текст (RU)','Text (RU)'))}</label><input id="et_ru" type="text" value="${esc(t.t.ru||'')}"></div>
+    <div class="field"><label>${T(L('Текст (EN)','Text (EN)'))}</label><input id="et_en" type="text" value="${esc(t.t.en||'')}"></div>
+    <div class="grid g2">
+      <div class="field"><label>${T(L('Ответственный','Owner'))}</label><select id="et_o">${owOpts}</select></div>
+      <div class="field"><label>${T(L('Фаза','Phase'))}</label><select id="et_ph">${phOpts}</select></div>
+    </div>
+    <div class="grid g2">
+      <div class="field"><label>${T(L('Срок','Due date'))}</label><input id="et_due" type="date" value="${t.due}"></div>
+      <div class="field"><label style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" id="et_crit" ${t.crit?'checked':''}> ${T(L('Критический блокер','Critical blocker'))}</label></div>
+    </div>
+    <div class="modal-ft"><button class="btn gh sm" onclick="closeModal()">${T(L('Отмена','Cancel'))}</button><button class="btn pri sm" onclick="saveTaskEdit(${id})">${T(L('Сохранить','Save'))}</button></div>`);
+}
+
+function saveTaskEdit(id){
+  const t=TASKS.find(x=>x.id===id);if(!t)return;
+  t.t={ru:$('#et_ru').value.trim()||t.t.ru,en:$('#et_en').value.trim()||t.t.en};
+  t.o=$('#et_o').value;t.ph=+$('#et_ph').value;t.due=$('#et_due').value;t.crit=$('#et_crit').checked;
+  store.set('tasks',TASKS);closeModal();render();toast(T(L('Задача обновлена','Task updated')));
+}
 
 function vControl(){
   const sets={
@@ -589,8 +679,8 @@ function vBudget(){
     <div class="kpi warn"><div class="lbl">${T(L('Макс. неблагоприятный','Maximum adverse'))}</div><div class="val" style="font-size:24px">${fmt(PROG_TOTAL.maxAdverse)}+</div><div class="note">${T(L('все риски сразу','all risks at once'))}</div></div>
   </div>
   <h3 style="font-family:var(--display);font-size:18px;color:var(--navy);margin:6px 0 10px">${T(L('Стоимость по модулям — все сценарии','Cost by module — all scenarios'))}</h3>
-  <div class="tbl-wrap" style="margin-bottom:24px"><table><thead><tr><th>${T(L('Модуль','Module'))}</th><th>${T(L('Локация','Location'))}</th><th>${T(L('Даты','Dates'))}</th><th class="num">${T(L('Минимум','Minimum'))}</th><th class="num">${T(L('База','Base'))}</th><th class="num">${T(L('Максимум','Maximum'))}</th></tr></thead><tbody>
-    ${MODULES.map(m=>`<tr><td><b>${T(m.n)}</b></td><td>${T(m.city)}</td><td class="mini">${T(m.date)}</td><td class="num">${fmt(m.low)}</td><td class="num"><b>${fmt(m.base)}</b></td><td class="num">${fmt(m.high)}</td></tr>`).join('')}
+  <div class="tbl-wrap" style="margin-bottom:24px"><table><thead><tr><th>${T(L('Модуль','Module'))}</th><th>${T(L('Локация','Location'))}</th><th>${T(L('Даты','Dates'))}</th><th class="num">${T(L('Минимум','Minimum'))}</th><th class="num">${T(L('База','Base'))}</th><th class="num">${T(L('Максимум','Maximum'))}</th><th style="width:40px"></th></tr></thead><tbody>
+    ${MODULES.map((m,i)=>`<tr><td><b>${T(m.n)}</b></td><td>${T(m.city)}</td><td class="mini">${T(m.date)}</td><td class="num">${fmt(m.low)}</td><td class="num"><b>${fmt(m.base)}</b></td><td class="num">${fmt(m.high)}</td><td><button class="ib" onclick="editModule(${i})" title="${T(L('Изменить','Edit'))}">✏️</button></td></tr>`).join('')}
     <tr style="background:var(--paper)"><td colspan="3"><b>${T(L('Итого цикл (Вариант A · FOX)','Cycle total (Option A · FOX)'))}</b></td><td class="num"><b>${fmt(PROG_TOTAL.low)}</b></td><td class="num"><b>${fmt(PROG_TOTAL.base)}</b></td><td class="num"><b>${fmt(PROG_TOTAL.high)}</b></td></tr>
     <tr><td colspan="3" class="mini">${T(L('Вариант B (Нью-Йорк вместо Палм-Бич, без FOX)','Option B (New York instead of Palm Beach, no FOX)'))}</td><td colspan="3" class="num"><b>${fmt(PROG_TOTAL.optionB)}</b> ${T(L('базовый','base'))}</td></tr>
   </tbody></table></div>
@@ -601,6 +691,31 @@ function vBudget(){
   <div class="callout"><b>${T(L('Открытый вопрос — цена за семью.','Open question — price per family.'))}</b> ${T(L('При бюджете цикла ≈ '+fmt(PROG_TOTAL.contingency)+' (с буфером) и группе из 8 семей точка безубыточности по проведению — около '+fmt(PROG_TOTAL.contingency/8)+' на семью, без окладов и прибыли. Рыночный ориентир за цикл — $40–110 тыс.','With a cycle budget of ≈ '+fmt(PROG_TOTAL.contingency)+' (with buffer) and 8 families, the delivery break-even is about '+fmt(PROG_TOTAL.contingency/8)+' per family, before salaries and profit. The market reference per cycle is $40–110K.'))}</div>`;
 }
 function setScenario(s){store.set('scenario',s);render()}
+
+function editModule(i){
+  const m=MODULES[i];
+  openModal(`<h3>${T(m.n)} — ${T(L('Редактировать бюджет','Edit budget'))}</h3>
+    <div class="callout" style="margin:0 0 14px;font-size:12.5px">${T(L('Эти данные меняются только в этом браузере; при «Сбросить» вернутся к исходным.','These figures change only in this browser; use Reset to restore defaults.'))}</div>
+    <div class="field"><label>${T(L('Локация (RU)','Location (RU)'))}</label><input id="em_cru" type="text" value="${esc(m.city.ru||T(m.city))}"></div>
+    <div class="field"><label>${T(L('Локация (EN)','Location (EN)'))}</label><input id="em_cen" type="text" value="${esc(m.city.en||T(m.city))}"></div>
+    <div class="field"><label>${T(L('Даты (RU)','Dates (RU)'))}</label><input id="em_dru" type="text" value="${esc(m.date.ru||T(m.date))}"></div>
+    <div class="field"><label>${T(L('Даты (EN)','Dates (EN)'))}</label><input id="em_den" type="text" value="${esc(m.date.en||T(m.date))}"></div>
+    <div class="grid g3">
+      <div class="field"><label>${T(L('Минимум $','Minimum $'))}</label><input id="em_low" type="number" value="${m.low}"></div>
+      <div class="field"><label>${T(L('База $','Base $'))}</label><input id="em_base" type="number" value="${m.base}"></div>
+      <div class="field"><label>${T(L('Максимум $','Maximum $'))}</label><input id="em_high" type="number" value="${m.high}"></div>
+    </div>
+    <div class="modal-ft"><button class="btn gh sm" onclick="closeModal()">${T(L('Отмена','Cancel'))}</button><button class="btn pri sm" onclick="saveModuleEdit(${i})">${T(L('Сохранить','Save'))}</button></div>`);
+}
+function saveModuleEdit(i){
+  const m=MODULES[i];
+  m.city={ru:$('#em_cru').value||T(m.city),en:$('#em_cen').value||T(m.city)};
+  m.date={ru:$('#em_dru').value||T(m.date),en:$('#em_den').value||T(m.date)};
+  m.low=+$('#em_low').value||m.low;m.base=+$('#em_base').value||m.base;m.high=+$('#em_high').value||m.high;
+  // save to localStorage
+  store.set('modules',MODULES.map(x=>({city:x.city,date:x.date,low:x.low,base:x.base,high:x.high})));
+  closeModal();render();toast(T(L('Модуль обновлён','Module updated')));
+}
 
 let docCat='all';
 function vDocs(){
@@ -619,7 +734,7 @@ function vDocs(){
     </div>
   </div>
   <div class="catbar"><button class="chip ${docCat==='all'?'on':''}" onclick="setDocCat('all')">${T(L('Все','All'))} · ${DOCS.length}</button>${DOC_CATS.map(c=>{const n=DOCS.filter(d=>d.cat===c.id).length;return n?`<button class="chip ${docCat===c.id?'on':''}" onclick="setDocCat('${c.id}')">${c.ico} ${T(c.lbl)} · ${n}</button>`:''}).join('')}</div>
-  <div>${list.length?list.map(d=>`<div class="doc"><div class="ic">${catIco(d.cat)}</div><div class="info"><div class="dn">${esc(T(d.name))}${d._tr?`<span class="tr-flag"><span class="spin"></span></span>`:''}</div><div class="dm">${catLbl(d.cat)} · ${esc(T(d.meta||''))}</div></div>${d.data?`<a class="btn gh sm" href="${d.data}" download="${esc(T(d.name))}">${T(L('Скачать','Download'))}</a>`:d.link?`<a class="btn gh sm" href="${esc(d.link)}" target="_blank" rel="noopener">${T(L('Открыть','Open'))}</a>`:''}<button class="btn gh sm" onclick="delDoc(${d.id})">✕</button></div>`).join(''):`<div class="card" style="text-align:center;color:var(--muted)">${T(L('В этом разделе пока пусто.','This section is empty for now.'))}</div>`}</div>`;
+  <div>${list.length?list.map(d=>`<div class="doc"><div class="ic">${catIco(d.cat)}</div><div class="info"><div class="dn">${esc(T(d.name))}${d._tr?`<span class="tr-flag"><span class="spin"></span></span>`:''}</div><div class="dm">${catLbl(d.cat)} · ${esc(T(d.meta||''))}</div></div>${d.data?`<a class="btn gh sm" href="${d.data}" download="${esc(T(d.name))}">${T(L('Скачать','Download'))}</a>`:d.link?`<a class="btn gh sm" href="${esc(d.link)}" target="_blank" rel="noopener">${T(L('Открыть','Open'))}</a>`:''}<button class="ib" onclick="editDoc(${d.id})" title="${T(L('Редактировать','Edit'))}">✏️</button><button class="ib del" onclick="delDoc(${d.id})" title="${T(L('Удалить','Delete'))}">✕</button></div>`).join(''):`<div class="card" style="text-align:center;color:var(--muted)">${T(L('В этом разделе пока пусто.','This section is empty for now.'))}</div>`}</div>`;
 }
 function setDocCat(c){docCat=c;render()}
 async function addDoc(){
@@ -639,6 +754,24 @@ function attachFile(inp){
   rd.readAsDataURL(f);
 }
 function delDoc(id){DOCS=DOCS.filter(d=>d.id!==id);store.set('docs',DOCS);render()}
+
+function editDoc(id){
+  const d=DOCS.find(x=>x.id===id);if(!d)return;
+  const catOpts=DOC_CATS.map(c=>`<option value="${c.id}" ${d.cat===c.id?'selected':''}>${c.ico} ${T(c.lbl)}</option>`).join('');
+  openModal(`<h3>${T(L('Редактировать документ','Edit document'))}</h3>
+    <div class="field"><label>${T(L('Название (RU)','Name (RU)'))}</label><input id="ed_ru" type="text" value="${esc(d.name.ru||'')}"></div>
+    <div class="field"><label>${T(L('Название (EN)','Name (EN)'))}</label><input id="ed_en" type="text" value="${esc(d.name.en||'')}"></div>
+    <div class="field"><label>${T(L('Раздел','Category'))}</label><select id="ed_cat">${catOpts}</select></div>
+    <div class="field"><label>${T(L('Ссылка','Link'))}</label><input id="ed_lnk" type="text" value="${esc(d.link||'')}"></div>
+    <div class="modal-ft"><button class="btn gh sm" onclick="closeModal()">${T(L('Отмена','Cancel'))}</button><button class="btn pri sm" onclick="saveDocEdit(${id})">${T(L('Сохранить','Save'))}</button></div>`);
+}
+function saveDocEdit(id){
+  const d=DOCS.find(x=>x.id===id);if(!d)return;
+  const ru=$('#ed_ru').value.trim(),en=$('#ed_en').value.trim();
+  if(ru)d.name.ru=ru;if(en)d.name.en=en;
+  d.cat=$('#ed_cat').value;d.link=$('#ed_lnk').value.trim();
+  store.set('docs',DOCS);closeModal();render();toast(T(L('Документ обновлён','Document updated')));
+}
 
 function vNotify(){
   return `<h2 class="sec">${T(L('Уведомления в WhatsApp','WhatsApp notifications'))}</h2>
@@ -697,8 +830,11 @@ function sendWA(){
 function copyMsg(){const m=$('#nmsg').value;navigator.clipboard?.writeText(m).then(()=>toast(T(L('Текст скопирован','Text copied'))),()=>toast(T(L('Не удалось скопировать','Copy failed'))))}
 
 /* ============ INIT ============ */
+// Restore saved module edits
+(()=>{const saved=store.get('modules',null);if(saved&&Array.isArray(saved))saved.forEach((s,i)=>{if(MODULES[i])Object.assign(MODULES[i],s)})})();
+
 document.documentElement.lang=LANG;
-syncLangUI();buildNav();go('overview');
+syncLangUI();buildNav();buildRoleChips();go('overview');
 
 </script>
 </body>
