@@ -515,30 +515,36 @@
 
 (function(){
   const btn=document.getElementById('music');
-  let player=null, ready=false;
+  let player=null, ready=false, unmuted=false;
   const tag=document.createElement('script');
   tag.src='https://www.youtube.com/iframe_api';
   document.head.appendChild(tag);
   window.onYouTubeIframeAPIReady=function(){
     player=new YT.Player('yt-player',{
       videoId:'VPFLlJoicD8',
-      playerVars:{autoplay:1,controls:0,loop:1,playlist:'VPFLlJoicD8',playsinline:1,rel:0},
-      events:{onReady:function(){ ready=true; start(); }, onStateChange:updateBtn}
+      // mute:1 позволяет автозапуск без разрешения браузера — звук включим при касании
+      playerVars:{autoplay:1,mute:1,controls:0,loop:1,playlist:'VPFLlJoicD8',playsinline:1,rel:0},
+      events:{onReady:function(){ ready=true; try{ player.mute(); player.playVideo(); }catch(e){} }, onStateChange:updateBtn}
     });
   };
-  function start(){ if(!ready||!player) return; try{ player.unMute(); player.setVolume(55); player.playVideo(); }catch(e){} }
-  window.__startMelody=start;
+  function unmute(){
+    if(!ready||!player) return;
+    try{ player.unMute(); player.setVolume(55); unmuted=true; }catch(e){}
+    updateBtn();
+  }
+  window.__startMelody=unmute;
   function updateBtn(){
     if(!btn||!player||!player.getPlayerState) return;
-    if(player.getPlayerState()===1){ btn.classList.add('playing'); btn.textContent='❚❚'; }
+    if(player.getPlayerState()===1 && unmuted){ btn.classList.add('playing'); btn.textContent='❚❚'; }
     else{ btn.classList.remove('playing'); btn.textContent='♪'; }
   }
-  function gesture(){ start(); document.removeEventListener('pointerdown',gesture); }
+  // при первом касании — мгновенно включаем звук (видео уже играет без звука)
+  function gesture(){ unmute(); document.removeEventListener('pointerdown',gesture); }
   document.addEventListener('pointerdown',gesture);
   if(btn) btn.addEventListener('click',function(){
     if(!ready||!player) return;
-    if(player.getPlayerState()===1) player.pauseVideo();
-    else { player.unMute(); player.playVideo(); }
+    if(player.getPlayerState()===1 && unmuted){ player.pauseVideo(); unmuted=false; }
+    else { player.unMute(); player.setVolume(55); player.playVideo(); unmuted=true; }
     setTimeout(updateBtn,300);
   });
 })();
