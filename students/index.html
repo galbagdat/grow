@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Группа кураторов — панель сопровождения</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --navy-deep:#FAFAF8;
+  --navy-panel:#FFFFFF;
+  --navy-panel-2:#F4F2EC;
+  --navy-line:#E3E1D8;
+  --gold:#C79A42;
+  --gold-soft:#A87B2A;
+  --cream:#16313F;
+  --ink:#233038;
+  --ink-soft:rgba(35,48,56,0.62);
+  --ink-faint:rgba(35,48,56,0.40);
+  --green:#4F7A68;
+  --green-bg:rgba(79,122,104,0.13);
+  --terracotta:#B05A35;
+  --terracotta-bg:rgba(176,90,53,0.13);
+  --amber:#A8761F;
+  --amber-bg:rgba(168,118,31,0.13);
+  --radius:10px;
+  --serif:'Manrope', 'Inter', -apple-system, sans-serif;
+  --sans:'Inter', -apple-system, sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--navy-deep);
+  color:var(--ink);
+  font-family:var(--sans);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--gold-soft);}
+
+/* Layout */
+.app{display:flex;min-height:100vh;}
+.sidebar{
+  width:264px;
+  flex-shrink:0;
+  background:#154C61;
+  border-right:1px solid #0E3949;
+  padding:28px 18px;
+  display:flex;
+  flex-direction:column;
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow-y:auto;
+  --navy-deep:#0F3F51;
+  --navy-line:#26607A;
+  --cream:#FBF7EC;
+  --ink:#EDEAE0;
+  --ink-soft:rgba(237,234,224,0.72);
+  --ink-faint:rgba(237,234,224,0.46);
+  --gold:#D9B25E;
+  --gold-soft:#EFCD83;
+}
+.brand{padding:0 8px 22px 8px;border-bottom:1px solid var(--navy-line);margin-bottom:18px;}
+.brand-mark{display:flex;align-items:center;gap:7px;margin-bottom:12px;}
+.brand-mark svg{display:block;}
+.brand-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700;}
+.brand-title{font-family:var(--serif);font-weight:800;font-size:20px;line-height:1.25;margin:6px 0 2px;color:var(--cream);letter-spacing:-.01em;}
+.brand-sub{font-size:12.5px;color:var(--ink-soft);}
+
+.nav{display:flex;flex-direction:column;gap:3px;}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 12px;border-radius:8px;
+  color:var(--ink-soft);font-size:14.5px;font-weight:500;
+  cursor:pointer;border:1px solid transparent;
+  transition:background .15s, color .15s;
+  background:none;
+  text-align:left;
+  font-family:var(--sans);
+}
+.nav-item .ic{width:18px;text-align:center;opacity:.85;font-size:14px;}
+.nav-item:hover{background:rgba(251,247,236,0.08);color:var(--cream);}
+.nav-item.active{background:rgba(217,178,94,0.16);color:var(--gold-soft);border-color:rgba(217,178,94,0.32);}
+
+.nav-sep{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);font-weight:700;padding:14px 12px 6px;}
+
+.sidebar-foot{margin-top:auto;padding:14px 10px 4px;font-size:11.5px;color:var(--ink-faint);border-top:1px solid var(--navy-line);}
+
+.main{flex:1;min-width:0;padding:34px 40px 60px;max-width:1280px;}
+.view{display:none;}
+.view.active{display:block;}
+
+.page-head{margin-bottom:26px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;}
+.page-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);font-weight:700;margin-bottom:6px;}
+.page-title{font-family:var(--serif);font-weight:800;font-size:29px;color:var(--cream);margin:0;letter-spacing:-.01em;}
+.page-desc{color:var(--ink-soft);font-size:14px;margin-top:6px;max-width:620px;}
+
+/* Cards / panels */
+.panel{
+  background:var(--navy-panel);
+  border:1px solid var(--navy-line);
+  border-radius:var(--radius);
+  padding:22px 22px;
+  margin-bottom:20px;
+  box-shadow:0 1px 2px rgba(22,49,63,0.04);
+}
+.panel-title{font-family:var(--serif);font-weight:700;font-size:16.5px;color:var(--cream);margin:0 0 4px;}
+.panel-sub{font-size:13px;color:var(--ink-soft);margin-bottom:16px;}
+
+/* Stat grid */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+.stat-card{
+  background:var(--navy-panel);border:1px solid var(--navy-line);border-radius:var(--radius);
+  padding:18px 18px 16px;
+  box-shadow:0 1px 2px rgba(22,49,63,0.04);
+}
+.stat-num{font-family:var(--serif);font-size:30px;color:var(--gold-soft);line-height:1;}
+.stat-label{font-size:12.5px;color:var(--ink-soft);margin-top:6px;}
+
+/* Module journey (signature element) */
+.journey{display:flex;align-items:flex-start;gap:0;margin:6px 0 4px;overflow-x:auto;padding-bottom:6px;}
+.journey-step{
+  display:flex;flex-direction:column;align-items:center;
+  min-width:108px;position:relative;flex-shrink:0;
+}
+.journey-step:not(:last-child)::after{
+  content:'';position:absolute;top:15px;left:62%;width:80%;height:2px;
+  background:var(--navy-line);z-index:0;
+}
+.journey-step.done:not(:last-child)::after{background:var(--green);}
+.j-dot{
+  width:30px;height:30px;border-radius:50%;
+  border:2px solid var(--navy-line);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--ink-faint);
+  background:var(--navy-deep);z-index:1;
+}
+.journey-step.done .j-dot{background:var(--green);border-color:var(--green);color:#FFFFFF;}
+.journey-step.current .j-dot{background:var(--gold);border-color:var(--gold);color:var(--cream);box-shadow:0 0 0 4px rgba(199,154,66,0.22);}
+.j-label{font-size:11.5px;color:var(--ink-soft);margin-top:8px;text-align:center;line-height:1.3;}
+.j-date{font-size:10.5px;color:var(--ink-faint);margin-top:2px;}
+
+/* Tables */
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+th{
+  text-align:left;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink-faint);font-weight:600;padding:9px 10px;border-bottom:1px solid var(--navy-line);
+  white-space:nowrap;
+}
+td{padding:8px 10px;border-bottom:1px solid var(--navy-line);vertical-align:middle;}
+tr:hover td{background:rgba(35,48,56,0.035);}
+td input[type=text], td input[type=email], td input[type=tel], td input[type=url]{
+  background:transparent;border:1px solid transparent;color:var(--ink);
+  font-family:var(--sans);font-size:13.5px;padding:5px 6px;border-radius:6px;width:100%;min-width:90px;
+}
+td input:focus, textarea:focus, select:focus{
+  outline:none;border-color:var(--gold);background:rgba(199,154,66,0.08);
+}
+td select{
+  background:var(--navy-deep);border:1px solid var(--navy-line);color:var(--ink);
+  font-family:var(--sans);font-size:12.5px;padding:5px 6px;border-radius:6px;
+}
+.col-num{color:var(--ink-faint);font-size:12px;width:26px;}
+
+/* attendance cells */
+.att-cell select{width:96px;}
+.att-present{color:var(--green);}
+.att-absent{color:var(--terracotta);}
+
+/* Buttons */
+.btn{
+  font-family:var(--sans);font-size:13px;font-weight:600;
+  border-radius:7px;padding:8px 14px;border:1px solid var(--navy-line);
+  background:var(--navy-panel);color:var(--ink);cursor:pointer;
+  transition:border-color .15s, color .15s;
+}
+.btn:hover{border-color:var(--gold);color:var(--gold-soft);}
+.btn-gold{background:var(--gold);color:var(--cream);border-color:var(--gold);font-weight:700;}
+.btn-gold:hover{background:var(--gold-soft);color:#FFFFFF;}
+.btn-ghost{background:none;border:none;color:var(--ink-soft);padding:6px 8px;}
+.btn-ghost:hover{color:var(--terracotta);}
+.btn-sm{padding:5px 10px;font-size:12px;}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+
+textarea{
+  width:100%;background:var(--navy-deep);border:1px solid var(--navy-line);border-radius:8px;
+  color:var(--ink);font-family:var(--sans);font-size:13.5px;padding:10px;resize:vertical;min-height:70px;
+}
+input.std{
+  background:var(--navy-deep);border:1px solid var(--navy-line);border-radius:7px;
+  color:var(--ink);font-family:var(--sans);font-size:13.5px;padding:8px 10px;width:100%;
+}
+
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:11.5px;font-weight:600;}
+.badge-green{background:var(--green-bg);color:var(--green);}
+.badge-amber{background:var(--amber-bg);color:var(--amber);}
+.badge-terra{background:var(--terracotta-bg);color:var(--terracotta);}
+.badge-muted{background:rgba(35,48,56,0.07);color:var(--ink-faint);}
+
+.checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;}
+.checklist li{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;background:var(--navy-deep);border:1px solid var(--navy-line);border-radius:8px;}
+.checklist li input[type=checkbox]{margin-top:3px;accent-color:var(--gold);width:15px;height:15px;flex-shrink:0;}
+.checklist li input[type=text]{flex:1;background:none;border:none;color:var(--ink);font-size:13.5px;}
+.checklist li .order-no{color:var(--gold);font-family:var(--serif);font-size:13px;min-width:18px;}
+
+.two-col{display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;align-items:flex-start;}
+@media (max-width:980px){.two-col{grid-template-columns:1fr;}}
+
+.field{margin-bottom:13px;}
+.field label{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);font-weight:700;margin-bottom:5px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media (max-width:640px){.grid2{grid-template-columns:1fr;}}
+
+select.std{background:var(--navy-deep);border:1px solid var(--navy-line);color:var(--ink);font-family:var(--sans);font-size:13px;padding:7px 9px;border-radius:7px;}
+
+.empty-hint{color:var(--ink-faint);font-size:12.5px;font-style:italic;padding:14px 0;}
+
+.notice{background:var(--amber-bg);border:1px solid rgba(168,118,31,0.3);color:var(--amber);font-size:12.5px;padding:10px 14px;border-radius:9px;margin-bottom:18px;}
+
+.copy-toast{
+  position:fixed;bottom:24px;right:24px;background:var(--gold);color:var(--cream);
+  padding:10px 18px;border-radius:8px;font-size:13.5px;font-weight:700;
+  box-shadow:0 10px 28px rgba(22,49,63,0.22);opacity:0;transform:translateY(8px);
+  transition:opacity .2s, transform .2s;pointer-events:none;z-index:50;
+}
+.copy-toast.show{opacity:1;transform:translateY(0);}
+
+.field-label{font-size:11.5px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;display:block;}
+.msg-card{background:var(--navy-deep);border:1px solid var(--navy-line);border-radius:9px;padding:13px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+.msg-name{font-weight:600;font-size:14px;color:var(--cream);}
+.msg-meta{font-size:12px;color:var(--ink-faint);margin-top:2px;}
+.msg-actions{display:flex;gap:8px;align-items:center;}
+
+.scroll-x{overflow-x:auto;}
+.pay-cell{text-align:center;}
+.pay-cell input[type=checkbox]{accent-color:var(--gold);width:16px;height:16px;}
+.pay-link{font-size:11.5px;font-weight:700;}
+
+@media (max-width:880px){
+  .sidebar{position:fixed;left:0;top:0;z-index:30;transform:translateX(-100%);transition:transform .2s;height:100vh;}
+  .sidebar.open{transform:translateX(0);}
+  .main{padding:20px 16px 60px;}
+  .stat-grid{grid-template-columns:repeat(2,1fr);}
+  .mobile-toggle{display:inline-flex;}
+}
+.mobile-toggle{display:none;background:var(--navy-panel);border:1px solid var(--navy-line);color:var(--gold-soft);border-radius:8px;padding:8px 12px;margin-bottom:16px;font-size:13px;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="46" height="16" viewBox="0 0 46 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="8" cy="8" r="6.5" stroke="#D9B25E" stroke-width="1.4"/>
+          <path d="M23 1.5L29 14.5H17L23 1.5Z" stroke="#EFCD83" stroke-width="1.4" stroke-linejoin="round"/>
+          <rect x="33" y="2" width="11" height="11" stroke="#9FD0C4" stroke-width="1.4"/>
+        </svg>
+      </div>
+      <div class="brand-eyebrow">Программа подготовки · ICU</div>
+      <div class="brand-title">Группа кураторов</div>
+      <div class="brand-sub">19 участников · сопровождение потока</div>
+    </div>
+    <nav class="nav" id="nav">
+      <button class="nav-item active" data-view="overview"><span class="ic">◆</span> Обзор</button>
+      <button class="nav-item" data-view="participants"><span class="ic">☷</span> Участники</button>
+      <button class="nav-item" data-view="modules"><span class="ic">▤</span> Модули и посещаемость</button>
+      <button class="nav-item" data-view="payments"><span class="ic">₸</span> Оплата модулей</button>
+      <button class="nav-item" data-view="supervisions"><span class="ic">◧</span> Супервизии</button>
+      <button class="nav-item" data-view="certification"><span class="ic">✦</span> Сертификация</button>
+      <button class="nav-item" data-view="messages"><span class="ic">✉</span> Сообщения в WhatsApp</button>
+      <div class="nav-sep">Для участников</div>
+      <button class="nav-item" data-view="selfentry"><span class="ic">✎</span> Я участник</button>
+    </nav>
+    <div class="sidebar-foot">Данные хранятся локально в этом браузере (localStorage). Файл работает офлайн — без сервера и без интернета, кроме шрифтов.</div>
+  </aside>
+
+  <main class="main">
+    <button class="mobile-toggle" id="mobileToggle">☰ Разделы</button>
+
+    <!-- OVERVIEW -->
+    <section class="view active" id="view-overview">
+      <div class="page-head">
+        <div>
+          <div class="page-eyebrow">Обзор потока</div>
+          <h1 class="page-title">Текущий статус группы</h1>
+          <div class="page-desc">Общая картина по 19 участникам: продвижение по модулям, готовность к сертификации, статус личных сообщений.</div>
+        </div>
+      </div>
+
+      <div class="stat-grid" id="statGrid"></div>
+
+      <div class="panel">
+        <div class="panel-title">Путь по модулям</div>
+        <div class="panel-sub">8 модулей программы. Отметка ставится автоматически по статусу модуля — статус и даты редактируются в разделе «Модули и посещаемость».</div>
+        <div class="journey" id="journeyTrack"></div>
+      </div>
+
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-title">Готовность к сертификации</div>
+          <div class="panel-sub">Сводка по 19 участникам на основе раздела «Сертификация».</div>
+          <div id="certSummary"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Личные сообщения</div>
+          <div class="panel-sub">Кому уже отправлено персональное сообщение об обучении.</div>
+          <div id="msgSummary"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTICIPANTS -->
+    <section class="view" id="view-participants">
+      <div class="page-head">
+        <div>
+          <div class="page-eyebrow">19 человек</div>
+          <h1 class="page-title">Участники группы</h1>
+          <div class="page-desc">Контактные данные. Изменения сохраняются автоматически. Нажмите в любую ячейку, чтобы отредактировать. Участники могут также сами заполнить свои данные в разделе «Я участник».</div>
+        </div>
+        <button class="btn btn-gold" id="addParticipantBtn">+ Добавить участника</button>
+      </div>
+      <div class="panel">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-num">№</th>
+                <th>ФИО</th>
+                <th>Телефон (WhatsApp)</th>
+                <th>Email</th>
+                <th>Адрес</th>
+                <th>Сообщение отправлено</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="participantsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULES -->
+    <section class="view" id="view-modules">
+      <div class="page-head">
+        <div>
+          <div class="page-eyebrow">8 модулей программы</div>
+          <h1 class="page-title">Модули и посещаемость</h1>
+          <div class="page-desc">Редактируйте название, дату и статус каждого модуля. Ниже — матрица посещаемости по всем участникам.</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Список модулей</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th class="col-num">№</th><th>Название модуля</th><th>Дата</th><th>Статус</th></tr></thead>
+            <tbody id="modulesBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Матрица посещаемости</div>
+        <div class="panel-sub">Отметьте присутствие каждого участника по каждому модулю.</div>
+        <div class="table-wrap scroll-x">
+          <table id="attendanceTable"></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAYMENTS -->
+    <section class="view" id="view-payments">
+      <div class="page-head">
+        <div>
+          <div class="page-eyebrow">Оплата</div>
+          <h1 class="page-title">Оплата модулей</h1>
+          <div class="page-desc">Стоимость и Kaspi-ссылка на оплату по каждому модулю, и отметка «оплачено» по каждому участнику. Ссылки те же, что видят участники в разделе «Я участник».</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Стоимость и ссылки на оплату</div>
+        <div class="panel-sub">Цена и Kaspi-ссылка по каждому модулю. Можно оставить пустым, пока цена/ссылка не определена.</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th class="col-num">№</th><th>Модуль</th><th>Стоимость</th><th>Kaspi-ссылка на оплату</th></tr></thead>
+            <tbody id="paymentModulesBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Матрица оплат</div>
+        <div class="panel-sub">Отметьте, кто оплатил каждый модуль.</div>
+        <div class="table-wrap scroll-x">
+          <table id="paymentsTable"></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUPERVISIONS -->
+    <section class="view" id="view-supervisions">
+      <div class="page-head">
+        <div>
+          <div class="page-eyebrow">Сопровождение</div>
+          <h1 class="page-title">Супервизии</h1>
+          <div class="page-desc">Расписание супервизий, ссылки на презентации и индивидуальная обратная связь по каждому участнику.</div>
+        </div>
+        <button class="btn btn-gold" id="addSupervisionBtn">+ Добавить супервизию</button>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Расписание и презентации</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th class="col-num">№</th><th>Дата</th><th>Тема</th><th>Ссылка на презентацию</th><th></th></tr></thead>
+            <tbody id="supervisionsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Индивидуальная обратная связь</div>
+        <div class="panel-sub">Выберите участника, чтобы посмотреть или внести обратную связь.</div>
+        <select class="std" id="feedbackParticipantSelect" style="max-width:320px;margin-bottom:12px;"></select>
+        <textarea id="feedbackText" placeholder="Обратная связь по участнику…" style="min-height:140px;"></textarea>
+      </div>
+    </section>
+
+    <!-- CERTIFICATION -->
+    <section class="view" id="view-certification">
+      <div class="page-head">
+        <div>
+          <div class="page-eyebrow">Финальный этап</div>
+          <h1 class="page-title">Подготовка к сертификации</h1>
+          <div class="page-desc">Требования к сертификации, тренинги, которые нужно сдать, и статус каждого участника: видео, скан дневника, английский язык, тест.</div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="panel">
+          <div class="panel-title">Требования к сертификации</div>
+          <div class="panel-sub">Общий чек-лист требований. Добавляйте, удаляйте, отмечайте выполнение по программе в целом.</div>
+          <ul class="checklist" id="requirementsList"></ul>
+          <div class="btn-row"><button class="btn btn-sm" id="addRequirementBtn">+ Добавить требование</button></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Тренинги к сдаче (по порядку)</div>
+          <div class="panel-sub">Какие тренинги участники должны пройти и сдать, в указанном порядке.</div>
+          <ul class="checklist" id="trainingsList"></ul>
+          <div class="btn-row"><button class="btn btn-sm" id="addTrainingBtn">+ Добавить тренинг</button></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Статус по каждому участнику</div>
+        <div class="panel-sub">Видео, скан дневника и материалы на английском — указывайте ссылку (Google Drive, Dropbox и т.п.). Загрузка файлов напрямую в офлайн-файл не поддерживается.</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-num">№</th>
+                <th>ФИО</th>
+                <th>Видео (ссылка)</th>
+                <th>Скан дневника (ссылка)</th>
+                <th>Английский язык</th>
+                <th>Тест</th>
+                <th>Готовность</th>
+              </tr>
+            </thead>
+            <tbody id="certBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MESSAGES -->
+    <section class="view" id="view-messages">
+      <div class="page-head">
+        <div>
+          <div class="page-eyebrow">Личные сообщения</div>
+          <h1 class="page-title">Сообщения в WhatsApp</h1>
+          <div class="page-desc">Здесь нельзя отправить сообщение автоматически — WhatsApp не подключён. Но можно подготовить текст для каждого и скопировать его одним нажатием, чтобы вставить в личный чат.</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Шаблон сообщения</div>
+        <div class="panel-sub">Используйте <code>{{имя}}</code> — оно будет заменено на имя участника при копировании.</div>
+        <textarea id="messageTemplate" style="min-height:110px;"></textarea>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Список участников</div>
+        <div id="messagesList"></div>
+      </div>
+    </section>
+
+    <!-- SELF ENTRY -->
+    <section class="view" id="view-selfentry">
+      <div class="page-head">
+        <div>
+          <div class="page-eyebrow">Для участников программы</div>
+          <h1 class="page-title">Я участник</h1>
+          <div class="page-desc">Заполните свои данные сами — куратор увидит их в разделе «Участники». Также здесь можно оплатить модули через Kaspi.</div>
+        </div>
+      </div>
+
+      <div class="notice">Данные сохраняются в этом браузере. Если куратор должен увидеть твою анкету, заполни её на том же устройстве/браузере, где куратор открывает приложение, либо передай данные иначе — общего сервера пока нет.</div>
+
+      <div class="panel">
+        <div class="panel-title">Моя анкета</div>
+        <div class="panel-sub">Если вы уже в списке участников, выберите своё имя, чтобы дополнить данные. Если вас ещё нет в списке — впишите имя, и будет создана новая запись.</div>
+        <form id="selfEntryForm">
+          <div class="field"><label>Я уже в списке (необязательно)</label>
+            <select class="std" id="selfEntrySelect" style="width:100%;max-width:360px;"><option value="">— Новый участник —</option></select>
+          </div>
+          <div class="grid2">
+            <div class="field"><label>ФИО *</label><input class="std" name="name" required></div>
+            <div class="field"><label>Телефон (WhatsApp) *</label><input class="std" name="phone" required placeholder="+7 ..."></div>
+          </div>
+          <div class="grid2">
+            <div class="field"><label>Email</label><input class="std" type="email" name="email"></div>
+            <div class="field"><label>Адрес</label><input class="std" name="address"></div>
+          </div>
+          <div class="btn-row"><button type="submit" class="btn btn-gold">Сохранить мою анкету</button></div>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Оплата модулей</div>
+        <div class="panel-sub">Оплачивайте модули через Kaspi по ссылке. Отметку «оплачено» куратор поставит после получения платежа в разделе «Оплата модулей».</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Модуль</th><th>Дата</th><th>Стоимость</th><th></th></tr></thead>
+            <tbody id="selfPaymentsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="copy-toast" id="copyToast">Сообщение скопировано</div>
+
+<script>
+/* ---------- STATE ---------- */
+const STORAGE_KEY = 'curators_app_state_v1';
+
+function uid(){ return Math.random().toString(36).slice(2,10); }
+
+function defaultState(){
+  const participants = [];
+  for(let i=1;i<=19;i++){
+    participants.push({id: uid(), name: 'Участник '+i, phone:'', email:'', address:'', messageSent:false});
+  }
+  const moduleTitles = [
+    'Модуль 1','Модуль 2','Модуль 3','Модуль 4','Модуль 5','Модуль 6','Модуль 7','Модуль 8'
+  ];
+  const modules = moduleTitles.map((t,i)=>({
+    id: uid(), number: i+1, title: t, date: '', price:'', kaspiLink:'',
+    status: i<3 ? 'completed' : (i===3 ? 'upcoming' : 'planned')
+  }));
+  const attendance = {};
+  const payments = {};
+  participants.forEach(p=>{
+    attendance[p.id] = {};
+    payments[p.id] = {};
+    modules.forEach(m=>{ attendance[p.id][m.id] = ''; payments[p.id][m.id] = false; });
+  });
+  const certParticipantData = {};
+  participants.forEach(p=>{
+    certParticipantData[p.id] = {video:'', diary:'', english:'', testStatus:'not_taken', readiness:'in_progress'};
+  });
+  const individualFeedback = {};
+  participants.forEach(p=>{ individualFeedback[p.id] = ''; });
+
+  return {
+    participants,
+    modules,
+    attendance,
+    payments,
+    supervisions: [],
+    individualFeedback,
+    certRequirements: [
+      'Посещение не менее 6 из 8 модулей',
+      'Сдача итогового теста',
+      'Видео-практика куратора',
+      'Сданные дневники наблюдений',
+      'Материалы на английском языке проверены'
+    ].map(t=>({id:uid(), text:t, done:false})),
+    certTrainings: [
+      {id:uid(), name:'Базовый тренинг куратора', status:'not_done'},
+      {id:uid(), name:'Тренинг по обратной связи', status:'not_done'},
+      {id:uid(), name:'Итоговый тренинг перед сертификацией', status:'not_done'}
+    ],
+    certParticipantData,
+    messageTemplate: 'Здравствуйте, {{имя}}! Подтверждаю, что вы проходите обучение в программе подготовки кураторов. Расписание модулей и супервизий будет приходить отдельно — следите за обновлениями в общем чате.'
+  };
+}
+
+let state = loadState();
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    migrateState(parsed);
+    return parsed;
+  }catch(e){
+    console.error('Не удалось загрузить сохранённые данные, использую значения по умолчанию.', e);
+    return defaultState();
+  }
+}
+function migrateState(s){
+  // backfill fields added after first releases, so old saved data keeps working
+  if(!s.modules) s.modules = [];
+  s.modules.forEach(m=>{ if(m.price==null) m.price=''; if(m.kaspiLink==null) m.kaspiLink=''; });
+  if(!s.payments) s.payments = {};
+  (s.participants||[]).forEach(p=>{
+    if(!s.payments[p.id]) s.payments[p.id] = {};
+    s.modules.forEach(m=>{ if(s.payments[p.id][m.id]==null) s.payments[p.id][m.id]=false; });
+  });
+}
+function saveState(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }catch(e){
+    console.error('Не удалось сохранить данные', e);
+  }
+}
+
+/* ---------- NAV ---------- */
+document.getElementById('nav').addEventListener('click', e=>{
+  const btn = e.target.closest('.nav-item');
+  if(!btn) return;
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const view = btn.dataset.view;
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+view).classList.add('active');
+  document.getElementById('sidebar').classList.remove('open');
+  renderView(view);
+});
+document.getElementById('mobileToggle').addEventListener('click', ()=>{
+  document.getElementById('sidebar').classList.toggle('open');
+});
+
+function renderView(view){
+  if(view==='overview') renderOverview();
+  if(view==='participants') renderParticipants();
+  if(view==='modules') renderModules();
+  if(view==='payments') renderPayments();
+  if(view==='supervisions') renderSupervisions();
+  if(view==='certification') renderCertification();
+  if(view==='messages') renderMessages();
+  if(view==='selfentry') renderSelfEntry();
+}
+
+/* ---------- OVERVIEW ---------- */
+function renderOverview(){
+  const total = state.participants.length;
+  const completedModules = state.modules.filter(m=>m.status==='completed').length;
+  const readyCount = state.participants.filter(p=>state.certParticipantData[p.id]?.readiness==='ready').length;
+  const sentCount = state.participants.filter(p=>p.messageSent).length;
+
+  document.getElementById('statGrid').innerHTML = `
+    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Участников в группе</div></div>
+    <div class="stat-card"><div class="stat-num">${completedModules} / ${state.modules.length}</div><div class="stat-label">Модулей пройдено</div></div>
+    <div class="stat-card"><div class="stat-num">${readyCount}</div><div class="stat-label">Готовы к сертификации</div></div>
+    <div class="stat-card"><div class="stat-num">${sentCount} / ${total}</div><div class="stat-label">Личных сообщений отправлено</div></div>
+  `;
+
+  const track = document.getElementById('journeyTrack');
+  track.innerHTML = state.modules.map(m=>{
+    const cls = m.status==='completed' ? 'done' : (m.status==='upcoming' ? 'current' : '');
+    return `<div class="journey-step ${cls}">
+      <div class="j-dot">${m.status==='completed'?'✓':m.number}</div>
+      <div class="j-label">${escapeHtml(m.title)}</div>
+      <div class="j-date">${m.date ? escapeHtml(m.date) : '—'}</div>
+    </div>`;
+  }).join('');
+
+  const readinessLabels = {ready:['Готов','badge-green'], in_progress:['В процессе','badge-amber'], not_ready:['Не готов','badge-terra']};
+  document.getElementById('certSummary').innerHTML = `
+    <div style="display:flex;gap:18px;flex-wrap:wrap;margin-bottom:6px;">
+      ${['ready','in_progress','not_ready'].map(key=>{
+        const c = state.participants.filter(p=>(state.certParticipantData[p.id]?.readiness||'in_progress')===key).length;
+        const [label,cls] = readinessLabels[key];
+        return `<div><span class="badge ${cls}">${label}</span> <strong>${c}</strong></div>`;
+      }).join('')}
+    </div>
+    <div class="empty-hint" style="padding-top:4px;">Подробности — в разделе «Сертификация».</div>
+  `;
+
+  document.getElementById('msgSummary').innerHTML = `
+    <div style="margin-bottom:8px;"><span class="badge badge-green">Отправлено</span> <strong>${sentCount}</strong> &nbsp; <span class="badge badge-muted">Не отправлено</span> <strong>${total-sentCount}</strong></div>
+    <div class="empty-hint">Шаблон и копирование текста — в разделе «Сообщения в WhatsApp».</div>
+  `;
+}
+
+/* ---------- PARTICIPANTS ---------- */
+function renderParticipants(){
+  const body = document.getElementById('participantsBody');
+  body.innerHTML = state.participants.map((p,i)=>`
+    <tr data-id="${p.id}">
+      <td class="col-num">${i+1}</td>
+      <td><input type="text" data-field="name" value="${escapeAttr(p.name)}" placeholder="ФИО"></td>
+      <td><input type="tel" data-field="phone" value="${escapeAttr(p.phone)}" placeholder="+7 700 000 0000"></td>
+      <td><input type="email" data-field="email" value="${escapeAttr(p.email)}" placeholder="email@example.com"></td>
+      <td><input type="text" data-field="address" value="${escapeAttr(p.address)}" placeholder="Адрес"></td>
+      <td style="text-align:center;"><input type="checkbox" data-field="messageSent" ${p.messageSent?'checked':''} style="accent-color:var(--gold);width:16px;height:16px;"></td>
+      <td><button class="btn-ghost" data-action="delete" title="Удалить участника">✕</button></td>
+    </tr>
+  `).join('');
+}
+document.getElementById('participantsBody').addEventListener('input', e=>{
+  const tr = e.target.closest('tr'); if(!tr) return;
+  const p = state.participants.find(x=>x.id===tr.dataset.id); if(!p) return;
+  const field = e.target.dataset.field;
+  if(field==='messageSent') p[field] = e.target.checked;
+  else p[field] = e.target.value;
+  saveState();
+});
+document.getElementById('participantsBody').addEventListener('click', e=>{
+  const btn = e.target.closest('[data-action="delete"]'); if(!btn) return;
+  const tr = btn.closest('tr');
+  const id = tr.dataset.id;
+  if(!confirm('Удалить этого участника из всех разделов?')) return;
+  state.participants = state.participants.filter(p=>p.id!==id);
+  delete state.attendance[id];
+  delete state.payments[id];
+  delete state.individualFeedback[id];
+  delete state.certParticipantData[id];
+  saveState();
+  renderParticipants();
+});
+document.getElementById('addParticipantBtn').addEventListener('click', ()=>{
+  addParticipant({name:'Новый участник', phone:'', email:'', address:''});
+  renderParticipants();
+});
+function addParticipant(data){
+  const p = {id:uid(), name:data.name||'Новый участник', phone:data.phone||'', email:data.email||'', address:data.address||'', messageSent:false};
+  state.participants.push(p);
+  state.attendance[p.id] = {};
+  state.payments[p.id] = {};
+  state.modules.forEach(m=>{ state.attendance[p.id][m.id] = ''; state.payments[p.id][m.id] = false; });
+  state.individualFeedback[p.id] = '';
+  state.certParticipantData[p.id] = {video:'', diary:'', english:'', testStatus:'not_taken', readiness:'in_progress'};
+  saveState();
+  return p;
+}
+
+/* ---------- MODULES ---------- */
+const statusLabels = {completed:['Завершён','badge-green'], upcoming:['Предстоит','badge-amber'], planned:['Запланирован','badge-muted']};
+
+function renderModules(){
+  const body = document.getElementById('modulesBody');
+  body.innerHTML = state.modules.map((m,i)=>`
+    <tr data-id="${m.id}">
+      <td class="col-num">${i+1}</td>
+      <td><input type="text" data-field="title" value="${escapeAttr(m.title)}"></td>
+      <td><input type="text" data-field="date" value="${escapeAttr(m.date)}" placeholder="напр. 12 июля 2026"></td>
+      <td>
+        <select data-field="status" class="std">
+          <option value="completed" ${m.status==='completed'?'selected':''}>Завершён</option>
+          <option value="upcoming" ${m.status==='upcoming'?'selected':''}>Предстоит</option>
+          <option value="planned" ${m.status==='planned'?'selected':''}>Запланирован</option>
+        </select>
+      </td>
+    </tr>
+  `).join('');
+  renderAttendanceMatrix();
+}
+document.getElementById('modulesBody').addEventListener('input', e=>{
+  const tr = e.target.closest('tr'); if(!tr) return;
+  const m = state.modules.find(x=>x.id===tr.dataset.id); if(!m) return;
+  m[e.target.dataset.field] = e.target.value;
+  saveState();
+  if(e.target.dataset.field==='title'){ renderAttendanceMatrix(); }
+});
+document.getElementById('modulesBody').addEventListener('change', e=>{
+  if(e.target.dataset.field!=='status') return;
+  const tr = e.target.closest('tr');
+  const m = state.modules.find(x=>x.id===tr.dataset.id); if(!m) return;
+  m.status = e.target.value;
+  saveState();
+  renderOverviewIfActive();
+});
+
+function renderAttendanceMatrix(){
+  const table = document.getElementById('attendanceTable');
+  const head = `<thead><tr><th class="col-num">№</th><th>ФИО</th>${state.modules.map(m=>`<th>${escapeHtml(m.title)}</th>`).join('')}</tr></thead>`;
+  const rows = state.participants.map((p,i)=>{
+    const cells = state.modules.map(m=>{
+      const val = (state.attendance[p.id] && state.attendance[p.id][m.id]) || '';
+      return `<td class="att-cell">
+        <select data-pid="${p.id}" data-mid="${m.id}" class="${val==='present'?'att-present':val==='absent'?'att-absent':''}">
+          <option value="" ${val===''?'selected':''}>—</option>
+          <option value="present" ${val==='present'?'selected':''}>Присутствовал</option>
+          <option value="absent" ${val==='absent'?'selected':''}>Отсутствовал</option>
+        </select>
+      </td>`;
+    }).join('');
+    return `<tr><td class="col-num">${i+1}</td><td>${escapeHtml(p.name)}</td>${cells}</tr>`;
+  }).join('');
+  table.innerHTML = head + '<tbody>' + rows + '</tbody>';
+}
+document.getElementById('attendanceTable').addEventListener('change', e=>{
+  const sel = e.target.closest('select'); if(!sel) return;
+  const {pid, mid} = sel.dataset;
+  if(!state.attendance[pid]) state.attendance[pid] = {};
+  state.attendance[pid][mid] = sel.value;
+  sel.className = sel.value==='present' ? 'att-present' : sel.value==='absent' ? 'att-absent' : '';
+  saveState();
+});
+
+/* ---------- PAYMENTS ---------- */
+function renderPayments(){
+  const body = document.getElementById('paymentModulesBody');
+  body.innerHTML = state.modules.map((m,i)=>`
+    <tr data-id="${m.id}">
+      <td class="col-num">${i+1}</td>
+      <td>${escapeHtml(m.title)}</td>
+      <td><input type="text" data-field="price" value="${escapeAttr(m.price)}" placeholder="напр. 150 000 тг"></td>
+      <td><input type="url" data-field="kaspiLink" value="${escapeAttr(m.kaspiLink)}" placeholder="https://pay.kaspi.kz/pay/..."></td>
+    </tr>
+  `).join('');
+  renderPaymentsMatrix();
+}
+document.getElementById('paymentModulesBody').addEventListener('input', e=>{
+  const tr = e.target.closest('tr'); if(!tr) return;
+  const m = state.modules.find(x=>x.id===tr.dataset.id); if(!m) return;
+  m[e.target.dataset.field] = e.target.value;
+  saveState();
+  if(e.target.dataset.field==='kaspiLink') renderPaymentsMatrix();
+});
+
+function renderPaymentsMatrix(){
+  const table = document.getElementById('paymentsTable');
+  const head = `<thead><tr><th class="col-num">№</th><th>ФИО</th>${state.modules.map(m=>`<th>${escapeHtml(m.title)}${m.kaspiLink?` <a class="pay-link" href="${escapeAttr(m.kaspiLink)}" target="_blank" rel="noopener">Kaspi ↗</a>`:''}</th>`).join('')}</tr></thead>`;
+  const rows = state.participants.map((p,i)=>{
+    const cells = state.modules.map(m=>{
+      const paid = !!(state.payments[p.id] && state.payments[p.id][m.id]);
+      return `<td class="pay-cell"><input type="checkbox" data-pid="${p.id}" data-mid="${m.id}" ${paid?'checked':''}></td>`;
+    }).join('');
+    return `<tr><td class="col-num">${i+1}</td><td>${escapeHtml(p.name)}</td>${cells}</tr>`;
+  }).join('');
+  table.innerHTML = head + '<tbody>' + rows + '</tbody>';
+}
+document.getElementById('paymentsTable').addEventListener('change', e=>{
+  const cb = e.target.closest('input[type=checkbox]'); if(!cb) return;
+  const {pid, mid} = cb.dataset;
+  if(!state.payments[pid]) state.payments[pid] = {};
+  state.payments[pid][mid] = cb.checked;
+  saveState();
+});
+
+/* ---------- SUPERVISIONS ---------- */
+function renderSupervisions(){
+  const body = document.getElementById('supervisionsBody');
+  if(state.supervisions.length===0){
+    body.innerHTML = `<tr><td colspan="5" class="empty-hint">Пока нет ни одной супервизии. Нажмите «+ Добавить супервизию».</td></tr>`;
+  } else {
+    body.innerHTML = state.supervisions.map((s,i)=>`
+      <tr data-id="${s.id}">
+        <td class="col-num">${i+1}</td>
+        <td><input type="text" data-field="date" value="${escapeAttr(s.date)}" placeholder="дата" style="max-width:130px;"></td>
+        <td><input type="text" data-field="topic" value="${escapeAttr(s.topic)}" placeholder="тема супервизии"></td>
+        <td><input type="url" data-field="presentationLink" value="${escapeAttr(s.presentationLink)}" placeholder="ссылка на презентацию"></td>
+        <td><button class="btn-ghost" data-action="delete">✕</button></td>
+      </tr>
+    `).join('');
+  }
+
+  const select = document.getElementById('feedbackParticipantSelect');
+  select.innerHTML = state.participants.map(p=>`<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('');
+  if(state.participants.length){
+    const current = select.value || state.participants[0].id;
+    select.value = current;
+    document.getElementById('feedbackText').value = state.individualFeedback[current] || '';
+  }
+}
+document.getElementById('addSupervisionBtn').addEventListener('click', ()=>{
+  state.supervisions.push({id:uid(), date:'', topic:'', presentationLink:''});
+  saveState();
+  renderSupervisions();
+});
+document.getElementById('supervisionsBody').addEventListener('input', e=>{
+  const tr = e.target.closest('tr'); if(!tr) return;
+  const s = state.supervisions.find(x=>x.id===tr.dataset.id); if(!s) return;
+  s[e.target.dataset.field] = e.target.value;
+  saveState();
+});
+document.getElementById('supervisionsBody').addEventListener('click', e=>{
+  const btn = e.target.closest('[data-action="delete"]'); if(!btn) return;
+  const id = btn.closest('tr').dataset.id;
+  state.supervisions = state.supervisions.filter(s=>s.id!==id);
+  saveState();
+  renderSupervisions();
+});
+document.getElementById('feedbackParticipantSelect').addEventListener('change', e=>{
+  document.getElementById('feedbackText').value = state.individualFeedback[e.target.value] || '';
+});
+document.getElementById('feedbackText').addEventListener('input', e=>{
+  const pid = document.getElementById('feedbackParticipantSelect').value;
+  state.individualFeedback[pid] = e.target.value;
+  saveState();
+});
+
+/* ---------- CERTIFICATION ---------- */
+function renderCertification(){
+  const reqList = document.getElementById('requirementsList');
+  reqList.innerHTML = state.certRequirements.map(r=>`
+    <li data-id="${r.id}">
+      <input type="checkbox" data-field="done" ${r.done?'checked':''}>
+      <input type="text" data-field="text" value="${escapeAttr(r.text)}">
+      <button class="btn-ghost" data-action="delete">✕</button>
+    </li>
+  `).join('') || `<li class="empty-hint" style="background:none;border:none;">Список пуст</li>`;
+
+  const trainList = document.getElementById('trainingsList');
+  trainList.innerHTML = state.certTrainings.map((t,i)=>`
+    <li data-id="${t.id}">
+      <span class="order-no">${i+1}.</span>
+      <input type="text" data-field="name" value="${escapeAttr(t.name)}" style="flex:1;">
+      <select data-field="status" class="std" style="max-width:130px;">
+        <option value="not_done" ${t.status==='not_done'?'selected':''}>Не сдан</option>
+        <option value="done" ${t.status==='done'?'selected':''}>Сдан</option>
+      </select>
+      <button class="btn-ghost" data-up="up">↑</button>
+      <button class="btn-ghost" data-up="down">↓</button>
+      <button class="btn-ghost" data-action="delete">✕</button>
+    </li>
+  `).join('') || `<li class="empty-hint" style="background:none;border:none;">Список пуст</li>`;
+
+  const certBody = document.getElementById('certBody');
+  certBody.innerHTML = state.participants.map((p,i)=>{
+    const d = state.certParticipantData[p.id] || {video:'',diary:'',english:'',testStatus:'not_taken',readiness:'in_progress'};
+    return `<tr data-id="${p.id}">
+      <td class="col-num">${i+1}</td>
+      <td>${escapeHtml(p.name)}</td>
+      <td><input type="url" data-field="video" value="${escapeAttr(d.video)}" placeholder="ссылка на видео"></td>
+      <td><input type="url" data-field="diary" value="${escapeAttr(d.diary)}" placeholder="ссылка на скан"></td>
+      <td><input type="text" data-field="english" value="${escapeAttr(d.english)}" placeholder="статус / ссылка"></td>
+      <td>
+        <select data-field="testStatus" class="std">
+          <option value="not_taken" ${d.testStatus==='not_taken'?'selected':''}>Не сдавал</option>
+          <option value="passed" ${d.testStatus==='passed'?'selected':''}>Сдан</option>
+          <option value="failed" ${d.testStatus==='failed'?'selected':''}>Не сдан</option>
+        </select>
+      </td>
+      <td>
+        <select data-field="readiness" class="std">
+          <option value="ready" ${d.readiness==='ready'?'selected':''}>Готов</option>
+          <option value="in_progress" ${d.readiness==='in_progress'?'selected':''}>В процессе</option>
+          <option value="not_ready" ${d.readiness==='not_ready'?'selected':''}>Не готов</option>
+        </select>
+      </td>
+    </tr>`;
+  }).join('');
+}
+document.getElementById('addRequirementBtn').addEventListener('click', ()=>{
+  state.certRequirements.push({id:uid(), text:'Новое требование', done:false});
+  saveState(); renderCertification();
+});
+document.getElementById('requirementsList').addEventListener('input', e=>{
+  const li = e.target.closest('li'); if(!li || !li.dataset.id) return;
+  const r = state.certRequirements.find(x=>x.id===li.dataset.id); if(!r) return;
+  if(e.target.dataset.field==='done') r.done = e.target.checked; else r.text = e.target.value;
+  saveState();
+});
+document.getElementById('requirementsList').addEventListener('click', e=>{
+  const btn = e.target.closest('[data-action="delete"]'); if(!btn) return;
+  const id = btn.closest('li').dataset.id;
+  state.certRequirements = state.certRequirements.filter(r=>r.id!==id);
+  saveState(); renderCertification();
+});
+
+document.getElementById('addTrainingBtn').addEventListener('click', ()=>{
+  state.certTrainings.push({id:uid(), name:'Новый тренинг', status:'not_done'});
+  saveState(); renderCertification();
+});
+document.getElementById('trainingsList').addEventListener('input', e=>{
+  const li = e.target.closest('li'); if(!li) return;
+  const t = state.certTrainings.find(x=>x.id===li.dataset.id); if(!t) return;
+  if(e.target.dataset.field==='name') t.name = e.target.value;
+  saveState();
+});
+document.getElementById('trainingsList').addEventListener('change', e=>{
+  if(e.target.dataset.field!=='status') return;
+  const li = e.target.closest('li');
+  const t = state.certTrainings.find(x=>x.id===li.dataset.id); if(!t) return;
+  t.status = e.target.value;
+  saveState();
+});
+document.getElementById('trainingsList').addEventListener('click', e=>{
+  const delBtn = e.target.closest('[data-action="delete"]');
+  if(delBtn){
+    const id = delBtn.closest('li').dataset.id;
+    state.certTrainings = state.certTrainings.filter(t=>t.id!==id);
+    saveState(); renderCertification(); return;
+  }
+  const upBtn = e.target.closest('[data-up]');
+  if(upBtn){
+    const id = upBtn.closest('li').dataset.id;
+    const idx = state.certTrainings.findIndex(t=>t.id===id);
+    const dir = upBtn.dataset.up;
+    const swapIdx = dir==='up' ? idx-1 : idx+1;
+    if(swapIdx<0 || swapIdx>=state.certTrainings.length) return;
+    [state.certTrainings[idx], state.certTrainings[swapIdx]] = [state.certTrainings[swapIdx], state.certTrainings[idx]];
+    saveState(); renderCertification();
+  }
+});
+document.getElementById('certBody').addEventListener('input', e=>{
+  const tr = e.target.closest('tr'); if(!tr) return;
+  if(!state.certParticipantData[tr.dataset.id]) state.certParticipantData[tr.dataset.id] = {video:'',diary:'',english:'',testStatus:'not_taken',readiness:'in_progress'};
+  if(['video','diary','english'].includes(e.target.dataset.field)){
+    state.certParticipantData[tr.dataset.id][e.target.dataset.field] = e.target.value;
+    saveState();
+  }
+});
+document.getElementById('certBody').addEventListener('change', e=>{
+  const tr = e.target.closest('tr'); if(!tr) return;
+  const field = e.target.dataset.field;
+  if(field==='testStatus' || field==='readiness'){
+    state.certParticipantData[tr.dataset.id][field] = e.target.value;
+    saveState();
+  }
+});
+
+/* ---------- MESSAGES ---------- */
+function renderMessages(){
+  const tplArea = document.getElementById('messageTemplate');
+  tplArea.value = state.messageTemplate;
+
+  const list = document.getElementById('messagesList');
+  list.innerHTML = state.participants.map(p=>`
+    <div class="msg-card" data-id="${p.id}">
+      <div>
+        <div class="msg-name">${escapeHtml(p.name)}</div>
+        <div class="msg-meta">${p.phone ? escapeHtml(p.phone) : 'телефон не указан'}</div>
+      </div>
+      <div class="msg-actions">
+        <label style="font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;gap:6px;">
+          <input type="checkbox" data-action="sent" ${p.messageSent?'checked':''} style="accent-color:var(--gold);width:15px;height:15px;">
+          Отправлено
+        </label>
+        <button class="btn btn-sm" data-action="copy">Скопировать сообщение</button>
+      </div>
+    </div>
+  `).join('');
+}
+document.getElementById('messageTemplate').addEventListener('input', e=>{
+  state.messageTemplate = e.target.value;
+  saveState();
+});
+document.getElementById('messagesList').addEventListener('click', e=>{
+  const card = e.target.closest('.msg-card'); if(!card) return;
+  const p = state.participants.find(x=>x.id===card.dataset.id); if(!p) return;
+  if(e.target.dataset.action==='copy'){
+    const text = state.messageTemplate.replace(/\{\{имя\}\}/gi, p.name);
+    copyToClipboard(text);
+  }
+});
+document.getElementById('messagesList').addEventListener('change', e=>{
+  if(e.target.dataset.action!=='sent') return;
+  const card = e.target.closest('.msg-card');
+  const p = state.participants.find(x=>x.id===card.dataset.id); if(!p) return;
+  p.messageSent = e.target.checked;
+  saveState();
+});
+
+function copyToClipboard(text){
+  function showToast(){
+    const t = document.getElementById('copyToast');
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), 1800);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(showToast).catch(()=>fallbackCopy(text, showToast));
+  } else {
+    fallbackCopy(text, showToast);
+  }
+}
+function fallbackCopy(text, cb){
+  const ta = document.createElement('textarea');
+  ta.value = text; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); cb(); }catch(e){ alert('Не удалось скопировать. Текст:\n\n'+text); }
+  document.body.removeChild(ta);
+}
+
+/* ---------- SELF ENTRY ---------- */
+function renderSelfEntry(){
+  const select = document.getElementById('selfEntrySelect');
+  select.innerHTML = '<option value="">— Новый участник —</option>' +
+    state.participants.map(p=>`<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('');
+
+  const form = document.getElementById('selfEntryForm');
+  fillSelfEntryForm(form, null);
+
+  renderSelfPayments();
+}
+function fillSelfEntryForm(form, p){
+  form.elements.name.value = p ? p.name : '';
+  form.elements.phone.value = p ? p.phone : '';
+  form.elements.email.value = p ? p.email : '';
+  form.elements.address.value = p ? p.address : '';
+}
+document.getElementById('selfEntrySelect').addEventListener('change', e=>{
+  const id = e.target.value;
+  const p = id ? state.participants.find(x=>x.id===id) : null;
+  fillSelfEntryForm(document.getElementById('selfEntryForm'), p);
+});
+document.getElementById('selfEntryForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const f = e.target;
+  const selId = document.getElementById('selfEntrySelect').value;
+  const data = {
+    name: f.elements.name.value.trim(),
+    phone: f.elements.phone.value.trim(),
+    email: f.elements.email.value.trim(),
+    address: f.elements.address.value.trim()
+  };
+  if(selId){
+    const p = state.participants.find(x=>x.id===selId);
+    if(p){ Object.assign(p, data); saveState(); }
+  } else {
+    const p = addParticipant(data);
+    document.getElementById('selfEntrySelect').value = p.id;
+  }
+  renderSelfEntry();
+  copyToClipboard.toastOverride;
+  const t = document.getElementById('copyToast');
+  t.textContent = 'Анкета сохранена';
+  t.classList.add('show');
+  setTimeout(()=>{ t.classList.remove('show'); t.textContent='Сообщение скопировано'; }, 1800);
+});
+
+function renderSelfPayments(){
+  const body = document.getElementById('selfPaymentsBody');
+  body.innerHTML = state.modules.map(m=>`
+    <tr>
+      <td>${escapeHtml(m.title)}</td>
+      <td>${m.date ? escapeHtml(m.date) : '—'}</td>
+      <td>${m.price ? escapeHtml(m.price) : '—'}</td>
+      <td>${m.kaspiLink ? `<a class="btn btn-sm btn-gold" href="${escapeAttr(m.kaspiLink)}" target="_blank" rel="noopener">Оплатить через Kaspi</a>` : '<span class="empty-hint" style="padding:0;">ссылка появится позже</span>'}</td>
+    </tr>
+  `).join('');
+}
+
+/* ---------- HELPERS ---------- */
+function escapeHtml(str){
+  return String(str==null?'':str).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function escapeAttr(str){ return escapeHtml(str); }
+function renderOverviewIfActive(){
+  if(document.getElementById('view-overview').classList.contains('active')) renderOverview();
+}
+
+/* ---------- INIT ---------- */
+renderOverview();
+renderParticipants();
+renderModules();
+renderPayments();
+renderSupervisions();
+renderCertification();
+renderMessages();
+renderSelfEntry();
+</script>
+</body>
+</html>
