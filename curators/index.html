@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E4D45">
+<title>Панель сопровождения «Группа кураторов» — ICU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+<style>
+:root{
+  --teal-900:#0E4D45;
+  --teal-800:#12605A;
+  --teal-700:#177D74;
+  --gold:#C9A24B;
+  --gold-light:#E4C77A;
+  --bg:#FAF6EE;
+  --card:#FFFFFF;
+  --ink:#1E2624;
+  --ink-soft:#5B6663;
+  --line:#E6DFD0;
+  --green:#3E8E5C;
+  --amber:#C9912F;
+  --red:#C2483D;
+  --radius:14px;
+  --shadow:0 4px 16px rgba(20,40,35,.06);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  display:flex;
+  min-height:100vh;
+}
+h1,h2,h3,.display{font-family:'Manrope',sans-serif;font-weight:800;}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer;}
+input,textarea,select{font-family:inherit;}
+
+/* ---------- Sidebar ---------- */
+.sidebar{
+  width:240px;
+  flex-shrink:0;
+  background:linear-gradient(180deg,var(--teal-900),var(--teal-800));
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  padding:24px 16px;
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow-y:auto;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:28px;
+  padding:0 4px;
+}
+.brand-mark{position:relative;width:34px;height:34px;flex-shrink:0;}
+.brand-mark svg{width:100%;height:100%;}
+.brand-text{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;line-height:1.2;}
+.brand-text small{display:block;font-weight:500;font-size:11px;opacity:.75;font-family:'Inter',sans-serif;}
+nav{display:flex;flex-direction:column;gap:4px;}
+.nav-btn{
+  display:flex;align-items:center;gap:10px;
+  background:transparent;border:none;color:rgba(255,255,255,.82);
+  padding:11px 12px;border-radius:10px;font-size:14px;font-weight:600;
+  text-align:left;width:100%;transition:.15s;
+}
+.nav-btn:hover{background:rgba(255,255,255,.08);color:#fff;}
+.nav-btn.active{background:var(--gold);color:var(--teal-900);}
+.nav-icon{width:18px;height:18px;flex-shrink:0;}
+.sidebar-footer{margin-top:auto;padding-top:16px;font-size:11px;color:rgba(255,255,255,.55);}
+
+.menu-toggle{display:none;}
+
+/* ---------- Main ---------- */
+.main{flex:1;min-width:0;padding:28px 36px 60px;}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.topbar h1{font-size:22px;margin:0;color:var(--teal-900);}
+.topbar p{margin:4px 0 0;color:var(--ink-soft);font-size:13px;}
+
+.section{display:none;}
+.section.active{display:block;animation:fade .25s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ---------- Cards / grid ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:24px;}
+.stat-card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;box-shadow:var(--shadow);
+}
+.stat-card .num{font-family:'Manrope',sans-serif;font-weight:800;font-size:28px;color:var(--teal-900);}
+.stat-card .label{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
+.stat-card.gold .num{color:var(--gold);}
+
+.panel{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px;box-shadow:var(--shadow);margin-bottom:20px;
+}
+.panel h3{margin:0 0 14px;font-size:15px;color:var(--teal-900);}
+
+/* module path */
+.module-path{display:flex;flex-wrap:wrap;gap:10px;}
+.module-chip{
+  flex:1 1 110px;border-radius:12px;padding:12px;border:1.5px solid var(--line);
+  background:#fff;font-size:12.5px;
+}
+.module-chip.done{border-color:var(--green);background:#F1F8F3;}
+.module-chip.next{border-color:var(--gold);background:#FBF4E1;}
+.module-chip.planned{opacity:.6;}
+.module-chip .title{font-weight:700;margin-bottom:3px;}
+.module-chip .date{color:var(--ink-soft);font-size:11.5px;}
+.badge{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:20px;margin-top:6px;}
+.badge.done{background:var(--green);color:#fff;}
+.badge.next{background:var(--gold);color:var(--teal-900);}
+.badge.planned{background:#E6DFD0;color:var(--ink-soft);}
+
+/* table */
+.table-wrap{overflow-x:auto;}
+table{border-collapse:collapse;width:100%;font-size:13px;}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;}
+th{background:#F4EFE2;color:var(--teal-900);font-weight:700;font-size:12px;position:sticky;top:0;}
+tr:hover td{background:#FBF8F1;}
+td input[type=text],td input[type=tel],td input[type=email],td input[type=url],td input[type=date]{
+  border:1px solid transparent;background:transparent;padding:5px 6px;border-radius:6px;width:100%;font-size:13px;
+}
+td input:hover,td input:focus{border-color:var(--line);background:#fff;}
+td input:focus{outline:2px solid var(--gold-light);}
+
+button.btn{
+  background:var(--teal-900);color:#fff;border:none;border-radius:9px;
+  padding:9px 14px;font-size:13px;font-weight:700;
+}
+button.btn:hover{background:var(--teal-700);}
+button.btn.gold{background:var(--gold);color:var(--teal-900);}
+button.btn.outline{background:transparent;color:var(--teal-900);border:1.5px solid var(--line);}
+button.btn.danger{background:transparent;color:var(--red);border:1.5px solid var(--red);}
+button.btn.small{padding:5px 9px;font-size:12px;border-radius:7px;}
+
+.toolbar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+
+select{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;background:#fff;}
+
+.attend-cell{display:flex;justify-content:center;}
+.attend-cell select{padding:4px 6px;font-size:12px;border-radius:6px;}
+
+.fb-grid{display:grid;grid-template-columns:240px 1fr;gap:16px;}
+.fb-list{display:flex;flex-direction:column;gap:4px;max-height:460px;overflow-y:auto;}
+.fb-list button{display:block;width:100%;text-align:left;background:transparent;border:none;padding:9px 10px;border-radius:8px;font-size:13px;}
+.fb-list button:hover{background:#F4EFE2;}
+.fb-list button.active{background:var(--gold);color:var(--teal-900);font-weight:700;}
+.fb-textarea{width:100%;min-height:300px;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13.5px;resize:vertical;}
+
+.checklist{display:flex;flex-direction:column;gap:6px;}
+.checklist-item{display:flex;align-items:center;gap:8px;padding:6px 4px;border-bottom:1px dashed var(--line);}
+.checklist-item input[type=text]{flex:1;border:none;background:transparent;font-size:13.5px;}
+.checklist-item input[type=text]:focus{outline:none;background:#fff;}
+
+.training-row{display:flex;align-items:center;gap:8px;padding:6px 4px;border-bottom:1px dashed var(--line);}
+.training-row .order-btns{display:flex;flex-direction:column;gap:2px;}
+.order-btns button{padding:0 5px;font-size:10px;line-height:1.4;background:#F4EFE2;border:1px solid var(--line);border-radius:4px;}
+
+.status-pill{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;}
+.status-pill.ready{background:#E2F3E6;color:var(--green);}
+.status-pill.progress{background:#FBF1DC;color:var(--amber);}
+.status-pill.notready{background:#F8E5E2;color:var(--red);}
+
+textarea.template{width:100%;min-height:120px;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:13.5px;}
+
+.msg-card{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:#fff;}
+.msg-card .name{font-weight:700;font-size:13.5px;}
+.msg-card .phone{color:var(--ink-soft);font-size:12px;}
+.msg-card .actions{display:flex;align-items:center;gap:10px;}
+.msg-card label{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink-soft);}
+
+.toast{
+  position:fixed;bottom:20px;right:20px;background:var(--teal-900);color:#fff;
+  padding:10px 16px;border-radius:10px;font-size:13px;box-shadow:var(--shadow);
+  opacity:0;transform:translateY(8px);transition:.25s;pointer-events:none;z-index:50;
+}
+.toast.show{opacity:1;transform:none;}
+
+@media (max-width: 880px){
+  .sidebar{
+    position:fixed;left:0;top:0;bottom:0;z-index:40;transform:translateX(-100%);transition:.25s;
+    box-shadow:0 0 30px rgba(0,0,0,.2);
+  }
+  .sidebar.open{transform:translateX(0);}
+  .menu-toggle{
+    display:flex;align-items:center;gap:8px;background:var(--teal-900);color:#fff;border:none;
+    padding:10px 14px;border-radius:10px;font-weight:700;font-size:13px;margin-bottom:16px;
+  }
+  .main{padding:18px 16px 50px;}
+  .fb-grid{grid-template-columns:1fr;}
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:35;}
+  .overlay.show{display:block;}
+}
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="brand-mark">
+      <svg viewBox="0 0 40 40"><circle cx="13" cy="13" r="8" fill="#E4C77A" opacity=".9"/><polygon points="27,8 35,26 19,26" fill="#fff" opacity=".85"/><rect x="14" y="22" width="16" height="16" rx="3" fill="#177D74"/></svg>
+    </div>
+    <div class="brand-text">ICU<small>Группа кураторов</small></div>
+  </div>
+  <nav id="nav">
+    <button class="nav-btn" data-section="dashboard">📊 Обзор</button>
+    <button class="nav-btn" data-section="participants">👥 Участники</button>
+    <button class="nav-btn" data-section="modules">📚 Модули и посещаемость</button>
+    <button class="nav-btn" data-section="supervisions">🎤 Супервизии</button>
+    <button class="nav-btn" data-section="certification">🏅 Сертификация</button>
+    <button class="nav-btn" data-section="messages">💬 Сообщения WhatsApp</button>
+  </nav>
+  <div class="sidebar-footer">ICU — International Coach Union<br>v1.1 · offline · localStorage</div>
+</aside>
+
+<main class="main">
+  <button class="menu-toggle" id="menuToggle">☰ Разделы</button>
+
+  <!-- DASHBOARD -->
+  <section class="section" id="sec-dashboard">
+    <div class="topbar">
+      <div><h1>Обзор потока</h1><p>Сводка по группе кураторов ICU</p></div>
+    </div>
+    <div class="cards" id="dashCards"></div>
+    <div class="panel">
+      <h3>Путь по модулям</h3>
+      <div class="module-path" id="dashModulePath"></div>
+    </div>
+    <div class="cards">
+      <div class="panel" style="grid-column:1/-1">
+        <h3>Готовность к сертификации</h3>
+        <div id="dashCertSummary" style="display:flex;gap:20px;flex-wrap:wrap;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTICIPANTS -->
+  <section class="section" id="sec-participants">
+    <div class="topbar">
+      <div><h1>Участники</h1><p>Контакты и статус сообщений</p></div>
+      <button class="btn gold" id="addParticipant">+ Добавить участника</button>
+    </div>
+    <div class="panel table-wrap">
+      <table>
+        <thead><tr><th>ФИО</th><th>Телефон (WhatsApp)</th><th>Email</th><th>Адрес</th><th>Сообщ. отправлено</th><th></th></tr></thead>
+        <tbody id="participantsBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- MODULES -->
+  <section class="section" id="sec-modules">
+    <div class="topbar">
+      <div><h1>Модули и посещаемость</h1><p>8 модулей программы</p></div>
+      <button class="btn gold" id="addModule">+ Добавить модуль</button>
+    </div>
+    <div class="panel table-wrap">
+      <table>
+        <thead><tr><th>Название</th><th>Дата</th><th>Статус</th><th></th></tr></thead>
+        <tbody id="modulesBody"></tbody>
+      </table>
+    </div>
+    <div class="panel table-wrap">
+      <h3>Матрица посещаемости</h3>
+      <table id="attendanceTable"></table>
+    </div>
+  </section>
+
+  <!-- SUPERVISIONS -->
+  <section class="section" id="sec-supervisions">
+    <div class="topbar">
+      <div><h1>Супервизии</h1><p>Сессии и индивидуальная обратная связь</p></div>
+      <button class="btn gold" id="addSupervision">+ Добавить супервизию</button>
+    </div>
+    <div class="panel table-wrap">
+      <table>
+        <thead><tr><th>Дата</th><th>Тема</th><th>Ссылка на презентацию</th><th></th></tr></thead>
+        <tbody id="supervisionsBody"></tbody>
+      </table>
+    </div>
+    <div class="panel">
+      <h3>Индивидуальная обратная связь</h3>
+      <div class="fb-grid">
+        <div class="fb-list" id="fbList"></div>
+        <div>
+          <textarea class="fb-textarea" id="fbText" placeholder="Выберите участника слева, чтобы написать обратную связь…"></textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATION -->
+  <section class="section" id="sec-certification">
+    <div class="topbar">
+      <div><h1>Сертификация</h1><p>Требования, тренинги и статус по участникам</p></div>
+    </div>
+    <div class="cards" style="grid-template-columns:1fr 1fr;align-items:start;">
+      <div class="panel">
+        <h3>Требования к сертификации</h3>
+        <div class="checklist" id="certRequirements"></div>
+        <button class="btn outline small" id="addRequirement" style="margin-top:10px;">+ Пункт</button>
+      </div>
+      <div class="panel">
+        <h3>Тренинги к сдаче</h3>
+        <div class="checklist" id="certTrainings"></div>
+        <button class="btn outline small" id="addTraining" style="margin-top:10px;">+ Тренинг</button>
+      </div>
+    </div>
+    <div class="panel table-wrap">
+      <h3>Статус по каждому участнику</h3>
+      <table>
+        <thead><tr><th>ФИО</th><th>Видео</th><th>Скан дневника</th><th>Английский</th><th>Тест</th><th>Готовность</th></tr></thead>
+        <tbody id="certParticipantsBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- MESSAGES -->
+  <section class="section" id="sec-messages">
+    <div class="topbar">
+      <div><h1>Сообщения в WhatsApp</h1><p>Шаблон и персональная отправка вручную</p></div>
+    </div>
+    <div class="panel">
+      <h3>Шаблон сообщения</h3>
+      <p style="font-size:12px;color:var(--ink-soft);margin-top:-6px;">Используйте плейсхолдер <code>{{имя}}</code> — он будет заменён на ФИО участника.</p>
+      <textarea class="template" id="msgTemplate"></textarea>
+    </div>
+    <div class="panel">
+      <h3>Участники</h3>
+      <div id="msgList"></div>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'curators_app_state_v1';
+const ATTEND_LABELS = {present:'Присутствовал', absent:'Отсутствовал', unknown:'—'};
+const MODULE_STATUSES = ['done','next','planned'];
+const MODULE_STATUS_LABELS = {done:'Пройден', next:'Предстоит', planned:'Запланирован'};
+const READINESS = ['ready','progress','notready'];
+const READINESS_LABELS = {ready:'Готов', progress:'В процессе', notready:'Не готов'};
+const ENGLISH_STATUSES = ['Не указано','Подтверждён','Требуется подтверждение'];
+const TEST_STATUSES = ['Не сдавал','Сдан','Не сдан'];
+
+function uid(){ return 'id_' + Math.random().toString(36).slice(2,10) + Date.now().toString(36); }
+
+function defaultState(){
+  const participants = [];
+  for(let i=1;i<=19;i++){
+    participants.push({id:uid(), name:`Участник ${i}`, phone:'', email:'', address:'', messageSent:false});
+  }
+  const moduleDefs = [
+    {title:'Модуль 1', status:'done'},
+    {title:'Модуль 2', status:'done'},
+    {title:'Модуль 3', status:'done'},
+    {title:'Модуль 4', status:'next'},
+    {title:'Модуль 5', status:'planned'},
+    {title:'Модуль 6', status:'planned'},
+    {title:'Модуль 7', status:'planned'},
+    {title:'Модуль 8', status:'planned'},
+  ];
+  const modules = moduleDefs.map(m => ({id:uid(), title:m.title, date:'', status:m.status}));
+
+  const attendance = {};
+  participants.forEach(p=>{
+    attendance[p.id] = {};
+    modules.forEach(m=>{ attendance[p.id][m.id] = 'unknown'; });
+  });
+
+  const certParticipantData = {};
+  participants.forEach(p=>{
+    certParticipantData[p.id] = {video:'', diary:'', english:'Не указано', test:'Не сдавал', readiness:'notready'};
+  });
+
+  return {
+    participants,
+    modules,
+    attendance,
+    supervisions: [],
+    individualFeedback: {},
+    certRequirements: [
+      {id:uid(), text:'Посещение всех 8 модулей', done:false},
+      {id:uid(), text:'Видео практической сессии', done:false},
+      {id:uid(), text:'Скан дневника коуча', done:false},
+      {id:uid(), text:'Подтверждённый уровень английского', done:false},
+      {id:uid(), text:'Сдан итоговый тест', done:false},
+    ],
+    certTrainings: [
+      {id:uid(), text:'Базовый курс коучинга', passed:false},
+      {id:uid(), text:'Практикум супервизии', passed:false},
+      {id:uid(), text:'Итоговая аттестация', passed:false},
+    ],
+    certParticipantData,
+    messageTemplate: 'Здравствуйте, {{имя}}! 👋\n\nНапоминаем о ближайшем модуле программы ICU. Будем рады видеть вас!\n\nС уважением,\nКоманда ICU',
+  };
+}
+
+let state = load();
+
+function load(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    const def = defaultState();
+    return Object.assign(def, parsed);
+  }catch(e){
+    return defaultState();
+  }
+}
+
+function save(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  showToast('Сохранено');
+}
+
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 1200);
+}
+
+/* ---------------- Navigation ---------------- */
+const navButtons = document.querySelectorAll('.nav-btn');
+const sections = document.querySelectorAll('.section');
+function setActiveSection(name){
+  navButtons.forEach(b=>b.classList.toggle('active', b.dataset.section===name));
+  sections.forEach(s=>s.classList.toggle('active', s.id === 'sec-'+name));
+  closeSidebar();
+  location.hash = name;
+}
+navButtons.forEach(b=>b.addEventListener('click', ()=>setActiveSection(b.dataset.section)));
+
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+document.getElementById('menuToggle').addEventListener('click', ()=>{
+  sidebar.classList.add('open'); overlay.classList.add('show');
+});
+overlay.addEventListener('click', closeSidebar);
+function closeSidebar(){ sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+
+/* ---------------- Dashboard ---------------- */
+function renderDashboard(){
+  const totalParticipants = state.participants.length;
+  const modulesDone = state.modules.filter(m=>m.status==='done').length;
+  const certReady = state.participants.filter(p => (state.certParticipantData[p.id]||{}).readiness==='ready').length;
+  const messagesSent = state.participants.filter(p=>p.messageSent).length;
+
+  const cards = [
+    {num: totalParticipants, label:'Всего участников'},
+    {num: `${modulesDone}/${state.modules.length}`, label:'Модулей пройдено'},
+    {num: certReady, label:'Готовы к сертификации', gold:true},
+    {num: `${messagesSent}/${totalParticipants}`, label:'Личных сообщений отправлено'},
+  ];
+  document.getElementById('dashCards').innerHTML = cards.map(c=>`
+    <div class="stat-card ${c.gold?'gold':''}">
+      <div class="num">${c.num}</div>
+      <div class="label">${c.label}</div>
+    </div>`).join('');
+
+  document.getElementById('dashModulePath').innerHTML = state.modules.map(m=>`
+    <div class="module-chip ${m.status}">
+      <div class="title">${escapeHtml(m.title)}</div>
+      <div class="date">${m.date ? formatDate(m.date) : 'дата не указана'}</div>
+      <span class="badge ${m.status}">${MODULE_STATUS_LABELS[m.status]}</span>
+    </div>`).join('');
+
+  const counts = {ready:0,progress:0,notready:0};
+  state.participants.forEach(p=>{
+    const r = (state.certParticipantData[p.id]||{}).readiness || 'notready';
+    counts[r] = (counts[r]||0)+1;
+  });
+  document.getElementById('dashCertSummary').innerHTML = READINESS.map(r=>`
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span class="status-pill ${r}">${READINESS_LABELS[r]}</span>
+      <strong>${counts[r]}</strong>
+    </div>`).join('');
+}
+
+function formatDate(d){
+  if(!d) return '';
+  const dt = new Date(d);
+  if(isNaN(dt)) return d;
+  return dt.toLocaleDateString('ru-RU', {day:'2-digit', month:'2-digit', year:'numeric'});
+}
+function escapeHtml(s){
+  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* ---------------- Participants ---------------- */
+function renderParticipants(){
+  const body = document.getElementById('participantsBody');
+  body.innerHTML = state.participants.map(p => `
+    <tr data-id="${p.id}">
+      <td><input type="text" data-field="name" value="${escapeHtml(p.name)}"></td>
+      <td><input type="tel" data-field="phone" value="${escapeHtml(p.phone)}" placeholder="+7 7__ ___ __ __"></td>
+      <td><input type="email" data-field="email" value="${escapeHtml(p.email)}"></td>
+      <td><input type="text" data-field="address" value="${escapeHtml(p.address)}"></td>
+      <td style="text-align:center"><input type="checkbox" data-field="messageSent" ${p.messageSent?'checked':''}></td>
+      <td><button class="btn danger small" data-action="delete">✕</button></td>
+    </tr>`).join('');
+
+  body.querySelectorAll('input').forEach(inp=>{
+    const handler = ()=>{
+      const id = inp.closest('tr').dataset.id;
+      const p = state.participants.find(x=>x.id===id);
+      const field = inp.dataset.field;
+      p[field] = inp.type==='checkbox' ? inp.checked : inp.value;
+      save();
+      if(field==='name'){ renderFbList(); renderCertParticipants(); renderMessages(); renderDashboard(); }
+      if(field==='messageSent'){ renderDashboard(); renderMessages(); }
+    };
+    inp.addEventListener('input', handler);
+    inp.addEventListener('change', handler);
+  });
+
+  body.querySelectorAll('[data-action="delete"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.closest('tr').dataset.id;
+      if(!confirm('Удалить участника?')) return;
+      state.participants = state.participants.filter(x=>x.id!==id);
+      delete state.attendance[id];
+      delete state.individualFeedback[id];
+      delete state.certParticipantData[id];
+      save();
+      renderAll();
+    });
+  });
+}
+
+document.getElementById('addParticipant').addEventListener('click', ()=>{
+  const p = {id:uid(), name:'Новый участник', phone:'', email:'', address:'', messageSent:false};
+  state.participants.push(p);
+  state.attendance[p.id] = {};
+  state.modules.forEach(m=>{ state.attendance[p.id][m.id] = 'unknown'; });
+  state.certParticipantData[p.id] = {video:'', diary:'', english:'Не указано', test:'Не сдавал', readiness:'notready'};
+  save();
+  renderAll();
+});
+
+/* ---------------- Modules & attendance ---------------- */
+function renderModules(){
+  const body = document.getElementById('modulesBody');
+  body.innerHTML = state.modules.map(m => `
+    <tr data-id="${m.id}">
+      <td><input type="text" data-field="title" value="${escapeHtml(m.title)}"></td>
+      <td><input type="date" data-field="date" value="${m.date||''}"></td>
+      <td>
+        <select data-field="status">
+          ${MODULE_STATUSES.map(s=>`<option value="${s}" ${m.status===s?'selected':''}>${MODULE_STATUS_LABELS[s]}</option>`).join('')}
+        </select>
+      </td>
+      <td><button class="btn danger small" data-action="delete">✕</button></td>
+    </tr>`).join('');
+
+  body.querySelectorAll('input,select').forEach(inp=>{
+    inp.addEventListener('change', ()=>{
+      const id = inp.closest('tr').dataset.id;
+      const m = state.modules.find(x=>x.id===id);
+      m[inp.dataset.field] = inp.value;
+      save();
+      renderDashboard(); renderAttendanceTable();
+    });
+    inp.addEventListener('input', ()=>{
+      const id = inp.closest('tr').dataset.id;
+      const m = state.modules.find(x=>x.id===id);
+      m[inp.dataset.field] = inp.value;
+      save();
+      if(inp.dataset.field==='title'){ renderDashboard(); renderAttendanceTable(); }
+    });
+  });
+
+  body.querySelectorAll('[data-action="delete"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.closest('tr').dataset.id;
+      if(!confirm('Удалить модуль?')) return;
+      state.modules = state.modules.filter(x=>x.id!==id);
+      Object.keys(state.attendance).forEach(pid=>{ delete state.attendance[pid][id]; });
+      save();
+      renderAll();
+    });
+  });
+}
+
+document.getElementById('addModule').addEventListener('click', ()=>{
+  const m = {id:uid(), title:`Модуль ${state.modules.length+1}`, date:'', status:'planned'};
+  state.modules.push(m);
+  state.participants.forEach(p=>{ state.attendance[p.id][m.id] = 'unknown'; });
+  save();
+  renderAll();
+});
+
+function renderAttendanceTable(){
+  const table = document.getElementById('attendanceTable');
+  let html = '<thead><tr><th>Участник</th>' + state.modules.map(m=>`<th>${escapeHtml(m.title)}</th>`).join('') + '</tr></thead><tbody>';
+  state.participants.forEach(p=>{
+    html += `<tr><td>${escapeHtml(p.name)}</td>`;
+    state.modules.forEach(m=>{
+      const val = (state.attendance[p.id]||{})[m.id] || 'unknown';
+      html += `<td><div class="attend-cell"><select data-pid="${p.id}" data-mid="${m.id}">
+        ${Object.keys(ATTEND_LABELS).map(k=>`<option value="${k}" ${val===k?'selected':''}>${ATTEND_LABELS[k]}</option>`).join('')}
+      </select></div></td>`;
+    });
+    html += '</tr>';
+  });
+  html += '</tbody>';
+  table.innerHTML = html;
+
+  table.querySelectorAll('select').forEach(sel=>{
+    sel.addEventListener('change', ()=>{
+      const pid = sel.dataset.pid, mid = sel.dataset.mid;
+      if(!state.attendance[pid]) state.attendance[pid] = {};
+      state.attendance[pid][mid] = sel.value;
+      save();
+    });
+  });
+}
+
+/* ---------------- Supervisions ---------------- */
+function renderSupervisions(){
+  const body = document.getElementById('supervisionsBody');
+  body.innerHTML = state.supervisions.map(s => `
+    <tr data-id="${s.id}">
+      <td><input type="date" data-field="date" value="${s.date||''}"></td>
+      <td><input type="text" data-field="topic" value="${escapeHtml(s.topic)}"></td>
+      <td><input type="url" data-field="link" value="${escapeHtml(s.link)}" placeholder="https://"></td>
+      <td><button class="btn danger small" data-action="delete">✕</button></td>
+    </tr>`).join('');
+
+  body.querySelectorAll('input').forEach(inp=>{
+    const ev = inp.type==='date' ? 'change' : 'input';
+    inp.addEventListener(ev, ()=>{
+      const id = inp.closest('tr').dataset.id;
+      const s = state.supervisions.find(x=>x.id===id);
+      s[inp.dataset.field] = inp.value;
+      save();
+    });
+  });
+
+  body.querySelectorAll('[data-action="delete"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.closest('tr').dataset.id;
+      if(!confirm('Удалить супервизию?')) return;
+      state.supervisions = state.supervisions.filter(x=>x.id!==id);
+      save();
+      renderSupervisions();
+    });
+  });
+}
+
+document.getElementById('addSupervision').addEventListener('click', ()=>{
+  state.supervisions.push({id:uid(), date:'', topic:'', link:''});
+  save();
+  renderSupervisions();
+});
+
+let activeFbId = null;
+function renderFbList(){
+  const list = document.getElementById('fbList');
+  list.innerHTML = state.participants.map(p=>`
+    <button data-id="${p.id}" class="${activeFbId===p.id?'active':''}">${escapeHtml(p.name)}</button>
+  `).join('');
+  list.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      activeFbId = btn.dataset.id;
+      renderFbList();
+      document.getElementById('fbText').value = state.individualFeedback[activeFbId] || '';
+      document.getElementById('fbText').disabled = false;
+    });
+  });
+}
+
+document.getElementById('fbText').addEventListener('input', (e)=>{
+  if(!activeFbId) return;
+  state.individualFeedback[activeFbId] = e.target.value;
+  save();
+});
+
+/* ---------------- Certification ---------------- */
+function renderChecklist(containerId, arr, doneField, addBtnId){
+  const container = document.getElementById(containerId);
+  container.innerHTML = arr.map(item => `
+    <div class="checklist-item" data-id="${item.id}">
+      <input type="checkbox" data-field="${doneField}" ${item[doneField]?'checked':''}>
+      <input type="text" data-field="text" value="${escapeHtml(item.text)}">
+      <button class="btn danger small" data-action="delete">✕</button>
+    </div>`).join('');
+
+  container.querySelectorAll('input').forEach(inp=>{
+    const ev = inp.type==='checkbox' ? 'change' : 'input';
+    inp.addEventListener(ev, ()=>{
+      const id = inp.closest('.checklist-item').dataset.id;
+      const item = arr.find(x=>x.id===id);
+      item[inp.dataset.field] = inp.type==='checkbox' ? inp.checked : inp.value;
+      save();
+    });
+  });
+  container.querySelectorAll('[data-action="delete"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.closest('.checklist-item').dataset.id;
+      const idx = arr.findIndex(x=>x.id===id);
+      arr.splice(idx,1);
+      save();
+      renderChecklist(containerId, arr, doneField, addBtnId);
+    });
+  });
+}
+
+function renderRequirements(){ renderChecklist('certRequirements', state.certRequirements, 'done'); }
+function renderTrainings(){
+  const container = document.getElementById('certTrainings');
+  container.innerHTML = state.certTrainings.map((item, idx) => `
+    <div class="training-row" data-id="${item.id}">
+      <div class="order-btns">
+        <button data-action="up" ${idx===0?'disabled':''}>▲</button>
+        <button data-action="down" ${idx===state.certTrainings.length-1?'disabled':''}>▼</button>
+      </div>
+      <input type="checkbox" data-field="passed" ${item.passed?'checked':''}>
+      <input type="text" data-field="text" value="${escapeHtml(item.text)}" style="flex:1;border:none;background:transparent;font-size:13.5px;">
+      <button class="btn danger small" data-action="delete">✕</button>
+    </div>`).join('');
+
+  container.querySelectorAll('input').forEach(inp=>{
+    const ev = inp.type==='checkbox' ? 'change' : 'input';
+    inp.addEventListener(ev, ()=>{
+      const id = inp.closest('.training-row').dataset.id;
+      const item = state.certTrainings.find(x=>x.id===id);
+      item[inp.dataset.field] = inp.type==='checkbox' ? inp.checked : inp.value;
+      save();
+    });
+  });
+  container.querySelectorAll('[data-action="delete"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.closest('.training-row').dataset.id;
+      state.certTrainings = state.certTrainings.filter(x=>x.id!==id);
+      save(); renderTrainings();
+    });
+  });
+  container.querySelectorAll('[data-action="up"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.closest('.training-row').dataset.id;
+      const idx = state.certTrainings.findIndex(x=>x.id===id);
+      if(idx>0){ [state.certTrainings[idx-1], state.certTrainings[idx]] = [state.certTrainings[idx], state.certTrainings[idx-1]]; save(); renderTrainings(); }
+    });
+  });
+  container.querySelectorAll('[data-action="down"]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.closest('.training-row').dataset.id;
+      const idx = state.certTrainings.findIndex(x=>x.id===id);
+      if(idx<state.certTrainings.length-1){ [state.certTrainings[idx+1], state.certTrainings[idx]] = [state.certTrainings[idx], state.certTrainings[idx+1]]; save(); renderTrainings(); }
+    });
+  });
+}
+
+document.getElementById('addRequirement').addEventListener('click', ()=>{
+  state.certRequirements.push({id:uid(), text:'Новое требование', done:false});
+  save(); renderRequirements();
+});
+document.getElementById('addTraining').addEventListener('click', ()=>{
+  state.certTrainings.push({id:uid(), text:'Новый тренинг', passed:false});
+  save(); renderTrainings();
+});
+
+function renderCertParticipants(){
+  const body = document.getElementById('certParticipantsBody');
+  body.innerHTML = state.participants.map(p=>{
+    const d = state.certParticipantData[p.id] || (state.certParticipantData[p.id]={video:'', diary:'', english:'Не указано', test:'Не сдавал', readiness:'notready'});
+    return `<tr data-id="${p.id}">
+      <td>${escapeHtml(p.name)}</td>
+      <td><input type="url" data-field="video" value="${escapeHtml(d.video)}" placeholder="ссылка"></td>
+      <td><input type="url" data-field="diary" value="${escapeHtml(d.diary)}" placeholder="ссылка"></td>
+      <td><select data-field="english">${ENGLISH_STATUSES.map(s=>`<option ${d.english===s?'selected':''}>${s}</option>`).join('')}</select></td>
+      <td><select data-field="test">${TEST_STATUSES.map(s=>`<option ${d.test===s?'selected':''}>${s}</option>`).join('')}</select></td>
+      <td><select data-field="readiness">${READINESS.map(r=>`<option value="${r}" ${d.readiness===r?'selected':''}>${READINESS_LABELS[r]}</option>`).join('')}</select></td>
+    </tr>`;
+  }).join('');
+
+  body.querySelectorAll('input,select').forEach(inp=>{
+    const ev = inp.tagName==='SELECT' ? 'change' : 'input';
+    inp.addEventListener(ev, ()=>{
+      const id = inp.closest('tr').dataset.id;
+      state.certParticipantData[id][inp.dataset.field] = inp.value;
+      save();
+      if(inp.dataset.field==='readiness') renderDashboard();
+    });
+  });
+}
+
+/* ---------------- Messages ---------------- */
+document.getElementById('msgTemplate').addEventListener('input', (e)=>{
+  state.messageTemplate = e.target.value;
+  save();
+});
+
+function renderMessages(){
+  document.getElementById('msgTemplate').value = state.messageTemplate;
+  const list = document.getElementById('msgList');
+  list.innerHTML = state.participants.map(p=>`
+    <div class="msg-card" data-id="${p.id}">
+      <div>
+        <div class="name">${escapeHtml(p.name)}</div>
+        <div class="phone">${escapeHtml(p.phone || 'телефон не указан')}</div>
+      </div>
+      <div class="actions">
+        <button class="btn outline small" data-action="copy">📋 Скопировать</button>
+        <label><input type="checkbox" data-action="sent" ${p.messageSent?'checked':''}> отправлено</label>
+      </div>
+    </div>`).join('');
+
+  list.querySelectorAll('[data-action="copy"]').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      const id = btn.closest('.msg-card').dataset.id;
+      const p = state.participants.find(x=>x.id===id);
+      const text = state.messageTemplate.replaceAll('{{имя}}', p.name);
+      try{
+        await navigator.clipboard.writeText(text);
+        showToast('Сообщение скопировано');
+      }catch(e){
+        const ta = document.createElement('textarea');
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+        showToast('Сообщение скопировано');
+      }
+    });
+  });
+  list.querySelectorAll('[data-action="sent"]').forEach(cb=>{
+    cb.addEventListener('change', ()=>{
+      const id = cb.closest('.msg-card').dataset.id;
+      const p = state.participants.find(x=>x.id===id);
+      p.messageSent = cb.checked;
+      save();
+      renderDashboard();
+      renderParticipants();
+    });
+  });
+}
+
+/* ---------------- Render all ---------------- */
+function renderAll(){
+  renderDashboard();
+  renderParticipants();
+  renderModules();
+  renderAttendanceTable();
+  renderSupervisions();
+  renderFbList();
+  document.getElementById('fbText').disabled = !activeFbId;
+  renderRequirements();
+  renderTrainings();
+  renderCertParticipants();
+  renderMessages();
+}
+
+renderAll();
+
+const initial = (location.hash||'#dashboard').slice(1);
+setActiveSection(['dashboard','participants','modules','supervisions','certification','messages'].includes(initial) ? initial : 'dashboard');
+</script>
+</body>
+</html>
