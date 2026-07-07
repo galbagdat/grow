@@ -3428,13 +3428,20 @@ function renderFinance(){
         <div class="small" style="margin-top:20px;">Полная программа (8 модулей) на человека: <b>${fmtTenge(programPrice)}</b></div>
       </div>
     </div>
-    <div class="grid grid-3 mb">
+    <div class="grid grid-4 mb">
       <div class="card stat"><div class="lbl">Потенциальный доход (по целям набора)</div><div class="num" style="font-size:22px;">${fmtTenge(potentialTotal)}</div></div>
       <div class="card stat"><div class="lbl">Признанный доход (по пройденным модулям)</div><div class="num" style="font-size:22px;">${fmtTenge(collectedTotal)}</div></div>
       <div class="card stat"><div class="lbl">Всего студентов</div><div class="num">${STATE.students.length}</div><div class="sub">из ${totalTarget} целевых</div></div>
+      <div class="card stat"><div class="lbl">20% от потенциального дохода</div><div class="num" style="font-size:22px;">${fmtTenge(Math.round(potentialTotal*0.2))}</div></div>
     </div>
     <div class="card mb">
       <h3>Доход по городам (от числа студентов)</h3>
+      <div class="tbl-wrap mt">
+        <table>
+          <thead><tr><th>Город</th><th>По факту</th><th>Потенциал</th><th>20% от потенциала</th></tr></thead>
+          <tbody id="revenueTableBody"></tbody>
+        </table>
+      </div>
       <div id="revenueChart" class="mt"></div>
     </div>
     <div class="card">
@@ -3443,7 +3450,7 @@ function renderFinance(){
       <div id="attendanceFolders"></div>
     </div>
   `;
-  // revenue chart
+  // revenue chart + table
   const chart = document.getElementById('revenueChart');
   chart.innerHTML = STREAMS.map(s => {
     const reg = STATE.students.filter(st=>st.city===s.key).length;
@@ -3458,6 +3465,13 @@ function renderFinance(){
         <div style="width:${pct}%; position:relative;"></div>
       </div>
     </div>`;
+  }).join('');
+  document.getElementById('revenueTableBody').innerHTML = STREAMS.map(s => {
+    const reg = STATE.students.filter(st=>st.city===s.key).length;
+    const potential = s.target * programPrice;
+    const actual = reg * programPrice;
+    const twentyPct = Math.round(potential*0.2);
+    return `<tr><td>${esc(s.name)}</td><td>${fmtTenge(actual)}</td><td>${fmtTenge(potential)}</td><td><b>${fmtTenge(twentyPct)}</b></td></tr>`;
   }).join('');
   document.getElementById('savePriceBtn').onclick = () => {
     const v = parseFloat(document.getElementById('priceInput').value);
