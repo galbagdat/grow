@@ -1,0 +1,3662 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ICU Kazakhstan &amp; Central Asia — Расписание 2026/27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal-900:#0B3B3C;
+  --teal-800:#0F4C4D;
+  --teal-700:#146568;
+  --teal-100:#E7F0EF;
+  --gold:#C9A227;
+  --gold-light:#E4C874;
+  --bg:#FAF8F3;
+  --card:#FFFFFF;
+  --ink:#1B2426;
+  --muted:#5B6B6C;
+  --line:#E5DFCF;
+  --danger:#B3452F;
+  --ok:#3C7A5D;
+  --warn:#C9772A;
+  --radius:14px;
+  --shadow:0 6px 24px rgba(11,59,60,0.08);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;}
+html{background:var(--bg);}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter',Arial,sans-serif;
+  font-size:14.5px;
+  line-height:1.5;
+}
+button{outline:none;-webkit-tap-highlight-color:transparent;}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+a{text-decoration:none;}
+.btn, a.btn{text-decoration:none;display:inline-block;}
+h1,h2,h3,h4{font-family:'Manrope','Arial',sans-serif;margin:0 0 6px 0;color:var(--teal-900);}
+h1{font-size:26px;font-weight:800;}
+h2{font-size:20px;font-weight:800;}
+h3{font-size:16px;font-weight:700;}
+p{margin:0 0 8px 0;}
+a{color:var(--teal-700);}
+button, .btn{
+  font-family:inherit;cursor:pointer;border:none;border-radius:10px;
+  padding:9px 16px;font-size:14px;font-weight:600;transition:.15s;
+}
+.btn-primary{background:var(--teal-900);color:#fff;}
+.btn-primary:hover{background:var(--teal-800);}
+.btn-gold{background:var(--gold);color:var(--teal-900);}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-ghost{background:transparent;color:var(--teal-900);border:1px solid var(--line);}
+.btn-ghost:hover{background:var(--teal-100);}
+.btn-sm{padding:5px 10px;font-size:12.5px;border-radius:8px;}
+.btn-danger{background:#fbe9e4;color:var(--danger);}
+input,select,textarea{
+  font-family:inherit;font-size:14px;padding:8px 10px;border-radius:8px;
+  border:1px solid var(--line);background:#fff;color:var(--ink);width:100%;
+  outline:none;box-shadow:none;-webkit-appearance:none;appearance:none;
+}
+input:focus,select:focus,textarea:focus{
+  outline:none;border-color:var(--teal-700);
+  box-shadow:0 0 0 3px rgba(20,101,104,0.15);
+}
+input:disabled,select:disabled,textarea:disabled{
+  background:#F1EFE6;color:var(--muted);border-color:var(--line);cursor:not-allowed;-webkit-text-fill-color:var(--muted);opacity:1;
+}
+select{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0 L5 6 L10 0 Z' fill='%23146568'/></svg>");
+  background-repeat:no-repeat;background-position:right 12px center;padding-right:30px;
+}
+select:disabled{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0 L5 6 L10 0 Z' fill='%235B6B6C'/></svg>");
+}
+::selection{background:var(--gold-light);color:var(--teal-900);}
+label{font-size:12.5px;color:var(--muted);font-weight:600;display:block;margin-bottom:4px;}
+
+/* layout */
+#app{display:flex;min-height:100vh;}
+#sidebar{
+  width:230px;flex:0 0 230px;background:var(--teal-900);color:#fff;
+  display:flex;flex-direction:column;padding:20px 0;position:sticky;top:0;height:100vh;overflow-y:auto;
+}
+#sidebar .brand{padding:0 20px 18px 20px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:10px;}
+#sidebar .brand .tag{color:var(--gold);font-weight:800;font-size:12px;letter-spacing:2px;}
+#sidebar .brand h1{color:#fff;font-size:19px;margin-top:4px;}
+#sidebar .brand .sub{color:#9FC1C0;font-size:11.5px;}
+.nav-item{
+  display:flex;align-items:center;gap:10px;padding:11px 20px;color:#CFE3E3;
+  font-weight:600;font-size:13.5px;cursor:pointer;border-left:3px solid transparent;
+}
+.nav-item:hover{background:rgba(255,255,255,.06);color:#fff;}
+.nav-item.active{background:rgba(255,255,255,.09);color:#fff;border-left-color:var(--gold);}
+.nav-item .ic{width:18px;text-align:center;}
+#sidebar .role-box{margin-top:auto;padding:14px 20px 4px 20px;border-top:1px solid rgba(255,255,255,.12);font-size:11.5px;color:#9FC1C0;}
+#sidebar .role-box b{color:#fff;}
+#sidebar .role-box .switch{margin-top:8px;color:var(--gold-light);cursor:pointer;font-weight:700;}
+
+#main{flex:1;min-width:0;padding:28px 34px 60px 34px;}
+.topbar{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:22px;flex-wrap:wrap;gap:10px;}
+.topbar .meta{color:var(--muted);font-size:13px;}
+
+.tab{display:none;}
+.tab.active{display:block;}
+
+.grid{display:grid;gap:16px;}
+.grid-4{grid-template-columns:repeat(4,1fr);}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+.grid-2{grid-template-columns:repeat(2,1fr);}
+@media(max-width:1100px){.grid-4{grid-template-columns:repeat(2,1fr);}.grid-3{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:720px){.grid-4,.grid-3,.grid-2{grid-template-columns:1fr;}#sidebar{position:fixed;z-index:50;transform:translateX(-100%);transition:.2s;}#sidebar.open{transform:translateX(0);}#main{padding:20px 16px 60px 16px;}}
+
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;border:1px solid var(--line);}
+.stat{display:flex;flex-direction:column;gap:4px;}
+.stat .num{font-family:'Manrope',sans-serif;font-size:30px;font-weight:800;color:var(--teal-900);}
+.stat .lbl{font-size:12.5px;color:var(--muted);font-weight:600;}
+.stat .sub{font-size:11.5px;color:var(--gold);font-weight:700;}
+
+.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+th{background:var(--teal-100);color:var(--teal-900);text-align:left;padding:9px 10px;font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.3px;}
+td{padding:8px 10px;border-bottom:1px solid var(--line);}
+tr:hover td{background:#FBFAF6;}
+.tbl-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--line);}
+
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700;}
+.badge-teal{background:var(--teal-100);color:var(--teal-800);}
+.badge-gold{background:#FBF1D6;color:#8A6D14;}
+.badge-ok{background:#E3F1E9;color:var(--ok);}
+.badge-warn{background:#FCEBDA;color:var(--warn);}
+.badge-danger{background:#FBE9E4;color:var(--danger);}
+
+.progress{height:8px;border-radius:6px;background:var(--teal-100);overflow:hidden;}
+.progress > div{height:100%;background:linear-gradient(90deg,var(--teal-700),var(--gold));}
+
+.filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;align-items:end;}
+.filter-row > div{min-width:150px;}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(11,20,20,.55);display:flex;align-items:center;justify-content:center;z-index:100;}
+.modal{background:#fff;border-radius:16px;padding:30px;max-width:440px;width:92%;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.modal h2{margin-bottom:6px;}
+.modal .muted{color:var(--muted);font-size:13px;margin-bottom:18px;}
+.role-opt{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+.role-opt:hover{border-color:var(--teal-700);background:var(--teal-100);}
+.role-opt.selected{border-color:var(--gold);background:#FBF1D6;}
+
+.hint{background:var(--teal-100);border-radius:10px;padding:10px 14px;font-size:12.5px;color:var(--teal-800);margin-bottom:14px;}
+.warn-box{background:#FCEBDA;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#8A5A1E;margin-bottom:14px;}
+
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--teal-100);color:var(--teal-800);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:700;margin:2px;}
+.trainer-card{display:flex;flex-direction:column;gap:6px;}
+.trainer-card .avatar{width:44px;height:44px;border-radius:50%;background:var(--teal-900);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:Manrope;font-size:15px;}
+
+.flex-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.mt{margin-top:14px;}
+.mb{margin-bottom:14px;}
+textarea{min-height:90px;resize:vertical;}
+.small{font-size:12px;color:var(--muted);}
+.close-x{cursor:pointer;color:var(--muted);font-weight:700;font-size:18px;}
+.icon-btn{background:transparent;border:1px solid var(--line);border-radius:8px;padding:6px 8px;}
+.recipient-row{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;}
+.pill-toggle{display:flex;gap:6px;flex-wrap:wrap;}
+.pill{padding:5px 12px;border-radius:20px;border:1px solid var(--line);font-size:12.5px;font-weight:600;cursor:pointer;}
+.pill.active{background:var(--teal-900);color:#fff;border-color:var(--teal-900);}
+footer.appfoot{margin-top:30px;color:var(--muted);font-size:11.5px;text-align:center;}
+
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="sidebar"></div>
+  <div id="main">
+    <div id="tab-dashboard" class="tab"></div>
+    <div id="tab-schedule" class="tab"></div>
+    <div id="tab-trainers" class="tab"></div>
+    <div id="tab-cities" class="tab"></div>
+    <div id="tab-students" class="tab"></div>
+    <div id="tab-flights" class="tab"></div>
+    <div id="tab-reports" class="tab"></div>
+    <div id="tab-finance" class="tab"></div>
+    <div id="tab-feedback" class="tab"></div>
+    <div id="tab-broadcast" class="tab"></div>
+    <div id="tab-templates" class="tab"></div>
+    <footer class="appfoot">ICU Kazakhstan &amp; Central Asia · Панель запуска потока 2026/2027 · офлайн-приложение, данные хранятся локально в этом браузере</footer>
+  </div>
+</div>
+<div id="roleGate" class="modal-overlay" style="display:none;"></div>
+<div id="genericModal" class="modal-overlay" style="display:none;"></div>
+<script>
+//---------------------------------------------------------------------
+//
+// QR Code Generator for JavaScript
+//
+// Copyright (c) 2009 Kazuhiko Arase
+//
+// URL: http://www.d-project.com/
+//
+// Licensed under the MIT license:
+//  http://www.opensource.org/licenses/mit-license.php
+//
+// The word 'QR Code' is registered trademark of
+// DENSO WAVE INCORPORATED
+//  http://www.denso-wave.com/qrcode/faqpatent-e.html
+//
+//---------------------------------------------------------------------
+
+var qrcode = function() {
+
+  //---------------------------------------------------------------------
+  // qrcode
+  //---------------------------------------------------------------------
+
+  /**
+   * qrcode
+   * @param typeNumber 1 to 40
+   * @param errorCorrectionLevel 'L','M','Q','H'
+   */
+  var qrcode = function(typeNumber, errorCorrectionLevel) {
+
+    var PAD0 = 0xEC;
+    var PAD1 = 0x11;
+
+    var _typeNumber = typeNumber;
+    var _errorCorrectionLevel = QRErrorCorrectionLevel[errorCorrectionLevel];
+    var _modules = null;
+    var _moduleCount = 0;
+    var _dataCache = null;
+    var _dataList = [];
+
+    var _this = {};
+
+    var makeImpl = function(test, maskPattern) {
+
+      _moduleCount = _typeNumber * 4 + 17;
+      _modules = function(moduleCount) {
+        var modules = new Array(moduleCount);
+        for (var row = 0; row < moduleCount; row += 1) {
+          modules[row] = new Array(moduleCount);
+          for (var col = 0; col < moduleCount; col += 1) {
+            modules[row][col] = null;
+          }
+        }
+        return modules;
+      }(_moduleCount);
+
+      setupPositionProbePattern(0, 0);
+      setupPositionProbePattern(_moduleCount - 7, 0);
+      setupPositionProbePattern(0, _moduleCount - 7);
+      setupPositionAdjustPattern();
+      setupTimingPattern();
+      setupTypeInfo(test, maskPattern);
+
+      if (_typeNumber >= 7) {
+        setupTypeNumber(test);
+      }
+
+      if (_dataCache == null) {
+        _dataCache = createData(_typeNumber, _errorCorrectionLevel, _dataList);
+      }
+
+      mapData(_dataCache, maskPattern);
+    };
+
+    var setupPositionProbePattern = function(row, col) {
+
+      for (var r = -1; r <= 7; r += 1) {
+
+        if (row + r <= -1 || _moduleCount <= row + r) continue;
+
+        for (var c = -1; c <= 7; c += 1) {
+
+          if (col + c <= -1 || _moduleCount <= col + c) continue;
+
+          if ( (0 <= r && r <= 6 && (c == 0 || c == 6) )
+              || (0 <= c && c <= 6 && (r == 0 || r == 6) )
+              || (2 <= r && r <= 4 && 2 <= c && c <= 4) ) {
+            _modules[row + r][col + c] = true;
+          } else {
+            _modules[row + r][col + c] = false;
+          }
+        }
+      }
+    };
+
+    var getBestMaskPattern = function() {
+
+      var minLostPoint = 0;
+      var pattern = 0;
+
+      for (var i = 0; i < 8; i += 1) {
+
+        makeImpl(true, i);
+
+        var lostPoint = QRUtil.getLostPoint(_this);
+
+        if (i == 0 || minLostPoint > lostPoint) {
+          minLostPoint = lostPoint;
+          pattern = i;
+        }
+      }
+
+      return pattern;
+    };
+
+    var setupTimingPattern = function() {
+
+      for (var r = 8; r < _moduleCount - 8; r += 1) {
+        if (_modules[r][6] != null) {
+          continue;
+        }
+        _modules[r][6] = (r % 2 == 0);
+      }
+
+      for (var c = 8; c < _moduleCount - 8; c += 1) {
+        if (_modules[6][c] != null) {
+          continue;
+        }
+        _modules[6][c] = (c % 2 == 0);
+      }
+    };
+
+    var setupPositionAdjustPattern = function() {
+
+      var pos = QRUtil.getPatternPosition(_typeNumber);
+
+      for (var i = 0; i < pos.length; i += 1) {
+
+        for (var j = 0; j < pos.length; j += 1) {
+
+          var row = pos[i];
+          var col = pos[j];
+
+          if (_modules[row][col] != null) {
+            continue;
+          }
+
+          for (var r = -2; r <= 2; r += 1) {
+
+            for (var c = -2; c <= 2; c += 1) {
+
+              if (r == -2 || r == 2 || c == -2 || c == 2
+                  || (r == 0 && c == 0) ) {
+                _modules[row + r][col + c] = true;
+              } else {
+                _modules[row + r][col + c] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+
+    var setupTypeNumber = function(test) {
+
+      var bits = QRUtil.getBCHTypeNumber(_typeNumber);
+
+      for (var i = 0; i < 18; i += 1) {
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+        _modules[Math.floor(i / 3)][i % 3 + _moduleCount - 8 - 3] = mod;
+      }
+
+      for (var i = 0; i < 18; i += 1) {
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+        _modules[i % 3 + _moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
+      }
+    };
+
+    var setupTypeInfo = function(test, maskPattern) {
+
+      var data = (_errorCorrectionLevel << 3) | maskPattern;
+      var bits = QRUtil.getBCHTypeInfo(data);
+
+      // vertical
+      for (var i = 0; i < 15; i += 1) {
+
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+
+        if (i < 6) {
+          _modules[i][8] = mod;
+        } else if (i < 8) {
+          _modules[i + 1][8] = mod;
+        } else {
+          _modules[_moduleCount - 15 + i][8] = mod;
+        }
+      }
+
+      // horizontal
+      for (var i = 0; i < 15; i += 1) {
+
+        var mod = (!test && ( (bits >> i) & 1) == 1);
+
+        if (i < 8) {
+          _modules[8][_moduleCount - i - 1] = mod;
+        } else if (i < 9) {
+          _modules[8][15 - i - 1 + 1] = mod;
+        } else {
+          _modules[8][15 - i - 1] = mod;
+        }
+      }
+
+      // fixed module
+      _modules[_moduleCount - 8][8] = (!test);
+    };
+
+    var mapData = function(data, maskPattern) {
+
+      var inc = -1;
+      var row = _moduleCount - 1;
+      var bitIndex = 7;
+      var byteIndex = 0;
+      var maskFunc = QRUtil.getMaskFunction(maskPattern);
+
+      for (var col = _moduleCount - 1; col > 0; col -= 2) {
+
+        if (col == 6) col -= 1;
+
+        while (true) {
+
+          for (var c = 0; c < 2; c += 1) {
+
+            if (_modules[row][col - c] == null) {
+
+              var dark = false;
+
+              if (byteIndex < data.length) {
+                dark = ( ( (data[byteIndex] >>> bitIndex) & 1) == 1);
+              }
+
+              var mask = maskFunc(row, col - c);
+
+              if (mask) {
+                dark = !dark;
+              }
+
+              _modules[row][col - c] = dark;
+              bitIndex -= 1;
+
+              if (bitIndex == -1) {
+                byteIndex += 1;
+                bitIndex = 7;
+              }
+            }
+          }
+
+          row += inc;
+
+          if (row < 0 || _moduleCount <= row) {
+            row -= inc;
+            inc = -inc;
+            break;
+          }
+        }
+      }
+    };
+
+    var createBytes = function(buffer, rsBlocks) {
+
+      var offset = 0;
+
+      var maxDcCount = 0;
+      var maxEcCount = 0;
+
+      var dcdata = new Array(rsBlocks.length);
+      var ecdata = new Array(rsBlocks.length);
+
+      for (var r = 0; r < rsBlocks.length; r += 1) {
+
+        var dcCount = rsBlocks[r].dataCount;
+        var ecCount = rsBlocks[r].totalCount - dcCount;
+
+        maxDcCount = Math.max(maxDcCount, dcCount);
+        maxEcCount = Math.max(maxEcCount, ecCount);
+
+        dcdata[r] = new Array(dcCount);
+
+        for (var i = 0; i < dcdata[r].length; i += 1) {
+          dcdata[r][i] = 0xff & buffer.getBuffer()[i + offset];
+        }
+        offset += dcCount;
+
+        var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
+        var rawPoly = qrPolynomial(dcdata[r], rsPoly.getLength() - 1);
+
+        var modPoly = rawPoly.mod(rsPoly);
+        ecdata[r] = new Array(rsPoly.getLength() - 1);
+        for (var i = 0; i < ecdata[r].length; i += 1) {
+          var modIndex = i + modPoly.getLength() - ecdata[r].length;
+          ecdata[r][i] = (modIndex >= 0)? modPoly.getAt(modIndex) : 0;
+        }
+      }
+
+      var totalCodeCount = 0;
+      for (var i = 0; i < rsBlocks.length; i += 1) {
+        totalCodeCount += rsBlocks[i].totalCount;
+      }
+
+      var data = new Array(totalCodeCount);
+      var index = 0;
+
+      for (var i = 0; i < maxDcCount; i += 1) {
+        for (var r = 0; r < rsBlocks.length; r += 1) {
+          if (i < dcdata[r].length) {
+            data[index] = dcdata[r][i];
+            index += 1;
+          }
+        }
+      }
+
+      for (var i = 0; i < maxEcCount; i += 1) {
+        for (var r = 0; r < rsBlocks.length; r += 1) {
+          if (i < ecdata[r].length) {
+            data[index] = ecdata[r][i];
+            index += 1;
+          }
+        }
+      }
+
+      return data;
+    };
+
+    var createData = function(typeNumber, errorCorrectionLevel, dataList) {
+
+      var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectionLevel);
+
+      var buffer = qrBitBuffer();
+
+      for (var i = 0; i < dataList.length; i += 1) {
+        var data = dataList[i];
+        buffer.put(data.getMode(), 4);
+        buffer.put(data.getLength(), QRUtil.getLengthInBits(data.getMode(), typeNumber) );
+        data.write(buffer);
+      }
+
+      // calc num max data.
+      var totalDataCount = 0;
+      for (var i = 0; i < rsBlocks.length; i += 1) {
+        totalDataCount += rsBlocks[i].dataCount;
+      }
+
+      if (buffer.getLengthInBits() > totalDataCount * 8) {
+        throw 'code length overflow. ('
+          + buffer.getLengthInBits()
+          + '>'
+          + totalDataCount * 8
+          + ')';
+      }
+
+      // end code
+      if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
+        buffer.put(0, 4);
+      }
+
+      // padding
+      while (buffer.getLengthInBits() % 8 != 0) {
+        buffer.putBit(false);
+      }
+
+      // padding
+      while (true) {
+
+        if (buffer.getLengthInBits() >= totalDataCount * 8) {
+          break;
+        }
+        buffer.put(PAD0, 8);
+
+        if (buffer.getLengthInBits() >= totalDataCount * 8) {
+          break;
+        }
+        buffer.put(PAD1, 8);
+      }
+
+      return createBytes(buffer, rsBlocks);
+    };
+
+    _this.addData = function(data, mode) {
+
+      mode = mode || 'Byte';
+
+      var newData = null;
+
+      switch(mode) {
+      case 'Numeric' :
+        newData = qrNumber(data);
+        break;
+      case 'Alphanumeric' :
+        newData = qrAlphaNum(data);
+        break;
+      case 'Byte' :
+        newData = qr8BitByte(data);
+        break;
+      case 'Kanji' :
+        newData = qrKanji(data);
+        break;
+      default :
+        throw 'mode:' + mode;
+      }
+
+      _dataList.push(newData);
+      _dataCache = null;
+    };
+
+    _this.isDark = function(row, col) {
+      if (row < 0 || _moduleCount <= row || col < 0 || _moduleCount <= col) {
+        throw row + ',' + col;
+      }
+      return _modules[row][col];
+    };
+
+    _this.getModuleCount = function() {
+      return _moduleCount;
+    };
+
+    _this.make = function() {
+      if (_typeNumber < 1) {
+        var typeNumber = 1;
+
+        for (; typeNumber < 40; typeNumber++) {
+          var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, _errorCorrectionLevel);
+          var buffer = qrBitBuffer();
+
+          for (var i = 0; i < _dataList.length; i++) {
+            var data = _dataList[i];
+            buffer.put(data.getMode(), 4);
+            buffer.put(data.getLength(), QRUtil.getLengthInBits(data.getMode(), typeNumber) );
+            data.write(buffer);
+          }
+
+          var totalDataCount = 0;
+          for (var i = 0; i < rsBlocks.length; i++) {
+            totalDataCount += rsBlocks[i].dataCount;
+          }
+
+          if (buffer.getLengthInBits() <= totalDataCount * 8) {
+            break;
+          }
+        }
+
+        _typeNumber = typeNumber;
+      }
+
+      makeImpl(false, getBestMaskPattern() );
+    };
+
+    _this.createTableTag = function(cellSize, margin) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var qrHtml = '';
+
+      qrHtml += '<table style="';
+      qrHtml += ' border-width: 0px; border-style: none;';
+      qrHtml += ' border-collapse: collapse;';
+      qrHtml += ' padding: 0px; margin: ' + margin + 'px;';
+      qrHtml += '">';
+      qrHtml += '<tbody>';
+
+      for (var r = 0; r < _this.getModuleCount(); r += 1) {
+
+        qrHtml += '<tr>';
+
+        for (var c = 0; c < _this.getModuleCount(); c += 1) {
+          qrHtml += '<td style="';
+          qrHtml += ' border-width: 0px; border-style: none;';
+          qrHtml += ' border-collapse: collapse;';
+          qrHtml += ' padding: 0px; margin: 0px;';
+          qrHtml += ' width: ' + cellSize + 'px;';
+          qrHtml += ' height: ' + cellSize + 'px;';
+          qrHtml += ' background-color: ';
+          qrHtml += _this.isDark(r, c)? '#000000' : '#ffffff';
+          qrHtml += ';';
+          qrHtml += '"/>';
+        }
+
+        qrHtml += '</tr>';
+      }
+
+      qrHtml += '</tbody>';
+      qrHtml += '</table>';
+
+      return qrHtml;
+    };
+
+    _this.createSvgTag = function(cellSize, margin, alt, title) {
+
+      var opts = {};
+      if (typeof arguments[0] == 'object') {
+        // Called by options.
+        opts = arguments[0];
+        // overwrite cellSize and margin.
+        cellSize = opts.cellSize;
+        margin = opts.margin;
+        alt = opts.alt;
+        title = opts.title;
+      }
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      // Compose alt property surrogate
+      alt = (typeof alt === 'string') ? {text: alt} : alt || {};
+      alt.text = alt.text || null;
+      alt.id = (alt.text) ? alt.id || 'qrcode-description' : null;
+
+      // Compose title property surrogate
+      title = (typeof title === 'string') ? {text: title} : title || {};
+      title.text = title.text || null;
+      title.id = (title.text) ? title.id || 'qrcode-title' : null;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var c, mc, r, mr, qrSvg='', rect;
+
+      rect = 'l' + cellSize + ',0 0,' + cellSize +
+        ' -' + cellSize + ',0 0,-' + cellSize + 'z ';
+
+      qrSvg += '<svg version="1.1" xmlns="http://www.w3.org/2000/svg"';
+      qrSvg += !opts.scalable ? ' width="' + size + 'px" height="' + size + 'px"' : '';
+      qrSvg += ' viewBox="0 0 ' + size + ' ' + size + '" ';
+      qrSvg += ' preserveAspectRatio="xMinYMin meet"';
+      qrSvg += (title.text || alt.text) ? ' role="img" aria-labelledby="' +
+          escapeXml([title.id, alt.id].join(' ').trim() ) + '"' : '';
+      qrSvg += '>';
+      qrSvg += (title.text) ? '<title id="' + escapeXml(title.id) + '">' +
+          escapeXml(title.text) + '</title>' : '';
+      qrSvg += (alt.text) ? '<description id="' + escapeXml(alt.id) + '">' +
+          escapeXml(alt.text) + '</description>' : '';
+      qrSvg += '<rect width="100%" height="100%" fill="white" cx="0" cy="0"/>';
+      qrSvg += '<path d="';
+
+      for (r = 0; r < _this.getModuleCount(); r += 1) {
+        mr = r * cellSize + margin;
+        for (c = 0; c < _this.getModuleCount(); c += 1) {
+          if (_this.isDark(r, c) ) {
+            mc = c*cellSize+margin;
+            qrSvg += 'M' + mc + ',' + mr + rect;
+          }
+        }
+      }
+
+      qrSvg += '" stroke="transparent" fill="black"/>';
+      qrSvg += '</svg>';
+
+      return qrSvg;
+    };
+
+    _this.createDataURL = function(cellSize, margin) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      return createDataURL(size, size, function(x, y) {
+        if (min <= x && x < max && min <= y && y < max) {
+          var c = Math.floor( (x - min) / cellSize);
+          var r = Math.floor( (y - min) / cellSize);
+          return _this.isDark(r, c)? 0 : 1;
+        } else {
+          return 1;
+        }
+      } );
+    };
+
+    _this.createImgTag = function(cellSize, margin, alt) {
+
+      cellSize = cellSize || 2;
+      margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+
+      var img = '';
+      img += '<img';
+      img += '\u0020src="';
+      img += _this.createDataURL(cellSize, margin);
+      img += '"';
+      img += '\u0020width="';
+      img += size;
+      img += '"';
+      img += '\u0020height="';
+      img += size;
+      img += '"';
+      if (alt) {
+        img += '\u0020alt="';
+        img += escapeXml(alt);
+        img += '"';
+      }
+      img += '/>';
+
+      return img;
+    };
+
+    var escapeXml = function(s) {
+      var escaped = '';
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charAt(i);
+        switch(c) {
+        case '<': escaped += '&lt;'; break;
+        case '>': escaped += '&gt;'; break;
+        case '&': escaped += '&amp;'; break;
+        case '"': escaped += '&quot;'; break;
+        default : escaped += c; break;
+        }
+      }
+      return escaped;
+    };
+
+    var _createHalfASCII = function(margin) {
+      var cellSize = 1;
+      margin = (typeof margin == 'undefined')? cellSize * 2 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      var y, x, r1, r2, p;
+
+      var blocks = {
+        '██': '█',
+        '█ ': '▀',
+        ' █': '▄',
+        '  ': ' '
+      };
+
+      var blocksLastLineNoMargin = {
+        '██': '▀',
+        '█ ': '▀',
+        ' █': ' ',
+        '  ': ' '
+      };
+
+      var ascii = '';
+      for (y = 0; y < size; y += 2) {
+        r1 = Math.floor((y - min) / cellSize);
+        r2 = Math.floor((y + 1 - min) / cellSize);
+        for (x = 0; x < size; x += 1) {
+          p = '█';
+
+          if (min <= x && x < max && min <= y && y < max && _this.isDark(r1, Math.floor((x - min) / cellSize))) {
+            p = ' ';
+          }
+
+          if (min <= x && x < max && min <= y+1 && y+1 < max && _this.isDark(r2, Math.floor((x - min) / cellSize))) {
+            p += ' ';
+          }
+          else {
+            p += '█';
+          }
+
+          // Output 2 characters per pixel, to create full square. 1 character per pixels gives only half width of square.
+          ascii += (margin < 1 && y+1 >= max) ? blocksLastLineNoMargin[p] : blocks[p];
+        }
+
+        ascii += '\n';
+      }
+
+      if (size % 2 && margin > 0) {
+        return ascii.substring(0, ascii.length - size - 1) + Array(size+1).join('▀');
+      }
+
+      return ascii.substring(0, ascii.length-1);
+    };
+
+    _this.createASCII = function(cellSize, margin) {
+      cellSize = cellSize || 1;
+
+      if (cellSize < 2) {
+        return _createHalfASCII(margin);
+      }
+
+      cellSize -= 1;
+      margin = (typeof margin == 'undefined')? cellSize * 2 : margin;
+
+      var size = _this.getModuleCount() * cellSize + margin * 2;
+      var min = margin;
+      var max = size - margin;
+
+      var y, x, r, p;
+
+      var white = Array(cellSize+1).join('██');
+      var black = Array(cellSize+1).join('  ');
+
+      var ascii = '';
+      var line = '';
+      for (y = 0; y < size; y += 1) {
+        r = Math.floor( (y - min) / cellSize);
+        line = '';
+        for (x = 0; x < size; x += 1) {
+          p = 1;
+
+          if (min <= x && x < max && min <= y && y < max && _this.isDark(r, Math.floor((x - min) / cellSize))) {
+            p = 0;
+          }
+
+          // Output 2 characters per pixel, to create full square. 1 character per pixels gives only half width of square.
+          line += p ? white : black;
+        }
+
+        for (r = 0; r < cellSize; r += 1) {
+          ascii += line + '\n';
+        }
+      }
+
+      return ascii.substring(0, ascii.length-1);
+    };
+
+    _this.renderTo2dContext = function(context, cellSize) {
+      cellSize = cellSize || 2;
+      var length = _this.getModuleCount();
+      for (var row = 0; row < length; row++) {
+        for (var col = 0; col < length; col++) {
+          context.fillStyle = _this.isDark(row, col) ? 'black' : 'white';
+          context.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+        }
+      }
+    }
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrcode.stringToBytes
+  //---------------------------------------------------------------------
+
+  qrcode.stringToBytesFuncs = {
+    'default' : function(s) {
+      var bytes = [];
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charCodeAt(i);
+        bytes.push(c & 0xff);
+      }
+      return bytes;
+    }
+  };
+
+  qrcode.stringToBytes = qrcode.stringToBytesFuncs['default'];
+
+  //---------------------------------------------------------------------
+  // qrcode.createStringToBytes
+  //---------------------------------------------------------------------
+
+  /**
+   * @param unicodeData base64 string of byte array.
+   * [16bit Unicode],[16bit Bytes], ...
+   * @param numChars
+   */
+  qrcode.createStringToBytes = function(unicodeData, numChars) {
+
+    // create conversion map.
+
+    var unicodeMap = function() {
+
+      var bin = base64DecodeInputStream(unicodeData);
+      var read = function() {
+        var b = bin.read();
+        if (b == -1) throw 'eof';
+        return b;
+      };
+
+      var count = 0;
+      var unicodeMap = {};
+      while (true) {
+        var b0 = bin.read();
+        if (b0 == -1) break;
+        var b1 = read();
+        var b2 = read();
+        var b3 = read();
+        var k = String.fromCharCode( (b0 << 8) | b1);
+        var v = (b2 << 8) | b3;
+        unicodeMap[k] = v;
+        count += 1;
+      }
+      if (count != numChars) {
+        throw count + ' != ' + numChars;
+      }
+
+      return unicodeMap;
+    }();
+
+    var unknownChar = '?'.charCodeAt(0);
+
+    return function(s) {
+      var bytes = [];
+      for (var i = 0; i < s.length; i += 1) {
+        var c = s.charCodeAt(i);
+        if (c < 128) {
+          bytes.push(c);
+        } else {
+          var b = unicodeMap[s.charAt(i)];
+          if (typeof b == 'number') {
+            if ( (b & 0xff) == b) {
+              // 1byte
+              bytes.push(b);
+            } else {
+              // 2bytes
+              bytes.push(b >>> 8);
+              bytes.push(b & 0xff);
+            }
+          } else {
+            bytes.push(unknownChar);
+          }
+        }
+      }
+      return bytes;
+    };
+  };
+
+  //---------------------------------------------------------------------
+  // QRMode
+  //---------------------------------------------------------------------
+
+  var QRMode = {
+    MODE_NUMBER :    1 << 0,
+    MODE_ALPHA_NUM : 1 << 1,
+    MODE_8BIT_BYTE : 1 << 2,
+    MODE_KANJI :     1 << 3
+  };
+
+  //---------------------------------------------------------------------
+  // QRErrorCorrectionLevel
+  //---------------------------------------------------------------------
+
+  var QRErrorCorrectionLevel = {
+    L : 1,
+    M : 0,
+    Q : 3,
+    H : 2
+  };
+
+  //---------------------------------------------------------------------
+  // QRMaskPattern
+  //---------------------------------------------------------------------
+
+  var QRMaskPattern = {
+    PATTERN000 : 0,
+    PATTERN001 : 1,
+    PATTERN010 : 2,
+    PATTERN011 : 3,
+    PATTERN100 : 4,
+    PATTERN101 : 5,
+    PATTERN110 : 6,
+    PATTERN111 : 7
+  };
+
+  //---------------------------------------------------------------------
+  // QRUtil
+  //---------------------------------------------------------------------
+
+  var QRUtil = function() {
+
+    var PATTERN_POSITION_TABLE = [
+      [],
+      [6, 18],
+      [6, 22],
+      [6, 26],
+      [6, 30],
+      [6, 34],
+      [6, 22, 38],
+      [6, 24, 42],
+      [6, 26, 46],
+      [6, 28, 50],
+      [6, 30, 54],
+      [6, 32, 58],
+      [6, 34, 62],
+      [6, 26, 46, 66],
+      [6, 26, 48, 70],
+      [6, 26, 50, 74],
+      [6, 30, 54, 78],
+      [6, 30, 56, 82],
+      [6, 30, 58, 86],
+      [6, 34, 62, 90],
+      [6, 28, 50, 72, 94],
+      [6, 26, 50, 74, 98],
+      [6, 30, 54, 78, 102],
+      [6, 28, 54, 80, 106],
+      [6, 32, 58, 84, 110],
+      [6, 30, 58, 86, 114],
+      [6, 34, 62, 90, 118],
+      [6, 26, 50, 74, 98, 122],
+      [6, 30, 54, 78, 102, 126],
+      [6, 26, 52, 78, 104, 130],
+      [6, 30, 56, 82, 108, 134],
+      [6, 34, 60, 86, 112, 138],
+      [6, 30, 58, 86, 114, 142],
+      [6, 34, 62, 90, 118, 146],
+      [6, 30, 54, 78, 102, 126, 150],
+      [6, 24, 50, 76, 102, 128, 154],
+      [6, 28, 54, 80, 106, 132, 158],
+      [6, 32, 58, 84, 110, 136, 162],
+      [6, 26, 54, 82, 110, 138, 166],
+      [6, 30, 58, 86, 114, 142, 170]
+    ];
+    var G15 = (1 << 10) | (1 << 8) | (1 << 5) | (1 << 4) | (1 << 2) | (1 << 1) | (1 << 0);
+    var G18 = (1 << 12) | (1 << 11) | (1 << 10) | (1 << 9) | (1 << 8) | (1 << 5) | (1 << 2) | (1 << 0);
+    var G15_MASK = (1 << 14) | (1 << 12) | (1 << 10) | (1 << 4) | (1 << 1);
+
+    var _this = {};
+
+    var getBCHDigit = function(data) {
+      var digit = 0;
+      while (data != 0) {
+        digit += 1;
+        data >>>= 1;
+      }
+      return digit;
+    };
+
+    _this.getBCHTypeInfo = function(data) {
+      var d = data << 10;
+      while (getBCHDigit(d) - getBCHDigit(G15) >= 0) {
+        d ^= (G15 << (getBCHDigit(d) - getBCHDigit(G15) ) );
+      }
+      return ( (data << 10) | d) ^ G15_MASK;
+    };
+
+    _this.getBCHTypeNumber = function(data) {
+      var d = data << 12;
+      while (getBCHDigit(d) - getBCHDigit(G18) >= 0) {
+        d ^= (G18 << (getBCHDigit(d) - getBCHDigit(G18) ) );
+      }
+      return (data << 12) | d;
+    };
+
+    _this.getPatternPosition = function(typeNumber) {
+      return PATTERN_POSITION_TABLE[typeNumber - 1];
+    };
+
+    _this.getMaskFunction = function(maskPattern) {
+
+      switch (maskPattern) {
+
+      case QRMaskPattern.PATTERN000 :
+        return function(i, j) { return (i + j) % 2 == 0; };
+      case QRMaskPattern.PATTERN001 :
+        return function(i, j) { return i % 2 == 0; };
+      case QRMaskPattern.PATTERN010 :
+        return function(i, j) { return j % 3 == 0; };
+      case QRMaskPattern.PATTERN011 :
+        return function(i, j) { return (i + j) % 3 == 0; };
+      case QRMaskPattern.PATTERN100 :
+        return function(i, j) { return (Math.floor(i / 2) + Math.floor(j / 3) ) % 2 == 0; };
+      case QRMaskPattern.PATTERN101 :
+        return function(i, j) { return (i * j) % 2 + (i * j) % 3 == 0; };
+      case QRMaskPattern.PATTERN110 :
+        return function(i, j) { return ( (i * j) % 2 + (i * j) % 3) % 2 == 0; };
+      case QRMaskPattern.PATTERN111 :
+        return function(i, j) { return ( (i * j) % 3 + (i + j) % 2) % 2 == 0; };
+
+      default :
+        throw 'bad maskPattern:' + maskPattern;
+      }
+    };
+
+    _this.getErrorCorrectPolynomial = function(errorCorrectLength) {
+      var a = qrPolynomial([1], 0);
+      for (var i = 0; i < errorCorrectLength; i += 1) {
+        a = a.multiply(qrPolynomial([1, QRMath.gexp(i)], 0) );
+      }
+      return a;
+    };
+
+    _this.getLengthInBits = function(mode, type) {
+
+      if (1 <= type && type < 10) {
+
+        // 1 - 9
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 10;
+        case QRMode.MODE_ALPHA_NUM : return 9;
+        case QRMode.MODE_8BIT_BYTE : return 8;
+        case QRMode.MODE_KANJI     : return 8;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else if (type < 27) {
+
+        // 10 - 26
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 12;
+        case QRMode.MODE_ALPHA_NUM : return 11;
+        case QRMode.MODE_8BIT_BYTE : return 16;
+        case QRMode.MODE_KANJI     : return 10;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else if (type < 41) {
+
+        // 27 - 40
+
+        switch(mode) {
+        case QRMode.MODE_NUMBER    : return 14;
+        case QRMode.MODE_ALPHA_NUM : return 13;
+        case QRMode.MODE_8BIT_BYTE : return 16;
+        case QRMode.MODE_KANJI     : return 12;
+        default :
+          throw 'mode:' + mode;
+        }
+
+      } else {
+        throw 'type:' + type;
+      }
+    };
+
+    _this.getLostPoint = function(qrcode) {
+
+      var moduleCount = qrcode.getModuleCount();
+
+      var lostPoint = 0;
+
+      // LEVEL1
+
+      for (var row = 0; row < moduleCount; row += 1) {
+        for (var col = 0; col < moduleCount; col += 1) {
+
+          var sameCount = 0;
+          var dark = qrcode.isDark(row, col);
+
+          for (var r = -1; r <= 1; r += 1) {
+
+            if (row + r < 0 || moduleCount <= row + r) {
+              continue;
+            }
+
+            for (var c = -1; c <= 1; c += 1) {
+
+              if (col + c < 0 || moduleCount <= col + c) {
+                continue;
+              }
+
+              if (r == 0 && c == 0) {
+                continue;
+              }
+
+              if (dark == qrcode.isDark(row + r, col + c) ) {
+                sameCount += 1;
+              }
+            }
+          }
+
+          if (sameCount > 5) {
+            lostPoint += (3 + sameCount - 5);
+          }
+        }
+      };
+
+      // LEVEL2
+
+      for (var row = 0; row < moduleCount - 1; row += 1) {
+        for (var col = 0; col < moduleCount - 1; col += 1) {
+          var count = 0;
+          if (qrcode.isDark(row, col) ) count += 1;
+          if (qrcode.isDark(row + 1, col) ) count += 1;
+          if (qrcode.isDark(row, col + 1) ) count += 1;
+          if (qrcode.isDark(row + 1, col + 1) ) count += 1;
+          if (count == 0 || count == 4) {
+            lostPoint += 3;
+          }
+        }
+      }
+
+      // LEVEL3
+
+      for (var row = 0; row < moduleCount; row += 1) {
+        for (var col = 0; col < moduleCount - 6; col += 1) {
+          if (qrcode.isDark(row, col)
+              && !qrcode.isDark(row, col + 1)
+              &&  qrcode.isDark(row, col + 2)
+              &&  qrcode.isDark(row, col + 3)
+              &&  qrcode.isDark(row, col + 4)
+              && !qrcode.isDark(row, col + 5)
+              &&  qrcode.isDark(row, col + 6) ) {
+            lostPoint += 40;
+          }
+        }
+      }
+
+      for (var col = 0; col < moduleCount; col += 1) {
+        for (var row = 0; row < moduleCount - 6; row += 1) {
+          if (qrcode.isDark(row, col)
+              && !qrcode.isDark(row + 1, col)
+              &&  qrcode.isDark(row + 2, col)
+              &&  qrcode.isDark(row + 3, col)
+              &&  qrcode.isDark(row + 4, col)
+              && !qrcode.isDark(row + 5, col)
+              &&  qrcode.isDark(row + 6, col) ) {
+            lostPoint += 40;
+          }
+        }
+      }
+
+      // LEVEL4
+
+      var darkCount = 0;
+
+      for (var col = 0; col < moduleCount; col += 1) {
+        for (var row = 0; row < moduleCount; row += 1) {
+          if (qrcode.isDark(row, col) ) {
+            darkCount += 1;
+          }
+        }
+      }
+
+      var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+      lostPoint += ratio * 10;
+
+      return lostPoint;
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // QRMath
+  //---------------------------------------------------------------------
+
+  var QRMath = function() {
+
+    var EXP_TABLE = new Array(256);
+    var LOG_TABLE = new Array(256);
+
+    // initialize tables
+    for (var i = 0; i < 8; i += 1) {
+      EXP_TABLE[i] = 1 << i;
+    }
+    for (var i = 8; i < 256; i += 1) {
+      EXP_TABLE[i] = EXP_TABLE[i - 4]
+        ^ EXP_TABLE[i - 5]
+        ^ EXP_TABLE[i - 6]
+        ^ EXP_TABLE[i - 8];
+    }
+    for (var i = 0; i < 255; i += 1) {
+      LOG_TABLE[EXP_TABLE[i] ] = i;
+    }
+
+    var _this = {};
+
+    _this.glog = function(n) {
+
+      if (n < 1) {
+        throw 'glog(' + n + ')';
+      }
+
+      return LOG_TABLE[n];
+    };
+
+    _this.gexp = function(n) {
+
+      while (n < 0) {
+        n += 255;
+      }
+
+      while (n >= 256) {
+        n -= 255;
+      }
+
+      return EXP_TABLE[n];
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // qrPolynomial
+  //---------------------------------------------------------------------
+
+  function qrPolynomial(num, shift) {
+
+    if (typeof num.length == 'undefined') {
+      throw num.length + '/' + shift;
+    }
+
+    var _num = function() {
+      var offset = 0;
+      while (offset < num.length && num[offset] == 0) {
+        offset += 1;
+      }
+      var _num = new Array(num.length - offset + shift);
+      for (var i = 0; i < num.length - offset; i += 1) {
+        _num[i] = num[i + offset];
+      }
+      return _num;
+    }();
+
+    var _this = {};
+
+    _this.getAt = function(index) {
+      return _num[index];
+    };
+
+    _this.getLength = function() {
+      return _num.length;
+    };
+
+    _this.multiply = function(e) {
+
+      var num = new Array(_this.getLength() + e.getLength() - 1);
+
+      for (var i = 0; i < _this.getLength(); i += 1) {
+        for (var j = 0; j < e.getLength(); j += 1) {
+          num[i + j] ^= QRMath.gexp(QRMath.glog(_this.getAt(i) ) + QRMath.glog(e.getAt(j) ) );
+        }
+      }
+
+      return qrPolynomial(num, 0);
+    };
+
+    _this.mod = function(e) {
+
+      if (_this.getLength() - e.getLength() < 0) {
+        return _this;
+      }
+
+      var ratio = QRMath.glog(_this.getAt(0) ) - QRMath.glog(e.getAt(0) );
+
+      var num = new Array(_this.getLength() );
+      for (var i = 0; i < _this.getLength(); i += 1) {
+        num[i] = _this.getAt(i);
+      }
+
+      for (var i = 0; i < e.getLength(); i += 1) {
+        num[i] ^= QRMath.gexp(QRMath.glog(e.getAt(i) ) + ratio);
+      }
+
+      // recursive call
+      return qrPolynomial(num, 0).mod(e);
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // QRRSBlock
+  //---------------------------------------------------------------------
+
+  var QRRSBlock = function() {
+
+    var RS_BLOCK_TABLE = [
+
+      // L
+      // M
+      // Q
+      // H
+
+      // 1
+      [1, 26, 19],
+      [1, 26, 16],
+      [1, 26, 13],
+      [1, 26, 9],
+
+      // 2
+      [1, 44, 34],
+      [1, 44, 28],
+      [1, 44, 22],
+      [1, 44, 16],
+
+      // 3
+      [1, 70, 55],
+      [1, 70, 44],
+      [2, 35, 17],
+      [2, 35, 13],
+
+      // 4
+      [1, 100, 80],
+      [2, 50, 32],
+      [2, 50, 24],
+      [4, 25, 9],
+
+      // 5
+      [1, 134, 108],
+      [2, 67, 43],
+      [2, 33, 15, 2, 34, 16],
+      [2, 33, 11, 2, 34, 12],
+
+      // 6
+      [2, 86, 68],
+      [4, 43, 27],
+      [4, 43, 19],
+      [4, 43, 15],
+
+      // 7
+      [2, 98, 78],
+      [4, 49, 31],
+      [2, 32, 14, 4, 33, 15],
+      [4, 39, 13, 1, 40, 14],
+
+      // 8
+      [2, 121, 97],
+      [2, 60, 38, 2, 61, 39],
+      [4, 40, 18, 2, 41, 19],
+      [4, 40, 14, 2, 41, 15],
+
+      // 9
+      [2, 146, 116],
+      [3, 58, 36, 2, 59, 37],
+      [4, 36, 16, 4, 37, 17],
+      [4, 36, 12, 4, 37, 13],
+
+      // 10
+      [2, 86, 68, 2, 87, 69],
+      [4, 69, 43, 1, 70, 44],
+      [6, 43, 19, 2, 44, 20],
+      [6, 43, 15, 2, 44, 16],
+
+      // 11
+      [4, 101, 81],
+      [1, 80, 50, 4, 81, 51],
+      [4, 50, 22, 4, 51, 23],
+      [3, 36, 12, 8, 37, 13],
+
+      // 12
+      [2, 116, 92, 2, 117, 93],
+      [6, 58, 36, 2, 59, 37],
+      [4, 46, 20, 6, 47, 21],
+      [7, 42, 14, 4, 43, 15],
+
+      // 13
+      [4, 133, 107],
+      [8, 59, 37, 1, 60, 38],
+      [8, 44, 20, 4, 45, 21],
+      [12, 33, 11, 4, 34, 12],
+
+      // 14
+      [3, 145, 115, 1, 146, 116],
+      [4, 64, 40, 5, 65, 41],
+      [11, 36, 16, 5, 37, 17],
+      [11, 36, 12, 5, 37, 13],
+
+      // 15
+      [5, 109, 87, 1, 110, 88],
+      [5, 65, 41, 5, 66, 42],
+      [5, 54, 24, 7, 55, 25],
+      [11, 36, 12, 7, 37, 13],
+
+      // 16
+      [5, 122, 98, 1, 123, 99],
+      [7, 73, 45, 3, 74, 46],
+      [15, 43, 19, 2, 44, 20],
+      [3, 45, 15, 13, 46, 16],
+
+      // 17
+      [1, 135, 107, 5, 136, 108],
+      [10, 74, 46, 1, 75, 47],
+      [1, 50, 22, 15, 51, 23],
+      [2, 42, 14, 17, 43, 15],
+
+      // 18
+      [5, 150, 120, 1, 151, 121],
+      [9, 69, 43, 4, 70, 44],
+      [17, 50, 22, 1, 51, 23],
+      [2, 42, 14, 19, 43, 15],
+
+      // 19
+      [3, 141, 113, 4, 142, 114],
+      [3, 70, 44, 11, 71, 45],
+      [17, 47, 21, 4, 48, 22],
+      [9, 39, 13, 16, 40, 14],
+
+      // 20
+      [3, 135, 107, 5, 136, 108],
+      [3, 67, 41, 13, 68, 42],
+      [15, 54, 24, 5, 55, 25],
+      [15, 43, 15, 10, 44, 16],
+
+      // 21
+      [4, 144, 116, 4, 145, 117],
+      [17, 68, 42],
+      [17, 50, 22, 6, 51, 23],
+      [19, 46, 16, 6, 47, 17],
+
+      // 22
+      [2, 139, 111, 7, 140, 112],
+      [17, 74, 46],
+      [7, 54, 24, 16, 55, 25],
+      [34, 37, 13],
+
+      // 23
+      [4, 151, 121, 5, 152, 122],
+      [4, 75, 47, 14, 76, 48],
+      [11, 54, 24, 14, 55, 25],
+      [16, 45, 15, 14, 46, 16],
+
+      // 24
+      [6, 147, 117, 4, 148, 118],
+      [6, 73, 45, 14, 74, 46],
+      [11, 54, 24, 16, 55, 25],
+      [30, 46, 16, 2, 47, 17],
+
+      // 25
+      [8, 132, 106, 4, 133, 107],
+      [8, 75, 47, 13, 76, 48],
+      [7, 54, 24, 22, 55, 25],
+      [22, 45, 15, 13, 46, 16],
+
+      // 26
+      [10, 142, 114, 2, 143, 115],
+      [19, 74, 46, 4, 75, 47],
+      [28, 50, 22, 6, 51, 23],
+      [33, 46, 16, 4, 47, 17],
+
+      // 27
+      [8, 152, 122, 4, 153, 123],
+      [22, 73, 45, 3, 74, 46],
+      [8, 53, 23, 26, 54, 24],
+      [12, 45, 15, 28, 46, 16],
+
+      // 28
+      [3, 147, 117, 10, 148, 118],
+      [3, 73, 45, 23, 74, 46],
+      [4, 54, 24, 31, 55, 25],
+      [11, 45, 15, 31, 46, 16],
+
+      // 29
+      [7, 146, 116, 7, 147, 117],
+      [21, 73, 45, 7, 74, 46],
+      [1, 53, 23, 37, 54, 24],
+      [19, 45, 15, 26, 46, 16],
+
+      // 30
+      [5, 145, 115, 10, 146, 116],
+      [19, 75, 47, 10, 76, 48],
+      [15, 54, 24, 25, 55, 25],
+      [23, 45, 15, 25, 46, 16],
+
+      // 31
+      [13, 145, 115, 3, 146, 116],
+      [2, 74, 46, 29, 75, 47],
+      [42, 54, 24, 1, 55, 25],
+      [23, 45, 15, 28, 46, 16],
+
+      // 32
+      [17, 145, 115],
+      [10, 74, 46, 23, 75, 47],
+      [10, 54, 24, 35, 55, 25],
+      [19, 45, 15, 35, 46, 16],
+
+      // 33
+      [17, 145, 115, 1, 146, 116],
+      [14, 74, 46, 21, 75, 47],
+      [29, 54, 24, 19, 55, 25],
+      [11, 45, 15, 46, 46, 16],
+
+      // 34
+      [13, 145, 115, 6, 146, 116],
+      [14, 74, 46, 23, 75, 47],
+      [44, 54, 24, 7, 55, 25],
+      [59, 46, 16, 1, 47, 17],
+
+      // 35
+      [12, 151, 121, 7, 152, 122],
+      [12, 75, 47, 26, 76, 48],
+      [39, 54, 24, 14, 55, 25],
+      [22, 45, 15, 41, 46, 16],
+
+      // 36
+      [6, 151, 121, 14, 152, 122],
+      [6, 75, 47, 34, 76, 48],
+      [46, 54, 24, 10, 55, 25],
+      [2, 45, 15, 64, 46, 16],
+
+      // 37
+      [17, 152, 122, 4, 153, 123],
+      [29, 74, 46, 14, 75, 47],
+      [49, 54, 24, 10, 55, 25],
+      [24, 45, 15, 46, 46, 16],
+
+      // 38
+      [4, 152, 122, 18, 153, 123],
+      [13, 74, 46, 32, 75, 47],
+      [48, 54, 24, 14, 55, 25],
+      [42, 45, 15, 32, 46, 16],
+
+      // 39
+      [20, 147, 117, 4, 148, 118],
+      [40, 75, 47, 7, 76, 48],
+      [43, 54, 24, 22, 55, 25],
+      [10, 45, 15, 67, 46, 16],
+
+      // 40
+      [19, 148, 118, 6, 149, 119],
+      [18, 75, 47, 31, 76, 48],
+      [34, 54, 24, 34, 55, 25],
+      [20, 45, 15, 61, 46, 16]
+    ];
+
+    var qrRSBlock = function(totalCount, dataCount) {
+      var _this = {};
+      _this.totalCount = totalCount;
+      _this.dataCount = dataCount;
+      return _this;
+    };
+
+    var _this = {};
+
+    var getRsBlockTable = function(typeNumber, errorCorrectionLevel) {
+
+      switch(errorCorrectionLevel) {
+      case QRErrorCorrectionLevel.L :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+      case QRErrorCorrectionLevel.M :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+      case QRErrorCorrectionLevel.Q :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+      case QRErrorCorrectionLevel.H :
+        return RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
+      default :
+        return undefined;
+      }
+    };
+
+    _this.getRSBlocks = function(typeNumber, errorCorrectionLevel) {
+
+      var rsBlock = getRsBlockTable(typeNumber, errorCorrectionLevel);
+
+      if (typeof rsBlock == 'undefined') {
+        throw 'bad rs block @ typeNumber:' + typeNumber +
+            '/errorCorrectionLevel:' + errorCorrectionLevel;
+      }
+
+      var length = rsBlock.length / 3;
+
+      var list = [];
+
+      for (var i = 0; i < length; i += 1) {
+
+        var count = rsBlock[i * 3 + 0];
+        var totalCount = rsBlock[i * 3 + 1];
+        var dataCount = rsBlock[i * 3 + 2];
+
+        for (var j = 0; j < count; j += 1) {
+          list.push(qrRSBlock(totalCount, dataCount) );
+        }
+      }
+
+      return list;
+    };
+
+    return _this;
+  }();
+
+  //---------------------------------------------------------------------
+  // qrBitBuffer
+  //---------------------------------------------------------------------
+
+  var qrBitBuffer = function() {
+
+    var _buffer = [];
+    var _length = 0;
+
+    var _this = {};
+
+    _this.getBuffer = function() {
+      return _buffer;
+    };
+
+    _this.getAt = function(index) {
+      var bufIndex = Math.floor(index / 8);
+      return ( (_buffer[bufIndex] >>> (7 - index % 8) ) & 1) == 1;
+    };
+
+    _this.put = function(num, length) {
+      for (var i = 0; i < length; i += 1) {
+        _this.putBit( ( (num >>> (length - i - 1) ) & 1) == 1);
+      }
+    };
+
+    _this.getLengthInBits = function() {
+      return _length;
+    };
+
+    _this.putBit = function(bit) {
+
+      var bufIndex = Math.floor(_length / 8);
+      if (_buffer.length <= bufIndex) {
+        _buffer.push(0);
+      }
+
+      if (bit) {
+        _buffer[bufIndex] |= (0x80 >>> (_length % 8) );
+      }
+
+      _length += 1;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrNumber
+  //---------------------------------------------------------------------
+
+  var qrNumber = function(data) {
+
+    var _mode = QRMode.MODE_NUMBER;
+    var _data = data;
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _data.length;
+    };
+
+    _this.write = function(buffer) {
+
+      var data = _data;
+
+      var i = 0;
+
+      while (i + 2 < data.length) {
+        buffer.put(strToNum(data.substring(i, i + 3) ), 10);
+        i += 3;
+      }
+
+      if (i < data.length) {
+        if (data.length - i == 1) {
+          buffer.put(strToNum(data.substring(i, i + 1) ), 4);
+        } else if (data.length - i == 2) {
+          buffer.put(strToNum(data.substring(i, i + 2) ), 7);
+        }
+      }
+    };
+
+    var strToNum = function(s) {
+      var num = 0;
+      for (var i = 0; i < s.length; i += 1) {
+        num = num * 10 + chatToNum(s.charAt(i) );
+      }
+      return num;
+    };
+
+    var chatToNum = function(c) {
+      if ('0' <= c && c <= '9') {
+        return c.charCodeAt(0) - '0'.charCodeAt(0);
+      }
+      throw 'illegal char :' + c;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrAlphaNum
+  //---------------------------------------------------------------------
+
+  var qrAlphaNum = function(data) {
+
+    var _mode = QRMode.MODE_ALPHA_NUM;
+    var _data = data;
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _data.length;
+    };
+
+    _this.write = function(buffer) {
+
+      var s = _data;
+
+      var i = 0;
+
+      while (i + 1 < s.length) {
+        buffer.put(
+          getCode(s.charAt(i) ) * 45 +
+          getCode(s.charAt(i + 1) ), 11);
+        i += 2;
+      }
+
+      if (i < s.length) {
+        buffer.put(getCode(s.charAt(i) ), 6);
+      }
+    };
+
+    var getCode = function(c) {
+
+      if ('0' <= c && c <= '9') {
+        return c.charCodeAt(0) - '0'.charCodeAt(0);
+      } else if ('A' <= c && c <= 'Z') {
+        return c.charCodeAt(0) - 'A'.charCodeAt(0) + 10;
+      } else {
+        switch (c) {
+        case ' ' : return 36;
+        case '$' : return 37;
+        case '%' : return 38;
+        case '*' : return 39;
+        case '+' : return 40;
+        case '-' : return 41;
+        case '.' : return 42;
+        case '/' : return 43;
+        case ':' : return 44;
+        default :
+          throw 'illegal char :' + c;
+        }
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qr8BitByte
+  //---------------------------------------------------------------------
+
+  var qr8BitByte = function(data) {
+
+    var _mode = QRMode.MODE_8BIT_BYTE;
+    var _data = data;
+    var _bytes = qrcode.stringToBytes(data);
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return _bytes.length;
+    };
+
+    _this.write = function(buffer) {
+      for (var i = 0; i < _bytes.length; i += 1) {
+        buffer.put(_bytes[i], 8);
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // qrKanji
+  //---------------------------------------------------------------------
+
+  var qrKanji = function(data) {
+
+    var _mode = QRMode.MODE_KANJI;
+    var _data = data;
+
+    var stringToBytes = qrcode.stringToBytesFuncs['SJIS'];
+    if (!stringToBytes) {
+      throw 'sjis not supported.';
+    }
+    !function(c, code) {
+      // self test for sjis support.
+      var test = stringToBytes(c);
+      if (test.length != 2 || ( (test[0] << 8) | test[1]) != code) {
+        throw 'sjis not supported.';
+      }
+    }('\u53cb', 0x9746);
+
+    var _bytes = stringToBytes(data);
+
+    var _this = {};
+
+    _this.getMode = function() {
+      return _mode;
+    };
+
+    _this.getLength = function(buffer) {
+      return ~~(_bytes.length / 2);
+    };
+
+    _this.write = function(buffer) {
+
+      var data = _bytes;
+
+      var i = 0;
+
+      while (i + 1 < data.length) {
+
+        var c = ( (0xff & data[i]) << 8) | (0xff & data[i + 1]);
+
+        if (0x8140 <= c && c <= 0x9FFC) {
+          c -= 0x8140;
+        } else if (0xE040 <= c && c <= 0xEBBF) {
+          c -= 0xC140;
+        } else {
+          throw 'illegal char at ' + (i + 1) + '/' + c;
+        }
+
+        c = ( (c >>> 8) & 0xff) * 0xC0 + (c & 0xff);
+
+        buffer.put(c, 13);
+
+        i += 2;
+      }
+
+      if (i < data.length) {
+        throw 'illegal char at ' + (i + 1);
+      }
+    };
+
+    return _this;
+  };
+
+  //=====================================================================
+  // GIF Support etc.
+  //
+
+  //---------------------------------------------------------------------
+  // byteArrayOutputStream
+  //---------------------------------------------------------------------
+
+  var byteArrayOutputStream = function() {
+
+    var _bytes = [];
+
+    var _this = {};
+
+    _this.writeByte = function(b) {
+      _bytes.push(b & 0xff);
+    };
+
+    _this.writeShort = function(i) {
+      _this.writeByte(i);
+      _this.writeByte(i >>> 8);
+    };
+
+    _this.writeBytes = function(b, off, len) {
+      off = off || 0;
+      len = len || b.length;
+      for (var i = 0; i < len; i += 1) {
+        _this.writeByte(b[i + off]);
+      }
+    };
+
+    _this.writeString = function(s) {
+      for (var i = 0; i < s.length; i += 1) {
+        _this.writeByte(s.charCodeAt(i) );
+      }
+    };
+
+    _this.toByteArray = function() {
+      return _bytes;
+    };
+
+    _this.toString = function() {
+      var s = '';
+      s += '[';
+      for (var i = 0; i < _bytes.length; i += 1) {
+        if (i > 0) {
+          s += ',';
+        }
+        s += _bytes[i];
+      }
+      s += ']';
+      return s;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // base64EncodeOutputStream
+  //---------------------------------------------------------------------
+
+  var base64EncodeOutputStream = function() {
+
+    var _buffer = 0;
+    var _buflen = 0;
+    var _length = 0;
+    var _base64 = '';
+
+    var _this = {};
+
+    var writeEncoded = function(b) {
+      _base64 += String.fromCharCode(encode(b & 0x3f) );
+    };
+
+    var encode = function(n) {
+      if (n < 0) {
+        // error.
+      } else if (n < 26) {
+        return 0x41 + n;
+      } else if (n < 52) {
+        return 0x61 + (n - 26);
+      } else if (n < 62) {
+        return 0x30 + (n - 52);
+      } else if (n == 62) {
+        return 0x2b;
+      } else if (n == 63) {
+        return 0x2f;
+      }
+      throw 'n:' + n;
+    };
+
+    _this.writeByte = function(n) {
+
+      _buffer = (_buffer << 8) | (n & 0xff);
+      _buflen += 8;
+      _length += 1;
+
+      while (_buflen >= 6) {
+        writeEncoded(_buffer >>> (_buflen - 6) );
+        _buflen -= 6;
+      }
+    };
+
+    _this.flush = function() {
+
+      if (_buflen > 0) {
+        writeEncoded(_buffer << (6 - _buflen) );
+        _buffer = 0;
+        _buflen = 0;
+      }
+
+      if (_length % 3 != 0) {
+        // padding
+        var padlen = 3 - _length % 3;
+        for (var i = 0; i < padlen; i += 1) {
+          _base64 += '=';
+        }
+      }
+    };
+
+    _this.toString = function() {
+      return _base64;
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // base64DecodeInputStream
+  //---------------------------------------------------------------------
+
+  var base64DecodeInputStream = function(str) {
+
+    var _str = str;
+    var _pos = 0;
+    var _buffer = 0;
+    var _buflen = 0;
+
+    var _this = {};
+
+    _this.read = function() {
+
+      while (_buflen < 8) {
+
+        if (_pos >= _str.length) {
+          if (_buflen == 0) {
+            return -1;
+          }
+          throw 'unexpected end of file./' + _buflen;
+        }
+
+        var c = _str.charAt(_pos);
+        _pos += 1;
+
+        if (c == '=') {
+          _buflen = 0;
+          return -1;
+        } else if (c.match(/^\s$/) ) {
+          // ignore if whitespace.
+          continue;
+        }
+
+        _buffer = (_buffer << 6) | decode(c.charCodeAt(0) );
+        _buflen += 6;
+      }
+
+      var n = (_buffer >>> (_buflen - 8) ) & 0xff;
+      _buflen -= 8;
+      return n;
+    };
+
+    var decode = function(c) {
+      if (0x41 <= c && c <= 0x5a) {
+        return c - 0x41;
+      } else if (0x61 <= c && c <= 0x7a) {
+        return c - 0x61 + 26;
+      } else if (0x30 <= c && c <= 0x39) {
+        return c - 0x30 + 52;
+      } else if (c == 0x2b) {
+        return 62;
+      } else if (c == 0x2f) {
+        return 63;
+      } else {
+        throw 'c:' + c;
+      }
+    };
+
+    return _this;
+  };
+
+  //---------------------------------------------------------------------
+  // gifImage (B/W)
+  //---------------------------------------------------------------------
+
+  var gifImage = function(width, height) {
+
+    var _width = width;
+    var _height = height;
+    var _data = new Array(width * height);
+
+    var _this = {};
+
+    _this.setPixel = function(x, y, pixel) {
+      _data[y * _width + x] = pixel;
+    };
+
+    _this.write = function(out) {
+
+      //---------------------------------
+      // GIF Signature
+
+      out.writeString('GIF87a');
+
+      //---------------------------------
+      // Screen Descriptor
+
+      out.writeShort(_width);
+      out.writeShort(_height);
+
+      out.writeByte(0x80); // 2bit
+      out.writeByte(0);
+      out.writeByte(0);
+
+      //---------------------------------
+      // Global Color Map
+
+      // black
+      out.writeByte(0x00);
+      out.writeByte(0x00);
+      out.writeByte(0x00);
+
+      // white
+      out.writeByte(0xff);
+      out.writeByte(0xff);
+      out.writeByte(0xff);
+
+      //---------------------------------
+      // Image Descriptor
+
+      out.writeString(',');
+      out.writeShort(0);
+      out.writeShort(0);
+      out.writeShort(_width);
+      out.writeShort(_height);
+      out.writeByte(0);
+
+      //---------------------------------
+      // Local Color Map
+
+      //---------------------------------
+      // Raster Data
+
+      var lzwMinCodeSize = 2;
+      var raster = getLZWRaster(lzwMinCodeSize);
+
+      out.writeByte(lzwMinCodeSize);
+
+      var offset = 0;
+
+      while (raster.length - offset > 255) {
+        out.writeByte(255);
+        out.writeBytes(raster, offset, 255);
+        offset += 255;
+      }
+
+      out.writeByte(raster.length - offset);
+      out.writeBytes(raster, offset, raster.length - offset);
+      out.writeByte(0x00);
+
+      //---------------------------------
+      // GIF Terminator
+      out.writeString(';');
+    };
+
+    var bitOutputStream = function(out) {
+
+      var _out = out;
+      var _bitLength = 0;
+      var _bitBuffer = 0;
+
+      var _this = {};
+
+      _this.write = function(data, length) {
+
+        if ( (data >>> length) != 0) {
+          throw 'length over';
+        }
+
+        while (_bitLength + length >= 8) {
+          _out.writeByte(0xff & ( (data << _bitLength) | _bitBuffer) );
+          length -= (8 - _bitLength);
+          data >>>= (8 - _bitLength);
+          _bitBuffer = 0;
+          _bitLength = 0;
+        }
+
+        _bitBuffer = (data << _bitLength) | _bitBuffer;
+        _bitLength = _bitLength + length;
+      };
+
+      _this.flush = function() {
+        if (_bitLength > 0) {
+          _out.writeByte(_bitBuffer);
+        }
+      };
+
+      return _this;
+    };
+
+    var getLZWRaster = function(lzwMinCodeSize) {
+
+      var clearCode = 1 << lzwMinCodeSize;
+      var endCode = (1 << lzwMinCodeSize) + 1;
+      var bitLength = lzwMinCodeSize + 1;
+
+      // Setup LZWTable
+      var table = lzwTable();
+
+      for (var i = 0; i < clearCode; i += 1) {
+        table.add(String.fromCharCode(i) );
+      }
+      table.add(String.fromCharCode(clearCode) );
+      table.add(String.fromCharCode(endCode) );
+
+      var byteOut = byteArrayOutputStream();
+      var bitOut = bitOutputStream(byteOut);
+
+      // clear code
+      bitOut.write(clearCode, bitLength);
+
+      var dataIndex = 0;
+
+      var s = String.fromCharCode(_data[dataIndex]);
+      dataIndex += 1;
+
+      while (dataIndex < _data.length) {
+
+        var c = String.fromCharCode(_data[dataIndex]);
+        dataIndex += 1;
+
+        if (table.contains(s + c) ) {
+
+          s = s + c;
+
+        } else {
+
+          bitOut.write(table.indexOf(s), bitLength);
+
+          if (table.size() < 0xfff) {
+
+            if (table.size() == (1 << bitLength) ) {
+              bitLength += 1;
+            }
+
+            table.add(s + c);
+          }
+
+          s = c;
+        }
+      }
+
+      bitOut.write(table.indexOf(s), bitLength);
+
+      // end code
+      bitOut.write(endCode, bitLength);
+
+      bitOut.flush();
+
+      return byteOut.toByteArray();
+    };
+
+    var lzwTable = function() {
+
+      var _map = {};
+      var _size = 0;
+
+      var _this = {};
+
+      _this.add = function(key) {
+        if (_this.contains(key) ) {
+          throw 'dup key:' + key;
+        }
+        _map[key] = _size;
+        _size += 1;
+      };
+
+      _this.size = function() {
+        return _size;
+      };
+
+      _this.indexOf = function(key) {
+        return _map[key];
+      };
+
+      _this.contains = function(key) {
+        return typeof _map[key] != 'undefined';
+      };
+
+      return _this;
+    };
+
+    return _this;
+  };
+
+  var createDataURL = function(width, height, getPixel) {
+    var gif = gifImage(width, height);
+    for (var y = 0; y < height; y += 1) {
+      for (var x = 0; x < width; x += 1) {
+        gif.setPixel(x, y, getPixel(x, y) );
+      }
+    }
+
+    var b = byteArrayOutputStream();
+    gif.write(b);
+
+    var base64 = base64EncodeOutputStream();
+    var bytes = b.toByteArray();
+    for (var i = 0; i < bytes.length; i += 1) {
+      base64.writeByte(bytes[i]);
+    }
+    base64.flush();
+
+    return 'data:image/gif;base64,' + base64;
+  };
+
+  //---------------------------------------------------------------------
+  // returns qrcode function.
+
+  return qrcode;
+}();
+
+// multibyte support
+!function() {
+
+  qrcode.stringToBytesFuncs['UTF-8'] = function(s) {
+    // http://stackoverflow.com/questions/18729405/how-to-convert-utf8-string-to-byte-array
+    function toUTF8Array(str) {
+      var utf8 = [];
+      for (var i=0; i < str.length; i++) {
+        var charcode = str.charCodeAt(i);
+        if (charcode < 0x80) utf8.push(charcode);
+        else if (charcode < 0x800) {
+          utf8.push(0xc0 | (charcode >> 6),
+              0x80 | (charcode & 0x3f));
+        }
+        else if (charcode < 0xd800 || charcode >= 0xe000) {
+          utf8.push(0xe0 | (charcode >> 12),
+              0x80 | ((charcode>>6) & 0x3f),
+              0x80 | (charcode & 0x3f));
+        }
+        // surrogate pair
+        else {
+          i++;
+          // UTF-16 encodes 0x10000-0x10FFFF by
+          // subtracting 0x10000 and splitting the
+          // 20 bits of 0x0-0xFFFFF into two halves
+          charcode = 0x10000 + (((charcode & 0x3ff)<<10)
+            | (str.charCodeAt(i) & 0x3ff));
+          utf8.push(0xf0 | (charcode >>18),
+              0x80 | ((charcode>>12) & 0x3f),
+              0x80 | ((charcode>>6) & 0x3f),
+              0x80 | (charcode & 0x3f));
+        }
+      }
+      return utf8;
+    }
+    return toUTF8Array(s);
+  };
+
+}();
+
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+      define([], factory);
+  } else if (typeof exports === 'object') {
+      module.exports = factory();
+  }
+}(function () {
+    return qrcode;
+}));
+
+</script>
+<script>
+/* ================= DATA (static, generated) ================= */
+const SCHEDULE = [{"city": "aktau", "city_name": "Актау", "module": 1, "date_start": "2026-09-15", "date_end": "2026-09-16", "date_label": "15-16 сентября", "weekday": "вторник", "trainer": "Галия Багдат", "session_type": "module", "label": "Модуль 1"}, {"city": "astana", "city_name": "Астана", "module": 1, "date_start": "2026-09-19", "date_end": "2026-09-20", "date_label": "19-20 сентября", "weekday": "суббота", "trainer": "Гульмира Чупекова", "session_type": "module", "label": "Модуль 1"}, {"city": "almaty", "city_name": "Алматы", "module": 1, "date_start": "2026-09-23", "date_end": "2026-09-24", "date_label": "23-24 сентября", "weekday": "среда", "trainer": "Анар", "session_type": "module", "label": "Модуль 1"}, {"city": "atyrau", "city_name": "Атырау", "module": 1, "date_start": "2026-09-27", "date_end": "2026-09-28", "date_label": "27-28 сентября", "weekday": "воскресенье", "trainer": "Тогжан", "session_type": "module", "label": "Модуль 1"}, {"city": "aktobe", "city_name": "Актобе", "module": 1, "date_start": "2026-10-01", "date_end": "2026-10-02", "date_label": "1-2 октября", "weekday": "четверг", "trainer": "Гульмира Сыздыкова", "session_type": "module", "label": "Модуль 1"}, {"city": "shymkent", "city_name": "Шымкент", "module": 1, "date_start": "2026-10-05", "date_end": "2026-10-06", "date_label": "5-6 октября", "weekday": "понедельник", "trainer": "Эльмира", "session_type": "module", "label": "Модуль 1"}, {"city": "karaganda", "city_name": "Караганда", "module": 1, "date_start": "2026-10-09", "date_end": "2026-10-10", "date_label": "9-10 октября", "weekday": "пятница", "trainer": "Элина", "session_type": "module", "label": "Модуль 1"}, {"city": "pavlodar", "city_name": "Павлодар", "module": 1, "date_start": "2026-10-13", "date_end": "2026-10-14", "date_label": "13-14 октября", "weekday": "вторник", "trainer": "Дания", "session_type": "module", "label": "Модуль 1"}, {"city": "online", "city_name": "Онлайн", "module": 1, "date_start": "2026-10-17", "date_end": "2026-10-18", "date_label": "17-18 октября", "weekday": "суббота", "trainer": "Михаил", "session_type": "module", "label": "Модуль 1"}, {"city": "aktau", "city_name": "Актау", "module": 2, "date_start": "2026-10-20", "date_end": "2026-10-21", "date_label": "20-21 октября", "weekday": "вторник", "trainer": "Гульмира Чупекова", "session_type": "module", "label": "Модуль 2"}, {"city": "astana", "city_name": "Астана", "module": 2, "date_start": "2026-10-24", "date_end": "2026-10-25", "date_label": "24-25 октября", "weekday": "суббота", "trainer": "Анар", "session_type": "module", "label": "Модуль 2"}, {"city": "almaty", "city_name": "Алматы", "module": 2, "date_start": "2026-10-28", "date_end": "2026-10-29", "date_label": "28-29 октября", "weekday": "среда", "trainer": "Тогжан", "session_type": "module", "label": "Модуль 2"}, {"city": "atyrau", "city_name": "Атырау", "module": 2, "date_start": "2026-11-01", "date_end": "2026-11-02", "date_label": "1-2 ноября", "weekday": "воскресенье", "trainer": "Гульмира Сыздыкова", "session_type": "module", "label": "Модуль 2"}, {"city": "aktobe", "city_name": "Актобе", "module": 2, "date_start": "2026-11-05", "date_end": "2026-11-06", "date_label": "5-6 ноября", "weekday": "четверг", "trainer": "Эльмира", "session_type": "module", "label": "Модуль 2"}, {"city": "shymkent", "city_name": "Шымкент", "module": 2, "date_start": "2026-11-09", "date_end": "2026-11-10", "date_label": "9-10 ноября", "weekday": "понедельник", "trainer": "Элина", "session_type": "module", "label": "Модуль 2"}, {"city": "karaganda", "city_name": "Караганда", "module": 2, "date_start": "2026-11-13", "date_end": "2026-11-14", "date_label": "13-14 ноября", "weekday": "пятница", "trainer": "Дания", "session_type": "module", "label": "Модуль 2"}, {"city": "pavlodar", "city_name": "Павлодар", "module": 2, "date_start": "2026-11-17", "date_end": "2026-11-18", "date_label": "17-18 ноября", "weekday": "вторник", "trainer": "Михаил", "session_type": "module", "label": "Модуль 2"}, {"city": "online", "city_name": "Онлайн", "module": 2, "date_start": "2026-11-21", "date_end": "2026-11-22", "date_label": "21-22 ноября", "weekday": "суббота", "trainer": "Галия Багдат", "session_type": "module", "label": "Модуль 2"}, {"city": "aktau", "city_name": "Актау", "module": 3, "date_start": "2026-11-24", "date_end": "2026-11-25", "date_label": "24-25 ноября", "weekday": "вторник", "trainer": "Анар", "session_type": "module", "label": "Модуль 3"}, {"city": "astana", "city_name": "Астана", "module": 3, "date_start": "2026-11-28", "date_end": "2026-11-29", "date_label": "28-29 ноября", "weekday": "суббота", "trainer": "Тогжан", "session_type": "module", "label": "Модуль 3"}, {"city": "almaty", "city_name": "Алматы", "module": 3, "date_start": "2026-12-02", "date_end": "2026-12-03", "date_label": "2-3 декабря", "weekday": "среда", "trainer": "Гульмира Сыздыкова", "session_type": "module", "label": "Модуль 3"}, {"city": "atyrau", "city_name": "Атырау", "module": 3, "date_start": "2026-12-06", "date_end": "2026-12-07", "date_label": "6-7 декабря", "weekday": "воскресенье", "trainer": "Эльмира", "session_type": "module", "label": "Модуль 3"}, {"city": "aktobe", "city_name": "Актобе", "module": 3, "date_start": "2026-12-10", "date_end": "2026-12-11", "date_label": "10-11 декабря", "weekday": "четверг", "trainer": "Элина", "session_type": "module", "label": "Модуль 3"}, {"city": "shymkent", "city_name": "Шымкент", "module": 3, "date_start": "2026-12-14", "date_end": "2026-12-15", "date_label": "14-15 декабря", "weekday": "понедельник", "trainer": "Дания", "session_type": "module", "label": "Модуль 3"}, {"city": "karaganda", "city_name": "Караганда", "module": 3, "date_start": "2026-12-18", "date_end": "2026-12-19", "date_label": "18-19 декабря", "weekday": "пятница", "trainer": "Михаил", "session_type": "module", "label": "Модуль 3"}, {"city": "pavlodar", "city_name": "Павлодар", "module": 3, "date_start": "2026-12-22", "date_end": "2026-12-23", "date_label": "22-23 декабря", "weekday": "вторник", "trainer": "Галия Багдат", "session_type": "module", "label": "Модуль 3"}, {"city": "online", "city_name": "Онлайн", "module": 3, "date_start": "2026-12-26", "date_end": "2026-12-27", "date_label": "26-27 декабря", "weekday": "суббота", "trainer": "Гульмира Чупекова", "session_type": "module", "label": "Модуль 3"}, {"city": "aktau", "city_name": "Актау", "module": 4, "date_start": "2026-12-29", "date_end": "2026-12-30", "date_label": "29-30 декабря", "weekday": "вторник", "trainer": "Тогжан", "session_type": "module", "label": "Модуль 4"}, {"city": "astana", "city_name": "Астана", "module": 4, "date_start": "2027-01-02", "date_end": "2027-01-03", "date_label": "2-3 января", "weekday": "суббота", "trainer": "Гульмира Сыздыкова", "session_type": "module", "label": "Модуль 4"}, {"city": "almaty", "city_name": "Алматы", "module": 4, "date_start": "2027-01-06", "date_end": "2027-01-07", "date_label": "6-7 января", "weekday": "среда", "trainer": "Эльмира", "session_type": "module", "label": "Модуль 4"}, {"city": "atyrau", "city_name": "Атырау", "module": 4, "date_start": "2027-01-10", "date_end": "2027-01-11", "date_label": "10-11 января", "weekday": "воскресенье", "trainer": "Элина", "session_type": "module", "label": "Модуль 4"}, {"city": "aktobe", "city_name": "Актобе", "module": 4, "date_start": "2027-01-14", "date_end": "2027-01-15", "date_label": "14-15 января", "weekday": "четверг", "trainer": "Дания", "session_type": "module", "label": "Модуль 4"}, {"city": "shymkent", "city_name": "Шымкент", "module": 4, "date_start": "2027-01-18", "date_end": "2027-01-19", "date_label": "18-19 января", "weekday": "понедельник", "trainer": "Михаил", "session_type": "module", "label": "Модуль 4"}, {"city": "karaganda", "city_name": "Караганда", "module": 4, "date_start": "2027-01-22", "date_end": "2027-01-23", "date_label": "22-23 января", "weekday": "пятница", "trainer": "Галия Багдат", "session_type": "module", "label": "Модуль 4"}, {"city": "pavlodar", "city_name": "Павлодар", "module": 4, "date_start": "2027-01-26", "date_end": "2027-01-27", "date_label": "26-27 января", "weekday": "вторник", "trainer": "Гульмира Чупекова", "session_type": "module", "label": "Модуль 4"}, {"city": "online", "city_name": "Онлайн", "module": 4, "date_start": "2027-01-30", "date_end": "2027-01-31", "date_label": "30-31 января", "weekday": "суббота", "trainer": "Анар", "session_type": "module", "label": "Модуль 4"}, {"city": "aktau", "city_name": "Актау", "module": 5, "date_start": "2027-02-02", "date_end": "2027-02-03", "date_label": "2-3 февраля", "weekday": "вторник", "trainer": "Гульмира Сыздыкова", "session_type": "module", "label": "Модуль 5"}, {"city": "astana", "city_name": "Астана", "module": 5, "date_start": "2027-02-06", "date_end": "2027-02-07", "date_label": "6-7 февраля", "weekday": "суббота", "trainer": "Эльмира", "session_type": "module", "label": "Модуль 5"}, {"city": "almaty", "city_name": "Алматы", "module": 5, "date_start": "2027-02-10", "date_end": "2027-02-11", "date_label": "10-11 февраля", "weekday": "среда", "trainer": "Элина", "session_type": "module", "label": "Модуль 5"}, {"city": "atyrau", "city_name": "Атырау", "module": 5, "date_start": "2027-02-14", "date_end": "2027-02-15", "date_label": "14-15 февраля", "weekday": "воскресенье", "trainer": "Дания", "session_type": "module", "label": "Модуль 5"}, {"city": "aktobe", "city_name": "Актобе", "module": 5, "date_start": "2027-02-18", "date_end": "2027-02-19", "date_label": "18-19 февраля", "weekday": "четверг", "trainer": "Михаил", "session_type": "module", "label": "Модуль 5"}, {"city": "shymkent", "city_name": "Шымкент", "module": 5, "date_start": "2027-02-22", "date_end": "2027-02-23", "date_label": "22-23 февраля", "weekday": "понедельник", "trainer": "Галия Багдат", "session_type": "module", "label": "Модуль 5"}, {"city": "karaganda", "city_name": "Караганда", "module": 5, "date_start": "2027-02-26", "date_end": "2027-02-27", "date_label": "26-27 февраля", "weekday": "пятница", "trainer": "Гульмира Чупекова", "session_type": "module", "label": "Модуль 5"}, {"city": "pavlodar", "city_name": "Павлодар", "module": 5, "date_start": "2027-03-02", "date_end": "2027-03-03", "date_label": "2-3 марта", "weekday": "вторник", "trainer": "Анар", "session_type": "module", "label": "Модуль 5"}, {"city": "online", "city_name": "Онлайн", "module": 5, "date_start": "2027-03-06", "date_end": "2027-03-07", "date_label": "6-7 марта", "weekday": "суббота", "trainer": "Тогжан", "session_type": "module", "label": "Модуль 5"}, {"city": "aktau", "city_name": "Актау", "module": 6, "date_start": "2027-03-09", "date_end": "2027-03-10", "date_label": "9-10 марта", "weekday": "вторник", "trainer": "Эльмира", "session_type": "module", "label": "Модуль 6"}, {"city": "astana", "city_name": "Астана", "module": 6, "date_start": "2027-03-13", "date_end": "2027-03-14", "date_label": "13-14 марта", "weekday": "суббота", "trainer": "Элина", "session_type": "module", "label": "Модуль 6"}, {"city": "almaty", "city_name": "Алматы", "module": 6, "date_start": "2027-03-17", "date_end": "2027-03-18", "date_label": "17-18 марта", "weekday": "среда", "trainer": "Дания", "session_type": "module", "label": "Модуль 6"}, {"city": "atyrau", "city_name": "Атырау", "module": 6, "date_start": "2027-03-21", "date_end": "2027-03-22", "date_label": "21-22 марта", "weekday": "воскресенье", "trainer": "Михаил", "session_type": "module", "label": "Модуль 6"}, {"city": "aktau", "city_name": "Актау", "module": 0, "date_start": "2027-03-23", "date_end": "2027-03-24", "date_label": "23-24 марта", "weekday": "вторник", "trainer": "Руководитель офиса Актау", "session_type": "team_coaching", "label": "Доп. сессия — Командный коучинг"}, {"city": "aktobe", "city_name": "Актобе", "module": 6, "date_start": "2027-03-25", "date_end": "2027-03-26", "date_label": "25-26 марта", "weekday": "четверг", "trainer": "Галия Багдат", "session_type": "module", "label": "Модуль 6"}, {"city": "shymkent", "city_name": "Шымкент", "module": 6, "date_start": "2027-03-29", "date_end": "2027-03-30", "date_label": "29-30 марта", "weekday": "понедельник", "trainer": "Гульмира Чупекова", "session_type": "module", "label": "Модуль 6"}, {"city": "karaganda", "city_name": "Караганда", "module": 6, "date_start": "2027-04-02", "date_end": "2027-04-03", "date_label": "2-3 апреля", "weekday": "пятница", "trainer": "Анар", "session_type": "module", "label": "Модуль 6"}, {"city": "pavlodar", "city_name": "Павлодар", "module": 6, "date_start": "2027-04-06", "date_end": "2027-04-07", "date_label": "6-7 апреля", "weekday": "вторник", "trainer": "Тогжан", "session_type": "module", "label": "Модуль 6"}, {"city": "online", "city_name": "Онлайн", "module": 6, "date_start": "2027-04-10", "date_end": "2027-04-11", "date_label": "10-11 апреля", "weekday": "суббота", "trainer": "Гульмира Сыздыкова", "session_type": "module", "label": "Модуль 6"}, {"city": "aktau", "city_name": "Актау", "module": 7, "date_start": "2027-04-13", "date_end": "2027-04-14", "date_label": "13-14 апреля", "weekday": "вторник", "trainer": "Элина", "session_type": "module", "label": "Модуль 7"}, {"city": "astana", "city_name": "Астана", "module": 7, "date_start": "2027-04-17", "date_end": "2027-04-18", "date_label": "17-18 апреля", "weekday": "суббота", "trainer": "Дания", "session_type": "module", "label": "Модуль 7"}, {"city": "almaty", "city_name": "Алматы", "module": 7, "date_start": "2027-04-21", "date_end": "2027-04-22", "date_label": "21-22 апреля", "weekday": "среда", "trainer": "Михаил", "session_type": "module", "label": "Модуль 7"}, {"city": "atyrau", "city_name": "Атырау", "module": 7, "date_start": "2027-04-25", "date_end": "2027-04-26", "date_label": "25-26 апреля", "weekday": "воскресенье", "trainer": "Данагуль", "session_type": "team_coaching", "label": "Модуль 7 — Командный коучинг"}, {"city": "aktobe", "city_name": "Актобе", "module": 7, "date_start": "2027-04-29", "date_end": "2027-04-30", "date_label": "29-30 апреля", "weekday": "четверг", "trainer": "Гульмира Чупекова", "session_type": "module", "label": "Модуль 7"}, {"city": "shymkent", "city_name": "Шымкент", "module": 7, "date_start": "2027-05-03", "date_end": "2027-05-04", "date_label": "3-4 мая", "weekday": "понедельник", "trainer": "Анар", "session_type": "module", "label": "Модуль 7"}, {"city": "karaganda", "city_name": "Караганда", "module": 7, "date_start": "2027-05-07", "date_end": "2027-05-08", "date_label": "7-8 мая", "weekday": "пятница", "trainer": "Тогжан", "session_type": "module", "label": "Модуль 7"}, {"city": "pavlodar", "city_name": "Павлодар", "module": 7, "date_start": "2027-05-11", "date_end": "2027-05-12", "date_label": "11-12 мая", "weekday": "вторник", "trainer": "Гульмира Сыздыкова", "session_type": "module", "label": "Модуль 7"}, {"city": "online", "city_name": "Онлайн", "module": 7, "date_start": "2027-05-15", "date_end": "2027-05-16", "date_label": "15-16 мая", "weekday": "суббота", "trainer": "Эльмира", "session_type": "module", "label": "Модуль 7"}, {"city": "aktau", "city_name": "Актау", "module": 8, "date_start": "2027-05-18", "date_end": "2027-05-19", "date_label": "18-19 мая", "weekday": "вторник", "trainer": "Дания", "session_type": "module", "label": "Модуль 8"}, {"city": "astana", "city_name": "Астана", "module": 8, "date_start": "2027-05-22", "date_end": "2027-05-23", "date_label": "22-23 мая", "weekday": "суббота", "trainer": "Михаил", "session_type": "module", "label": "Модуль 8"}, {"city": "almaty", "city_name": "Алматы", "module": 8, "date_start": "2027-05-26", "date_end": "2027-05-27", "date_label": "26-27 мая", "weekday": "среда", "trainer": "Галия Багдат", "session_type": "module", "label": "Модуль 8"}, {"city": "atyrau", "city_name": "Атырау", "module": 8, "date_start": "2027-05-30", "date_end": "2027-05-31", "date_label": "30-31 мая", "weekday": "воскресенье", "trainer": "Гульмира Чупекова", "session_type": "module", "label": "Модуль 8"}, {"city": "aktobe", "city_name": "Актобе", "module": 8, "date_start": "2027-06-03", "date_end": "2027-06-04", "date_label": "3-4 июня", "weekday": "четверг", "trainer": "Анар", "session_type": "module", "label": "Модуль 8"}, {"city": "shymkent", "city_name": "Шымкент", "module": 8, "date_start": "2027-06-07", "date_end": "2027-06-08", "date_label": "7-8 июня", "weekday": "понедельник", "trainer": "Тогжан", "session_type": "module", "label": "Модуль 8"}, {"city": "karaganda", "city_name": "Караганда", "module": 8, "date_start": "2027-06-11", "date_end": "2027-06-12", "date_label": "11-12 июня", "weekday": "пятница", "trainer": "Гульмира Сыздыкова", "session_type": "module", "label": "Модуль 8"}, {"city": "pavlodar", "city_name": "Павлодар", "module": 8, "date_start": "2027-06-15", "date_end": "2027-06-16", "date_label": "15-16 июня", "weekday": "вторник", "trainer": "Эльмира", "session_type": "module", "label": "Модуль 8"}, {"city": "online", "city_name": "Онлайн", "module": 8, "date_start": "2027-06-19", "date_end": "2027-06-20", "date_label": "19-20 июня", "weekday": "суббота", "trainer": "Элина", "session_type": "module", "label": "Модуль 8"}];
+const STREAMS = [{"key": "aktau", "name": "Актау", "target": 22, "start": "2026-09-15", "end": "2027-05-19", "graduation_label": "18-19 мая"}, {"key": "astana", "name": "Астана", "target": 25, "start": "2026-09-19", "end": "2027-05-23", "graduation_label": "22-23 мая"}, {"key": "almaty", "name": "Алматы", "target": 25, "start": "2026-09-23", "end": "2027-05-27", "graduation_label": "26-27 мая"}, {"key": "atyrau", "name": "Атырау", "target": 20, "start": "2026-09-27", "end": "2027-05-31", "graduation_label": "30-31 мая"}, {"key": "aktobe", "name": "Актобе", "target": 20, "start": "2026-10-01", "end": "2027-06-04", "graduation_label": "3-4 июня"}, {"key": "shymkent", "name": "Шымкент", "target": 24, "start": "2026-10-05", "end": "2027-06-08", "graduation_label": "7-8 июня"}, {"key": "karaganda", "name": "Караганда", "target": 20, "start": "2026-10-09", "end": "2027-06-12", "graduation_label": "11-12 июня"}, {"key": "pavlodar", "name": "Павлодар", "target": 18, "start": "2026-10-13", "end": "2027-06-16", "graduation_label": "15-16 июня"}, {"key": "online", "name": "Онлайн", "target": 30, "start": "2026-10-17", "end": "2027-06-20", "graduation_label": "19-20 июня"}];
+const TRAINERS = [
+ {
+  "key": "galiya",
+  "name": "Галия Багдат",
+  "role": "Президент ICU KZ и ЦА, ведущий тренер",
+  "cities": "все города",
+  "phone": "+77077337217",
+  "email": "galbagdat7@gmail.com"
+ },
+ {
+  "key": "gulmira_ch",
+  "name": "Гульмира Чупекова",
+  "role": "Тренер модулей",
+  "cities": "все города",
+  "phone": "",
+  "email": ""
+ },
+ {
+  "key": "anar",
+  "name": "Анар",
+  "role": "Тренер модулей",
+  "cities": "все города",
+  "phone": "",
+  "email": ""
+ },
+ {
+  "key": "togzhan",
+  "name": "Тогжан",
+  "role": "Тренер модулей",
+  "cities": "все города",
+  "phone": "",
+  "email": ""
+ },
+ {
+  "key": "gulmira_s",
+  "name": "Гульмира Сыздыкова",
+  "role": "Тренер модулей",
+  "cities": "все города",
+  "phone": "",
+  "email": ""
+ },
+ {
+  "key": "elmira",
+  "name": "Эльмира",
+  "role": "Тренер модулей",
+  "cities": "все города",
+  "phone": "",
+  "email": ""
+ },
+ {
+  "key": "elina",
+  "name": "Элина",
+  "role": "Тренер модулей",
+  "cities": "все города",
+  "phone": "",
+  "email": ""
+ },
+ {
+  "key": "dania",
+  "name": "Дания",
+  "role": "Тренер модулей",
+  "cities": "все города",
+  "phone": "",
+  "email": ""
+ },
+ {
+  "key": "mikhail",
+  "name": "Михаил",
+  "role": "Тренер модулей (завершающие модули)",
+  "cities": "все города",
+  "phone": "",
+  "email": ""
+ },
+ {
+  "key": "rakhat",
+  "name": "Рахат",
+  "role": "Локальный тренер-ассистент (Шымкент)",
+  "cities": "Шымкент",
+  "phone": "",
+  "email": ""
+ },
+ {
+  "key": "aigul",
+  "name": "Айгуль",
+  "role": "Локальный тренер-ассистент (Шымкент)",
+  "cities": "Шымкент",
+  "phone": "",
+  "email": ""
+ },
+ {
+  "key": "aktau_head",
+  "name": "Руководитель офиса Актау",
+  "role": "Командный коучинг — руководитель офиса Актау (доп. сессия, весна)",
+  "cities": "Актау",
+  "phone": "",
+  "email": ""
+ },
+ {
+  "key": "danagul",
+  "name": "Данагуль",
+  "role": "Командный коучинг — руководитель офиса Атырау (Модуль 7)",
+  "cities": "Атырау",
+  "phone": "",
+  "email": ""
+ }
+];
+const CITIES_DEFAULT = [{"key": "aktau", "name": "Актау", "region": "Западный Казахстан", "target": 22, "rep_name": "", "rep_phone": "", "rep_email": ""}, {"key": "astana", "name": "Астана", "region": "Штаб-квартира ICU", "target": 25, "rep_name": "", "rep_phone": "", "rep_email": ""}, {"key": "almaty", "name": "Алматы", "region": "Южная столица", "target": 25, "rep_name": "", "rep_phone": "", "rep_email": ""}, {"key": "atyrau", "name": "Атырау", "region": "Западный Казахстан", "target": 20, "rep_name": "", "rep_phone": "", "rep_email": ""}, {"key": "aktobe", "name": "Актобе", "region": "Западный Казахстан", "target": 20, "rep_name": "", "rep_phone": "", "rep_email": ""}, {"key": "shymkent", "name": "Шымкент", "region": "Южный Казахстан", "target": 24, "rep_name": "", "rep_phone": "", "rep_email": ""}, {"key": "karaganda", "name": "Караганда", "region": "Центральный Казахстан", "target": 20, "rep_name": "", "rep_phone": "", "rep_email": ""}, {"key": "pavlodar", "name": "Павлодар", "region": "Северо-Восточный Казахстан", "target": 18, "rep_name": "", "rep_phone": "", "rep_email": ""}, {"key": "online", "name": "Онлайн", "region": "Дистанционный поток", "target": 30, "rep_name": "", "rep_phone": "", "rep_email": ""}];
+const FLIGHTS = [{"city": "aktau", "routes": [{"from": "Астана", "airlines": "Air Astana, SCAT, FlyArystan", "freq": "ежедневно", "duration": "~2 ч 30 мин"}, {"from": "Алматы", "airlines": "Air Astana, SCAT, FlyArystan", "freq": "ежедневно", "duration": "~2 ч 15 мин"}]}, {"city": "atyrau", "routes": [{"from": "Астана", "airlines": "Air Astana, FlyArystan", "freq": "ежедневно", "duration": "~2 ч"}, {"from": "Алматы", "airlines": "Air Astana, SCAT", "freq": "ежедневно", "duration": "~2 ч 40 мин"}, {"from": "Актау", "airlines": "FlyArystan", "freq": "до 20 раз в неделю", "duration": "~1 ч 10 мин"}]}, {"city": "aktobe", "routes": [{"from": "Астана", "airlines": "Air Astana, SCAT, FlyArystan", "freq": "ежедневно", "duration": "~1 ч 40 мин"}, {"from": "Алматы", "airlines": "Air Astana, SCAT, FlyArystan", "freq": "несколько раз в день", "duration": "~2 ч 40 мин"}]}, {"city": "shymkent", "routes": [{"from": "Астана", "airlines": "Air Astana, SCAT, FlyArystan", "freq": "ежедневно", "duration": "~2 ч"}, {"from": "Алматы", "airlines": "Air Astana, SCAT, FlyArystan", "freq": "ежедневно, несколько рейсов", "duration": "~1 ч 15 мин"}]}, {"city": "karaganda", "routes": [{"from": "Астана", "airlines": "SCAT / наземный трансфер ~2,5 ч", "freq": "по расписанию SCAT", "duration": "~40 мин"}, {"from": "Алматы", "airlines": "Air Astana, SCAT", "freq": "ежедневно", "duration": "~1 ч 40 мин"}]}, {"city": "pavlodar", "routes": [{"from": "Астана", "airlines": "SCAT, Air Astana", "freq": "ежедневно", "duration": "~1 ч 10 мин"}, {"from": "Алматы", "airlines": "SCAT", "freq": "несколько раз в неделю", "duration": "~2 ч 10 мин"}]}, {"city": "astana", "routes": []}, {"city": "almaty", "routes": []}, {"city": "online", "routes": []}];
+const DECK_B64 = "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";
+const MODULE_PRICE_DEFAULT = 240000; // тенге за один модуль на человека
+const DEFAULT_PIN = "ICU2026";
+
+const CITY_NAME = {};
+STREAMS.forEach(s => CITY_NAME[s.key] = s.name);
+
+/* ================= STATE (localStorage) ================= */
+const LS_KEY = "icu2026_state_v1";
+function loadState(){
+  let raw = null;
+  try { raw = JSON.parse(localStorage.getItem(LS_KEY)); } catch(e){ raw = null; }
+  if(!raw){
+    raw = {
+      cities: {},           // key -> {rep_name, rep_phone, rep_email, notes}
+      students: [],         // {id, city, name, phone, email, status, progress:[8 bool]}
+      adminPin: DEFAULT_PIN,
+      modulePrice: MODULE_PRICE_DEFAULT,
+      attendance: {},        // "cityKey_module" -> {studentId: true/false}
+      feedback: [],          // {id, city, name, module, rating, comment, date}
+      msgTemplates: {
+        whatsapp: "Здравствуйте, {name}! Напоминаем: старт модуля ICU в городе {city} — {date}. Тренер: {trainer}. Ждём вас!",
+        email: "Здравствуйте, {name}!\n\nНапоминаем о старте модуля программы сертификации ICU в городе {city}.\nДаты: {date}\nТренер: {trainer}\n\nДо встречи!\nICU Kazakhstan & Central Asia"
+      }
+    };
+    CITIES_DEFAULT.forEach(c => raw.cities[c.key] = {rep_name:"", rep_phone:"", rep_email:"", notes:""});
+    saveState(raw);
+  }
+  // backfill any missing cities (in case of future changes)
+  CITIES_DEFAULT.forEach(c => { if(!raw.cities[c.key]) raw.cities[c.key] = {rep_name:"",rep_phone:"",rep_email:"",notes:""}; });
+  if(!raw.msgTemplates) raw.msgTemplates = {
+    whatsapp: "Здравствуйте, {name}! Напоминаем: старт модуля ICU в городе {city} — {date}. Тренер: {trainer}. Ждём вас!",
+    email: "Здравствуйте, {name}!\n\nНапоминаем о старте модуля программы сертификации ICU в городе {city}.\nДаты: {date}\nТренер: {trainer}\n\nДо встречи!\nICU Kazakhstan & Central Asia"
+  };
+  if(typeof raw.modulePrice !== 'number') raw.modulePrice = MODULE_PRICE_DEFAULT;
+  if(!raw.attendance) raw.attendance = {};
+  if(!raw.feedback) raw.feedback = [];
+  return raw;
+}
+function saveState(s){ localStorage.setItem(LS_KEY, JSON.stringify(s)); }
+let STATE = loadState();
+
+/* ================= SESSION ROLE ================= */
+// role: {type:'admin'} | {type:'rep', city:'aktau'} | {type:'guest'}
+function getRole(){
+  try { return JSON.parse(sessionStorage.getItem("icu2026_role")); } catch(e){ return null; }
+}
+function setRole(r){ sessionStorage.setItem("icu2026_role", JSON.stringify(r)); }
+let ROLE = getRole();
+
+/* ================= UTIL ================= */
+function uid(){ return 'id' + Math.random().toString(36).slice(2,10); }
+function esc(s){ return (s==null?'':String(s)).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function digitsOnly(s){ return (s||'').replace(/[^0-9]/g,''); }
+function fillTemplate(tpl, vars){
+  return tpl.replace(/\{(\w+)\}/g, (m,k) => vars[k]!=null ? vars[k] : m);
+}
+function todayISO(){ return new Date().toISOString().slice(0,10); }
+function downloadBlob(filename, content, mime){
+  const blob = new Blob([content], {type: mime});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url), 4000);
+}
+function downloadB64(filename, b64, mime){
+  const bin = atob(b64);
+  const arr = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+  downloadBlob(filename, arr, mime);
+}
+
+/* ================= ROLE GATE ================= */
+function renderRoleGate(){
+  const overlay = document.getElementById('roleGate');
+  const trainerNames = Array.from(new Set(SCHEDULE.map(s=>s.trainer))).sort((a,b)=>a.localeCompare(b,'ru'));
+  overlay.innerHTML = `
+    <div class="modal">
+      <h2>ICU Kazakhstan &amp; Central Asia</h2>
+      <div class="muted">Выберите роль для входа в панель расписания 2026/2027</div>
+      <div id="roleOptAdmin" class="role-opt">
+        <div><b>Администратор</b><div class="small">Полный доступ, финансы, отчёты, экспорт в Excel</div></div>
+        <span>→</span>
+      </div>
+      <div class="flex-row" style="margin-bottom:14px;">
+        <select id="repCitySelect" style="flex:1">
+          ${STREAMS.map(s=>`<option value="${s.key}">${s.name}</option>`).join('')}
+        </select>
+        <button class="btn btn-ghost" id="roleOptRep">Представитель города</button>
+      </div>
+      <div class="flex-row" style="margin-bottom:14px;">
+        <select id="trainerSelect" style="flex:1">
+          ${trainerNames.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('')}
+        </select>
+        <button class="btn btn-ghost" id="roleOptTrainer">Я тренер</button>
+      </div>
+      <div class="small mb">Тренер видит только своё расписание — города и даты, где преподаёт лично.</div>
+      <div id="pinBox" style="display:none;">
+        <label>PIN администратора</label>
+        <input type="password" id="pinInput" placeholder="Введите PIN"/>
+        <div class="flex-row mt">
+          <button class="btn btn-primary" id="pinSubmit">Войти</button>
+          <button class="btn btn-ghost" id="pinCancel">Отмена</button>
+        </div>
+        <div class="small mt" id="pinError" style="color:var(--danger)"></div>
+      </div>
+      <div class="small mt">Это офлайн-приложение: доступ разграничен на уровне интерфейса, а не шифрованием файла — подходит для доверенной внутренней команды.</div>
+    </div>`;
+  overlay.style.display='flex';
+  document.getElementById('roleOptAdmin').onclick = () => {
+    document.getElementById('pinBox').style.display='block';
+  };
+  document.getElementById('pinSubmit').onclick = () => {
+    const val = document.getElementById('pinInput').value;
+    if(val === STATE.adminPin){
+      setRole({type:'admin'}); ROLE = getRole();
+      overlay.style.display='none';
+      boot();
+    } else {
+      document.getElementById('pinError').textContent = 'Неверный PIN. Попробуйте снова.';
+    }
+  };
+  document.getElementById('pinCancel').onclick = () => { document.getElementById('pinBox').style.display='none'; };
+  document.getElementById('roleOptRep').onclick = () => {
+    const city = document.getElementById('repCitySelect').value;
+    setRole({type:'rep', city}); ROLE = getRole();
+    overlay.style.display='none';
+    boot();
+  };
+  document.getElementById('roleOptTrainer').onclick = () => {
+    const trainerName = document.getElementById('trainerSelect').value;
+    setRole({type:'trainer', trainerName}); ROLE = getRole();
+    overlay.style.display='none';
+    boot();
+  };
+}
+
+function switchRole(){
+  sessionStorage.removeItem('icu2026_role');
+  ROLE = null;
+  location.reload();
+}
+
+/* ================= NAV ================= */
+const NAV_ITEMS = [
+  {key:'dashboard', label:'Дашборд', ic:'◆'},
+  {key:'schedule', label:'Расписание 2026/27', ic:'▤'},
+  {key:'trainers', label:'Тренеры', ic:'●'},
+  {key:'cities', label:'Города и роли', ic:'▣'},
+  {key:'students', label:'Студенты', ic:'☺'},
+  {key:'flights', label:'Перелёты', ic:'✈'},
+  {key:'reports', label:'Отчёты и Excel', ic:'🔒', adminOnly:true},
+  {key:'finance', label:'Финансы', ic:'₸', adminOnly:true},
+  {key:'feedback', label:'Обратная связь', ic:'✎'},
+  {key:'broadcast', label:'Рассылка', ic:'✉'},
+  {key:'templates', label:'Шаблоны', ic:'▢'},
+];
+
+function renderSidebar(){
+  const isAdmin = ROLE && ROLE.type==='admin';
+  const isTrainer = ROLE && ROLE.type==='trainer';
+  let items;
+  if(isTrainer){
+    items = NAV_ITEMS.filter(i => i.key==='schedule');
+  } else {
+    items = NAV_ITEMS.filter(i => !i.adminOnly || isAdmin);
+  }
+  const sb = document.getElementById('sidebar');
+  let roleLabel = '';
+  if(isAdmin) roleLabel = '<b>Администратор</b>';
+  else if(isTrainer) roleLabel = `<b>${esc(ROLE.trainerName)}</b> · тренер`;
+  else if(ROLE) roleLabel = `<b>${esc(CITY_NAME[ROLE.city])}</b> · представитель`;
+  sb.innerHTML = `
+    <div class="brand">
+      <div class="tag">ICU · KAZAKHSTAN &amp; CENTRAL ASIA</div>
+      <h1>Расписание 2026/27</h1>
+      <div class="sub">Старт 15 сентября · Актау → 9 городов</div>
+    </div>
+    <div id="navList"></div>
+    <div class="role-box">
+      ${roleLabel}
+      <div class="switch" id="switchRoleBtn">Сменить роль ⇄</div>
+    </div>
+  `;
+  const navList = document.getElementById('navList');
+  navList.innerHTML = items.map(i => `<div class="nav-item" data-tab="${i.key}"><span class="ic">${i.ic}</span>${i.key==='schedule'&&isTrainer?'Моё расписание':i.label}</div>`).join('');
+  navList.querySelectorAll('.nav-item').forEach(el => {
+    el.onclick = () => switchTab(el.dataset.tab);
+  });
+  document.getElementById('switchRoleBtn').onclick = switchRole;
+}
+
+function switchTab(tab){
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.toggle('active', el.dataset.tab===tab));
+  document.querySelectorAll('.tab').forEach(el => el.classList.toggle('active', el.id==='tab-'+tab));
+  window.scrollTo(0,0);
+  RENDERERS[tab] && RENDERERS[tab]();
+  try{ localStorage.setItem('icu2026_lasttab', tab); }catch(e){}
+}
+
+/* ================= DASHBOARD ================= */
+function renderDashboard(){
+  const el = document.getElementById('tab-dashboard');
+  const totalTarget = STREAMS.reduce((a,s)=>a+s.target,0);
+  const totalReg = STATE.students.length;
+  const totalConfirmed = STATE.students.filter(s=>s.status==='confirmed'||s.status==='paid'||s.status==='completed').length;
+  const readiness = totalTarget ? Math.round(totalReg/totalTarget*100) : 0;
+  const nextSessions = SCHEDULE.filter(s => s.date_start >= todayISO()).slice(0,6);
+  const cityCards = STREAMS.map(s => {
+    const reg = STATE.students.filter(st=>st.city===s.key).length;
+    const pct = Math.min(100, Math.round(reg/s.target*100));
+    return `<div class="card">
+      <div class="flex-row" style="justify-content:space-between;">
+        <h3>${esc(s.name)}</h3><span class="badge badge-teal">${reg}/${s.target}</span>
+      </div>
+      <div class="progress mt"><div style="width:${pct}%"></div></div>
+      <div class="small mt">Старт: ${fmtISO(s.start)} · Выпуск: ${s.graduation_label}</div>
+    </div>`;
+  }).join('');
+  el.innerHTML = `
+    <div class="topbar">
+      <div><h1>Дашборд запуска потока 2026/27</h1><div class="meta">9 городов · 8 модулей · старт 15 сентября 2026, Актау</div></div>
+    </div>
+    <div class="grid grid-4 mb">
+      <div class="card stat"><div class="lbl">Городов / потоков</div><div class="num">${STREAMS.length}</div><div class="sub">включая онлайн</div></div>
+      <div class="card stat"><div class="lbl">Целевой набор</div><div class="num">${totalTarget}</div><div class="sub">студентов на 2026/27</div></div>
+      <div class="card stat"><div class="lbl">Зарегистрировано</div><div class="num">${totalReg}</div><div class="sub">${readiness}% от цели</div></div>
+      <div class="card stat"><div class="lbl">Подтверждено / оплачено</div><div class="num">${totalConfirmed}</div><div class="sub">готовность к старту</div></div>
+    </div>
+    <div class="grid grid-3 mb">${cityCards}</div>
+    <div class="card">
+      <h3>Ближайшие модули</h3>
+      <div class="tbl-wrap mt">
+        <table>
+          <thead><tr><th>Город</th><th>Модуль</th><th>Даты</th><th>Тренер</th></tr></thead>
+          <tbody>${nextSessions.map(s=>`<tr><td>${esc(s.city_name)}</td><td>${s.label||('Модуль '+s.module)}</td><td>${s.date_label}</td><td>${esc(s.trainer)}</td></tr>`).join('') || '<tr><td colspan="4">Все модули текущего года завершены</td></tr>'}</tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+function fmtISO(d){
+  const dt = new Date(d+"T00:00:00");
+  const months=["янв","фев","мар","апр","мая","июн","июл","авг","сен","окт","ноя","дек"];
+  return dt.getDate()+" "+months[dt.getMonth()]+" "+dt.getFullYear();
+}
+
+/* ================= SCHEDULE ================= */
+function renderSchedule(){
+  const el = document.getElementById('tab-schedule');
+  const isTrainer = ROLE && ROLE.type==='trainer';
+  const allTrainerNames = Array.from(new Set(SCHEDULE.map(s=>s.trainer))).sort((a,b)=>a.localeCompare(b,'ru'));
+  el.innerHTML = `
+    <div class="topbar">
+      <div><h1>${isTrainer ? 'Моё расписание — '+esc(ROLE.trainerName) : 'Расписание 2026/27'}</h1>
+        <div class="meta">${isTrainer ? 'Только ваши города и даты' : 'Алгоритм: ни один тренер не ведёт модули в разных городах в одну и ту же дату (проверено автоматически)'}</div></div>
+      <button class="btn btn-gold" id="exportScheduleBtn">⬇ ${isTrainer?'Скачать моё расписание (Excel)':'Excel по городам (лист на каждый город)'}</button>
+    </div>
+    ${isTrainer ? '' : `<div class="filter-row">
+      <div><label>Город</label><select id="fltCity"><option value="">Все города</option>${STREAMS.map(s=>`<option value="${s.key}">${s.name}</option>`).join('')}</select></div>
+      <div><label>Тренер</label><select id="fltTrainer"><option value="">Все тренеры</option>${allTrainerNames.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('')}</select></div>
+      <div><label>Модуль</label><select id="fltModule"><option value="">Все модули</option>${[1,2,3,4,5,6,7,8].map(m=>`<option value="${m}">Модуль ${m}</option>`).join('')}</select></div>
+    </div>`}
+    <div class="tbl-wrap">
+      <table id="scheduleTable">
+        <thead><tr><th>Город</th><th>Сессия</th><th>Даты</th><th>День недели</th><th>Тренер</th><th>Статус</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  `;
+  function renderRows(){
+    let rows;
+    if(isTrainer){
+      rows = SCHEDULE.filter(s => s.trainer===ROLE.trainerName);
+    } else {
+      const fc = document.getElementById('fltCity').value;
+      const ft = document.getElementById('fltTrainer').value;
+      const fm = document.getElementById('fltModule').value;
+      rows = SCHEDULE.filter(s =>
+        (!fc || s.city===fc) && (!ft || s.trainer===ft) && (!fm || String(s.module)===fm)
+      );
+    }
+    const today = todayISO();
+    document.querySelector('#scheduleTable tbody').innerHTML = rows.map(s => {
+      const status = s.date_end < today ? '<span class="badge badge-ok">Проведён</span>' : (s.date_start<=today && s.date_end>=today ? '<span class="badge badge-warn">Идёт сейчас</span>' : '<span class="badge badge-teal">Запланирован</span>');
+      const label = s.label || ('Модуль '+s.module);
+      const tcBadge = s.session_type==='team_coaching' ? ' <span class="badge badge-gold">Командный коучинг</span>' : '';
+      return `<tr><td>${esc(s.city_name)}</td><td>${label}${tcBadge}</td><td>${s.date_label}</td><td style="text-transform:capitalize">${s.weekday}</td><td>${esc(s.trainer)}</td><td>${status}</td></tr>`;
+    }).join('') || '<tr><td colspan="6">Сессий не найдено</td></tr>';
+  }
+  if(!isTrainer){
+    ['fltCity','fltTrainer','fltModule'].forEach(id => document.getElementById(id).onchange = renderRows);
+  }
+  renderRows();
+  document.getElementById('exportScheduleBtn').onclick = () => isTrainer ? exportTrainerScheduleExcel(ROLE.trainerName) : exportScheduleExcel();
+}
+
+/* ================= TRAINERS ================= */
+function renderTrainers(){
+  const el = document.getElementById('tab-trainers');
+  const isAdmin = ROLE && ROLE.type==='admin';
+  const bySessionCount = {};
+  SCHEDULE.forEach(s => bySessionCount[s.trainer] = (bySessionCount[s.trainer]||0)+1);
+  el.innerHTML = `
+    <div class="topbar"><div><h1>Команда тренеров</h1><div class="meta">${TRAINERS.length} тренеров · распределены на 2026/27 без пересечения дат между городами</div></div></div>
+    <div class="grid grid-3" id="trainerGrid"></div>
+  `;
+  const grid = document.getElementById('trainerGrid');
+  grid.innerHTML = TRAINERS.map(t => {
+    const initials = t.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+    const sessions = bySessionCount[t.name] || 0;
+    const contact = STATE.trainerContacts && STATE.trainerContacts[t.key] || {phone:t.phone, email:t.email};
+    return `<div class="card trainer-card">
+      <div class="flex-row"><div class="avatar">${initials}</div><div><h3>${esc(t.name)}</h3><div class="small">${esc(t.role)}</div></div></div>
+      <div class="small mt">Города: ${esc(t.cities)}</div>
+      <div class="small">Сессий в 2026/27: <b>${sessions}</b></div>
+      <div class="mt">
+        <label>Телефон</label>
+        <input data-tkey="${t.key}" data-field="phone" class="tContact" value="${esc(contact.phone||'')}" placeholder="+7 7__ ___ __ __" ${isAdmin?'':'disabled'}/>
+      </div>
+      <div class="mt">
+        <label>Email</label>
+        <input data-tkey="${t.key}" data-field="email" class="tContact" value="${esc(contact.email||'')}" placeholder="email@example.com" ${isAdmin?'':'disabled'}/>
+      </div>
+    </div>`;
+  }).join('');
+  if(isAdmin){
+    grid.querySelectorAll('.tContact').forEach(inp => {
+      inp.onchange = () => {
+        if(!STATE.trainerContacts) STATE.trainerContacts = {};
+        const k = inp.dataset.tkey, f = inp.dataset.field;
+        if(!STATE.trainerContacts[k]) STATE.trainerContacts[k] = {};
+        STATE.trainerContacts[k][f] = inp.value;
+        saveState(STATE);
+      };
+    });
+  }
+}
+
+/* ================= CITIES / ROLES ================= */
+function renderCities(){
+  const el = document.getElementById('tab-cities');
+  const isAdmin = ROLE && ROLE.type==='admin';
+  const myCity = ROLE && ROLE.type==='rep' ? ROLE.city : null;
+  el.innerHTML = `
+    <div class="topbar"><div><h1>Города и представители</h1><div class="meta">9 городов · карточка представителя, готовность к запуску</div></div></div>
+    <div class="grid grid-3" id="cityGrid"></div>
+  `;
+  const grid = document.getElementById('cityGrid');
+  grid.innerHTML = STREAMS.map(s => {
+    const meta = CITIES_DEFAULT.find(c=>c.key===s.key) || {};
+    const rep = STATE.cities[s.key] || {};
+    const canEdit = isAdmin || myCity===s.key;
+    const reg = STATE.students.filter(st=>st.city===s.key).length;
+    const confirmed = STATE.students.filter(st=>st.city===s.key && ['confirmed','paid','completed'].includes(st.status)).length;
+    const pct = Math.min(100, Math.round(reg/s.target*100));
+    const readyBadge = pct>=100 ? '<span class="badge badge-ok">Готов к запуску</span>' : pct>=60 ? '<span class="badge badge-warn">Набор идёт</span>' : '<span class="badge badge-danger">Ранний набор</span>';
+    return `<div class="card">
+      <div class="flex-row" style="justify-content:space-between;"><h3>${esc(s.name)}</h3>${readyBadge}</div>
+      <div class="small">${esc(meta.region||'')}</div>
+      <div class="progress mt"><div style="width:${pct}%"></div></div>
+      <div class="small mt">${reg}/${s.target} зарегистрировано · ${confirmed} подтверждено/оплачено</div>
+      <div class="small">Старт: ${fmtISO(s.start)} · Выпуск: ${s.graduation_label}</div>
+      <hr style="border:none;border-top:1px solid var(--line);margin:10px 0;"/>
+      <label>Представитель города</label>
+      <input class="repField" data-city="${s.key}" data-field="rep_name" value="${esc(rep.rep_name)}" placeholder="ФИО представителя" ${canEdit?'':'disabled'}/>
+      <label class="mt">Телефон / WhatsApp</label>
+      <input class="repField" data-city="${s.key}" data-field="rep_phone" value="${esc(rep.rep_phone)}" placeholder="+7 7__ ___ __ __" ${canEdit?'':'disabled'}/>
+      <label class="mt">Email</label>
+      <input class="repField" data-city="${s.key}" data-field="rep_email" value="${esc(rep.rep_email)}" placeholder="email@example.com" ${canEdit?'':'disabled'}/>
+      <label class="mt">Заметки о готовности</label>
+      <textarea class="repField" data-city="${s.key}" data-field="notes" placeholder="площадка, договорённости, риски..." ${canEdit?'':'disabled'}>${esc(rep.notes)}</textarea>
+    </div>`;
+  }).join('');
+  grid.querySelectorAll('.repField').forEach(f => {
+    f.onchange = () => {
+      const c = f.dataset.city, field = f.dataset.field;
+      STATE.cities[c][field] = f.value;
+      saveState(STATE);
+    };
+  });
+}
+
+/* ================= STUDENTS ================= */
+function renderStudents(){
+  const el = document.getElementById('tab-students');
+  const isAdmin = ROLE && ROLE.type==='admin';
+  const myCity = ROLE && ROLE.type==='rep' ? ROLE.city : null;
+  el.innerHTML = `
+    <div class="topbar">
+      <div><h1>Студенты</h1><div class="meta">${isAdmin ? 'Все города' : 'Город: '+esc(CITY_NAME[myCity])}</div></div>
+      <button class="btn btn-primary" id="addStudentBtn">+ Добавить студента</button>
+    </div>
+    <div class="filter-row">
+      ${isAdmin ? `<div><label>Город</label><select id="stCityFilter"><option value="">Все города</option>${STREAMS.map(s=>`<option value="${s.key}">${s.name}</option>`).join('')}</select></div>` : ''}
+      <div><label>Статус</label><select id="stStatusFilter"><option value="">Любой статус</option><option value="lead">Лид</option><option value="confirmed">Подтверждён</option><option value="paid">Оплачено</option><option value="completed">Завершил</option></select></div>
+    </div>
+    <div class="tbl-wrap">
+      <table id="studentsTable">
+        <thead><tr><th>ФИО</th>${isAdmin?'<th>Город</th>':''}<th>Телефон</th><th>Статус</th><th>Прогресс модулей</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="grid grid-4 mt" id="studentAnalytics"></div>
+  `;
+  function renderRows(){
+    const cf = isAdmin ? document.getElementById('stCityFilter').value : myCity;
+    const sf = document.getElementById('stStatusFilter').value;
+    const rows = STATE.students.filter(s => (!cf || s.city===cf) && (!sf || s.status===sf));
+    document.querySelector('#studentsTable tbody').innerHTML = rows.map(s => {
+      const done = (s.progress||[]).filter(Boolean).length;
+      return `<tr>
+        <td>${esc(s.name)}</td>
+        ${isAdmin?`<td>${esc(CITY_NAME[s.city]||s.city)}</td>`:''}
+        <td>${esc(s.phone)}</td>
+        <td>${statusBadge(s.status)}</td>
+        <td>${done}/8 <div class="progress" style="width:80px;display:inline-block;vertical-align:middle;margin-left:6px;"><div style="width:${done/8*100}%"></div></div></td>
+        <td><button class="btn btn-sm btn-ghost editSt" data-id="${s.id}">Изм.</button> <button class="btn btn-sm btn-danger delSt" data-id="${s.id}">✕</button></td>
+      </tr>`;
+    }).join('') || '<tr><td colspan="6">Пока нет студентов — добавьте первого через кнопку выше.</td></tr>';
+    document.querySelectorAll('.editSt').forEach(b=>b.onclick=()=>openStudentModal(b.dataset.id));
+    document.querySelectorAll('.delSt').forEach(b=>b.onclick=()=>{
+      if(confirm('Удалить студента из списка?')){
+        STATE.students = STATE.students.filter(s=>s.id!==b.dataset.id);
+        saveState(STATE); renderRows(); renderAnalytics();
+      }
+    });
+  }
+  function renderAnalytics(){
+    const scope = isAdmin ? STATE.students : STATE.students.filter(s=>s.city===myCity);
+    const total = scope.length;
+    const paid = scope.filter(s=>['paid','completed'].includes(s.status)).length;
+    const completed = scope.filter(s=>s.status==='completed').length;
+    const avgProgress = total ? Math.round(scope.reduce((a,s)=>a+((s.progress||[]).filter(Boolean).length),0)/total/8*100) : 0;
+    document.getElementById('studentAnalytics').innerHTML = `
+      <div class="card stat"><div class="lbl">Всего студентов</div><div class="num">${total}</div></div>
+      <div class="card stat"><div class="lbl">Оплатили</div><div class="num">${paid}</div></div>
+      <div class="card stat"><div class="lbl">Завершили программу</div><div class="num">${completed}</div></div>
+      <div class="card stat"><div class="lbl">Средний прогресс</div><div class="num">${avgProgress}%</div></div>
+    `;
+  }
+  if(isAdmin) document.getElementById('stCityFilter').onchange = ()=>{renderRows();};
+  document.getElementById('stStatusFilter').onchange = renderRows;
+  document.getElementById('addStudentBtn').onclick = () => openStudentModal(null);
+  renderRows(); renderAnalytics();
+  window.__studentsRefresh = () => { renderRows(); renderAnalytics(); };
+}
+function statusBadge(st){
+  const map = {lead:['Лид','badge-teal'], confirmed:['Подтверждён','badge-warn'], paid:['Оплачено','badge-ok'], completed:['Завершил','badge-gold']};
+  const v = map[st] || ['Лид','badge-teal'];
+  return `<span class="badge ${v[1]}">${v[0]}</span>`;
+}
+function openStudentModal(id){
+  const isAdmin = ROLE && ROLE.type==='admin';
+  const myCity = ROLE && ROLE.type==='rep' ? ROLE.city : null;
+  const existing = id ? STATE.students.find(s=>s.id===id) : null;
+  const overlay = document.getElementById('genericModal');
+  overlay.innerHTML = `
+    <div class="modal">
+      <div class="flex-row" style="justify-content:space-between;"><h2>${existing?'Редактировать':'Новый'} студент</h2><span class="close-x" id="closeStModal">✕</span></div>
+      <label>ФИО</label><input id="stName" value="${existing?esc(existing.name):''}"/>
+      ${isAdmin ? `<label class="mt">Город</label><select id="stCity">${STREAMS.map(s=>`<option value="${s.key}" ${existing&&existing.city===s.key?'selected':''}>${s.name}</option>`).join('')}</select>` : `<input type="hidden" id="stCity" value="${myCity}"/>`}
+      <label class="mt">Телефон</label><input id="stPhone" value="${existing?esc(existing.phone):''}" placeholder="+7 7__ ___ __ __"/>
+      <label class="mt">Email</label><input id="stEmail" value="${existing?esc(existing.email||''):''}" placeholder="email@example.com"/>
+      <label class="mt">Статус</label>
+      <select id="stStatus">
+        <option value="lead" ${existing&&existing.status==='lead'?'selected':''}>Лид</option>
+        <option value="confirmed" ${existing&&existing.status==='confirmed'?'selected':''}>Подтверждён</option>
+        <option value="paid" ${existing&&existing.status==='paid'?'selected':''}>Оплачено</option>
+        <option value="completed" ${existing&&existing.status==='completed'?'selected':''}>Завершил</option>
+      </select>
+      <label class="mt">Пройденные модули</label>
+      <div class="pill-toggle" id="stProgress">
+        ${[0,1,2,3,4,5,6,7].map(i=>`<span class="pill ${existing&&existing.progress&&existing.progress[i]?'active':''}" data-i="${i}">М${i+1}</span>`).join('')}
+      </div>
+      <div class="flex-row mt">
+        <button class="btn btn-primary" id="saveStBtn">Сохранить</button>
+        <button class="btn btn-ghost" id="cancelStBtn">Отмена</button>
+      </div>
+    </div>`;
+  overlay.style.display='flex';
+  document.querySelectorAll('#stProgress .pill').forEach(p => p.onclick = () => p.classList.toggle('active'));
+  document.getElementById('closeStModal').onclick = () => overlay.style.display='none';
+  document.getElementById('cancelStBtn').onclick = () => overlay.style.display='none';
+  document.getElementById('saveStBtn').onclick = () => {
+    const name = document.getElementById('stName').value.trim();
+    if(!name){ alert('Укажите ФИО студента'); return; }
+    const progress = Array.from(document.querySelectorAll('#stProgress .pill')).map(p=>p.classList.contains('active'));
+    const data = {
+      id: existing ? existing.id : uid(),
+      name, city: document.getElementById('stCity').value,
+      phone: document.getElementById('stPhone').value.trim(),
+      email: document.getElementById('stEmail').value.trim(),
+      status: document.getElementById('stStatus').value,
+      progress
+    };
+    if(existing){
+      STATE.students = STATE.students.map(s=>s.id===existing.id?data:s);
+    } else {
+      STATE.students.push(data);
+    }
+    saveState(STATE);
+    overlay.style.display='none';
+    window.__studentsRefresh && window.__studentsRefresh();
+    renderDashboard();
+  };
+}
+
+/* ================= FLIGHTS ================= */
+function renderFlights(){
+  const el = document.getElementById('tab-flights');
+  el.innerHTML = `
+    <div class="topbar"><div><h1>Перелёты в города программы</h1><div class="meta">Ориентировочные данные по авиакомпаниям и частоте рейсов — уточняйте актуальное расписание перед покупкой билетов</div></div></div>
+    <div class="warn-box">Расписание рейсов у авиакомпаний меняется по сезонам. Приведены типовые направления и перевозчики (Air Astana, SCAT, FlyArystan) на конец 2025 / начало 2026 года. Перед поездкой тренера проверяйте актуальные рейсы на сайтах airastana.com, scat.kz, flyarystan.com.</div>
+    <div class="grid grid-2" id="flightGrid"></div>
+  `;
+  const grid = document.getElementById('flightGrid');
+  grid.innerHTML = FLIGHTS.filter(f=>f.routes && f.routes.length).map(f => {
+    const name = CITY_NAME[f.city];
+    return `<div class="card">
+      <h3>→ ${esc(name)}</h3>
+      <div class="tbl-wrap mt">
+        <table>
+          <thead><tr><th>Откуда</th><th>Перевозчики</th><th>Частота</th><th>Время в пути</th></tr></thead>
+          <tbody>${f.routes.map(r=>`<tr><td>${esc(r.from)}</td><td>${esc(r.airlines)}</td><td>${esc(r.freq)}</td><td>${esc(r.duration)}</td></tr>`).join('')}</tbody>
+        </table>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ================= REPORTS (ADMIN ONLY) ================= */
+function renderReports(){
+  const el = document.getElementById('tab-reports');
+  if(!(ROLE && ROLE.type==='admin')){
+    el.innerHTML = `<div class="card">Доступ к отчётам ограничен ролью администратора.</div>`;
+    return;
+  }
+  const totalTarget = STREAMS.reduce((a,s)=>a+s.target,0);
+  const totalReg = STATE.students.length;
+  el.innerHTML = `
+    <div class="topbar"><div><h1>Отчёты · доступ только для администратора</h1><div class="meta">Полная выгрузка расписания, студентов и готовности городов в Excel</div></div></div>
+    <div class="grid grid-3 mb">
+      <div class="card stat"><div class="lbl">Общая готовность набора</div><div class="num">${totalTarget?Math.round(totalReg/totalTarget*100):0}%</div></div>
+      <div class="card stat"><div class="lbl">Городов готовы к запуску (100%+)</div><div class="num">${STREAMS.filter(s=>STATE.students.filter(st=>st.city===s.key).length>=s.target).length}</div></div>
+      <div class="card stat"><div class="lbl">Всего сессий в году</div><div class="num">${SCHEDULE.length}</div></div>
+    </div>
+    <div class="card mb">
+      <h3>Полный экспорт в Excel</h3>
+      <p class="small">Файл содержит листы: Расписание, Студенты, Готовность городов, Тренеры.</p>
+      <button class="btn btn-gold" id="fullExportBtn">⬇ Скачать полный отчёт (.xls)</button>
+    </div>
+    <div class="card mb">
+      <h3>Смена PIN администратора</h3>
+      <div class="flex-row">
+        <input id="newPinInput" placeholder="Новый PIN" style="max-width:220px;"/>
+        <button class="btn btn-ghost" id="setPinBtn">Сохранить PIN</button>
+      </div>
+      <div class="small mt">PIN хранится локально в этом браузере/файле. Это базовая защита интерфейса, а не шифрование — не используйте для по-настоящему конфиденциальных данных.</div>
+    </div>
+    <div class="card">
+      <h3>Готовность городов к запуску</h3>
+      <div class="tbl-wrap mt">
+        <table>
+          <thead><tr><th>Город</th><th>Цель</th><th>Зарегистрировано</th><th>Оплачено</th><th>Готовность</th><th>Представитель</th></tr></thead>
+          <tbody>${STREAMS.map(s=>{
+            const reg = STATE.students.filter(st=>st.city===s.key).length;
+            const paid = STATE.students.filter(st=>st.city===s.key && ['paid','completed'].includes(st.status)).length;
+            const rep = STATE.cities[s.key]||{};
+            const pct = Math.round(reg/s.target*100);
+            return `<tr><td>${esc(s.name)}</td><td>${s.target}</td><td>${reg}</td><td>${paid}</td><td>${pct}%</td><td>${esc(rep.rep_name)||'—'}</td></tr>`;
+          }).join('')}</tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  document.getElementById('fullExportBtn').onclick = exportFullExcel;
+  document.getElementById('setPinBtn').onclick = () => {
+    const v = document.getElementById('newPinInput').value.trim();
+    if(v.length<3){ alert('PIN слишком короткий'); return; }
+    STATE.adminPin = v; saveState(STATE);
+    alert('PIN обновлён');
+    document.getElementById('newPinInput').value='';
+  };
+}
+
+/* ================= EXCEL (SpreadsheetML XML, opens natively in Excel, no external libs) ================= */
+function xmlEsc(s){ return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function ssCell(v){
+  const isNum = typeof v === 'number';
+  return `<Cell><Data ss:Type="${isNum?'Number':'String'}">${xmlEsc(v)}</Data></Cell>`;
+}
+function ssRow(cells){ return `<Row>${cells.map(ssCell).join('')}</Row>`; }
+function ssWorksheet(name, headerRow, dataRows){
+  return `<Worksheet ss:Name="${xmlEsc(name)}"><Table>
+    ${ssRow(headerRow)}
+    ${dataRows.map(ssRow).join('')}
+  </Table></Worksheet>`;
+}
+function buildWorkbook(sheetsXml){
+  return `<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+ ${sheetsXml.join('\n')}
+</Workbook>`;
+}
+function safeSheetName(name){
+  // Excel sheet names: max 31 chars, no : \ / ? * [ ]
+  return name.replace(/[:\\\/\?\*\[\]]/g,'').slice(0,31);
+}
+function exportScheduleExcel(){
+  const header = ['Сессия','Дата начала','Дата окончания','Даты (текст)','День недели','Тренер'];
+  const overviewHeader = ['Город','Сессия','Дата начала','Дата окончания','Даты (текст)','Тренер'];
+  const overviewRows = SCHEDULE.map(s=>[s.city_name, s.label||('Модуль '+s.module), s.date_start, s.date_end, s.date_label, s.trainer]);
+  const sheets = [ssWorksheet('Все города', overviewHeader, overviewRows)];
+  STREAMS.forEach(s => {
+    const rows = SCHEDULE.filter(x=>x.city===s.key).map(x=>[x.label||('Модуль '+x.module), x.date_start, x.date_end, x.date_label, x.weekday, x.trainer]);
+    sheets.push(ssWorksheet(safeSheetName(s.name), header, rows));
+  });
+  const wb = buildWorkbook(sheets);
+  downloadBlob('ICU_raspisanie_2026-2027_po_gorodam.xls', wb, 'application/vnd.ms-excel');
+}
+function exportTrainerScheduleExcel(trainerName){
+  const header = ['Город','Сессия','Дата начала','Дата окончания','Даты (текст)','День недели'];
+  const rows = SCHEDULE.filter(s=>s.trainer===trainerName).map(s=>[s.city_name, s.label||('Модуль '+s.module), s.date_start, s.date_end, s.date_label, s.weekday]);
+  const wb = buildWorkbook([ssWorksheet(safeSheetName(trainerName), header, rows)]);
+  downloadBlob('ICU_moe_raspisanie_'+trainerName.replace(/\s+/g,'_')+'.xls', wb, 'application/vnd.ms-excel');
+}
+function exportFullExcel(){
+  const cityHeader = ['Город','Цель набора','Зарегистрировано','Оплачено/завершили','Готовность %','Представитель','Телефон представителя','Email представителя'];
+  const cityRows = STREAMS.map(s=>{
+    const reg = STATE.students.filter(st=>st.city===s.key).length;
+    const paid = STATE.students.filter(st=>st.city===s.key && ['paid','completed'].includes(st.status)).length;
+    const rep = STATE.cities[s.key]||{};
+    return [s.name, s.target, reg, paid, Math.round(reg/s.target*100), rep.rep_name||'', rep.rep_phone||'', rep.rep_email||''];
+  });
+
+  const trHeader = ['Тренер','Роль','Города','Сессий в 2026-27','Телефон','Email'];
+  const bySessionCount = {};
+  SCHEDULE.forEach(s => bySessionCount[s.trainer] = (bySessionCount[s.trainer]||0)+1);
+  const trRows = TRAINERS.map(t=>{
+    const c = (STATE.trainerContacts && STATE.trainerContacts[t.key]) || {};
+    return [t.name, t.role, t.cities, bySessionCount[t.name]||0, c.phone||t.phone||'', c.email||t.email||''];
+  });
+
+  const schHeaderCity = ['Модуль','Дата начала','Дата окончания','Даты (текст)','День недели','Тренер'];
+  const overviewHeader = ['Город','Модуль','Дата начала','Дата окончания','Даты (текст)','Тренер'];
+  const overviewRows = SCHEDULE.map(s=>[s.city_name, 'Модуль '+s.module, s.date_start, s.date_end, s.date_label, s.trainer]);
+
+  const stHeaderCity = ['ФИО','Телефон','Email','Статус','Пройдено модулей'];
+
+  const sheets = [
+    ssWorksheet('Готовность городов', cityHeader, cityRows),
+    ssWorksheet('Тренеры', trHeader, trRows),
+    ssWorksheet('Расписание — все города', overviewHeader, overviewRows),
+  ];
+  STREAMS.forEach(s => {
+    const schRows = SCHEDULE.filter(x=>x.city===s.key).map(x=>['Модуль '+x.module, x.date_start, x.date_end, x.date_label, x.weekday, x.trainer]);
+    const stRows = STATE.students.filter(st=>st.city===s.key).map(st=>[st.name, st.phone||'', st.email||'', st.status, (st.progress||[]).filter(Boolean).length]);
+    sheets.push(ssWorksheet(safeSheetName(s.name+' расписание'), schHeaderCity, schRows));
+    sheets.push(ssWorksheet(safeSheetName(s.name+' студенты'), stHeaderCity, stRows));
+  });
+
+  const wb = buildWorkbook(sheets);
+  downloadBlob('ICU_polny_otchet_2026-2027_po_gorodam.xls', wb, 'application/vnd.ms-excel');
+}
+
+/* ================= BROADCAST ================= */
+function renderBroadcast(){
+  const el = document.getElementById('tab-broadcast');
+  const isAdmin = ROLE && ROLE.type==='admin';
+  const myCity = ROLE && ROLE.type==='rep' ? ROLE.city : null;
+  el.innerHTML = `
+    <div class="topbar"><div><h1>Рассылка · WhatsApp и Email</h1><div class="meta">Сообщения открываются в вашем WhatsApp/почте — отправка происходит вручную, от вашего аккаунта</div></div></div>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Получатели</h3>
+        <div><label>Аудитория</label>
+          <select id="bcAudience">
+            <option value="reps">Представители городов</option>
+            <option value="students">Студенты города</option>
+          </select>
+        </div>
+        <div class="mt" id="bcCityWrap" style="display:none;">
+          <label>Город</label>
+          <select id="bcCity">${STREAMS.map(s=>`<option value="${s.key}" ${myCity===s.key?'selected':''}>${s.name}</option>`).join('')}</select>
+        </div>
+        <div class="mt" id="recipientsList"></div>
+      </div>
+      <div class="card">
+        <h3>Шаблон сообщения</h3>
+        <label>WhatsApp</label>
+        <textarea id="waTpl">${esc(STATE.msgTemplates.whatsapp)}</textarea>
+        <div class="small">Доступные переменные: {name} {city} {date} {trainer}</div>
+        <label class="mt">Email — тема</label>
+        <input id="emailSubject" value="Расписание ICU — старт модуля"/>
+        <label class="mt">Email — текст</label>
+        <textarea id="emailTpl" style="min-height:140px;">${esc(STATE.msgTemplates.email)}</textarea>
+        <button class="btn btn-ghost mt" id="saveTplBtn">Сохранить шаблоны</button>
+      </div>
+    </div>
+  `;
+  const audSel = document.getElementById('bcAudience');
+  const cityWrap = document.getElementById('bcCityWrap');
+  function renderRecipients(){
+    const aud = audSel.value;
+    cityWrap.style.display = aud==='students' ? 'block' : 'none';
+    const list = document.getElementById('recipientsList');
+    let recipients = [];
+    if(aud==='reps'){
+      recipients = STREAMS.map(s=>{
+        const r = STATE.cities[s.key]||{};
+        return {name:r.rep_name||('Представитель '+s.name), city:s.name, phone:r.rep_phone, email:r.rep_email, cityKey:s.key};
+      }).filter(r=>r.phone||r.email);
+    } else {
+      const cityKey = isAdmin ? document.getElementById('bcCity').value : myCity;
+      recipients = STATE.students.filter(s=>s.city===cityKey).map(s=>({name:s.name, city:CITY_NAME[cityKey], phone:s.phone, email:s.email, cityKey}));
+    }
+    if(!recipients.length){ list.innerHTML = '<div class="small">Нет получателей с указанным телефоном/email. Заполните контакты во вкладках «Города» или «Студенты».</div>'; return; }
+    list.innerHTML = recipients.map(r => {
+      const nextSess = SCHEDULE.find(s=>s.city===r.cityKey && s.date_start>=todayISO());
+      const vars = {name:r.name, city:r.city, date: nextSess?nextSess.date_label:'—', trainer: nextSess?nextSess.trainer:'—'};
+      const waText = fillTemplate(document.getElementById('waTpl').value, vars);
+      const phoneDigits = digitsOnly(r.phone);
+      const waLink = phoneDigits ? `https://wa.me/${phoneDigits}?text=${encodeURIComponent(waText)}` : null;
+      const mailSubject = document.getElementById('emailSubject').value;
+      const mailBody = fillTemplate(document.getElementById('emailTpl').value, vars);
+      const mailLink = r.email ? `mailto:${encodeURIComponent(r.email)}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}` : null;
+      return `<div class="recipient-row">
+        <div><b>${esc(r.name)}</b><div class="small">${esc(r.city)}${r.phone?' · '+esc(r.phone):''}${r.email?' · '+esc(r.email):''}</div></div>
+        <div class="flex-row">
+          ${waLink?`<a class="btn btn-sm btn-ghost" href="${waLink}" target="_blank">WhatsApp</a>`:''}
+          ${mailLink?`<a class="btn btn-sm btn-ghost" href="${mailLink}" target="_blank">Email</a>`:''}
+        </div>
+      </div>`;
+    }).join('');
+  }
+  audSel.onchange = renderRecipients;
+  document.getElementById('waTpl').oninput = renderRecipients;
+  document.getElementById('emailTpl').oninput = renderRecipients;
+  document.getElementById('emailSubject').oninput = renderRecipients;
+  if(isAdmin) { /* city selector present */ }
+  setTimeout(()=>{
+    const bcCity = document.getElementById('bcCity');
+    if(bcCity){ bcCity.onchange = renderRecipients; if(!isAdmin) bcCity.disabled = true; }
+  },0);
+  document.getElementById('saveTplBtn').onclick = () => {
+    STATE.msgTemplates.whatsapp = document.getElementById('waTpl').value;
+    STATE.msgTemplates.email = document.getElementById('emailTpl').value;
+    saveState(STATE);
+    alert('Шаблоны сохранены');
+  };
+  renderRecipients();
+}
+
+/* ================= TEMPLATES ================= */
+function renderTemplates(){
+  const el = document.getElementById('tab-templates');
+  el.innerHTML = `
+    <div class="topbar"><div><h1>Шаблоны документов и презентаций</h1><div class="meta">Готовые файлы в брендинге ICU — скачайте и заполните под конкретный город/поток</div></div></div>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Презентация запуска потока (PowerPoint)</h3>
+        <p class="small">5 слайдов: титул, почему ICU, программа модулей, расписание, контакты для записи.</p>
+        <button class="btn btn-primary" id="dlDeck">⬇ Скачать .pptx</button>
+      </div>
+      <div class="card">
+        <h3>Полный Excel-отчёт по городам</h3>
+        <p class="small">Отдельный лист на каждый город (расписание + студенты) + сводные листы (только администратор во вкладке «Отчёты»).</p>
+        <button class="btn btn-ghost" onclick="switchTabFromTemplates()">Перейти к отчётам</button>
+      </div>
+    </div>
+    <div class="hint mt">Презентация встроена прямо в это HTML-приложение — интернет для скачивания не нужен.</div>
+  `;
+  document.getElementById('dlDeck').onclick = () => downloadB64('ICU_prezentatsiya_zapusk_potoka.pptx', DECK_B64, 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+}
+function switchTabFromTemplates(){
+  if(ROLE && ROLE.type==='admin') switchTab('reports');
+  else alert('Полный Excel-отчёт доступен только администратору.');
+}
+
+/* ================= FINANCE (ADMIN ONLY) ================= */
+function fmtTenge(n){ return Math.round(n).toLocaleString('ru-RU') + ' ₸'; }
+function renderFinance(){
+  const el = document.getElementById('tab-finance');
+  if(!(ROLE && ROLE.type==='admin')){
+    el.innerHTML = `<div class="card">Доступ к финансам ограничен ролью администратора.</div>`;
+    return;
+  }
+  const price = STATE.modulePrice;
+  const programPrice = price * 8;
+  const totalTarget = STREAMS.reduce((a,s)=>a+s.target,0);
+  const potentialTotal = totalTarget * programPrice;
+  const collectedTotal = STATE.students.reduce((a,s)=>a + ((s.progress||[]).filter(Boolean).length * price), 0);
+  const maxCityVal = Math.max(...STREAMS.map(s=>s.target*programPrice), 1);
+  el.innerHTML = `
+    <div class="topbar"><div><h1>Финансы · доступ только для администратора</h1><div class="meta">Стоимость одного модуля и доход по городам</div></div></div>
+    <div class="card mb">
+      <h3>Стоимость модуля</h3>
+      <div class="flex-row">
+        <div><label>Цена одного модуля (тенге)</label><input id="priceInput" type="number" value="${price}" style="max-width:180px;"/></div>
+        <button class="btn btn-ghost" id="savePriceBtn" style="margin-top:20px;">Сохранить</button>
+        <div class="small" style="margin-top:20px;">Полная программа (8 модулей) на человека: <b>${fmtTenge(programPrice)}</b></div>
+      </div>
+    </div>
+    <div class="grid grid-3 mb">
+      <div class="card stat"><div class="lbl">Потенциальный доход (по целям набора)</div><div class="num" style="font-size:22px;">${fmtTenge(potentialTotal)}</div></div>
+      <div class="card stat"><div class="lbl">Признанный доход (по пройденным модулям)</div><div class="num" style="font-size:22px;">${fmtTenge(collectedTotal)}</div></div>
+      <div class="card stat"><div class="lbl">Всего студентов</div><div class="num">${STATE.students.length}</div><div class="sub">из ${totalTarget} целевых</div></div>
+    </div>
+    <div class="card mb">
+      <h3>Доход по городам (от числа студентов)</h3>
+      <div id="revenueChart" class="mt"></div>
+    </div>
+    <div class="card">
+      <div class="section-title"><h3>Отчёты посещений групп</h3><button class="btn btn-gold btn-sm" id="dlAllAttendance">⬇ Скачать все отчёты посещаемости (Excel)</button></div>
+      <div class="small mb">Папка отчётов по городам: отметьте посещаемость по каждому модулю, затем выгрузите таблицу.</div>
+      <div id="attendanceFolders"></div>
+    </div>
+  `;
+  // revenue chart
+  const chart = document.getElementById('revenueChart');
+  chart.innerHTML = STREAMS.map(s => {
+    const reg = STATE.students.filter(st=>st.city===s.key).length;
+    const potential = s.target * programPrice;
+    const actual = reg * programPrice;
+    const pct = Math.min(100, potential ? Math.round(actual/maxCityVal*100) : 0);
+    const pctPotential = Math.round(potential/maxCityVal*100);
+    return `<div class="mt">
+      <div class="flex-row" style="justify-content:space-between;"><b>${esc(s.name)}</b><span class="small">${fmtTenge(actual)} / ${fmtTenge(potential)}</span></div>
+      <div class="progress" style="position:relative;">
+        <div style="width:${pctPotential}%; background:var(--teal-100);position:absolute;height:100%;"></div>
+        <div style="width:${pct}%; position:relative;"></div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('savePriceBtn').onclick = () => {
+    const v = parseFloat(document.getElementById('priceInput').value);
+    if(!v || v<=0){ alert('Укажите корректную цену'); return; }
+    STATE.modulePrice = v; saveState(STATE);
+    renderFinance();
+  };
+  // attendance folders
+  const foldersEl = document.getElementById('attendanceFolders');
+  foldersEl.innerHTML = STREAMS.map(s => {
+    const modules = SCHEDULE.filter(x=>x.city===s.key);
+    return `<div class="mt">
+      <b>${esc(s.name)}</b>
+      <div class="pill-toggle mt">
+        ${modules.map(m => {
+          const key = s.key+'_'+m.module+'_'+m.date_start;
+          const att = STATE.attendance[key] || {};
+          const presentCount = Object.values(att).filter(Boolean).length;
+          return `<span class="pill attMod" data-key="${key}" data-city="${s.key}" data-label="${esc(m.label||('Модуль '+m.module))}" data-date="${m.date_label}">${(m.label||('Модуль '+m.module))} (${presentCount})</span>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }).join('');
+  foldersEl.querySelectorAll('.attMod').forEach(p => {
+    p.onclick = () => openAttendanceModal(p.dataset.city, p.dataset.key, p.dataset.label, p.dataset.date);
+  });
+  document.getElementById('dlAllAttendance').onclick = exportAttendanceExcel;
+}
+function openAttendanceModal(cityKey, key, label, dateLabel){
+  const overlay = document.getElementById('genericModal');
+  const students = STATE.students.filter(s=>s.city===cityKey);
+  const att = STATE.attendance[key] || {};
+  overlay.innerHTML = `
+    <div class="modal">
+      <div class="flex-row" style="justify-content:space-between;"><h2>${esc(label)}</h2><span class="close-x" id="closeAttModal">✕</span></div>
+      <div class="small mb">${esc(CITY_NAME[cityKey])} · ${dateLabel}</div>
+      ${students.length ? students.map(s => `
+        <label class="flex-row" style="justify-content:space-between;border-bottom:1px solid var(--line);padding:6px 0;">
+          <span>${esc(s.name)}</span>
+          <input type="checkbox" class="attCheck" data-id="${s.id}" ${att[s.id]?'checked':''} style="width:auto;"/>
+        </label>
+      `).join('') : '<div class="small">В этом городе пока нет студентов в списке.</div>'}
+      <div class="flex-row mt">
+        <button class="btn btn-primary" id="saveAttBtn">Сохранить</button>
+        <button class="btn btn-ghost" id="cancelAttBtn">Отмена</button>
+      </div>
+    </div>`;
+  overlay.style.display='flex';
+  document.getElementById('closeAttModal').onclick = () => overlay.style.display='none';
+  document.getElementById('cancelAttBtn').onclick = () => overlay.style.display='none';
+  document.getElementById('saveAttBtn').onclick = () => {
+    const result = {};
+    overlay.querySelectorAll('.attCheck').forEach(c => { result[c.dataset.id] = c.checked; });
+    STATE.attendance[key] = result;
+    saveState(STATE);
+    overlay.style.display='none';
+    renderFinance();
+  };
+}
+function exportAttendanceExcel(){
+  const sheets = [];
+  STREAMS.forEach(s => {
+    const students = STATE.students.filter(st=>st.city===s.key);
+    const modules = SCHEDULE.filter(x=>x.city===s.key);
+    const header = ['ФИО', ...modules.map(m=>m.label||('Модуль '+m.module))];
+    const rows = students.map(st => {
+      const row = [st.name];
+      modules.forEach(m => {
+        const key = s.key+'_'+m.module+'_'+m.date_start;
+        const att = STATE.attendance[key] || {};
+        row.push(att[st.id] ? 'Присутствовал' : '—');
+      });
+      return row;
+    });
+    sheets.push(ssWorksheet(safeSheetName(s.name+' посещаемость'), header, rows));
+  });
+  const wb = buildWorkbook(sheets);
+  downloadBlob('ICU_poseshaemost_2026-2027.xls', wb, 'application/vnd.ms-excel');
+}
+
+/* ================= FEEDBACK (QR + журнал) ================= */
+function renderFeedback(){
+  const el = document.getElementById('tab-feedback');
+  const isAdmin = ROLE && ROLE.type==='admin';
+  const myCity = ROLE && ROLE.type==='rep' ? ROLE.city : null;
+  el.innerHTML = `
+    <div class="topbar"><div><h1>Обратная связь от студентов</h1><div class="meta">QR-код для отзыва в WhatsApp + журнал полученных отзывов</div></div></div>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>QR-код для отзыва</h3>
+        <div>
+          <label>Город</label>
+          <select id="fbCity">${STREAMS.map(s=>`<option value="${s.key}" ${myCity===s.key?'selected':''}>${s.name}</option>`).join('')}</select>
+        </div>
+        <div id="fbQrWrap" class="mt" style="text-align:center;"></div>
+        <div class="small mt">Студент сканирует код телефоном → открывается WhatsApp с готовым текстом отзыва, адресованным представителю города. Отправка — от аккаунта студента.</div>
+      </div>
+      <div class="card">
+        <h3>Добавить отзыв вручную</h3>
+        <label>Город</label>
+        <select id="fbFormCity">${STREAMS.map(s=>`<option value="${s.key}" ${myCity===s.key?'selected':''}>${s.name}</option>`).join('')}</select>
+        <label class="mt">Имя студента (необязательно)</label>
+        <input id="fbName" placeholder="Можно оставить пустым — анонимно"/>
+        <label class="mt">Оценка</label>
+        <div class="pill-toggle" id="fbRating">${[1,2,3,4,5].map(i=>`<span class="pill" data-v="${i}">${'★'.repeat(i)}</span>`).join('')}</div>
+        <label class="mt">Комментарий</label>
+        <textarea id="fbComment" placeholder="Текст отзыва"></textarea>
+        <button class="btn btn-primary mt" id="addFbBtn">Сохранить отзыв</button>
+      </div>
+    </div>
+    <div class="card mt">
+      <div class="section-title"><h3>Журнал отзывов</h3>${isAdmin?`<select id="fbFilterCity" style="max-width:220px;"><option value="">Все города</option>${STREAMS.map(s=>`<option value="${s.key}">${s.name}</option>`).join('')}</select>`:''}</div>
+      <div id="fbList"></div>
+    </div>
+  `;
+  function renderQr(){
+    const cityKey = document.getElementById('fbCity').value;
+    const rep = STATE.cities[cityKey] || {};
+    const phone = digitsOnly(rep.rep_phone);
+    const wrap = document.getElementById('fbQrWrap');
+    if(!phone){
+      wrap.innerHTML = `<div class="small">У города «${esc(CITY_NAME[cityKey])}» ещё не указан телефон представителя (вкладка «Города и роли») — QR нельзя сформировать.</div>`;
+      return;
+    }
+    const text = `Отзыв ICU — ${CITY_NAME[cityKey]}: `;
+    const link = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+    try{
+      const qr = qrcode(0, 'M');
+      qr.addData(link);
+      qr.make();
+      wrap.innerHTML = qr.createSvgTag({cellSize:5, margin:3}) + `<div class="small mt">${esc(link)}</div>`;
+    }catch(e){
+      wrap.innerHTML = `<div class="small">Не удалось построить QR: ${esc(e.message)}</div>`;
+    }
+  }
+  document.getElementById('fbCity').onchange = renderQr;
+  renderQr();
+
+  let selectedRating = 0;
+  document.querySelectorAll('#fbRating .pill').forEach(p => {
+    p.onclick = () => {
+      selectedRating = parseInt(p.dataset.v,10);
+      document.querySelectorAll('#fbRating .pill').forEach(x=>x.classList.toggle('active', parseInt(x.dataset.v,10)<=selectedRating));
+    };
+  });
+  document.getElementById('addFbBtn').onclick = () => {
+    const comment = document.getElementById('fbComment').value.trim();
+    if(!selectedRating && !comment){ alert('Укажите оценку или комментарий'); return; }
+    STATE.feedback.push({
+      id: uid(),
+      city: document.getElementById('fbFormCity').value,
+      name: document.getElementById('fbName').value.trim(),
+      rating: selectedRating,
+      comment,
+      date: todayISO()
+    });
+    saveState(STATE);
+    document.getElementById('fbComment').value='';
+    document.getElementById('fbName').value='';
+    selectedRating = 0;
+    document.querySelectorAll('#fbRating .pill').forEach(x=>x.classList.remove('active'));
+    renderList();
+  };
+  function renderList(){
+    const filter = isAdmin && document.getElementById('fbFilterCity') ? document.getElementById('fbFilterCity').value : myCity;
+    const items = STATE.feedback.filter(f => !filter || f.city===filter).slice().reverse();
+    document.getElementById('fbList').innerHTML = items.map(f => `
+      <div class="recipient-row" style="align-items:flex-start;">
+        <div>
+          <b>${esc(f.name||'Аноним')}</b> · ${esc(CITY_NAME[f.city]||f.city)} · ${f.date}
+          ${f.rating?`<div>${'★'.repeat(f.rating)}${'☆'.repeat(5-f.rating)}</div>`:''}
+          ${f.comment?`<div class="small mt">${esc(f.comment)}</div>`:''}
+        </div>
+      </div>
+    `).join('') || '<div class="small">Отзывов пока нет.</div>';
+  }
+  if(isAdmin && document.getElementById('fbFilterCity')) document.getElementById('fbFilterCity').onchange = renderList;
+  renderList();
+}
+
+/* ================= RENDERERS MAP & BOOT ================= */
+const RENDERERS = {
+  dashboard: renderDashboard,
+  schedule: renderSchedule,
+  trainers: renderTrainers,
+  cities: renderCities,
+  students: renderStudents,
+  flights: renderFlights,
+  reports: renderReports,
+  finance: renderFinance,
+  feedback: renderFeedback,
+  broadcast: renderBroadcast,
+  templates: renderTemplates,
+};
+
+function boot(){
+  renderSidebar();
+  const isAdmin = ROLE && ROLE.type==='admin';
+  const isTrainer = ROLE && ROLE.type==='trainer';
+  let last = 'dashboard';
+  try{ last = localStorage.getItem('icu2026_lasttab') || 'dashboard'; }catch(e){}
+  if(isTrainer) last = 'schedule';
+  if((last==='reports' || last==='finance') && !isAdmin) last='dashboard';
+  switchTab(last);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  ROLE = getRole();
+  if(!ROLE){
+    renderRoleGate();
+  } else {
+    boot();
+  }
+});
+
+</script>
+</body>
+</html>
