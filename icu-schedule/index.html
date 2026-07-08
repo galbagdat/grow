@@ -2638,6 +2638,7 @@ function loadState(){
       modulePrice: MODULE_PRICE_DEFAULT,
       attendance: {},        // "cityKey_module" -> {studentId: true/false}
       feedback: [],          // {id, city, name, module, rating, comment, date}
+      templateFiles: {trainers: [], leaders: []}, // {id, name, mime, b64, uploadedAt}
       msgTemplates: {
         whatsapp: "Здравствуйте, {name}! Напоминаем: старт модуля ICU в городе {city} — {date}. Тренер: {trainer}. Ждём вас!",
         email: "Здравствуйте, {name}!\n\nНапоминаем о старте модуля программы сертификации ICU в городе {city}.\nДаты: {date}\nТренер: {trainer}\n\nДо встречи!\nICU Kazakhstan & Central Asia"
@@ -2655,6 +2656,7 @@ function loadState(){
   if(typeof raw.modulePrice !== 'number') raw.modulePrice = MODULE_PRICE_DEFAULT;
   if(!raw.attendance) raw.attendance = {};
   if(!raw.feedback) raw.feedback = [];
+  if(!raw.templateFiles) raw.templateFiles = {trainers: [], leaders: []};
   return raw;
 }
 function saveState(s){ localStorage.setItem(LS_KEY, JSON.stringify(s)); }
@@ -2783,7 +2785,7 @@ function renderSidebar(){
   const isTrainer = ROLE && ROLE.type==='trainer';
   let items;
   if(isTrainer){
-    items = NAV_ITEMS.filter(i => i.key==='schedule' || i.key==='calendar');
+    items = NAV_ITEMS.filter(i => i.key==='schedule' || i.key==='calendar' || i.key==='templates');
   } else {
     items = NAV_ITEMS.filter(i => !i.adminOnly || isAdmin);
   }
@@ -3379,8 +3381,37 @@ function renderBroadcast(){
 }
 
 /* ================= TEMPLATES ================= */
+function fmtFileSize(bytes){
+  if(bytes < 1024) return bytes + ' Б';
+  if(bytes < 1024*1024) return Math.round(bytes/1024) + ' КБ';
+  return (bytes/1024/1024).toFixed(1) + ' МБ';
+}
+function b64Size(b64){ return Math.round(b64.length * 3 / 4); }
+function readFileAsB64(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+function renderTemplateFileList(category, canManage){
+  const files = STATE.templateFiles[category] || [];
+  if(!files.length) return `<div class="small mt">Пока нет загруженных файлов.</div>`;
+  return `<div class="mt">${files.map(f => `
+    <div class="recipient-row">
+      <div><b>${esc(f.name)}</b><div class="small">${fmtFileSize(b64Size(f.b64))} · загружено ${fmtISO(f.uploadedAt)}</div></div>
+      <div class="flex-row">
+        <button class="btn btn-ghost btn-sm dlTplFile" data-cat="${category}" data-id="${f.id}">⬇ Скачать</button>
+        ${canManage ? `<button class="btn btn-danger btn-sm rmTplFile" data-cat="${category}" data-id="${f.id}">Удалить</button>` : ''}
+      </div>
+    </div>`).join('')}</div>`;
+}
 function renderTemplates(){
   const el = document.getElementById('tab-templates');
+  const isAdmin = ROLE && ROLE.type==='admin';
+  const isTrainer = ROLE && ROLE.type==='trainer';
+  const isRep = ROLE && ROLE.type==='rep';
   el.innerHTML = `
     <div class="topbar"><div><h1>Шаблоны документов и презентаций</h1><div class="meta">Готовые файлы в брендинге ICU — скачайте и заполните под конкретный город/поток</div></div></div>
     <div class="grid grid-2">
@@ -3396,8 +3427,63 @@ function renderTemplates(){
       </div>
     </div>
     <div class="hint mt">Презентация встроена прямо в это HTML-приложение — интернет для скачивания не нужен.</div>
+
+    ${isAdmin || isTrainer ? `<div class="card mt">
+      <h3>Материалы для тренеров</h3>
+      <p class="small">Методички, слайды модулей, инструкции — видно только тренерам и администратору.</p>
+      ${isAdmin ? `<div class="flex-row mt"><input type="file" id="uploadTrainerFile" style="flex:1;"/><button class="btn btn-gold btn-sm" id="uploadTrainerBtn">⬆ Загрузить</button></div>` : ''}
+      <div id="trainerFilesList">${renderTemplateFileList('trainers', isAdmin)}</div>
+    </div>` : ''}
+
+    ${isAdmin || isRep ? `<div class="card mt">
+      <h3>Материалы для руководителей городов</h3>
+      <p class="small">Презентации для набора, регламенты, брендбук — видно только представителям городов и администратору.</p>
+      ${isAdmin ? `<div class="flex-row mt"><input type="file" id="uploadLeaderFile" style="flex:1;"/><button class="btn btn-gold btn-sm" id="uploadLeaderBtn">⬆ Загрузить</button></div>` : ''}
+      <div id="leaderFilesList">${renderTemplateFileList('leaders', isAdmin)}</div>
+    </div>` : ''}
   `;
   document.getElementById('dlDeck').onclick = () => downloadB64('ICU_prezentatsiya_zapusk_potoka.pptx', DECK_B64, 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+
+  function wireFileActions(){
+    el.querySelectorAll('.dlTplFile').forEach(btn => {
+      btn.onclick = () => {
+        const f = STATE.templateFiles[btn.dataset.cat].find(x=>x.id===btn.dataset.id);
+        if(f) downloadB64(f.name, f.b64, f.mime || 'application/octet-stream');
+      };
+    });
+    el.querySelectorAll('.rmTplFile').forEach(btn => {
+      btn.onclick = () => {
+        if(!confirm('Удалить файл?')) return;
+        const cat = btn.dataset.cat;
+        STATE.templateFiles[cat] = STATE.templateFiles[cat].filter(x=>x.id!==btn.dataset.id);
+        saveState(STATE);
+        renderTemplates();
+      };
+    });
+  }
+  wireFileActions();
+
+  if(isAdmin){
+    const setupUpload = (inputId, btnId, category) => {
+      const btn = document.getElementById(btnId);
+      if(!btn) return;
+      btn.onclick = async () => {
+        const input = document.getElementById(inputId);
+        const file = input.files[0];
+        if(!file){ alert('Выберите файл'); return; }
+        if(file.size > 4*1024*1024){ alert('Файл слишком большой для локального хранения (макс. ~4 МБ). Разместите его во внешнем облаке и пришлите ссылку через рассылку.'); return; }
+        const b64 = await readFileAsB64(file);
+        STATE.templateFiles[category].push({
+          id: 'f'+Date.now()+Math.random().toString(36).slice(2,8),
+          name: file.name, mime: file.type, b64, uploadedAt: todayISO()
+        });
+        saveState(STATE);
+        renderTemplates();
+      };
+    };
+    setupUpload('uploadTrainerFile','uploadTrainerBtn','trainers');
+    setupUpload('uploadLeaderFile','uploadLeaderBtn','leaders');
+  }
 }
 function switchTabFromTemplates(){
   if(ROLE && ROLE.type==='admin') switchTab('reports');
