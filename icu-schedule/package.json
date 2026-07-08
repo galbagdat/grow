@@ -1,0 +1,9 @@
+{
+  "name": "icu-schedule",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ICU Kazakhstan & Central Asia — offline single-file schedule/launch-control app",
+  "scripts": {
+    "start": "npx --yes serve -s . -l ${PORT:-3000}"
+  }
+}
