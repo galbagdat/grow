@@ -5,6 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grow — панель сопровождения</title>
 <meta name="robots" content="noindex,nofollow">
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+// ┌─────────────────────────────────────────────────────────┐
+// │  ВСТАВЬТЕ СЮДА КОНФИГ ИЗ FIREBASE CONSOLE              │
+// │  Project settings → Your apps → SDK setup → Config      │
+// └─────────────────────────────────────────────────────────┘
+const FIREBASE_CONFIG = {
+  apiKey:            "ВСТАВЬТЕ_СЮДА",
+  authDomain:        "ВСТАВЬТЕ_СЮДА",
+  projectId:         "ВСТАВЬТЕ_СЮДА",
+  storageBucket:     "ВСТАВЬТЕ_СЮДА",
+  messagingSenderId: "ВСТАВЬТЕ_СЮДА",
+  appId:             "ВСТАВЬТЕ_СЮДА"
+};
+
+const USE_FIREBASE = FIREBASE_CONFIG.apiKey !== "ВСТАВЬТЕ_СЮДА";
+if(USE_FIREBASE){
+  firebase.initializeApp(FIREBASE_CONFIG);
+}
+</script>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -282,6 +306,7 @@ select.std{background:var(--navy-deep);border:1px solid var(--navy-line);color:v
         <button onclick="exportData()" style="flex:1;padding:6px 4px;background:#C79A42;color:#fff;border:none;border-radius:6px;font-size:11.5px;cursor:pointer;font-family:var(--sans);">⬇ Экспорт</button>
         <label style="flex:1;padding:6px 4px;background:rgba(255,255,255,0.15);color:#fff;border-radius:6px;font-size:11.5px;cursor:pointer;text-align:center;font-family:var(--sans);">⬆ Импорт<input type="file" accept=".json" onchange="importData(event)" style="display:none"></label>
       </div>
+      <div id="sync-status" style="margin-bottom:6px;font-size:11px;">○ офлайн (локально)</div>
       Данные хранятся локально в этом браузере (localStorage). Файл работает офлайн — без сервера и без интернета, кроме шрифтов.
     </div>
   </aside>
@@ -614,20 +639,7 @@ function defaultState(){
 
 let state = loadState();
 
-function loadState(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(!raw) return defaultState();
-    const parsed = JSON.parse(raw);
-    migrateState(parsed);
-    return parsed;
-  }catch(e){
-    console.error('Не удалось загрузить сохранённые данные, использую значения по умолчанию.', e);
-    return defaultState();
-  }
-}
 function migrateState(s){
-  // backfill fields added after first releases, so old saved data keeps working
   if(!s.modules) s.modules = [];
   s.modules.forEach(m=>{ if(m.price==null) m.price=''; if(m.kaspiLink==null) m.kaspiLink=''; });
   if(!s.payments) s.payments = {};
@@ -636,11 +648,72 @@ function migrateState(s){
     s.modules.forEach(m=>{ if(s.payments[p.id][m.id]==null) s.payments[p.id][m.id]=false; });
   });
 }
-function saveState(){
+
+function loadState(){
   try{
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    migrateState(parsed);
+    return parsed;
   }catch(e){
-    console.error('Не удалось сохранить данные', e);
+    return defaultState();
+  }
+}
+
+/* --- Firebase sync --- */
+let _db = null;
+let _saveTimer = null;
+let _listening = false;
+
+function setSyncStatus(status){
+  const el = document.getElementById('sync-status');
+  if(!el) return;
+  const map = {
+    online:  {text:'● синхронизировано', color:'#4CAF50'},
+    saving:  {text:'↑ сохранение…',      color:'#C79A42'},
+    offline: {text:'○ офлайн (локально)', color:'#aaa'},
+    error:   {text:'✕ ошибка синхронизации', color:'#e55'},
+  };
+  const s = map[status]||map.offline;
+  el.textContent = s.text;
+  el.style.color = s.color;
+}
+
+function saveState(){
+  /* всегда сохраняем локально как резерв */
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+
+  if(!_db){ setSyncStatus('offline'); return; }
+
+  /* debounce: ждём 800мс после последнего изменения */
+  clearTimeout(_saveTimer);
+  setSyncStatus('saving');
+  _saveTimer = setTimeout(()=>{
+    _db.collection('grow').doc('state')
+      .set(state)
+      .then(()=>setSyncStatus('online'))
+      .catch(err=>{ console.error(err); setSyncStatus('error'); });
+  }, 800);
+}
+
+function startFirebaseSync(){
+  if(!USE_FIREBASE || _listening) return;
+  try{
+    _db = firebase.firestore();
+    _listening = true;
+    _db.collection('grow').doc('state').onSnapshot(snap=>{
+      if(!snap.exists) return;
+      const remote = snap.data();
+      migrateState(remote);
+      Object.assign(state, remote);
+      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+      const active = document.querySelector('.nav-item.active')?.dataset.view || 'overview';
+      renderView(active);
+      setSyncStatus('online');
+    }, err=>{ console.error(err); setSyncStatus('error'); });
+  }catch(e){
+    console.error(e); setSyncStatus('error');
   }
 }
 
@@ -1181,6 +1254,12 @@ renderSupervisions();
 renderCertification();
 renderMessages();
 renderSelfEntry();
+
+/* запуск Firebase после загрузки DOM */
+document.addEventListener('DOMContentLoaded', ()=>{
+  if(USE_FIREBASE) startFirebaseSync();
+  else setSyncStatus('offline');
+});
 
 function exportData(){
   const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
