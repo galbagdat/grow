@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Сырға салу — панель подготовки</title>
+<title>Сырға салу & Құдалық — панель подготовки</title>
 <meta name="robots" content="noindex,nofollow">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236b2438'/><text x='16' y='23' font-size='18' text-anchor='middle'>💍</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%239b1b30'/><text x='16' y='23' font-size='18' text-anchor='middle'>💍</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --wine:#6b2438; --wine2:#8f3450; --ink:#2e1a20;
-  --gold:#b8873e; --gold-d:#8f6529; --gold-l:#dcb974;
-  --ivory:#f7f2ea; --ivory2:#efe5d4; --paper:#fdfaf4;
-  --card:#ffffff; --line:#e8ddc9; --line2:#d9caae;
-  --muted:#7a6a5e; --muted2:#9d8f80;
+  --wine:#9b1b30; --wine-d:#6f1122; --wine2:#b03348; --ink:#3a2328;
+  --gold:#c9a227; --gold-d:#9c7b1c; --gold-l:#e2c877;
+  --ivory:#f7f2e8; --ivory2:#efe6d3; --paper:#fdfaf3;
+  --card:#ffffff; --line:#e9dec8; --line2:#dbcaa9;
+  --muted:#7d6d5f; --muted2:#a09182;
   --red:#a8493f; --redbg:#f8eae7;
   --green:#3f7d5a; --greenbg:#e7f0ea;
   --amber:#c08a2c; --amberbg:#f8efd9;
@@ -28,33 +28,31 @@ html{scroll-behavior:smooth}
 body{font-family:var(--body);background:var(--ivory);color:var(--ink);line-height:1.5;font-size:15px;-webkit-font-smoothing:antialiased}
 .app{display:flex;min-height:100vh}
 
-/* ---------- sidebar ---------- */
-.side{width:250px;background:var(--wine);color:#f0e2e6;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:40}
-.brand{padding:24px 22px 18px;border-bottom:1px solid rgba(255,255,255,.1)}
+.side{width:252px;background:var(--wine-d);color:#f2e3e6;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:40}
+.brand{padding:22px 20px 16px;border-bottom:1px solid rgba(255,255,255,.12)}
 .brand .kicker{font-size:10px;letter-spacing:.22em;color:var(--gold-l);text-transform:uppercase;font-weight:600}
-.brand h1{font-family:var(--display);font-size:28px;font-weight:600;color:#fff;line-height:1.05;margin-top:7px}
-.brand .sub{font-size:11.5px;color:#d3b5bd;margin-top:6px}
-.nav{padding:12px 12px 30px}
-.nav button{display:flex;align-items:center;gap:11px;width:100%;background:none;border:none;color:#dcc3ca;font-family:var(--body);font-size:13.5px;font-weight:500;text-align:left;padding:10px 12px;border-radius:9px;cursor:pointer;transition:.15s;margin-bottom:2px}
-.nav button:hover{background:rgba(255,255,255,.07);color:#fff}
-.nav button.on{background:linear-gradient(90deg,rgba(184,135,62,.3),rgba(184,135,62,.05));color:#fff;box-shadow:inset 2px 0 0 var(--gold)}
-.nav .ico{width:18px;text-align:center;font-size:14px;flex-shrink:0}
-.nav .grp{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#b48d97;font-weight:700;padding:16px 12px 7px}
+.brand h1{font-family:var(--display);font-size:27px;font-weight:600;color:#fff;line-height:1.05;margin-top:6px}
+.brand .sub{font-size:11.5px;color:#dab6bd;margin-top:5px}
+.nav{padding:10px 10px 30px}
+.nav button{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;color:#e0c6cb;font-family:var(--body);font-size:13px;font-weight:500;text-align:left;padding:9px 11px;border-radius:8px;cursor:pointer;transition:.15s;margin-bottom:1px}
+.nav button:hover{background:rgba(255,255,255,.08);color:#fff}
+.nav button.on{background:linear-gradient(90deg,rgba(201,162,39,.32),rgba(201,162,39,.04));color:#fff;box-shadow:inset 2px 0 0 var(--gold)}
+.nav .ico{width:17px;text-align:center;font-size:13px;flex-shrink:0}
+.nav .grp{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#bb8f99;font-weight:700;padding:15px 11px 6px}
 
-/* ---------- main ---------- */
 .main{flex:1;min-width:0}
-.top{background:var(--paper);border-bottom:1px solid var(--line);padding:16px 30px;display:flex;align-items:center;justify-content:space-between;gap:14px;position:sticky;top:0;z-index:30}
-.top h2{font-family:var(--display);font-size:26px;font-weight:600;color:var(--wine)}
+.top{background:var(--paper);border-bottom:1px solid var(--line);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:30}
+.top h2{font-family:var(--display);font-size:25px;font-weight:600;color:var(--wine)}
 .top .sub{font-size:12px;color:var(--muted);margin-top:1px}
-.burger{display:none;background:var(--wine);border:none;color:#fff;font-size:19px;width:40px;height:40px;border-radius:9px;cursor:pointer;flex-shrink:0}
-.wrap{padding:26px 30px 70px;max-width:1180px}
+.burger{display:none;background:var(--wine-d);border:none;color:#fff;font-size:19px;width:40px;height:40px;border-radius:9px;cursor:pointer;flex-shrink:0}
+.wrap{padding:24px 28px 70px;max-width:1200px}
 .sect{display:none}.sect.on{display:block;animation:fade .3s ease}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 h3.hh{font-family:var(--display);font-size:22px;font-weight:600;color:var(--wine);margin:26px 0 12px;display:flex;align-items:center;gap:12px}
 h3.hh:first-child{margin-top:0}
 h3.hh::after{content:'';flex:1;height:1px;background:var(--line2)}
-.hint{font-size:12.5px;color:var(--muted);margin:-6px 0 14px;max-width:640px}
+.hint{font-size:12.5px;color:var(--muted);margin:-6px 0 14px;max-width:680px}
 
 .grid{display:grid;gap:14px}
 .g4{grid-template-columns:repeat(4,1fr)}
@@ -62,35 +60,31 @@ h3.hh::after{content:'';flex:1;height:1px;background:var(--line2)}
 .g2{grid-template-columns:repeat(2,1fr)}
 @media(max-width:1000px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr}.g2{grid-template-columns:1fr}}
 
-.kpi{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:17px 18px;position:relative;overflow:hidden}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:16px 17px;position:relative;overflow:hidden}
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold)}
-.kpi.ok::before{background:var(--green)}.kpi.warn::before{background:var(--red)}.kpi.nv::before{background:var(--wine2)}
+.kpi.ok::before{background:var(--green)}.kpi.warn::before{background:var(--red)}.kpi.nv::before{background:var(--wine)}
 .kpi .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:700}
-.kpi .val{font-family:var(--mono);font-size:27px;font-weight:600;color:var(--wine);margin-top:7px;line-height:1}
+.kpi .val{font-family:var(--mono);font-size:26px;font-weight:600;color:var(--wine);margin-top:7px;line-height:1}
 .kpi .val small{font-size:13px;color:var(--muted2)}
 .kpi .note{font-size:11.5px;color:var(--muted2);margin-top:6px}
 .bar{height:9px;background:var(--ivory2);border-radius:6px;overflow:hidden;margin-top:9px}
-.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-l));border-radius:6px;transition:width .5s}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold-l));border-radius:6px;transition:width .5s}
 .bar.gr i{background:linear-gradient(90deg,var(--green),#5da97d)}
 
 .card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px 20px}
-.card .ct{font-family:var(--display);font-size:19px;font-weight:600;color:var(--wine);margin-bottom:4px}
+.card .ct{font-family:var(--display);font-size:19px;font-weight:600;color:var(--wine);margin-bottom:3px}
 .card .cs{font-size:12px;color:var(--muted);margin-bottom:12px}
-
-.bdg{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
-.bdg.todo{background:var(--ivory2);color:var(--muted)}
-.bdg.prog{background:var(--amberbg);color:var(--amber)}
-.bdg.done{background:var(--greenbg);color:var(--green)}
-.bdg.risk{background:var(--redbg);color:var(--red)}
 
 table{width:100%;border-collapse:collapse;font-size:13px}
 th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:10px 12px;border-bottom:2px solid var(--line2);background:var(--paper);white-space:nowrap}
-td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
 tr:last-child td{border-bottom:none}
-tbody tr:hover{background:#fdfaf4}
+tbody tr:hover{background:#fdfaf3}
 .num{font-family:var(--mono);text-align:right;white-space:nowrap}
 .tbl-wrap{background:var(--card);border:1px solid var(--line);border-radius:13px;overflow:auto}
 tfoot td{border-top:2px solid var(--line2);font-weight:700;background:var(--paper)}
+td.ctr{text-align:center}
+.cb{width:17px;height:17px;accent-color:var(--wine);cursor:pointer}
 
 input[type=text],input[type=number],input[type=date],input[type=time],select,textarea{font-family:var(--body);font-size:13.5px;border:1px solid var(--line2);border-radius:8px;padding:8px 11px;background:#fff;color:var(--ink);width:100%}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
@@ -120,17 +114,17 @@ td input.num{text-align:right;font-family:var(--mono)}
 .chk .tt{font-size:13.5px;font-weight:600;color:var(--ink)}
 .chk .mt{font-size:11.5px;color:var(--muted2);margin-top:2px}
 .chk.done .tt{text-decoration:line-through;color:var(--muted2)}
-.chk.done{background:#fbf9f4}
+.chk.done{background:#fbf9f3}
 
-.hero{background:linear-gradient(135deg,var(--wine),var(--wine2));color:#fff;border-radius:15px;padding:24px 26px;position:relative;overflow:hidden}
-.hero::after{content:'💍';position:absolute;right:-8px;bottom:-22px;font-size:120px;opacity:.11}
+.hero{background:linear-gradient(135deg,var(--wine-d),var(--wine));color:#fff;border-radius:15px;padding:24px 26px;position:relative;overflow:hidden}
+.hero::after{content:'💍';position:absolute;right:-8px;bottom:-22px;font-size:120px;opacity:.1}
 .hero .k{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-l);font-weight:700}
 .hero h4{font-family:var(--display);font-size:32px;font-weight:600;margin-top:6px;line-height:1.1}
-.hero .meta{font-size:13px;color:#eccfd6;margin-top:8px}
+.hero .meta{font-size:13px;color:#eecfd5;margin-top:8px}
 .hero .cd{display:flex;gap:26px;margin-top:18px;position:relative;z-index:2}
 .hero .cd div{text-align:center}
-.hero .cd .n{font-family:var(--mono);font-size:30px;font-weight:600;line-height:1}
-.hero .cd .u{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e0b9c2;margin-top:4px}
+.hero .cd .n{font-family:var(--mono);font-size:29px;font-weight:600;line-height:1}
+.hero .cd .u{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e5bcc4;margin-top:4px}
 
 .tl{position:relative;padding-left:26px}
 .tl::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:repeating-linear-gradient(180deg,var(--gold) 0 8px,transparent 8px 15px)}
@@ -141,10 +135,36 @@ td input.num{text-align:right;font-family:var(--mono)}
 .tl .tt{font-size:14px;font-weight:600;color:var(--ink);margin-top:1px}
 .tl .td{font-size:12px;color:var(--muted);margin-top:2px}
 
+/* phrase picker */
+.phr{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;cursor:pointer;transition:.15s;position:relative}
+.phr:hover{border-color:var(--gold)}
+.phr.on{border-color:var(--wine);box-shadow:0 0 0 2px rgba(155,27,48,.12)}
+.phr .kk{font-family:var(--display);font-size:22px;font-weight:600;color:var(--wine);line-height:1.2}
+.phr .tr{font-size:12px;color:var(--muted);margin-top:6px;font-style:italic}
+.phr .use{font-size:11.5px;color:var(--muted2);margin-top:7px;padding-top:7px;border-top:1px dashed var(--line2)}
+.phr .pick{position:absolute;top:12px;right:13px;font-size:11px;font-weight:700;color:var(--wine);display:none}
+.phr.on .pick{display:block}
+
+/* photozone preview */
+.pz{background:linear-gradient(180deg,#fdfaf3,#f5ede0);border:1px solid var(--line2);border-radius:13px;padding:34px 22px;text-align:center;position:relative}
+.pz::before{content:'';position:absolute;inset:9px;border:1.5px solid var(--gold-l);border-radius:7px;pointer-events:none}
+.pz .orn{color:var(--gold);letter-spacing:.5em;font-size:11px}
+.pz .t1{font-family:var(--display);font-size:15px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-d);margin-top:12px}
+.pz .t2{font-family:var(--display);font-size:40px;font-weight:700;color:var(--wine);line-height:1.1;margin-top:8px}
+.pz .t3{font-family:var(--display);font-style:italic;font-size:17px;color:var(--ink);margin-top:12px;max-width:440px;margin-left:auto;margin-right:auto}
+.pz .t4{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:14px;letter-spacing:.1em}
+
+/* place card preview */
+.pc{width:250px;background:var(--paper);border:1px solid var(--line2);border-radius:8px;padding:18px 14px;text-align:center;position:relative}
+.pc::before{content:'';position:absolute;inset:6px;border:1px solid var(--gold-l);border-radius:4px;pointer-events:none}
+.pc .o{color:var(--gold);font-size:10px;letter-spacing:.4em}
+.pc .n{font-family:var(--display);font-size:23px;font-weight:600;color:var(--wine);margin-top:7px;line-height:1.15}
+.pc .t{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:5px}
+.pc .l{font-family:var(--display);font-style:italic;font-size:11.5px;color:var(--muted);margin-top:9px;padding-top:8px;border-top:1px dashed var(--line2);line-height:1.35}
+
 .saved{position:fixed;right:20px;bottom:20px;background:var(--wine);color:#fff;font-size:12.5px;font-weight:600;padding:9px 15px;border-radius:20px;opacity:0;transform:translateY(8px);transition:.25s;pointer-events:none;z-index:60}
 .saved.on{opacity:1;transform:none}
-
-.mask{display:none;position:fixed;inset:0;background:rgba(46,26,32,.5);z-index:35}
+.mask{display:none;position:fixed;inset:0;background:rgba(58,35,40,.5);z-index:35}
 .mask.on{display:block}
 
 @media(max-width:860px){
@@ -152,7 +172,7 @@ td input.num{text-align:right;font-family:var(--mono)}
   .side.on{transform:none}
   .burger{display:block}
   .top{padding:12px 16px}
-  .top h2{font-size:21px}
+  .top h2{font-size:20px}
   .wrap{padding:18px 16px 60px}
   .hero{padding:20px}
   .hero h4{font-size:26px}
@@ -162,6 +182,7 @@ td input.num{text-align:right;font-family:var(--mono)}
   .kpi .val{font-size:19px;white-space:nowrap}
   .kpi .val small{font-size:11px}
   .kpi .lbl{font-size:10px}
+  .pz .t2{font-size:28px}
 }
 </style>
 </head>
@@ -173,21 +194,37 @@ td input.num{text-align:right;font-family:var(--mono)}
     <div class="brand">
       <div class="kicker">Отбасылық той</div>
       <h1>Сырға салу</h1>
-      <div class="sub">Панель подготовки</div>
+      <div class="sub">Құдалық · панель подготовки</div>
     </div>
     <nav class="nav" id="nav">
       <div class="grp">Обзор</div>
       <button data-s="dash" class="on"><span class="ico">◆</span>Дашборд</button>
-      <button data-s="plan"><span class="ico">✓</span>Чек-лист</button>
-      <button data-s="day"><span class="ico">🕐</span>Сценарий дня</button>
-      <div class="grp">Контент</div>
-      <button data-s="video"><span class="ico">🎬</span>Видео и фильм</button>
-      <button data-s="song"><span class="ico">🎙</span>Запись песни</button>
-      <button data-s="music"><span class="ico">🎵</span>Диджей и музыка</button>
+      <button data-s="blocks"><span class="ico">▤</span>Блоки готовности</button>
+      <button data-s="day"><span class="ico">🕐</span>Тайминг дня</button>
+      <div class="grp">Гости</div>
+      <button data-s="guests"><span class="ico">👥</span>Гости и рассадка</button>
+      <button data-s="cards"><span class="ico">🏷</span>Карточки на тарелку</button>
+      <div class="grp">Подарки</div>
+      <button data-s="kuda"><span class="ico">🎁</span>Құдаларға сыйлық</button>
+      <button data-s="gifts"><span class="ico">💍</span>Жених, невеста, дети</button>
+      <button data-s="attr"><span class="ico">🕌</span>Ұлттық атрибуттар</button>
+      <div class="grp">Программа</div>
+      <button data-s="toi"><span class="ico">🎺</span>Тойбастар</button>
       <button data-s="perform"><span class="ico">🎤</span>Кто что поёт</button>
+      <button data-s="music"><span class="ico">🎵</span>Музыка и жетіген</button>
+      <div class="grp">Контент</div>
+      <button data-s="photo"><span class="ico">🖼</span>Фотозона и текст</button>
+      <button data-s="shoot"><span class="ico">📸</span>Нац. фотосессия</button>
+      <button data-s="video"><span class="ico">🎬</span>Видео и LED</button>
+      <button data-s="song"><span class="ico">🎙</span>Запись песни</button>
+      <div class="grp">Площадка</div>
+      <button data-s="rest"><span class="ico">🍽</span>Ресторан</button>
+      <button data-s="decor"><span class="ico">💐</span>Декор</button>
       <div class="grp">Деньги</div>
       <button data-s="pay"><span class="ico">₸</span>Оплаты и предоплаты</button>
-      <div class="grp">Настройки</div>
+      <div class="grp">Финал</div>
+      <button data-s="cont"><span class="ico">📞</span>Контакты</button>
+      <button data-s="final"><span class="ico">✓</span>Чек-лист за день до</button>
       <button data-s="set"><span class="ico">⚙</span>Данные тоя</button>
     </nav>
   </aside>
@@ -197,111 +234,330 @@ td input.num{text-align:right;font-family:var(--mono)}
       <button class="burger" id="burger">☰</button>
       <div style="flex:1;min-width:0">
         <h2 id="ttl">Дашборд</h2>
-        <div class="sub" id="tsub">Общая готовность к сырға салу</div>
+        <div class="sub" id="tsub">Общая готовность</div>
       </div>
       <button class="btn gh sm" id="exp">⬇ Экспорт</button>
     </div>
     <div class="wrap">
 
-      <!-- ================= DASHBOARD ================= -->
+      <!-- DASH -->
       <section class="sect on" id="s-dash">
         <div class="hero">
-          <div class="k">Сырға салу</div>
+          <div class="k">Сырға салу · Құдалық</div>
           <h4 id="h-names">—</h4>
           <div class="meta" id="h-meta">—</div>
           <div class="cd" id="h-cd"></div>
         </div>
-
         <h3 class="hh">Ключевые цифры</h3>
         <div class="grid g4" id="kpis"></div>
-
         <h3 class="hh">Готовность по направлениям</h3>
         <div class="grid g2" id="tracks"></div>
-
         <h3 class="hh">Ближайшие дела</h3>
         <div id="soon"></div>
       </section>
 
-      <!-- ================= CHECKLIST ================= -->
-      <section class="sect" id="s-plan">
-        <div class="chips" id="plan-chips"></div>
-        <div id="plan-list"></div>
-        <div class="bar-actions">
-          <button class="btn pri sm" id="add-task">+ Добавить дело</button>
-        </div>
-      </section>
-
-      <!-- ================= DAY SCRIPT ================= -->
-      <section class="sect" id="s-day">
-        <p class="hint">Тайминг самого дня — по нему работают ведущий, оператор и диджей. Отметьте галочкой то, что уже согласовано.</p>
+      <!-- BLOCKS -->
+      <section class="sect" id="s-blocks">
+        <p class="hint">Главная таблица готовности: кто отвечает за блок и на каком он этапе.</p>
         <div class="tbl-wrap">
           <table>
-            <thead><tr><th style="width:90px">Время</th><th>Что происходит</th><th style="width:150px">Кто ведёт</th><th style="width:170px">Музыка / съёмка</th><th style="width:110px">Статус</th><th style="width:44px"></th></tr></thead>
+            <thead><tr><th>Блок</th><th style="width:160px">Ответственный</th><th style="width:130px">Статус</th><th style="width:200px">Комментарий</th><th style="width:44px"></th></tr></thead>
+            <tbody id="blocks-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" data-add="blocks">+ Добавить блок</button></div>
+      </section>
+
+      <!-- DAY -->
+      <section class="sect" id="s-day">
+        <p class="hint">Тайминг дня — по нему работают ведущий, оператор, жетіген и хостес.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th style="width:90px">Время</th><th>Что происходит</th><th style="width:150px">Кто ведёт</th><th style="width:180px">Музыка / съёмка</th><th style="width:120px">Статус</th><th style="width:44px"></th></tr></thead>
             <tbody id="day-body"></tbody>
           </table>
         </div>
-        <div class="bar-actions"><button class="btn pri sm" id="add-day">+ Добавить блок</button></div>
+        <div class="bar-actions"><button class="btn pri sm" data-add="day">+ Добавить блок</button></div>
       </section>
 
-      <!-- ================= VIDEO ================= -->
-      <section class="sect" id="s-video">
-        <div class="grid g3" id="video-kpi"></div>
+      <!-- GUESTS -->
+      <section class="sect" id="s-guests">
+        <div class="grid g4" id="guest-kpi"></div>
+        <h3 class="hh">Список гостей</h3>
+        <p class="hint">Вставьте список одним разом — по одному имени в строке. Можно сразу с номером стола через запятую: «Айгүл апай, 2».</p>
+        <div class="chips" id="guest-chips"></div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Имя гостя</th><th style="width:90px">Стол</th><th style="width:150px">Сторона</th><th style="width:110px">Подтвердил</th><th style="width:110px">Карточка</th><th style="width:44px"></th></tr></thead>
+            <tbody id="guest-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions">
+          <button class="btn pri sm" data-add="guests">+ Гость</button>
+          <button class="btn gh sm" id="bulk">⬆ Вставить список</button>
+        </div>
+        <h3 class="hh">Рассадка по столам</h3>
+        <div class="grid g3" id="tables"></div>
+      </section>
 
-        <h3 class="hh">Съёмочная группа</h3>
+      <!-- CARDS -->
+      <section class="sect" id="s-cards">
+        <p class="hint">Именная карточка кладётся на тарелку каждого гостя. Заполните список в разделе «Гости» — карточки соберутся сами, останется распечатать и разрезать.</p>
         <div class="grid g2">
           <div class="card">
-            <div class="ct">Команда</div>
-            <div class="cs">Кто снимает и на чём</div>
-            <div class="field"><label>Видеограф / студия</label><input type="text" data-v="videographer" placeholder="Имя, контакт"></div>
-            <div class="field"><label>Второй оператор</label><input type="text" data-v="videographer2" placeholder="Имя, контакт"></div>
-            <div class="field"><label>Фотограф</label><input type="text" data-v="photographer" placeholder="Имя, контакт"></div>
-            <div class="field" style="margin:0"><label>Техника (камеры, дрон, свет, петлички)</label><textarea data-v="videoGear" placeholder="2 камеры, дрон, 2 петлички, свет на локации"></textarea></div>
+            <div class="ct">Что печатаем</div>
+            <div class="cs">Текст одинаковый на всех карточках, имя подставляется</div>
+            <div class="field"><label>Надпись сверху</label><input type="text" data-v="cardTop" placeholder="Сырға салу"></div>
+            <div class="field"><label>Строка под именем</label><input type="text" data-v="cardLine" placeholder="Қыз барған жеріне құт алып барады"></div>
+            <div class="field" style="margin:0"><label>Показывать номер стола</label>
+              <select data-v="cardTable"><option value="yes">Да — «2-үстел»</option><option value="no">Нет</option></select>
+            </div>
+            <div class="bar-actions">
+              <button class="btn pri sm" id="print-cards">🖨 Распечатать карточки</button>
+            </div>
+            <p class="hint" style="margin:12px 0 0">Печать на плотной бумаге 300 г, A4 — по 8 карточек на лист, 90×55 мм.</p>
           </div>
           <div class="card">
-            <div class="ct">Фильм</div>
-            <div class="cs">Что должно получиться на выходе</div>
-            <div class="field"><label>Формат фильма</label><input type="text" data-v="filmFormat" placeholder="Фильм 12–15 мин + клип 3 мин + вертикалки"></div>
-            <div class="field"><label>Дедлайн готового фильма</label><input type="date" data-v="filmDeadline"></div>
-            <div class="field"><label>Музыка фильма</label><input type="text" data-v="filmMusic" placeholder="Трек для монтажа"></div>
-            <div class="field" style="margin:0"><label>Идея / настроение</label><textarea data-v="filmIdea" placeholder="Тёплая семейная история, national style, живые эмоции, без постановки"></textarea></div>
+            <div class="ct">Как будет выглядеть</div>
+            <div class="cs">Живой пример с первым гостем из списка</div>
+            <div style="display:flex;justify-content:center;padding:10px 0">
+              <div class="pc" id="pc-prev"></div>
+            </div>
+          </div>
+        </div>
+        <h3 class="hh">Готовность карточек</h3>
+        <div class="grid g3" id="card-kpi"></div>
+      </section>
+
+      <!-- KUDA GIFTS -->
+      <section class="sect" id="s-kuda">
+        <div class="grid g3" id="kuda-kpi"></div>
+        <h3 class="hh">Подарки со стороны невесты для құдалар</h3>
+        <p class="hint">Отметьте «Куплен» и «Подписан» — на самом тое подарки вручают строго по порядку, поэтому важна колонка «Очередь».</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th style="width:60px">№</th><th>Кому</th><th>Подарок</th><th style="width:90px">Куплен</th><th style="width:95px">Подписан</th><th style="width:44px"></th></tr></thead>
+            <tbody id="kuda-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" data-add="kuda">+ Добавить құда</button></div>
+      </section>
+
+      <!-- GIFTS -->
+      <section class="sect" id="s-gifts">
+        <h3 class="hh">Подарки для жениха, невесты и детей</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th style="width:170px">Кому</th><th>Подарок</th><th style="width:150px">Кто вручает</th><th style="width:90px">Готово</th><th style="width:44px"></th></tr></thead>
+            <tbody id="gifts-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" data-add="gifts">+ Добавить</button></div>
+      </section>
+
+      <!-- ATTRIBUTES -->
+      <section class="sect" id="s-attr">
+        <h3 class="hh">Ұлттық атрибуттар</h3>
+        <p class="hint">Главный предмет дня — сырға. Всё остальное работает на него.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Позиция</th><th style="width:230px">Комментарий</th><th style="width:150px">Ответственный</th><th style="width:90px">Готово</th><th style="width:44px"></th></tr></thead>
+            <tbody id="attr-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" data-add="attr">+ Добавить позицию</button></div>
+      </section>
+
+      <!-- TOIBASTAR -->
+      <section class="sect" id="s-toi">
+        <p class="hint">Тойбастар открывает той: исполнитель поёт и «начинает» праздник, а хозяева тоя одаривают его. Заранее договоритесь, кто поёт и что дарите — на месте это делать поздно.</p>
+        <div class="grid g2">
+          <div class="card">
+            <div class="ct">Кто открывает той</div>
+            <div class="cs">Исполнитель тойбастар</div>
+            <div class="field"><label>Исполнитель</label><input type="text" data-v="toiSinger" placeholder="Имя, контакт"></div>
+            <div class="field"><label>Песня</label><input type="text" data-v="toiSong" placeholder="Тойбастар"></div>
+            <div class="field"><label>Сопровождение</label><input type="text" data-v="toiMusic" placeholder="Жетіген / домбыра / минусовка"></div>
+            <div class="field" style="margin:0"><label>Время выхода</label><input type="text" data-v="toiTime" placeholder="Сразу после встречи гостей"></div>
+          </div>
+          <div class="card">
+            <div class="ct">Сый — что дарим</div>
+            <div class="cs">Тойбастарға сый беру</div>
+            <div class="field"><label>Подарок исполнителю</label><input type="text" data-v="toiGift" placeholder="Конверт / шапан / отрез"></div>
+            <div class="field"><label>Кто вручает</label><input type="text" data-v="toiGiver" placeholder="Имя"></div>
+            <div class="field"><label>Кто говорит слово</label><input type="text" data-v="toiWord" placeholder="Ведущий / бас құда"></div>
+            <div class="field" style="margin:0"><label>Заметки</label><textarea data-v="toiNote" placeholder="Шашу сразу после тойбастар, дети собирают"></textarea></div>
+          </div>
+        </div>
+        <h3 class="hh">Шаги тойбастар</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Шаг</th><th style="width:160px">Кто</th><th style="width:130px">Статус</th><th style="width:44px"></th></tr></thead>
+            <tbody id="toi-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" data-add="toi">+ Добавить шаг</button></div>
+      </section>
+
+      <!-- PERFORM -->
+      <section class="sect" id="s-perform">
+        <div class="grid g3" id="perf-kpi"></div>
+        <h3 class="hh">Живое исполнение</h3>
+        <p class="hint">Кто выходит петь и есть ли минусовка. Забрать фонограммы заранее — самая частая причина накладок.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th style="width:160px">Кто поёт</th><th>Песня</th><th style="width:130px">Когда</th><th style="width:130px">Минусовка</th><th style="width:120px">Статус</th><th style="width:44px"></th></tr></thead>
+            <tbody id="perf-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" data-add="perf">+ Добавить номер</button></div>
+      </section>
+
+      <!-- MUSIC -->
+      <section class="sect" id="s-music">
+        <div class="grid g2">
+          <div class="card">
+            <div class="ct">Музыканты</div>
+            <div class="cs">Живой звук и фон</div>
+            <div class="field"><label>Жетіген / ансамбль</label><input type="text" data-v="jetigen" placeholder="Имя, контакт"></div>
+            <div class="field"><label>Диджей / звук</label><input type="text" data-v="dj" placeholder="Имя, контакт"></div>
+            <div class="field"><label>Ведущий (асаба)</label><input type="text" data-v="host" placeholder="Имя, контакт"></div>
+            <div class="field" style="margin:0"><label>Саундчек</label><input type="text" data-v="soundcheck" placeholder="За 2 часа до начала"></div>
+          </div>
+          <div class="card">
+            <div class="ct">Пожелания</div>
+            <div class="cs">Что играем и чего не играем</div>
+            <div class="field"><label>Настроение</label><input type="text" data-v="musicMood" placeholder="Живой жетіген на встрече, фон на застолье"></div>
+            <div class="field" style="margin:0"><label>Стоп-лист</label><textarea data-v="musicStop" placeholder="Что не ставить"></textarea></div>
+          </div>
+        </div>
+        <h3 class="hh">Музыка по моментам</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th style="width:180px">Момент</th><th>Трек / инструмент</th><th style="width:160px">Исполнитель</th><th style="width:120px">Статус</th><th style="width:44px"></th></tr></thead>
+            <tbody id="pl-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" data-add="playlist">+ Добавить</button></div>
+      </section>
+
+      <!-- PHOTOZONE -->
+      <section class="sect" id="s-photo">
+        <h3 class="hh">Как будет выглядеть</h3>
+        <p class="hint">Живой макет: меняйте поля ниже — надпись обновляется сразу. Покажите этот экран подрядчику.</p>
+        <div class="pz" id="pz-prev"></div>
+
+        <h3 class="hh">Текст на фотозону</h3>
+        <div class="grid g2">
+          <div class="card">
+            <div class="ct">Надпись</div>
+            <div class="cs">Три строки: обряд, имена, бата</div>
+            <div class="field"><label>Верхняя строка</label><input type="text" data-v="pzTop" placeholder="Сырға салу"></div>
+            <div class="field"><label>Главная строка (имена)</label><input type="text" data-v="pzMain" placeholder="Даяна & Есім"></div>
+            <div class="field"><label>Строка-бата снизу</label><input type="text" data-v="pzSub" placeholder="Қыз барған жеріне құт алып барады"></div>
+            <div class="field" style="margin:0"><label>Дата на баннере</label><input type="text" data-v="pzDate" placeholder="12.09.2026"></div>
+            <p class="hint" style="margin:12px 0 0">Можно писать текст прямо, а можно вставить <b>{names}</b> — подставятся оба имени, <b>{bride}</b> — имя қыз, <b>{date}</b> — дата. Тогда надпись сама обновится, если поменяете данные тоя.</p>
+          </div>
+          <div class="card">
+            <div class="ct">Производство</div>
+            <div class="cs">Что заказать</div>
+            <div class="field"><label>Тип</label><input type="text" data-v="pzType" placeholder="Пресс-волл 2×2,4 м / арка / юрта"></div>
+            <div class="field"><label>Подрядчик</label><input type="text" data-v="pzVendor" placeholder="Имя, контакт"></div>
+            <div class="field"><label>Дедлайн макета</label><input type="date" data-v="pzDeadline"></div>
+            <div class="field" style="margin:0"><label>Заметки</label><textarea data-v="pzNote" placeholder="Ою-өрнек по краю, бордо + золото, свет с двух сторон"></textarea></div>
           </div>
         </div>
 
-        <h3 class="hh">План съёмки — сцены</h3>
-        <p class="hint">Список кадров и сцен, которые нужно снять. Отдайте его оператору до тоя — тогда ничего не потеряется.</p>
+        <h3 class="hh">Варианты текста — выберите свой</h3>
+        <p class="hint">Нажмите на карточку — текст подставится в макет выше.</p>
+        <div class="grid g2" id="phrases"></div>
+      </section>
+
+      <!-- NATIONAL SHOOT -->
+      <section class="sect" id="s-shoot">
+        <div class="grid g2">
+          <div class="card">
+            <div class="ct">Национальная фотосессия</div>
+            <div class="cs">Отдельная съёмка в казахском стиле</div>
+            <div class="field"><label>Дата съёмки</label><input type="date" data-v="shootDate"></div>
+            <div class="field"><label>Локация</label><input type="text" data-v="shootLoc" placeholder="Юрта в горах / этноаул / студия"></div>
+            <div class="field"><label>Фотограф</label><input type="text" data-v="shootPhoto" placeholder="Имя, контакт"></div>
+            <div class="field" style="margin:0"><label>Время (золотой час)</label><input type="text" data-v="shootTime" placeholder="Рассвет 06:00 или закат 18:30"></div>
+          </div>
+          <div class="card">
+            <div class="ct">Образы</div>
+            <div class="cs">Что надеваем</div>
+            <div class="field"><label>Образ невесты</label><input type="text" data-v="shootBride" placeholder="Көйлек, камзол, кимешек / сәукеле"></div>
+            <div class="field"><label>Образ жениха</label><input type="text" data-v="shootGroom" placeholder="Шапан, бөрік, белдік"></div>
+            <div class="field"><label>Прокат костюмов</label><input type="text" data-v="shootRent" placeholder="Салон, бронь, сроки"></div>
+            <div class="field" style="margin:0"><label>Визажист / стилист</label><input type="text" data-v="shootStyle" placeholder="Имя, контакт"></div>
+          </div>
+        </div>
+        <h3 class="hh">Кадры и реквизит</h3>
+        <p class="hint">План съёмки — отдайте фотографу заранее.</p>
         <div class="tbl-wrap">
           <table>
-            <thead><tr><th style="width:110px">Когда</th><th>Сцена / кадр</th><th style="width:150px">Локация</th><th style="width:150px">Кто в кадре</th><th style="width:110px">Статус</th><th style="width:44px"></th></tr></thead>
+            <thead><tr><th>Кадр / реквизит</th><th style="width:170px">Локация</th><th style="width:150px">Кто в кадре</th><th style="width:120px">Статус</th><th style="width:44px"></th></tr></thead>
+            <tbody id="shoot-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" data-add="shoot">+ Добавить кадр</button></div>
+      </section>
+
+      <!-- VIDEO -->
+      <section class="sect" id="s-video">
+        <div class="grid g3" id="video-kpi"></div>
+        <h3 class="hh">Команда и LED</h3>
+        <div class="grid g2">
+          <div class="card">
+            <div class="ct">Съёмка</div>
+            <div class="cs">Кто снимает</div>
+            <div class="field"><label>Видеограф</label><input type="text" data-v="videographer" placeholder="Имя, контакт"></div>
+            <div class="field"><label>Фотограф</label><input type="text" data-v="photographer" placeholder="Имя, контакт"></div>
+            <div class="field"><label>Техника</label><input type="text" data-v="videoGear" placeholder="2 камеры, дрон, петлички, свет"></div>
+            <div class="field" style="margin:0"><label>Дедлайн фильма</label><input type="date" data-v="filmDeadline"></div>
+          </div>
+          <div class="card">
+            <div class="ct">LED-видео</div>
+            <div class="cs">Что показываем на экране</div>
+            <div class="field"><label>Ролик на LED</label><input type="text" data-v="ledVideo" placeholder="История Даяны: детство → сегодня, 2–3 мин"></div>
+            <div class="field"><label>Кто монтирует</label><input type="text" data-v="ledEditor" placeholder="Имя"></div>
+            <div class="field"><label>Дедлайн ролика</label><input type="date" data-v="ledDeadline"></div>
+            <div class="field" style="margin:0"><label>Заметки</label><textarea data-v="filmIdea" placeholder="Формат экрана, проверить звук ролика на площадке"></textarea></div>
+          </div>
+        </div>
+        <h3 class="hh">План съёмки — сцены</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th style="width:110px">Когда</th><th>Сцена / кадр</th><th style="width:140px">Локация</th><th style="width:140px">Кто в кадре</th><th style="width:120px">Статус</th><th style="width:44px"></th></tr></thead>
             <tbody id="shot-body"></tbody>
           </table>
         </div>
-        <div class="bar-actions"><button class="btn pri sm" id="add-shot">+ Добавить сцену</button></div>
+        <div class="bar-actions"><button class="btn pri sm" data-add="shots">+ Добавить сцену</button></div>
       </section>
 
-      <!-- ================= SONG ================= -->
+      <!-- SONG -->
       <section class="sect" id="s-song">
         <div class="grid g3" id="song-kpi"></div>
-
         <h3 class="hh">Песня</h3>
         <div class="grid g2">
           <div class="card">
             <div class="ct">О песне</div>
             <div class="cs">Что записываем</div>
-            <div class="field"><label>Название / песня</label><input type="text" data-v="songTitle" placeholder="Название песни"></div>
+            <div class="field"><label>Название</label><input type="text" data-v="songTitle" placeholder="Название песни"></div>
             <div class="field"><label>Кто исполняет</label><input type="text" data-v="songSinger" placeholder="Имя"></div>
             <div class="field"><label>Автор слов / музыки</label><input type="text" data-v="songAuthor" placeholder="Автор"></div>
-            <div class="field" style="margin:0"><label>Тональность, длительность, комментарий</label><textarea data-v="songNote" placeholder="Тональность, минусовка, кто аранжирует"></textarea></div>
+            <div class="field" style="margin:0"><label>Тональность, минусовка</label><textarea data-v="songNote"></textarea></div>
           </div>
           <div class="card">
             <div class="ct">Студия</div>
             <div class="cs">Где и когда пишем</div>
             <div class="field"><label>Студия</label><input type="text" data-v="studio" placeholder="Название, адрес"></div>
             <div class="field"><label>Дата записи</label><input type="date" data-v="studioDate"></div>
-            <div class="field"><label>Звукорежиссёр</label><input type="text" data-v="soundEng" placeholder="Имя, контакт"></div>
-            <div class="field" style="margin:0"><label>Дедлайн готового трека</label><input type="date" data-v="songDeadline"></div>
+            <div class="field"><label>Звукорежиссёр</label><input type="text" data-v="soundEng" placeholder="Имя"></div>
+            <div class="field" style="margin:0"><label>Дедлайн трека</label><input type="date" data-v="songDeadline"></div>
           </div>
         </div>
-
         <h3 class="hh">Этапы записи</h3>
         <div class="tbl-wrap">
           <table>
@@ -309,66 +565,44 @@ td input.num{text-align:right;font-family:var(--mono)}
             <tbody id="stage-body"></tbody>
           </table>
         </div>
-        <div class="bar-actions"><button class="btn pri sm" id="add-stage">+ Добавить этап</button></div>
+        <div class="bar-actions"><button class="btn pri sm" data-add="stages">+ Добавить этап</button></div>
       </section>
 
-      <!-- ================= MUSIC / DJ ================= -->
-      <section class="sect" id="s-music">
-        <div class="grid g2">
-          <div class="card">
-            <div class="ct">Диджей</div>
-            <div class="cs">Контакты и техника</div>
-            <div class="field"><label>Диджей</label><input type="text" data-v="dj" placeholder="Имя, контакт"></div>
-            <div class="field"><label>Ведущий / асаба</label><input type="text" data-v="host" placeholder="Имя, контакт"></div>
-            <div class="field"><label>Аппаратура и свет</label><input type="text" data-v="djGear" placeholder="Звук, микрофоны, свет, дым"></div>
-            <div class="field" style="margin:0"><label>Время саундчека</label><input type="text" data-v="soundcheck" placeholder="За 2 часа до начала"></div>
-          </div>
-          <div class="card">
-            <div class="ct">Пожелания по музыке</div>
-            <div class="cs">Что играем и чего точно не играем</div>
-            <div class="field"><label>Общее настроение</label><input type="text" data-v="musicMood" placeholder="Kazakh pop, ретро для старших, танцы после 22:00"></div>
-            <div class="field" style="margin:0"><label>Стоп-лист</label><textarea data-v="musicStop" placeholder="Треки и жанры, которые не ставить"></textarea></div>
-          </div>
-        </div>
-
-        <h3 class="hh">Плейлист по блокам</h3>
-        <p class="hint">Список для диджея: какой трек в какой момент. Отправьте его вместе с таймингом дня.</p>
-        <div class="chips" id="pl-chips"></div>
+      <!-- RESTAURANT -->
+      <section class="sect" id="s-rest">
+        <h3 class="hh">Ресторан</h3>
         <div class="tbl-wrap">
           <table>
-            <thead><tr><th style="width:170px">Момент</th><th>Трек</th><th style="width:160px">Исполнитель</th><th style="width:120px">Статус</th><th style="width:44px"></th></tr></thead>
-            <tbody id="pl-body"></tbody>
+            <thead><tr><th>Задача</th><th style="width:230px">Комментарий</th><th style="width:150px">Ответственный</th><th style="width:90px">Готово</th><th style="width:44px"></th></tr></thead>
+            <tbody id="rest-body"></tbody>
           </table>
         </div>
-        <div class="bar-actions"><button class="btn pri sm" id="add-pl">+ Добавить трек</button></div>
+        <div class="bar-actions"><button class="btn pri sm" data-add="rest">+ Добавить задачу</button></div>
       </section>
 
-      <!-- ================= PERFORMERS ================= -->
-      <section class="sect" id="s-perform">
-        <div class="grid g3" id="perf-kpi"></div>
-        <h3 class="hh">Живое исполнение</h3>
-        <p class="hint">Кто выходит петь, какая песня, есть ли минусовка. Отметьте, у кого нужно заранее забрать фонограмму — это самая частая причина накладок.</p>
+      <!-- DECOR -->
+      <section class="sect" id="s-decor">
+        <h3 class="hh">Декор</h3>
         <div class="tbl-wrap">
           <table>
-            <thead><tr><th style="width:160px">Кто поёт</th><th>Песня</th><th style="width:130px">Когда</th><th style="width:120px">Минусовка</th><th style="width:120px">Статус</th><th style="width:44px"></th></tr></thead>
-            <tbody id="perf-body"></tbody>
+            <thead><tr><th>Задача</th><th style="width:230px">Комментарий</th><th style="width:150px">Ответственный</th><th style="width:90px">Готово</th><th style="width:44px"></th></tr></thead>
+            <tbody id="decor-body"></tbody>
           </table>
         </div>
-        <div class="bar-actions"><button class="btn pri sm" id="add-perf">+ Добавить номер</button></div>
+        <div class="bar-actions"><button class="btn pri sm" data-add="decor">+ Добавить задачу</button></div>
       </section>
 
-      <!-- ================= PAYMENTS ================= -->
+      <!-- PAY -->
       <section class="sect" id="s-pay">
         <div class="grid g4" id="pay-kpi"></div>
-
         <h3 class="hh">Сметы, предоплаты и остатки</h3>
         <p class="hint">Впишите сумму и предоплату — остаток посчитается сам. Суммы в тенге.</p>
         <div class="tbl-wrap">
           <table>
             <thead><tr>
-              <th>Статья</th><th style="width:150px">Подрядчик</th>
-              <th style="width:120px">Сумма</th><th style="width:120px">Предоплата</th><th style="width:110px">Остаток</th>
-              <th style="width:130px">Оплатить до</th><th style="width:110px">Статус</th><th style="width:44px"></th>
+              <th>Статья</th><th style="width:140px">Подрядчик</th>
+              <th style="width:115px">Сумма</th><th style="width:115px">Предоплата</th><th style="width:105px">Остаток</th>
+              <th style="width:130px">Оплатить до</th><th style="width:125px">Статус</th><th style="width:44px"></th>
             </tr></thead>
             <tbody id="pay-body"></tbody>
             <tfoot><tr>
@@ -378,38 +612,58 @@ td input.num{text-align:right;font-family:var(--mono)}
             </tr></tfoot>
           </table>
         </div>
-        <div class="bar-actions"><button class="btn pri sm" id="add-pay">+ Добавить статью</button></div>
-
+        <div class="bar-actions"><button class="btn pri sm" data-add="pay">+ Добавить статью</button></div>
         <h3 class="hh">График платежей</h3>
         <div id="pay-sched"></div>
       </section>
 
-      <!-- ================= SETTINGS ================= -->
+      <!-- CONTACTS -->
+      <section class="sect" id="s-cont">
+        <h3 class="hh">Документы и контакты</h3>
+        <p class="hint">Один экран, который открывает координатор в день тоя.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th style="width:180px">Роль</th><th style="width:180px">Имя</th><th style="width:160px">Телефон</th><th>Комментарий</th><th style="width:90px">Готово</th><th style="width:44px"></th></tr></thead>
+            <tbody id="cont-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" data-add="cont">+ Добавить контакт</button></div>
+      </section>
+
+      <!-- FINAL -->
+      <section class="sect" id="s-final">
+        <p class="hint">Пройдите этот список за день до мероприятия — сверху вниз, без пропусков.</p>
+        <div id="final-list"></div>
+        <div class="bar-actions"><button class="btn pri sm" id="add-final">+ Добавить пункт</button></div>
+      </section>
+
+      <!-- SETTINGS -->
       <section class="sect" id="s-set">
         <div class="grid g2">
           <div class="card">
             <div class="ct">Данные тоя</div>
-            <div class="cs">Эти данные видны на дашборде</div>
-            <div class="field"><label>Кому надевают сырға (келін)</label><input type="text" data-v="bride" placeholder="Имя"></div>
-            <div class="field"><label>Жених / семья</label><input type="text" data-v="groom" placeholder="Имя"></div>
-            <div class="field"><label>Дата тоя</label><input type="date" data-v="date"></div>
+            <div class="cs">Видны на дашборде и в макетах</div>
+            <div class="field"><label>Қыз (кому надевают сырға)</label><input type="text" data-v="bride" placeholder="Даяна"></div>
+            <div class="field"><label>Күйеу бала</label><input type="text" data-v="groom" placeholder="Имя"></div>
+            <div class="field"><label>Дата мероприятия</label><input type="date" data-v="date"></div>
             <div class="field"><label>Время начала</label><input type="time" data-v="time"></div>
             <div class="field"><label>Место</label><input type="text" data-v="venue" placeholder="Ресторан, адрес"></div>
-            <div class="field" style="margin:0"><label>Количество гостей</label><input type="number" data-v="guests" placeholder="60"></div>
+            <div class="field"><label>Столов</label><input type="number" data-v="tables" placeholder="6"></div>
+            <div class="field" style="margin:0"><label>Координатор мероприятия</label><input type="text" data-v="coord" placeholder="Имя"></div>
           </div>
           <div class="card">
             <div class="ct">Бюджет и данные</div>
-            <div class="cs">Ориентир и управление сохранением</div>
-            <div class="field"><label>Плановый бюджет, ₸</label><input type="number" data-v="budget" placeholder="2000000"></div>
+            <div class="cs">Ориентир и резервная копия</div>
+            <div class="field"><label>Плановый бюджет, ₸</label><input type="number" data-v="budget" placeholder="2500000"></div>
             <div class="field"><label>Ответственный за деньги</label><input type="text" data-v="treasurer" placeholder="Имя"></div>
-            <div class="field" style="margin:0"><label>Заметки</label><textarea data-v="notes" placeholder="Любые договорённости"></textarea></div>
+            <div class="field" style="margin:0"><label>Заметки</label><textarea data-v="notes"></textarea></div>
             <div class="bar-actions">
               <button class="btn gh sm" id="exp2">⬇ Скачать копию (JSON)</button>
               <button class="btn gh sm" id="imp">⬆ Загрузить копию</button>
               <button class="btn gh sm" id="reset" style="color:var(--red);border-color:#e8c4bd">Сбросить всё</button>
             </div>
             <input type="file" id="file" accept="application/json" hidden>
-            <p class="hint" style="margin:12px 0 0">Данные хранятся только в этом браузере. Чтобы перенести на другое устройство — скачайте копию и загрузите её там.</p>
+            <p class="hint" style="margin:12px 0 0">Данные хранятся только в этом браузере. Для переноса — скачайте копию и загрузите на другом устройстве.</p>
           </div>
         </div>
       </section>
@@ -420,58 +674,155 @@ td input.num{text-align:right;font-family:var(--mono)}
 <div class="saved" id="toast">Сохранено</div>
 
 <script>
-const KEY='syrga-salu-v1';
+const KEY='syrga-salu-v2';
 const STATUS=['todo','prog','done'];
 const ST_LABEL={todo:'Не начато',prog:'В работе',done:'Готово'};
 const uid=()=>Math.random().toString(36).slice(2,9);
 
+/* Тексты для фотозоны — Kazakh, с подсказкой где уместен каждый */
+const PHRASES=[
+  {top:'Сырға салу',main:'{names}',sub:'Қыз барған жеріне құт алып барады',tr:'Девушка приносит благодать туда, куда приходит',use:'Классика: обряд сверху, имена крупно, строка из баты снизу. Самый универсальный вариант.'},
+  {top:'Құдалық',main:'Екі әулет — бір шаңырақ',sub:'Құтты болсын!',tr:'Два рода — один шаңырак',use:'Про сам смысл құдалық: соединяются две семьи. Хорошо, если фотозона общая для двух сторон.'},
+  {top:'Ақ бата',main:'Ақ жол, {bride}!',sub:'Бақ пен береке бірге қонсын',tr:'Счастливого пути, {bride}! Пусть счастье и достаток придут вместе',use:'Тёплый, личный — как на вашей карточке «Қызға ақ бата». Имя читается издалека.'},
+  {top:'Сырға салу',main:'{bride}',sub:'Қыз — әулеттің ең аяулы аманаты',tr:'Дочь — самый дорогой аманат рода',use:'Если фотозона именно про невесту, а не про пару. Строка из вашей баты.'},
+  {top:'',main:'Құтты болсын!',sub:'{names} · {date}',tr:'Пусть будет благословенно!',use:'Минимализм: одно крупное слово. Читается с любого расстояния, красиво в кадре.'},
+  {top:'Сырға салу',main:'Бақыт қонсын шаңыраққа',sub:'{names}',tr:'Пусть счастье поселится в доме',use:'Пожелание дому. Хорошо сочетается с юртой или шаңырак-декором в фотозоне.'},
+  {top:'Аяулы қызымыз',main:'{bride}',sub:'Қыз — қонақ',tr:'Наша любимая дочь · Дочь — гостья',use:'Со стороны родителей невесты. Короткая пословица бьёт прямо в сердце гостям.'},
+  {top:'',main:'{names}',sub:'Ақ жүрекпен барған шаңырағына береке қонады',tr:'В дом, куда идут с чистым сердцем, приходит достаток',use:'Если хотите только имена крупно, а бата — тонкой строкой. Строка из вашей карточки.'}
+];
+
 const SEED={
-  bride:'',groom:'',date:'',time:'17:00',venue:'',guests:'',budget:'',treasurer:'',notes:'',
-  videographer:'',videographer2:'',photographer:'',videoGear:'',
-  filmFormat:'Фильм 12–15 мин + клип 3 мин + вертикальные ролики',filmDeadline:'',filmMusic:'',filmIdea:'',
+  bride:'Даяна',groom:'',date:'',time:'17:00',venue:'',tables:6,coord:'',budget:'',treasurer:'',notes:'',
+  cardTop:'Сырға салу',cardLine:'Қыз барған жеріне құт алып барады',cardTable:'yes',
+  pzTop:'Сырға салу',pzMain:'Даяна',pzSub:'Қыз барған жеріне құт алып барады',pzDate:'',
+  pzType:'',pzVendor:'',pzDeadline:'',pzNote:'',
+  toiSinger:'',toiSong:'Тойбастар',toiMusic:'Жетіген',toiTime:'',toiGift:'',toiGiver:'',toiWord:'',toiNote:'',
+  jetigen:'',dj:'',host:'',soundcheck:'',musicMood:'',musicStop:'',
+  shootDate:'',shootLoc:'',shootPhoto:'',shootTime:'',shootBride:'',shootGroom:'',shootRent:'',shootStyle:'',
+  videographer:'',photographer:'',videoGear:'',filmDeadline:'',ledVideo:'',ledEditor:'',ledDeadline:'',filmIdea:'',
   songTitle:'',songSinger:'',songAuthor:'',songNote:'',studio:'',studioDate:'',soundEng:'',songDeadline:'',
-  dj:'',host:'',djGear:'',soundcheck:'',musicMood:'',musicStop:'',
-  tasks:[
-    {id:uid(),cat:'Организация',t:'Согласовать дату с двумя семьями',m:'Старшие с обеих сторон',done:false},
-    {id:uid(),cat:'Организация',t:'Забронировать ресторан и меню',m:'Аванс по договору',done:false},
-    {id:uid(),cat:'Организация',t:'Составить список гостей',m:'',done:false},
-    {id:uid(),cat:'Сырға',t:'Купить сырға',m:'Главный атрибут — выбрать заранее',done:false},
-    {id:uid(),cat:'Сырға',t:'Подготовить коробочку / поднос для сырға',m:'Красивая подача в кадре',done:false},
-    {id:uid(),cat:'Сырға',t:'Собрать подарки келін (кимешек, шапан, отрезы)',m:'',done:false},
-    {id:uid(),cat:'Сырға',t:'Договориться, кто надевает сырға',m:'Обычно апа или ене',done:false},
-    {id:uid(),cat:'Образ',t:'Платье и образ келін',m:'Примерка минимум за 2 недели',done:false},
-    {id:uid(),cat:'Образ',t:'Визажист и стилист — бронь',m:'',done:false},
-    {id:uid(),cat:'Декор',t:'Оформление зала и фотозона',m:'',done:false},
-    {id:uid(),cat:'Декор',t:'Торт и сладкий стол',m:'',done:false},
-    {id:uid(),cat:'Контент',t:'Отдать оператору план съёмки',m:'Раздел «Видео и фильм»',done:false},
-    {id:uid(),cat:'Контент',t:'Отдать диджею плейлист и тайминг',m:'Раздел «Диджей и музыка»',done:false},
-    {id:uid(),cat:'Контент',t:'Собрать минусовки у всех, кто поёт',m:'Раздел «Кто что поёт»',done:false}
+
+  blocks:[
+    {id:uid(),t:'Финальный список гостей',who:'',s:'todo',m:'59 гостей'},
+    {id:uid(),t:'Рассадка гостей',who:'',s:'todo',m:'6 столов'},
+    {id:uid(),t:'План зала',who:'',s:'todo',m:''},
+    {id:uid(),t:'Сценарий ведущего',who:'',s:'todo',m:''},
+    {id:uid(),t:'Тайминг мероприятия',who:'',s:'todo',m:''},
+    {id:uid(),t:'Музыкальное сопровождение',who:'',s:'todo',m:'Жетіген, фон'},
+    {id:uid(),t:'LED-видео',who:'',s:'todo',m:''},
+    {id:uid(),t:'Фотограф',who:'',s:'todo',m:''},
+    {id:uid(),t:'Видеограф',who:'',s:'todo',m:''},
+    {id:uid(),t:'Хостес',who:'',s:'todo',m:''},
+    {id:uid(),t:'Цветы',who:'',s:'todo',m:''},
+    {id:uid(),t:'Полиграфия',who:'',s:'todo',m:'Карточки на тарелку, таблички'},
+    {id:uid(),t:'Фотозона',who:'',s:'todo',m:''},
+    {id:uid(),t:'Тойбастар',who:'',s:'todo',m:''},
+    {id:uid(),t:'Национальная фотосессия',who:'',s:'todo',m:''}
   ],
   day:[
-    {id:uid(),tm:'15:00',t:'Сборы келін, макияж',who:'Стилист',mus:'Съёмка сборов, лайв-музыка',s:'todo'},
-    {id:uid(),tm:'16:30',t:'Приезд гостей, встреча',who:'Ведущий',mus:'Фоновый плейлист, съёмка welcome',s:'todo'},
-    {id:uid(),tm:'17:00',t:'Той бастар — открытие',who:'Ведущий',mus:'Той бастар трек',s:'todo'},
-    {id:uid(),tm:'17:30',t:'Слово старших, бата',who:'Ата / апа',mus:'Тихий фон, обе камеры',s:'todo'},
-    {id:uid(),tm:'18:00',t:'Сырға салу — главный момент',who:'Ене / апа',mus:'Торжественный трек, крупный план рук',s:'todo'},
-    {id:uid(),tm:'18:20',t:'Подарки и поздравления',who:'Ведущий',mus:'Фон, съёмка реакций',s:'todo'},
-    {id:uid(),tm:'19:00',t:'Живая песня для келін',who:'Исполнитель',mus:'Минусовка, свет на сцену',s:'todo'},
-    {id:uid(),tm:'20:00',t:'Торт',who:'Ведущий',mus:'Торжественный трек',s:'todo'},
-    {id:uid(),tm:'20:30',t:'Танцы',who:'Диджей',mus:'Танцевальный блок',s:'todo'},
-    {id:uid(),tm:'22:00',t:'Завершение, проводы гостей',who:'Ведущий',mus:'Спокойный фон',s:'todo'}
+    {id:uid(),tm:'15:00',t:'Сборы қыз, макияж',who:'Стилист',mus:'Съёмка сборов',s:'todo'},
+    {id:uid(),tm:'16:30',t:'Встреча гостей, хостес',who:'Хостес',mus:'Жетіген живьём, съёмка welcome',s:'todo'},
+    {id:uid(),tm:'17:00',t:'ТОЙБАСТАР — открытие тоя',who:'Исполнитель',mus:'Жетіген, свет на сцену',s:'todo'},
+    {id:uid(),tm:'17:10',t:'Шашу',who:'Апашки',mus:'Съёмка детей и шашу',s:'todo'},
+    {id:uid(),tm:'17:20',t:'Слово ведущего, знакомство құдалар',who:'Ведущий',mus:'Фон',s:'todo'},
+    {id:uid(),tm:'17:40',t:'LED-ролик про Даяну',who:'Диджей',mus:'Проверить звук ролика',s:'todo'},
+    {id:uid(),tm:'18:00',t:'Бата — слово аксакала',who:'Ата',mus:'Тишина, обе камеры',s:'todo'},
+    {id:uid(),tm:'18:20',t:'СЫРҒА САЛУ — главный момент',who:'Ене / апа',mus:'Торжественный трек, крупный план рук',s:'todo'},
+    {id:uid(),tm:'18:40',t:'Вручение подарков құдаларға',who:'Родители қыз',mus:'Фон, съёмка каждого вручения',s:'todo'},
+    {id:uid(),tm:'19:20',t:'Живая песня для қыз',who:'Исполнитель',mus:'Минусовка, свет',s:'todo'},
+    {id:uid(),tm:'20:00',t:'Застолье, тосты құдалар',who:'Ведущий',mus:'Фон',s:'todo'},
+    {id:uid(),tm:'20:40',t:'Торт',who:'Ведущий',mus:'Торжественный трек',s:'todo'},
+    {id:uid(),tm:'21:00',t:'Танцы',who:'Диджей',mus:'Танцевальный блок',s:'todo'},
+    {id:uid(),tm:'22:00',t:'Проводы гостей',who:'Хостес',mus:'Спокойный фон',s:'todo'}
+  ],
+  guests:[],
+  kuda:[
+    {id:uid(),n:1,who:'Бас құда',g:'',bought:false,signed:false},
+    {id:uid(),n:2,who:'Құдағи (мама жениха)',g:'',bought:false,signed:false},
+    {id:uid(),n:3,who:'Апашка №1',g:'',bought:false,signed:false},
+    {id:uid(),n:4,who:'Апашка №2',g:'',bought:false,signed:false},
+    {id:uid(),n:5,who:'Старший брат-друг отца',g:'',bought:false,signed:false},
+    {id:uid(),n:6,who:'Его супруга',g:'',bought:false,signed:false},
+    {id:uid(),n:7,who:'Друг отца',g:'',bought:false,signed:false},
+    {id:uid(),n:8,who:'Его супруга',g:'',bought:false,signed:false},
+    {id:uid(),n:9,who:'Брат жениха',g:'',bought:false,signed:false},
+    {id:uid(),n:10,who:'Младший брат отца',g:'',bought:false,signed:false},
+    {id:uid(),n:11,who:'Его супруга',g:'',bought:false,signed:false},
+    {id:uid(),n:12,who:'Сестра құдағи',g:'',bought:false,signed:false},
+    {id:uid(),n:13,who:'Супруг сестры',g:'',bought:false,signed:false},
+    {id:uid(),n:14,who:'Подруга құдағи',g:'',bought:false,signed:false},
+    {id:uid(),n:15,who:'Дядя отца',g:'',bought:false,signed:false},
+    {id:uid(),n:16,who:'Старшая тәте',g:'',bought:false,signed:false}
+  ],
+  gifts:[
+    {id:uid(),who:'Күйеу бала (жених)',g:'',by:'',done:false},
+    {id:uid(),who:'Қыз (невеста)',g:'Сырға — серьги',by:'',done:false},
+    {id:uid(),who:'Дети',g:'',by:'',done:false}
+  ],
+  attr:[
+    {id:uid(),t:'Сырға (серьги)',m:'Главный атрибут — купить заранее',who:'',done:false},
+    {id:uid(),t:'Подушка / коробочка для серёг',m:'Красивая подача в кадре',who:'',done:false},
+    {id:uid(),t:'Шашу',m:'Конфеты, монеты — на подносе',who:'',done:false},
+    {id:uid(),t:'Корзины для подарков',m:'',who:'',done:false},
+    {id:uid(),t:'Ленты и упаковка',m:'',who:'',done:false},
+    {id:uid(),t:'Платки / накидки',m:'Если предусмотрены',who:'',done:false},
+    {id:uid(),t:'Кимешек / шапан',m:'',who:'',done:false},
+    {id:uid(),t:'Дастархан, корпе для фотозоны',m:'',who:'',done:false}
+  ],
+  toi:[
+    {id:uid(),t:'Договориться с исполнителем тойбастар',who:'',s:'todo'},
+    {id:uid(),t:'Утвердить песню и сопровождение (жетіген)',who:'',s:'todo'},
+    {id:uid(),t:'Подготовить сый для исполнителя',who:'',s:'todo'},
+    {id:uid(),t:'Назначить, кто вручает сый',who:'',s:'todo'},
+    {id:uid(),t:'Подготовить шашу сразу после тойбастар',who:'',s:'todo'},
+    {id:uid(),t:'Предупредить оператора: снимать целиком',who:'',s:'todo'}
+  ],
+  perf:[
+    {id:uid(),who:'',t:'',w:'Тойбастар',mi:'no',s:'todo'},
+    {id:uid(),who:'',t:'',w:'Сырға салу',mi:'no',s:'todo'},
+    {id:uid(),who:'',t:'',w:'Застолье',mi:'no',s:'todo'}
+  ],
+  playlist:[
+    {id:uid(),mom:'Встреча гостей',t:'Жетіген живьём',a:'',s:'todo'},
+    {id:uid(),mom:'Тойбастар',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Шашу',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Выход қыз',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'LED-ролик',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Бата',t:'Тишина / тихий күй',a:'',s:'todo'},
+    {id:uid(),mom:'Сырға салу — момент',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Вручение подарков',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Застолье, фон',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Торт',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Танцы',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Финал вечера',t:'',a:'',s:'todo'}
+  ],
+  shoot:[
+    {id:uid(),t:'Пара у входа в юрту, общий план',loc:'Юрта',who:'Пара',s:'todo'},
+    {id:uid(),t:'Портрет қыз в кимешек / камзол',loc:'Юрта',who:'Қыз',s:'todo'},
+    {id:uid(),t:'Жених в шапане и бөрік, портрет',loc:'Улица',who:'Күйеу бала',s:'todo'},
+    {id:uid(),t:'Сырға крупно в руках, ою-өрнек фоном',loc:'Юрта',who:'—',s:'todo'},
+    {id:uid(),t:'Домбыра / жетіген в кадре',loc:'Юрта',who:'Пара',s:'todo'},
+    {id:uid(),t:'Дастархан: бауырсақ, шәйнек, корпе',loc:'Юрта',who:'—',s:'todo'},
+    {id:uid(),t:'Пара на фоне гор, золотой час',loc:'Улица',who:'Пара',s:'todo'},
+    {id:uid(),t:'Общий кадр с родителями в национальном',loc:'Улица',who:'Семьи',s:'todo'},
+    {id:uid(),t:'Детали: украшения, вышивка, руки',loc:'Студия',who:'—',s:'todo'},
+    {id:uid(),t:'Кадр для фотозоны и приглашений',loc:'Юрта',who:'Пара',s:'todo'}
   ],
   shots:[
-    {id:uid(),w:'До тоя',t:'Love story / прогулка пары',loc:'Улица, парк',who:'Пара',s:'todo'},
-    {id:uid(),w:'До тоя',t:'Интервью с родителями о келін',loc:'Дом',who:'Родители',s:'todo'},
-    {id:uid(),w:'Утро',t:'Сборы келін: платье, детали, украшения',loc:'Дом / отель',who:'Келін',s:'todo'},
+    {id:uid(),w:'До тоя',t:'Национальная фотосессия — отдельный день',loc:'Юрта',who:'Пара',s:'todo'},
+    {id:uid(),w:'До тоя',t:'Интервью с родителями для LED-ролика',loc:'Дом',who:'Родители',s:'todo'},
+    {id:uid(),w:'Утро',t:'Сборы қыз: платье, украшения, детали',loc:'Дом',who:'Қыз',s:'todo'},
     {id:uid(),w:'Утро',t:'Крупный план сырға в коробочке',loc:'Дом',who:'—',s:'todo'},
-    {id:uid(),w:'Той',t:'Дрон: общий план локации',loc:'Улица',who:'—',s:'todo'},
+    {id:uid(),w:'Той',t:'Оформление зала и фотозона до гостей',loc:'Зал',who:'—',s:'todo'},
+    {id:uid(),w:'Той',t:'Карточки на тарелках, сервировка',loc:'Зал',who:'—',s:'todo'},
     {id:uid(),w:'Той',t:'Встреча гостей, объятия',loc:'Холл',who:'Гости',s:'todo'},
-    {id:uid(),w:'Той',t:'Оформление зала до гостей',loc:'Зал',who:'—',s:'todo'},
+    {id:uid(),w:'Той',t:'Тойбастар целиком, звук с пульта',loc:'Сцена',who:'Исполнитель',s:'todo'},
+    {id:uid(),w:'Той',t:'Шашу — дети, замедленная съёмка',loc:'Зал',who:'Дети',s:'todo'},
     {id:uid(),w:'Той',t:'Бата — слово аксакала',loc:'Зал',who:'Ата',s:'todo'},
-    {id:uid(),w:'Той',t:'СЫРҒА САЛУ — две камеры, крупный план рук и лица',loc:'Зал',who:'Ене, келін',s:'todo'},
+    {id:uid(),w:'Той',t:'СЫРҒА САЛУ — две камеры, руки и лицо крупно',loc:'Зал',who:'Ене, қыз',s:'todo'},
     {id:uid(),w:'Той',t:'Реакция родителей в момент сырға салу',loc:'Зал',who:'Родители',s:'todo'},
-    {id:uid(),w:'Той',t:'Живая песня — полностью, со звуком с пульта',loc:'Сцена',who:'Исполнитель',s:'todo'},
-    {id:uid(),w:'Той',t:'Поздравления гостей на камеру',loc:'Фотозона',who:'Гости',s:'todo'},
+    {id:uid(),w:'Той',t:'Вручение подарков құдаларға — каждое',loc:'Зал',who:'Құдалар',s:'todo'},
+    {id:uid(),w:'Той',t:'Поздравления гостей у фотозоны',loc:'Фотозона',who:'Гости',s:'todo'},
     {id:uid(),w:'Той',t:'Торт и танцы',loc:'Зал',who:'Все',s:'todo'},
     {id:uid(),w:'После',t:'Черновой монтаж на согласование',loc:'—',who:'Видеограф',s:'todo'}
   ],
@@ -481,35 +832,72 @@ const SEED={
     {id:uid(),t:'Репетиция с минусовкой',who:'',d:'',s:'todo'},
     {id:uid(),t:'Запись вокала в студии',who:'',d:'',s:'todo'},
     {id:uid(),t:'Сведение и мастеринг',who:'',d:'',s:'todo'},
-    {id:uid(),t:'Отдать готовый трек видеографу и диджею',who:'',d:'',s:'todo'}
+    {id:uid(),t:'Отдать трек видеографу и диджею',who:'',d:'',s:'todo'}
   ],
-  playlist:[
-    {id:uid(),mom:'Встреча гостей',t:'',a:'',s:'todo'},
-    {id:uid(),mom:'Той бастар',t:'',a:'',s:'todo'},
-    {id:uid(),mom:'Выход келін',t:'',a:'',s:'todo'},
-    {id:uid(),mom:'Сырға салу — момент',t:'',a:'',s:'todo'},
-    {id:uid(),mom:'Бата / слово старших',t:'Тихий инструментал',a:'',s:'todo'},
-    {id:uid(),mom:'Подарки',t:'',a:'',s:'todo'},
-    {id:uid(),mom:'Застолье, фон',t:'',a:'',s:'todo'},
-    {id:uid(),mom:'Торт',t:'',a:'',s:'todo'},
-    {id:uid(),mom:'Танцы',t:'',a:'',s:'todo'},
-    {id:uid(),mom:'Финал вечера',t:'',a:'',s:'todo'}
+  rest:[
+    {id:uid(),t:'Меню утверждено',m:'',who:'',done:false},
+    {id:uid(),t:'План рассадки',m:'6 столов, 59 гостей',who:'',done:false},
+    {id:uid(),t:'Таблички на столы',m:'',who:'',done:false},
+    {id:uid(),t:'Карточки на тарелку',m:'Именные, по числу гостей',who:'',done:false},
+    {id:uid(),t:'Детские места',m:'',who:'',done:false},
+    {id:uid(),t:'Микрофоны',m:'2 радиомикрофона + запас батареек',who:'',done:false},
+    {id:uid(),t:'LED-экран',m:'Проверить формат ролика',who:'',done:false},
+    {id:uid(),t:'Свет',m:'Отдельный свет на момент сырға салу',who:'',done:false},
+    {id:uid(),t:'Звук',m:'',who:'',done:false},
+    {id:uid(),t:'Место для жетіген',m:'Розетка, стулья',who:'',done:false}
   ],
-  perf:[
-    {id:uid(),who:'',t:'',w:'Сырға салу',mi:'no',s:'todo'},
-    {id:uid(),who:'',t:'',w:'Застолье',mi:'no',s:'todo'},
-    {id:uid(),who:'',t:'',w:'Танцы',mi:'no',s:'todo'}
+  decor:[
+    {id:uid(),t:'Цветочная композиция',m:'',who:'',done:false},
+    {id:uid(),t:'Пресс-волл / фотозона',m:'Текст утверждён',who:'',done:false},
+    {id:uid(),t:'Оформление сцены',m:'',who:'',done:false},
+    {id:uid(),t:'Стол для подарков',m:'Отдельный, у сцены',who:'',done:false},
+    {id:uid(),t:'Фотозона: свет и реквизит',m:'',who:'',done:false},
+    {id:uid(),t:'Национальные элементы (корпе, текемет)',m:'',who:'',done:false}
+  ],
+  cont:[
+    {id:uid(),r:'Ведущий (асаба)',n:'',p:'',m:'',done:false},
+    {id:uid(),r:'Ресторан',n:'',p:'',m:'',done:false},
+    {id:uid(),r:'Декоратор',n:'',p:'',m:'',done:false},
+    {id:uid(),r:'Фотограф',n:'',p:'',m:'',done:false},
+    {id:uid(),r:'Видеограф',n:'',p:'',m:'',done:false},
+    {id:uid(),r:'Музыканты (жетіген)',n:'',p:'',m:'',done:false},
+    {id:uid(),r:'Диджей / звук',n:'',p:'',m:'',done:false},
+    {id:uid(),r:'Хостес',n:'',p:'',m:'',done:false},
+    {id:uid(),r:'Полиграфия',n:'',p:'',m:'',done:false},
+    {id:uid(),r:'Координатор',n:'',p:'',m:'',done:false}
+  ],
+  final:[
+    {id:uid(),t:'Все подарки подписаны',m:'',done:false},
+    {id:uid(),t:'Все подарки распределены по порядку вручения',m:'По колонке «Очередь» в разделе құдалар',done:false},
+    {id:uid(),t:'Сценарий распечатан',m:'',done:false},
+    {id:uid(),t:'Рассадка утверждена',m:'',done:false},
+    {id:uid(),t:'Карточки на тарелку распечатаны и разрезаны',m:'По числу гостей + 3 запасных',done:false},
+    {id:uid(),t:'Все гости подтвердили участие',m:'',done:false},
+    {id:uid(),t:'Проверены музыка и видео на LED-экране',m:'',done:false},
+    {id:uid(),t:'Проверена работа микрофонов',m:'',done:false},
+    {id:uid(),t:'Назначен координатор мероприятия',m:'',done:false},
+    {id:uid(),t:'Подготовлен тайминг для всей команды',m:'',done:false},
+    {id:uid(),t:'Подготовлены конверты',m:'Если предусмотрены',done:false},
+    {id:uid(),t:'Сырға на месте, коробочка готова',m:'',done:false},
+    {id:uid(),t:'Шашу подготовлено',m:'',done:false}
   ],
   pay:[
     {id:uid(),t:'Ресторан и меню',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Подарки құдаларға',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Сырға',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Ведущий (асаба)',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Жетіген / музыканты',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Диджей и аппаратура',c:'',sum:0,pre:0,due:'',s:'todo'},
     {id:uid(),t:'Видеограф и фильм',c:'',sum:0,pre:0,due:'',s:'todo'},
     {id:uid(),t:'Фотограф',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'LED-экран и ролик',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Национальная фотосессия',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Прокат национальных костюмов',c:'',sum:0,pre:0,due:'',s:'todo'},
     {id:uid(),t:'Запись песни (студия, аранжировка)',c:'',sum:0,pre:0,due:'',s:'todo'},
-    {id:uid(),t:'Диджей и аппаратура',c:'',sum:0,pre:0,due:'',s:'todo'},
-    {id:uid(),t:'Ведущий / асаба',c:'',sum:0,pre:0,due:'',s:'todo'},
-    {id:uid(),t:'Декор и фотозона',c:'',sum:0,pre:0,due:'',s:'todo'},
-    {id:uid(),t:'Сырға',c:'',sum:0,pre:0,due:'',s:'todo'},
-    {id:uid(),t:'Подарки келін (кимешек, шапан)',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Декор и цветы',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Фотозона / пресс-волл',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Полиграфия (карточки, таблички)',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Хостес',c:'',sum:0,pre:0,due:'',s:'todo'},
     {id:uid(),t:'Платье и образ',c:'',sum:0,pre:0,due:'',s:'todo'},
     {id:uid(),t:'Визажист и стилист',c:'',sum:0,pre:0,due:'',s:'todo'},
     {id:uid(),t:'Торт',c:'',sum:0,pre:0,due:'',s:'todo'}
@@ -517,19 +905,19 @@ const SEED={
 };
 
 let S;
-try{ S=Object.assign({},SEED,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){ S=structuredClone(SEED); }
+try{ S=Object.assign({},structuredClone(SEED),JSON.parse(localStorage.getItem(KEY)||'{}')); }
+catch(e){ S=structuredClone(SEED); }
 
 let toastT;
 function save(){
   localStorage.setItem(KEY,JSON.stringify(S));
   const t=document.getElementById('toast');
   t.classList.add('on'); clearTimeout(toastT);
-  toastT=setTimeout(()=>t.classList.remove('on'),1100);
+  toastT=setTimeout(()=>t.classList.remove('on'),1000);
 }
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=n=>(+n||0).toLocaleString('ru-RU');
 const pct=(a,b)=>b?Math.round(a/b*100):0;
-/* one / few / many, e.g. 1 статья, 3 статьи, 5 статей */
 function plural(n,one,few,many){
   const a=Math.abs(n)%100, b=a%10;
   if(a>10&&a<20)return many;
@@ -538,66 +926,108 @@ function plural(n,one,few,many){
   return many;
 }
 const days=n=>plural(n,'день','дня','дней');
+const names=()=>[S.bride,S.groom].filter(Boolean).join(' & ')||S.bride||'—';
 
-/* ---------- generic row helpers ---------- */
-function inp(list,id,f,ph,cls){
-  return `<input type="text" value="${esc(S[list].find(x=>x.id===id)[f])}" data-l="${list}" data-id="${id}" data-f="${f}" placeholder="${esc(ph||'')}" class="${cls||''}">`;
+/* ---------- generic row rendering ---------- */
+function inp(l,id,f,ph){
+  const r=S[l].find(x=>x.id===id);
+  return `<input type="text" value="${esc(r[f])}" data-l="${l}" data-id="${id}" data-f="${f}" placeholder="${esc(ph||'')}">`;
 }
-function numInp(list,id,f){
-  return `<input type="number" value="${+S[list].find(x=>x.id===id)[f]||0}" data-l="${list}" data-id="${id}" data-f="${f}" data-n="1" class="num">`;
+function numInp(l,id,f){
+  const r=S[l].find(x=>x.id===id);
+  return `<input type="number" value="${+r[f]||0}" data-l="${l}" data-id="${id}" data-f="${f}" data-n="1" class="num">`;
 }
-function sel(list,id,f,opts){
-  const v=S[list].find(x=>x.id===id)[f];
-  return `<select data-l="${list}" data-id="${id}" data-f="${f}">`+
-    opts.map(([k,l])=>`<option value="${k}"${k===v?' selected':''}>${l}</option>`).join('')+`</select>`;
+function sel(l,id,f,opts){
+  const v=S[l].find(x=>x.id===id)[f];
+  return `<select data-l="${l}" data-id="${id}" data-f="${f}">`+
+    opts.map(([k,t])=>`<option value="${k}"${k===v?' selected':''}>${t}</option>`).join('')+`</select>`;
 }
 const stSel=(l,id)=>sel(l,id,'s',STATUS.map(k=>[k,ST_LABEL[k]]));
 const delBtn=(l,id)=>`<button class="del" data-del="${l}" data-id="${id}" title="Удалить">×</button>`;
 
-/* Re-rendering a table while the user types inside it would destroy the focused
-   input, so keystrokes only refresh derived views (totals, KPI, timeline). */
+/* cols: {t:'text'|'num'|'date'|'st'|'sel'|'chk', f, ph, opts} */
+function rows(l,cols){
+  return S[l].map(r=>`<tr data-id="${r.id}">`+cols.map(c=>{
+    if(c.t==='num')return `<td>${numInp(l,r.id,c.f)}</td>`;
+    if(c.t==='date')return `<td><input type="date" value="${esc(r[c.f])}" data-l="${l}" data-id="${r.id}" data-f="${c.f}"></td>`;
+    if(c.t==='st')return `<td>${stSel(l,r.id)}</td>`;
+    if(c.t==='sel')return `<td>${sel(l,r.id,c.f,c.opts)}</td>`;
+    if(c.t==='chk')return `<td class="ctr"><input type="checkbox" class="cb" data-l="${l}" data-id="${r.id}" data-f="${c.f}"${r[c.f]?' checked':''}></td>`;
+    return `<td>${inp(l,r.id,c.f,c.ph)}</td>`;
+  }).join('')+`<td>${delBtn(l,r.id)}</td></tr>`).join('');
+}
+const NEW={
+  blocks:()=>({id:uid(),t:'',who:'',s:'todo',m:''}),
+  day:()=>({id:uid(),tm:'',t:'',who:'',mus:'',s:'todo'}),
+  guests:()=>({id:uid(),n:'',tb:'',side:'qyz',ok:false,card:false}),
+  kuda:()=>({id:uid(),n:S.kuda.length+1,who:'',g:'',bought:false,signed:false}),
+  gifts:()=>({id:uid(),who:'',g:'',by:'',done:false}),
+  attr:()=>({id:uid(),t:'',m:'',who:'',done:false}),
+  toi:()=>({id:uid(),t:'',who:'',s:'todo'}),
+  perf:()=>({id:uid(),who:'',t:'',w:'',mi:'no',s:'todo'}),
+  playlist:()=>({id:uid(),mom:'',t:'',a:'',s:'todo'}),
+  shoot:()=>({id:uid(),t:'',loc:'',who:'',s:'todo'}),
+  shots:()=>({id:uid(),w:'Той',t:'',loc:'',who:'',s:'todo'}),
+  stages:()=>({id:uid(),t:'',who:'',d:'',s:'todo'}),
+  rest:()=>({id:uid(),t:'',m:'',who:'',done:false}),
+  decor:()=>({id:uid(),t:'',m:'',who:'',done:false}),
+  cont:()=>({id:uid(),r:'',n:'',p:'',m:'',done:false}),
+  pay:()=>({id:uid(),t:'',c:'',sum:0,pre:0,due:'',s:'todo'})
+};
+
+/* ---------- events ---------- */
 document.addEventListener('input',e=>{
   const el=e.target;
   if(el.dataset.v!==undefined){
     S[el.dataset.v]=el.value; save();
-    renderDash(); renderVideoKPI(); renderSongKPI();
+    renderDash(); renderVideoKPI(); renderSongKPI(); renderPhotozone(); renderCardPrev(); renderGuestKPI();
     return;
   }
-  if(el.dataset.l){
-    const row=S[el.dataset.l].find(x=>x.id===el.dataset.id);
-    if(!row)return;
-    row[el.dataset.f]=el.dataset.n?(+el.value||0):el.value;
+  if(el.dataset.l&&el.type!=='checkbox'){
+    const r=S[el.dataset.l].find(x=>x.id===el.dataset.id);
+    if(!r)return;
+    r[el.dataset.f]=el.dataset.n?(+el.value||0):el.value;
     save();
+    /* never re-render a table while it holds focus — only derived views */
     if(el.dataset.l==='pay'){ refreshPayTotals(); renderPayKPI(); renderPaySched(); }
+    if(el.dataset.l==='guests'){ renderGuestKPI(); renderTables(); renderCardPrev(); renderCardKPI(); }
     renderDash();
   }
 });
 document.addEventListener('change',e=>{
   const el=e.target;
-  if(el.dataset.l&&el.tagName==='SELECT'){
-    const row=S[el.dataset.l].find(x=>x.id===el.dataset.id);
-    if(row){ row[el.dataset.f]=el.value; save(); renderAll(); }
-  }
+  if(!el.dataset.l)return;
+  const r=S[el.dataset.l].find(x=>x.id===el.dataset.id);
+  if(!r)return;
+  if(el.type==='checkbox'){ r[el.dataset.f]=el.checked; save(); renderDash(); renderKudaKPI(); renderGuestKPI(); renderCardKPI(); return; }
+  if(el.tagName==='SELECT'){ r[el.dataset.f]=el.value; save(); renderAll(); }
 });
 document.addEventListener('click',e=>{
   const d=e.target.closest('[data-del]');
-  if(d){
-    const l=d.dataset.del;
-    S[l]=S[l].filter(x=>x.id!==d.dataset.id);
-    save(); renderAll();
-  }
+  if(d){ const l=d.dataset.del; S[l]=S[l].filter(x=>x.id!==d.dataset.id); save(); renderAll(); return; }
+  const a=e.target.closest('[data-add]');
+  if(a){ const l=a.dataset.add; S[l].push(NEW[l]()); save(); renderAll(); return; }
 });
 
 /* ---------- dashboard ---------- */
 function trackStats(){
-  const done=l=>S[l].filter(x=>x.s==='done').length;
+  const dn=l=>S[l].filter(x=>x.s==='done').length;
+  const dc=l=>S[l].filter(x=>x.done).length;
   return [
-    {n:'Организация (чек-лист)',d:S.tasks.filter(t=>t.done).length,t:S.tasks.length,ic:'✓'},
-    {n:'Сценарий дня',d:done('day'),t:S.day.length,ic:'🕐'},
-    {n:'Видео и фильм',d:done('shots'),t:S.shots.length,ic:'🎬'},
-    {n:'Запись песни',d:done('stages'),t:S.stages.length,ic:'🎙'},
-    {n:'Плейлист диджея',d:done('playlist'),t:S.playlist.length,ic:'🎵'},
-    {n:'Живые номера',d:done('perf'),t:S.perf.length,ic:'🎤'}
+    {n:'Блоки готовности',d:dn('blocks'),t:S.blocks.length,ic:'▤'},
+    {n:'Тайминг дня',d:dn('day'),t:S.day.length,ic:'🕐'},
+    {n:'Гости подтвердили',d:S.guests.filter(g=>g.ok).length,t:S.guests.length,ic:'👥'},
+    {n:'Подарки құдаларға',d:S.kuda.filter(k=>k.bought&&k.signed).length,t:S.kuda.length,ic:'🎁'},
+    {n:'Ұлттық атрибуттар',d:dc('attr'),t:S.attr.length,ic:'🕌'},
+    {n:'Тойбастар',d:dn('toi'),t:S.toi.length,ic:'🎺'},
+    {n:'Нац. фотосессия',d:dn('shoot'),t:S.shoot.length,ic:'📸'},
+    {n:'Видео и LED',d:dn('shots'),t:S.shots.length,ic:'🎬'},
+    {n:'Запись песни',d:dn('stages'),t:S.stages.length,ic:'🎙'},
+    {n:'Музыка',d:dn('playlist'),t:S.playlist.length,ic:'🎵'},
+    {n:'Ресторан',d:dc('rest'),t:S.rest.length,ic:'🍽'},
+    {n:'Декор',d:dc('decor'),t:S.decor.length,ic:'💐'},
+    {n:'Контакты',d:dc('cont'),t:S.cont.length,ic:'📞'},
+    {n:'Чек-лист за день до',d:dc('final'),t:S.final.length,ic:'✓'}
   ];
 }
 function money(){
@@ -611,14 +1041,11 @@ function daysLeft(){
   return Math.round((d-n)/86400000);
 }
 function renderDash(){
-  const names=[S.bride,S.groom].filter(Boolean).join(' & ');
-  document.getElementById('h-names').textContent=names||'Заполните данные тоя';
+  document.getElementById('h-names').textContent=names()==='—'?'Заполните данные тоя':names();
   const dl=daysLeft();
   const dateStr=S.date?new Date(S.date+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}):'дата не выбрана';
-  document.getElementById('h-meta').textContent=[dateStr,S.time,S.venue,S.guests?S.guests+' гостей':''].filter(Boolean).join(' · ');
-
-  const m=money();
-  const tr=trackStats();
+  document.getElementById('h-meta').textContent=[dateStr,S.time,S.venue,S.guests.length?S.guests.length+' '+plural(S.guests.length,'гость','гостя','гостей'):''].filter(Boolean).join(' · ');
+  const m=money(), tr=trackStats();
   const allD=tr.reduce((a,x)=>a+x.d,0), allT=tr.reduce((a,x)=>a+x.t,0);
   document.getElementById('h-cd').innerHTML=
     `<div><div class="n">${dl===null?'—':(dl<0?'0':dl)}</div><div class="u">${dl===null?'дней до тоя':(dl<0?'той прошёл':(dl===0?'той сегодня':days(dl)+' до тоя'))}</div></div>`+
@@ -626,186 +1053,285 @@ function renderDash(){
     `<div><div class="n">${fmt(m.left)}</div><div class="u">₸ доплатить</div></div>`;
 
   const over=S.budget&&m.sum>+S.budget;
+  const openPay=S.pay.filter(r=>(+r.sum||0)-(+r.pre||0)>0).length;
   document.getElementById('kpis').innerHTML=[
     {c:'',l:'Общая смета',v:fmt(m.sum),s:'₸',n:S.budget?`план ${fmt(S.budget)} ₸`:'бюджет не задан'},
     {c:'ok',l:'Внесено предоплат',v:fmt(m.pre),s:'₸',n:`${pct(m.pre,m.sum)}% от сметы`},
-    {c:'warn',l:'Остаток к оплате',v:fmt(m.left),s:'₸',n:(()=>{const k=S.pay.filter(r=>(+r.sum||0)-(+r.pre||0)>0).length;return `${k} ${plural(k,'статья не закрыта','статьи не закрыты','статей не закрыто')}`;})()},
+    {c:'warn',l:'Остаток к оплате',v:fmt(m.left),s:'₸',n:`${openPay} ${plural(openPay,'статья не закрыта','статьи не закрыты','статей не закрыто')}`},
     {c:over?'warn':'nv',l:'Бюджет',v:S.budget?(over?'+'+fmt(m.sum-+S.budget):fmt(+S.budget-m.sum)):'—',s:'₸',n:over?'перерасход':'запас'}
-  ].map(k=>`<div class="kpi ${k.c}"><div class="lbl">${k.l}</div><div class="val">${k.v} <small>${k.s}</small></div><div class="note">${k.n}</div></div>`).join('');
+  ].map(k=>`<div class="kpi ${k.c}"><div class="lbl">${k.l}</div><div class="val">${k.v}${k.s?` <small>${k.s}</small>`:''}</div><div class="note">${k.n}</div></div>`).join('');
 
   document.getElementById('tracks').innerHTML=tr.map(t=>`
-    <div class="card" style="padding:15px 17px">
+    <div class="card" style="padding:14px 16px">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-        <div style="font-weight:700;font-size:13.5px">${t.ic} ${t.n}</div>
-        <div style="font-family:var(--mono);font-size:12.5px;color:var(--muted)">${t.d}/${t.t}</div>
+        <div style="font-weight:700;font-size:13px">${t.ic} ${t.n}</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--muted)">${t.d}/${t.t}</div>
       </div>
-      <div class="bar ${t.d===t.t&&t.t?'gr':''}"><i style="width:${pct(t.d,t.t)}%"></i></div>
+      <div class="bar ${t.t&&t.d===t.t?'gr':''}"><i style="width:${pct(t.d,t.t)}%"></i></div>
     </div>`).join('');
 
   const soon=[];
   S.pay.filter(r=>r.due&&(+r.sum||0)-(+r.pre||0)>0).forEach(r=>soon.push({d:r.due,t:`Оплатить: ${r.t}`,m:`${fmt((+r.sum||0)-(+r.pre||0))} ₸ остаток`}));
+  if(S.pzDeadline)soon.push({d:S.pzDeadline,t:'Дедлайн макета фотозоны',m:S.pzVendor||''});
+  if(S.shootDate)soon.push({d:S.shootDate,t:'Национальная фотосессия',m:S.shootLoc||''});
   if(S.studioDate)soon.push({d:S.studioDate,t:'Запись песни в студии',m:S.studio||''});
   if(S.songDeadline)soon.push({d:S.songDeadline,t:'Дедлайн готового трека',m:''});
+  if(S.ledDeadline)soon.push({d:S.ledDeadline,t:'Дедлайн LED-ролика',m:S.ledEditor||''});
   if(S.filmDeadline)soon.push({d:S.filmDeadline,t:'Дедлайн готового фильма',m:''});
   if(S.date)soon.push({d:S.date,t:'СЫРҒА САЛУ',m:[S.time,S.venue].filter(Boolean).join(' · ')});
   soon.sort((a,b)=>a.d.localeCompare(b.d));
   const today=new Date().toISOString().slice(0,10);
-  document.getElementById('soon').innerHTML=soon.length?`<div class="tl">`+soon.slice(0,9).map(x=>`
+  document.getElementById('soon').innerHTML=soon.length?`<div class="tl">`+soon.slice(0,10).map(x=>`
     <div class="it ${x.d<today?'done':''}">
       <div class="tm">${new Date(x.d+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}</div>
       <div class="tt">${esc(x.t)}</div>${x.m?`<div class="td">${esc(x.m)}</div>`:''}
-    </div>`).join('')+`</div>`:`<div class="card" style="color:var(--muted);font-size:13px">Проставьте даты в разделах оплат, песни и фильма — здесь появится список ближайших дел.</div>`;
+    </div>`).join('')+`</div>`:`<div class="card" style="color:var(--muted);font-size:13px">Проставьте даты и дедлайны — здесь появится список ближайших дел.</div>`;
 }
 
-/* ---------- checklist ---------- */
-let planCat='Все';
-function renderPlan(){
-  const cats=['Все',...new Set(S.tasks.map(t=>t.cat))];
-  if(!cats.includes(planCat))planCat='Все';
-  document.getElementById('plan-chips').innerHTML=cats.map(c=>{
-    const list=c==='Все'?S.tasks:S.tasks.filter(t=>t.cat===c);
-    return `<button class="chip ${c===planCat?'on':''}" data-cat="${esc(c)}">${esc(c)} <span style="opacity:.6">${list.filter(t=>t.done).length}/${list.length}</span></button>`;
-  }).join('');
-  const list=planCat==='Все'?S.tasks:S.tasks.filter(t=>t.cat===planCat);
-  document.getElementById('plan-list').innerHTML=list.map(t=>`
-    <div class="chk ${t.done?'done':''}">
-      <input type="checkbox" data-chk="${t.id}" ${t.done?'checked':''}>
-      <div class="tx">
-        <div class="tt">${esc(t.t)}</div>
-        <div class="mt">${esc(t.cat)}${t.m?' · '+esc(t.m):''}</div>
-      </div>
-      ${delBtn('tasks',t.id)}
-    </div>`).join('')||`<div class="card" style="color:var(--muted);font-size:13px">Дел пока нет.</div>`;
+/* ---------- simple sections ---------- */
+const kpiHTML=arr=>arr.map(k=>`<div class="kpi ${k.c||''}"><div class="lbl">${k.l}</div><div class="val"${k.fs?` style="font-size:${k.fs}"`:''}>${esc(String(k.v))}${k.s?` <small>${k.s}</small>`:''}</div><div class="note">${esc(k.n||'')}</div></div>`).join('');
+
+const renderBlocks=()=>document.getElementById('blocks-body').innerHTML=rows('blocks',[{f:'t',ph:'Блок'},{f:'who',ph:'Имя'},{t:'st'},{f:'m',ph:'Комментарий'}]);
+const renderDay=()=>document.getElementById('day-body').innerHTML=rows('day',[{f:'tm',ph:'18:00'},{f:'t',ph:'Что происходит'},{f:'who',ph:'Кто'},{f:'mus',ph:'Музыка / съёмка'},{t:'st'}]);
+const renderGifts=()=>document.getElementById('gifts-body').innerHTML=rows('gifts',[{f:'who',ph:'Кому'},{f:'g',ph:'Подарок'},{f:'by',ph:'Кто вручает'},{t:'chk',f:'done'}]);
+const renderAttr=()=>document.getElementById('attr-body').innerHTML=rows('attr',[{f:'t',ph:'Позиция'},{f:'m',ph:'Комментарий'},{f:'who',ph:'Кто'},{t:'chk',f:'done'}]);
+const renderToi=()=>document.getElementById('toi-body').innerHTML=rows('toi',[{f:'t',ph:'Шаг'},{f:'who',ph:'Кто'},{t:'st'}]);
+const renderShoot=()=>document.getElementById('shoot-body').innerHTML=rows('shoot',[{f:'t',ph:'Кадр / реквизит'},{f:'loc',ph:'Локация'},{f:'who',ph:'Кто в кадре'},{t:'st'}]);
+const renderPlaylist=()=>document.getElementById('pl-body').innerHTML=rows('playlist',[{f:'mom',ph:'Момент'},{f:'t',ph:'Трек / инструмент'},{f:'a',ph:'Исполнитель'},{t:'st'}]);
+const renderStages=()=>document.getElementById('stage-body').innerHTML=rows('stages',[{f:'t',ph:'Этап'},{f:'who',ph:'Кто'},{t:'date',f:'d'},{t:'st'}]);
+const renderRest=()=>document.getElementById('rest-body').innerHTML=rows('rest',[{f:'t',ph:'Задача'},{f:'m',ph:'Комментарий'},{f:'who',ph:'Кто'},{t:'chk',f:'done'}]);
+const renderDecor=()=>document.getElementById('decor-body').innerHTML=rows('decor',[{f:'t',ph:'Задача'},{f:'m',ph:'Комментарий'},{f:'who',ph:'Кто'},{t:'chk',f:'done'}]);
+const renderCont=()=>document.getElementById('cont-body').innerHTML=rows('cont',[{f:'r',ph:'Роль'},{f:'n',ph:'Имя'},{f:'p',ph:'+7'},{f:'m',ph:'Комментарий'},{t:'chk',f:'done'}]);
+
+/* ---------- guests ---------- */
+let guestSide='Все';
+function renderGuestKPI(){
+  const ok=S.guests.filter(g=>g.ok).length, cd=S.guests.filter(g=>g.card).length;
+  const seated=S.guests.filter(g=>g.tb).length;
+  document.getElementById('guest-kpi').innerHTML=kpiHTML([
+    {l:'Гостей в списке',v:S.guests.length,n:`план ${S.tables||0} ${plural(+S.tables||0,'стол','стола','столов')}`},
+    {c:'ok',l:'Подтвердили',v:`${ok}/${S.guests.length}`,n:`${pct(ok,S.guests.length)}% списка`},
+    {c:seated<S.guests.length?'warn':'ok',l:'Рассажены',v:`${seated}/${S.guests.length}`,n:'указан стол'},
+    {c:cd<S.guests.length?'nv':'ok',l:'Карточки',v:`${cd}/${S.guests.length}`,n:'напечатаны'}
+  ]);
 }
-document.getElementById('plan-chips').addEventListener('click',e=>{
-  const c=e.target.closest('[data-cat]'); if(!c)return;
-  planCat=c.dataset.cat; renderPlan();
+function renderGuests(){
+  renderGuestKPI();
+  const sides=['Все','Қыз жағы','Күйеу жағы'];
+  document.getElementById('guest-chips').innerHTML=sides.map(s=>`<button class="chip ${s===guestSide?'on':''}" data-gs="${esc(s)}">${esc(s)}</button>`).join('');
+  const key=guestSide==='Қыз жағы'?'qyz':guestSide==='Күйеу жағы'?'kuieu':null;
+  const list=key?S.guests.filter(g=>g.side===key):S.guests;
+  document.getElementById('guest-body').innerHTML=list.length?list.map(g=>`<tr data-id="${g.id}">
+    <td>${inp('guests',g.id,'n','Имя гостя')}</td>
+    <td>${inp('guests',g.id,'tb','1')}</td>
+    <td>${sel('guests',g.id,'side',[['qyz','Қыз жағы'],['kuieu','Күйеу жағы'],['both','Общие']])}</td>
+    <td class="ctr"><input type="checkbox" class="cb" data-l="guests" data-id="${g.id}" data-f="ok"${g.ok?' checked':''}></td>
+    <td class="ctr"><input type="checkbox" class="cb" data-l="guests" data-id="${g.id}" data-f="card"${g.card?' checked':''}></td>
+    <td>${delBtn('guests',g.id)}</td></tr>`).join('')
+    :`<tr><td colspan="6" style="color:var(--muted);padding:18px">Список пуст. Нажмите «Вставить список» и вставьте имена — по одному в строке.</td></tr>`;
+  renderTables();
+}
+function renderTables(){
+  const n=+S.tables||0;
+  const box=document.getElementById('tables');
+  if(!n){ box.innerHTML=`<div class="card" style="color:var(--muted);font-size:13px">Укажите количество столов в «Данные тоя».</div>`; return; }
+  let html='';
+  for(let i=1;i<=n;i++){
+    const g=S.guests.filter(x=>String(x.tb).trim()===String(i));
+    html+=`<div class="card" style="padding:14px 16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline">
+        <div style="font-family:var(--display);font-size:19px;font-weight:600;color:var(--wine)">${i}-үстел</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--muted)">${g.length}</div>
+      </div>
+      <div style="font-size:12.5px;color:var(--muted);margin-top:7px;line-height:1.6">${g.length?g.map(x=>esc(x.n||'—')).join('<br>'):'<i>пусто</i>'}</div>
+    </div>`;
+  }
+  const no=S.guests.filter(x=>!String(x.tb).trim());
+  if(no.length)html+=`<div class="card" style="padding:14px 16px;border-color:#e8c4bd">
+    <div style="font-family:var(--display);font-size:19px;font-weight:600;color:var(--red)">Без стола</div>
+    <div style="font-size:12.5px;color:var(--muted);margin-top:7px;line-height:1.6">${no.map(x=>esc(x.n||'—')).join('<br>')}</div></div>`;
+  box.innerHTML=html;
+}
+document.getElementById('guest-chips').addEventListener('click',e=>{
+  const c=e.target.closest('[data-gs]'); if(!c)return;
+  guestSide=c.dataset.gs; renderGuests();
 });
-document.getElementById('plan-list').addEventListener('change',e=>{
-  const c=e.target.closest('[data-chk]'); if(!c)return;
-  const t=S.tasks.find(x=>x.id===c.dataset.chk);
-  t.done=c.checked; save(); renderPlan(); renderDash();
-});
-document.getElementById('add-task').onclick=()=>{
-  const t=prompt('Что нужно сделать?'); if(!t)return;
-  const cat=prompt('Категория:',planCat==='Все'?'Организация':planCat)||'Организация';
-  S.tasks.push({id:uid(),cat,t,m:'',done:false}); planCat=cat; save(); renderPlan(); renderDash();
+document.getElementById('bulk').onclick=()=>{
+  const txt=prompt('Вставьте имена — по одному в строке.\nМожно с номером стола через запятую: «Айгүл апай, 2»');
+  if(!txt)return;
+  txt.split('\n').map(s=>s.trim()).filter(Boolean).forEach(line=>{
+    const [n,tb]=line.split(',').map(s=>(s||'').trim());
+    S.guests.push({id:uid(),n,tb:tb||'',side:'qyz',ok:false,card:false});
+  });
+  save(); renderAll();
 };
 
-/* ---------- day ---------- */
-function renderDay(){
-  document.getElementById('day-body').innerHTML=S.day.map(r=>`<tr>
-    <td>${inp('day',r.id,'tm','18:00')}</td>
-    <td>${inp('day',r.id,'t','Что происходит')}</td>
-    <td>${inp('day',r.id,'who','Кто')}</td>
-    <td>${inp('day',r.id,'mus','Музыка / съёмка')}</td>
-    <td>${stSel('day',r.id)}</td>
-    <td>${delBtn('day',r.id)}</td></tr>`).join('');
+/* ---------- place cards ---------- */
+function renderCardPrev(){
+  const g=S.guests[0];
+  document.getElementById('pc-prev').innerHTML=
+    `<div class="o">◆ ◆ ◆</div>
+     ${S.cardTop?`<div class="t" style="margin-top:6px">${esc(S.cardTop)}</div>`:''}
+     <div class="n">${esc(g&&g.n?g.n:'Айгерім апай')}</div>
+     ${S.cardTable==='yes'?`<div class="t">${esc(g&&g.tb?g.tb:'2')}-үстел</div>`:''}
+     ${S.cardLine?`<div class="l">${esc(S.cardLine)}</div>`:''}`;
 }
-document.getElementById('add-day').onclick=()=>{S.day.push({id:uid(),tm:'',t:'',who:'',mus:'',s:'todo'});save();renderDay();renderDash();};
+function renderCardKPI(){
+  const cd=S.guests.filter(g=>g.card).length;
+  const named=S.guests.filter(g=>String(g.n||'').trim()).length;
+  document.getElementById('card-kpi').innerHTML=kpiHTML([
+    {l:'Карточек нужно',v:S.guests.length,n:'по числу гостей'},
+    {c:named<S.guests.length?'warn':'ok',l:'Имена заполнены',v:`${named}/${S.guests.length}`,n:named<S.guests.length?'есть пустые имена':'все на месте'},
+    {c:'ok',l:'Напечатаны',v:`${cd}/${S.guests.length}`,n:'отмечено в списке гостей'}
+  ]);
+}
+function printCards(){
+  if(!S.guests.length){ alert('Сначала добавьте гостей в разделе «Гости и рассадка».'); return; }
+  const cards=S.guests.map(g=>`<div class="c">
+    <div class="o">&#9670; &#9670; &#9670;</div>
+    ${S.cardTop?`<div class="tp">${esc(S.cardTop)}</div>`:''}
+    <div class="n">${esc(g.n||'')}</div>
+    ${S.cardTable==='yes'&&g.tb?`<div class="tb">${esc(g.tb)}-үстел</div>`:''}
+    ${S.cardLine?`<div class="l">${esc(S.cardLine)}</div>`:''}
+  </div>`).join('');
+  const w=window.open('','_blank');
+  if(!w){ alert('Браузер заблокировал окно печати. Разрешите всплывающие окна для этой страницы.'); return; }
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Карточки гостей — ${esc(names())}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Manrope:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    @page{size:A4;margin:8mm}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#e9e4d8;font-family:'Manrope',sans-serif;padding:8mm;display:flex;flex-wrap:wrap;gap:4mm}
+    .c{width:90mm;height:55mm;background:#fdfaf3;border:.4mm solid #dbcaa9;border-radius:2mm;padding:6mm 5mm;
+       text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;break-inside:avoid}
+    .c::before{content:'';position:absolute;inset:2.5mm;border:.3mm solid #c9a227;border-radius:1mm}
+    .o{color:#c9a227;font-size:7pt;letter-spacing:.4em}
+    .tp{font-size:7.5pt;letter-spacing:.2em;text-transform:uppercase;color:#9c7b1c;font-weight:700;margin-top:2mm}
+    .n{font-family:'Cormorant Garamond',serif;font-size:21pt;font-weight:600;color:#9b1b30;margin-top:2mm;line-height:1.1}
+    .tb{font-size:7.5pt;letter-spacing:.14em;text-transform:uppercase;color:#7d6d5f;font-weight:700;margin-top:1.5mm}
+    .l{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:9pt;color:#7d6d5f;margin-top:3mm;
+       padding-top:2mm;border-top:.2mm dashed #dbcaa9;line-height:1.3;max-width:70mm}
+    @media print{body{background:#fff;padding:0}.c{border-color:#dbcaa9}}
+  </style></head><body>${cards}</body></html>`);
+  w.document.close();
+  setTimeout(()=>{ w.focus(); w.print(); },700);
+}
+document.getElementById('print-cards').onclick=printCards;
 
-/* ---------- video ---------- */
+/* ---------- kuda gifts ---------- */
+function renderKudaKPI(){
+  const b=S.kuda.filter(k=>k.bought).length, s=S.kuda.filter(k=>k.signed).length;
+  document.getElementById('kuda-kpi').innerHTML=kpiHTML([
+    {l:'Подарков',v:S.kuda.length,n:'құдалар со стороны жениха'},
+    {c:b<S.kuda.length?'warn':'ok',l:'Куплено',v:`${b}/${S.kuda.length}`,n:`${pct(b,S.kuda.length)}%`},
+    {c:s<S.kuda.length?'nv':'ok',l:'Подписано',v:`${s}/${S.kuda.length}`,n:'подписать до тоя'}
+  ]);
+}
+function renderKuda(){
+  renderKudaKPI();
+  document.getElementById('kuda-body').innerHTML=rows('kuda',[{t:'num',f:'n'},{f:'who',ph:'Кому'},{f:'g',ph:'Подарок'},{t:'chk',f:'bought'},{t:'chk',f:'signed'}]);
+}
+
+/* ---------- perf ---------- */
+function renderPerf(){
+  const d=S.perf.filter(x=>x.s==='done').length;
+  const mi=S.perf.filter(x=>x.mi==='yes'||x.mi==='live').length;
+  document.getElementById('perf-kpi').innerHTML=kpiHTML([
+    {l:'Номеров',v:S.perf.length,n:'живых выступлений'},
+    {c:'ok',l:'Готовы',v:`${d}/${S.perf.length}`,n:'подтверждено'},
+    {c:mi<S.perf.length?'warn':'ok',l:'Фонограммы',v:`${mi}/${S.perf.length}`,n:mi<S.perf.length?'заберите заранее':'все на руках'}
+  ]);
+  document.getElementById('perf-body').innerHTML=rows('perf',[{f:'who',ph:'Имя'},{f:'t',ph:'Песня'},{f:'w',ph:'Момент'},{t:'sel',f:'mi',opts:[['no','Нужна'],['yes','Есть'],['live','Живой звук']]},{t:'st'}]);
+}
+
+/* ---------- photozone ---------- */
+function fill(str){
+  return String(str||'')
+    .replace(/\{names\}/g,names())
+    .replace(/\{bride\}/g,S.bride||'—')
+    .replace(/\{date\}/g,S.pzDate||(S.date?new Date(S.date+'T00:00:00').toLocaleDateString('ru-RU'):''));
+}
+function renderPhotozone(){
+  document.getElementById('pz-prev').innerHTML=
+    `<div class="orn">◆ ◆ ◆</div>
+     ${S.pzTop?`<div class="t1">${esc(S.pzTop)}</div>`:''}
+     <div class="t2">${esc(fill(S.pzMain)||'—')}</div>
+     ${S.pzSub?`<div class="t3">${esc(fill(S.pzSub))}</div>`:''}
+     ${S.pzDate?`<div class="t4">${esc(S.pzDate)}</div>`:''}`;
+  document.getElementById('phrases').innerHTML=PHRASES.map((p,i)=>{
+    const on=S.pzMain===p.main&&S.pzSub===p.sub;
+    return `<div class="phr ${on?'on':''}" data-ph="${i}">
+      <div class="pick">✓ выбрано</div>
+      ${p.top?`<div style="font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-d);font-weight:700;margin-bottom:5px">${esc(p.top)}</div>`:''}
+      <div class="kk">${esc(fill(p.main))}</div>
+      <div class="kk" style="font-size:15px;font-weight:500;color:var(--ink);margin-top:5px">${esc(fill(p.sub))}</div>
+      <div class="tr">${esc(fill(p.tr))}</div>
+      <div class="use">${esc(p.use)}</div>
+    </div>`;
+  }).join('');
+}
+document.getElementById('phrases').addEventListener('click',e=>{
+  const c=e.target.closest('[data-ph]'); if(!c)return;
+  const p=PHRASES[+c.dataset.ph];
+  S.pzTop=p.top; S.pzMain=p.main; S.pzSub=p.sub;
+  save(); fillFields(); renderPhotozone();
+});
+
+/* ---------- video / song ---------- */
 function renderVideoKPI(){
   const d=S.shots.filter(x=>x.s==='done').length;
-  document.getElementById('video-kpi').innerHTML=[
-    {c:'',l:'Сцен в плане',v:S.shots.length,n:'кадров к съёмке'},
+  document.getElementById('video-kpi').innerHTML=kpiHTML([
+    {l:'Сцен в плане',v:S.shots.length,n:'кадров к съёмке'},
     {c:'ok',l:'Отснято',v:d,n:`${pct(d,S.shots.length)}% плана`},
     {c:'nv',l:'Дедлайн фильма',v:S.filmDeadline?new Date(S.filmDeadline+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'short'}):'—',n:S.videographer||'видеограф не указан'}
-  ].map(k=>`<div class="kpi ${k.c}"><div class="lbl">${k.l}</div><div class="val">${k.v}</div><div class="note">${esc(k.n)}</div></div>`).join('');
+  ]);
 }
 function renderVideo(){
   renderVideoKPI();
-  document.getElementById('shot-body').innerHTML=S.shots.map(r=>`<tr>
-    <td>${inp('shots',r.id,'w','Когда')}</td>
-    <td>${inp('shots',r.id,'t','Сцена')}</td>
-    <td>${inp('shots',r.id,'loc','Локация')}</td>
-    <td>${inp('shots',r.id,'who','Кто в кадре')}</td>
-    <td>${stSel('shots',r.id)}</td>
-    <td>${delBtn('shots',r.id)}</td></tr>`).join('');
+  document.getElementById('shot-body').innerHTML=rows('shots',[{f:'w',ph:'Когда'},{f:'t',ph:'Сцена'},{f:'loc',ph:'Локация'},{f:'who',ph:'Кто в кадре'},{t:'st'}]);
 }
-document.getElementById('add-shot').onclick=()=>{S.shots.push({id:uid(),w:'Той',t:'',loc:'',who:'',s:'todo'});save();renderVideo();renderDash();};
-
-/* ---------- song ---------- */
 function renderSongKPI(){
   const d=S.stages.filter(x=>x.s==='done').length;
-  document.getElementById('song-kpi').innerHTML=[
-    {c:'',l:'Песня',v:S.songTitle||'—',n:S.songSinger?'исполняет '+S.songSinger:'исполнитель не указан'},
+  document.getElementById('song-kpi').innerHTML=kpiHTML([
+    {l:'Песня',v:S.songTitle||'—',fs:(S.songTitle||'').length>10?'17px':'',n:S.songSinger?'исполняет '+S.songSinger:'исполнитель не указан'},
     {c:'ok',l:'Этапов готово',v:`${d}/${S.stages.length}`,n:`${pct(d,S.stages.length)}% записи`},
     {c:'nv',l:'Запись в студии',v:S.studioDate?new Date(S.studioDate+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'short'}):'—',n:S.studio||'студия не выбрана'}
-  ].map(k=>`<div class="kpi ${k.c}"><div class="lbl">${k.l}</div><div class="val" style="font-size:${String(k.v).length>10?'18px':'27px'}">${esc(k.v)}</div><div class="note">${esc(k.n)}</div></div>`).join('');
+  ]);
 }
-function renderSong(){
-  renderSongKPI();
-  document.getElementById('stage-body').innerHTML=S.stages.map(r=>`<tr>
-    <td>${inp('stages',r.id,'t','Этап')}</td>
-    <td>${inp('stages',r.id,'who','Кто')}</td>
-    <td><input type="date" value="${esc(r.d)}" data-l="stages" data-id="${r.id}" data-f="d"></td>
-    <td>${stSel('stages',r.id)}</td>
-    <td>${delBtn('stages',r.id)}</td></tr>`).join('');
-}
-document.getElementById('add-stage').onclick=()=>{S.stages.push({id:uid(),t:'',who:'',d:'',s:'todo'});save();renderSong();renderDash();};
-
-/* ---------- music ---------- */
-let plMom='Все';
-function renderMusic(){
-  const moms=['Все',...new Set(S.playlist.map(p=>p.mom))];
-  if(!moms.includes(plMom))plMom='Все';
-  document.getElementById('pl-chips').innerHTML=moms.map(m=>`<button class="chip ${m===plMom?'on':''}" data-mom="${esc(m)}">${esc(m)}</button>`).join('');
-  const list=plMom==='Все'?S.playlist:S.playlist.filter(p=>p.mom===plMom);
-  document.getElementById('pl-body').innerHTML=list.map(r=>`<tr>
-    <td>${inp('playlist',r.id,'mom','Момент')}</td>
-    <td>${inp('playlist',r.id,'t','Название трека')}</td>
-    <td>${inp('playlist',r.id,'a','Исполнитель')}</td>
-    <td>${stSel('playlist',r.id)}</td>
-    <td>${delBtn('playlist',r.id)}</td></tr>`).join('')||`<tr><td colspan="5" style="color:var(--muted)">Пусто</td></tr>`;
-}
-document.getElementById('pl-chips').addEventListener('click',e=>{
-  const c=e.target.closest('[data-mom]'); if(!c)return;
-  plMom=c.dataset.mom; renderMusic();
-});
-document.getElementById('add-pl').onclick=()=>{S.playlist.push({id:uid(),mom:plMom==='Все'?'':plMom,t:'',a:'',s:'todo'});save();renderMusic();renderDash();};
-
-/* ---------- performers ---------- */
-function renderPerf(){
-  const d=S.perf.filter(x=>x.s==='done').length;
-  const mi=S.perf.filter(x=>x.mi==='yes').length;
-  document.getElementById('perf-kpi').innerHTML=[
-    {c:'',l:'Номеров',v:S.perf.length,n:'живых выступлений'},
-    {c:'ok',l:'Готовы',v:`${d}/${S.perf.length}`,n:'подтверждено и отрепетировано'},
-    {c:mi<S.perf.length?'warn':'ok',l:'Минусовки собраны',v:`${mi}/${S.perf.length}`,n:mi<S.perf.length?'заберите фонограммы заранее':'все на руках'}
-  ].map(k=>`<div class="kpi ${k.c}"><div class="lbl">${k.l}</div><div class="val">${k.v}</div><div class="note">${k.n}</div></div>`).join('');
-  document.getElementById('perf-body').innerHTML=S.perf.map(r=>`<tr data-id="${r.id}">
-    <td>${inp('perf',r.id,'who','Имя')}</td>
-    <td>${inp('perf',r.id,'t','Песня')}</td>
-    <td>${inp('perf',r.id,'w','Момент')}</td>
-    <td>${sel('perf',r.id,'mi',[['no','Нужна'],['yes','Есть'],['live','Живой звук']])}</td>
-    <td>${stSel('perf',r.id)}</td>
-    <td>${delBtn('perf',r.id)}</td></tr>`).join('');
-}
-document.getElementById('add-perf').onclick=()=>{S.perf.push({id:uid(),who:'',t:'',w:'',mi:'no',s:'todo'});save();renderPerf();renderDash();};
+function renderSong(){ renderSongKPI(); renderStages(); }
 
 /* ---------- payments ---------- */
 function renderPayKPI(){
-  const m=money();
-  document.getElementById('pay-kpi').innerHTML=[
-    {c:'',l:'Общая сумма',v:fmt(m.sum),s:'₸',n:'по всем статьям'},
+  const m=money(), done=S.pay.filter(r=>r.s==='done').length;
+  document.getElementById('pay-kpi').innerHTML=kpiHTML([
+    {l:'Общая сумма',v:fmt(m.sum),s:'₸',n:'по всем статьям'},
     {c:'ok',l:'Предоплачено',v:fmt(m.pre),s:'₸',n:`${pct(m.pre,m.sum)}% внесено`},
     {c:'warn',l:'Остаток',v:fmt(m.left),s:'₸',n:'к доплате'},
-    {c:'nv',l:'Статей',v:`${S.pay.filter(r=>r.s==='done').length}/${S.pay.length}`,s:'',n:'закрыто полностью'}
-  ].map(k=>`<div class="kpi ${k.c}"><div class="lbl">${k.l}</div><div class="val">${k.v}${k.s?` <small>${k.s}</small>`:''}</div><div class="note">${k.n}</div></div>`).join('');
+    {c:'nv',l:'Статей',v:`${done}/${S.pay.length}`,n:'закрыто полностью'}
+  ]);
 }
 function refreshPayTotals(){
   const m=money();
   document.querySelectorAll('#pay-body tr').forEach(tr=>{
     const r=S.pay.find(x=>x.id===tr.dataset.id); if(!r)return;
     const left=(+r.sum||0)-(+r.pre||0);
-    const cell=tr.querySelector('.left-cell');
-    cell.textContent=fmt(left);
-    cell.style.color=left>0?'var(--red)':'var(--green)';
+    const c=tr.querySelector('.left-cell'); if(!c)return;
+    c.textContent=fmt(left);
+    c.style.color=left>0?'var(--red)':'var(--green)';
   });
   document.getElementById('t-sum').textContent=fmt(m.sum);
   document.getElementById('t-pre').textContent=fmt(m.pre);
   document.getElementById('t-left').textContent=fmt(m.left);
+}
+function renderPaySched(){
+  const due=S.pay.filter(r=>r.due&&(+r.sum||0)-(+r.pre||0)>0).sort((a,b)=>a.due.localeCompare(b.due));
+  const today=new Date().toISOString().slice(0,10);
+  document.getElementById('pay-sched').innerHTML=due.length?`<div class="tl">`+due.map(r=>`
+    <div class="it ${r.due<today?'done':''}">
+      <div class="tm">${new Date(r.due+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long'})}${r.due<today?' · просрочено':''}</div>
+      <div class="tt">${esc(r.t)} — ${fmt((+r.sum||0)-(+r.pre||0))} ₸</div>
+      <div class="td">${esc(r.c||'подрядчик не указан')}</div>
+    </div>`).join('')+`</div>`:`<div class="card" style="color:var(--muted);font-size:13px">Проставьте даты «Оплатить до» — здесь соберётся график платежей.</div>`;
 }
 function renderPay(){
   renderPayKPI();
@@ -821,25 +1347,25 @@ function renderPay(){
       <td>${sel('pay',r.id,'s',[['todo','Не оплачено'],['prog','Предоплата'],['done','Оплачено']])}</td>
       <td>${delBtn('pay',r.id)}</td></tr>`;
   }).join('');
-  refreshPayTotals();
-  renderPaySched();
+  refreshPayTotals(); renderPaySched();
 }
-function renderPaySched(){
-  const due=S.pay.filter(r=>r.due&&(+r.sum||0)-(+r.pre||0)>0).sort((a,b)=>a.due.localeCompare(b.due));
-  const today=new Date().toISOString().slice(0,10);
-  document.getElementById('pay-sched').innerHTML=due.length?`<div class="tl">`+due.map(r=>`
-    <div class="it ${r.due<today?'done':''}">
-      <div class="tm">${new Date(r.due+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long'})}${r.due<today?' · просрочено':''}</div>
-      <div class="tt">${esc(r.t)} — ${fmt((+r.sum||0)-(+r.pre||0))} ₸</div>
-      <div class="td">${esc(r.c||'подрядчик не указан')}</div>
-    </div>`).join('')+`</div>`:`<div class="card" style="color:var(--muted);font-size:13px">Проставьте даты «Оплатить до» — здесь соберётся график платежей.</div>`;
-}
-document.getElementById('add-pay').onclick=()=>{S.pay.push({id:uid(),t:'',c:'',sum:0,pre:0,due:'',s:'todo'});save();renderPay();renderDash();};
 
-/* ---------- settings / io ---------- */
-function fillFields(){
-  document.querySelectorAll('[data-v]').forEach(el=>{ el.value=S[el.dataset.v]??''; });
+/* ---------- final checklist ---------- */
+function renderFinal(){
+  document.getElementById('final-list').innerHTML=S.final.map(t=>`
+    <div class="chk ${t.done?'done':''}">
+      <input type="checkbox" class="cb" data-l="final" data-id="${t.id}" data-f="done"${t.done?' checked':''}>
+      <div class="tx"><div class="tt">${esc(t.t)}</div>${t.m?`<div class="mt">${esc(t.m)}</div>`:''}</div>
+      ${delBtn('final',t.id)}
+    </div>`).join('');
 }
+document.getElementById('add-final').onclick=()=>{
+  const t=prompt('Что проверить за день до тоя?'); if(!t)return;
+  S.final.push({id:uid(),t,m:'',done:false}); save(); renderFinal(); renderDash();
+};
+
+/* ---------- io ---------- */
+function fillFields(){ document.querySelectorAll('[data-v]').forEach(el=>{ el.value=S[el.dataset.v]??''; }); }
 function exportJSON(){
   const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
   const a=document.createElement('a');
@@ -853,10 +1379,8 @@ document.getElementById('imp').onclick=()=>document.getElementById('file').click
 document.getElementById('file').onchange=e=>{
   const f=e.target.files[0]; if(!f)return;
   const r=new FileReader();
-  r.onload=()=>{
-    try{ S=Object.assign({},SEED,JSON.parse(r.result)); save(); fillFields(); renderAll(); }
-    catch(err){ alert('Не получилось прочитать файл: '+err.message); }
-  };
+  r.onload=()=>{ try{ S=Object.assign({},structuredClone(SEED),JSON.parse(r.result)); save(); fillFields(); renderAll(); }
+    catch(err){ alert('Не получилось прочитать файл: '+err.message); } };
   r.readAsText(f);
 };
 document.getElementById('reset').onclick=()=>{
@@ -867,14 +1391,26 @@ document.getElementById('reset').onclick=()=>{
 /* ---------- nav ---------- */
 const TITLES={
   dash:['Дашборд','Общая готовность к сырға салу'],
-  plan:['Чек-лист','Что нужно успеть до тоя'],
-  day:['Сценарий дня','Тайминг для ведущего, оператора и диджея'],
-  video:['Видео и фильм','Съёмка и монтаж фильма'],
+  blocks:['Блоки готовности','Кто отвечает и на каком этапе'],
+  day:['Тайминг дня','Сценарий для ведущего, оператора и музыкантов'],
+  guests:['Гости и рассадка','Список гостей и столы'],
+  cards:['Карточки на тарелку','Именные карточки для печати'],
+  kuda:['Құдаларға сыйлық','Подарки со стороны невесты'],
+  gifts:['Жених, невеста, дети','Личные подарки'],
+  attr:['Ұлттық атрибуттар','Сырға, шашу и всё национальное'],
+  toi:['Тойбастар','Открытие тоя и сый исполнителю'],
+  perform:['Кто что поёт','Живые номера и фонограммы'],
+  music:['Музыка и жетіген','Живой звук и фон по моментам'],
+  photo:['Фотозона и текст','Макет надписи и варианты бата'],
+  shoot:['Национальная фотосессия','Съёмка в казахском стиле'],
+  video:['Видео и LED','Съёмка тоя и ролик на экран'],
   song:['Запись песни','Студия, этапы и дедлайны'],
-  music:['Диджей и музыка','Плейлист по моментам вечера'],
-  perform:['Кто что поёт','Живые номера и минусовки'],
+  rest:['Ресторан','Зал, техника, сервировка'],
+  decor:['Декор','Цветы, фотозона, оформление'],
   pay:['Оплаты и предоплаты','Сметы, авансы и остатки'],
-  set:['Данные тоя','Основная информация и резервная копия']
+  cont:['Контакты','Один экран для координатора'],
+  final:['Чек-лист за день до','Финальная сверка'],
+  set:['Данные тоя','Основная информация и копия']
 };
 function go(s){
   document.querySelectorAll('.sect').forEach(x=>x.classList.toggle('on',x.id==='s-'+s));
@@ -898,7 +1434,12 @@ document.getElementById('mask').onclick=()=>{
   document.getElementById('mask').classList.remove('on');
 };
 
-function renderAll(){ renderDash();renderPlan();renderDay();renderVideo();renderSong();renderMusic();renderPerf();renderPay(); }
+function renderAll(){
+  renderDash(); renderBlocks(); renderDay(); renderGuests(); renderCardPrev(); renderCardKPI();
+  renderKuda(); renderGifts(); renderAttr(); renderToi(); renderPerf(); renderPlaylist();
+  renderPhotozone(); renderShoot(); renderVideo(); renderSong(); renderRest(); renderDecor();
+  renderPay(); renderCont(); renderFinal();
+}
 fillFields(); renderAll();
 if(location.hash&&TITLES[location.hash.slice(1)])go(location.hash.slice(1));
 </script>
