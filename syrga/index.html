@@ -200,6 +200,7 @@ td input.num{text-align:right;font-family:var(--mono)}
       <div class="grp">Обзор</div>
       <button data-s="dash" class="on"><span class="ico">◆</span>Дашборд</button>
       <button data-s="blocks"><span class="ico">▤</span>Блоки готовности</button>
+      <button data-s="sched"><span class="ico">📅</span>Расписание к тою</button>
       <button data-s="day"><span class="ico">🕐</span>Тайминг дня</button>
       <div class="grp">Гости</div>
       <button data-s="guests"><span class="ico">👥</span>Гости и рассадка</button>
@@ -266,6 +267,14 @@ td input.num{text-align:right;font-family:var(--mono)}
           </table>
         </div>
         <div class="bar-actions"><button class="btn pri sm" data-add="blocks">+ Добавить блок</button></div>
+      </section>
+
+      <!-- SCHEDULE -->
+      <section class="sect" id="s-sched">
+        <div class="grid g4" id="sched-kpi"></div>
+        <p class="hint">Каждый день до тоя — отдельным списком: дела, которые вы добавили, и настоящие дедлайны из других разделов (оплаты, студия, фотосессия). Дни без дел не показываются. Сам той — последней карточкой, с полным таймингом.</p>
+        <div id="sched-days"></div>
+        <div class="bar-actions"><button class="btn pri sm" id="add-milestone">+ Добавить дело на дату</button></div>
       </section>
 
       <!-- DAY -->
@@ -743,7 +752,7 @@ const USTEL=()=>isLat()?'üstel':'үстел';
 const SEED={
   script:'cyr',
   bride:'Даяна',groom:'',brideLat:'Dayana',groomLat:'',
-  date:'',time:'17:00',venue:'',tables:6,coord:'',budget:'',treasurer:'',notes:'',
+  date:'2026-08-15',time:'17:00',venue:'',tables:6,coord:'',budget:'',treasurer:'',notes:'',
   cardTop:'Сырға салу',cardLine:'Қыз барған жеріне құт алып барады',cardTable:'yes',
   pzTop:'Сырға салу',pzMain:'Даяна',pzSub:'Қыз барған жеріне құт алып барады',pzDate:'',
   pzType:'',pzVendor:'',pzDeadline:'',pzNote:'',
@@ -952,6 +961,31 @@ const SEED={
     {id:uid(),t:'Платье и образ',c:'',sum:0,pre:0,due:'',s:'todo'},
     {id:uid(),t:'Визажист и стилист',c:'',sum:0,pre:0,due:'',s:'todo'},
     {id:uid(),t:'Торт',c:'',sum:0,pre:0,due:'',s:'todo'}
+  ],
+  /* дела распределены по датам заранее — до 15 августа; при смене даты тоя
+     старые даты не сдвигаются, как и остальные дедлайны в приложении */
+  milestones:[
+    {id:uid(),d:'2026-07-16',t:'Подтвердить бронь ресторана и дату',done:false},
+    {id:uid(),d:'2026-07-16',t:'Утвердить финальный список гостей',done:false},
+    {id:uid(),d:'2026-07-18',t:'Разослать приглашения гостям',done:false},
+    {id:uid(),d:'2026-07-22',t:'Забронировать жетіген и диджея',done:false},
+    {id:uid(),d:'2026-07-22',t:'Договориться с исполнителем тойбастар и сый',done:false},
+    {id:uid(),d:'2026-07-25',t:'Купить сырға',done:false},
+    {id:uid(),d:'2026-07-25',t:'Забронировать национальную фотосессию',done:false},
+    {id:uid(),d:'2026-07-28',t:'Утвердить текст и макет фотозоны',done:false},
+    {id:uid(),d:'2026-07-30',t:'Запись песни в студии',done:false},
+    {id:uid(),d:'2026-08-01',t:'Примерка платья и образа қыз',done:false},
+    {id:uid(),d:'2026-08-03',t:'Национальная фотосессия — сама съёмка',done:false},
+    {id:uid(),d:'2026-08-05',t:'Подтвердить финальное меню с рестораном',done:false},
+    {id:uid(),d:'2026-08-06',t:'Утвердить LED-ролик',done:false},
+    {id:uid(),d:'2026-08-08',t:'Финальная рассадка гостей по столам',done:false},
+    {id:uid(),d:'2026-08-08',t:'Собрать минусовки у всех исполнителей',done:false},
+    {id:uid(),d:'2026-08-10',t:'Распечатать карточки на тарелку и таблички',done:false},
+    {id:uid(),d:'2026-08-10',t:'Подписать подарки құдаларға по порядку вручения',done:false},
+    {id:uid(),d:'2026-08-12',t:'Оплатить остатки по всем подрядчикам',done:false},
+    {id:uid(),d:'2026-08-12',t:'Разослать финальный тайминг команде',done:false},
+    {id:uid(),d:'2026-08-14',t:'Пройти чек-лист «за день до»',done:false},
+    {id:uid(),d:'2026-08-14',t:'Забрать торт, проверить декор и фотозону',done:false}
   ]
 };
 
@@ -1027,7 +1061,8 @@ const NEW={
   rest:()=>({id:uid(),t:'',m:'',who:'',done:false}),
   decor:()=>({id:uid(),t:'',m:'',who:'',done:false}),
   cont:()=>({id:uid(),r:'',n:'',p:'',m:'',done:false}),
-  pay:()=>({id:uid(),t:'',c:'',sum:0,pre:0,due:'',s:'todo'})
+  pay:()=>({id:uid(),t:'',c:'',sum:0,pre:0,due:'',s:'todo'}),
+  milestones:()=>({id:uid(),d:'',t:'',done:false})
 };
 
 /* ---------- events ---------- */
@@ -1035,7 +1070,7 @@ document.addEventListener('input',e=>{
   const el=e.target;
   if(el.dataset.v!==undefined){
     S[el.dataset.v]=el.value; save();
-    renderDash(); renderVideoKPI(); renderSongKPI(); renderPhotozone(); renderCardPrev(); renderGuestKPI();
+    renderDash(); renderVideoKPI(); renderSongKPI(); renderPhotozone(); renderCardPrev(); renderGuestKPI(); renderSchedule();
     return;
   }
   if(el.dataset.l&&el.type!=='checkbox'){
@@ -1044,7 +1079,7 @@ document.addEventListener('input',e=>{
     r[el.dataset.f]=el.dataset.n?(+el.value||0):el.value;
     save();
     /* never re-render a table while it holds focus — only derived views */
-    if(el.dataset.l==='pay'){ refreshPayTotals(); renderPayKPI(); renderPaySched(); }
+    if(el.dataset.l==='pay'){ refreshPayTotals(); renderPayKPI(); renderPaySched(); renderSchedule(); }
     if(el.dataset.l==='guests'){ renderGuestKPI(); renderTables(); renderCardPrev(); renderCardKPI(); }
     renderDash();
   }
@@ -1054,7 +1089,9 @@ document.addEventListener('change',e=>{
   if(!el.dataset.l)return;
   const r=S[el.dataset.l].find(x=>x.id===el.dataset.id);
   if(!r)return;
-  if(el.type==='checkbox'){ r[el.dataset.f]=el.checked; save(); renderDash(); renderKudaKPI(); renderGuestKPI(); renderCardKPI(); return; }
+  /* full re-render is safe here — a checkbox click isn't continuous typing,
+     so there's no focused text input to lose (unlike the input-event path above) */
+  if(el.type==='checkbox'){ r[el.dataset.f]=el.checked; save(); renderAll(); return; }
   if(el.tagName==='SELECT'){ r[el.dataset.f]=el.value; save(); renderAll(); }
 });
 document.addEventListener('click',e=>{
@@ -1147,6 +1184,77 @@ function renderDash(){
 const kpiHTML=arr=>arr.map(k=>`<div class="kpi ${k.c||''}"><div class="lbl">${k.l}</div><div class="val"${k.fs?` style="font-size:${k.fs}"`:''}>${esc(String(k.v))}${k.s?` <small>${k.s}</small>`:''}</div><div class="note">${esc(k.n||'')}</div></div>`).join('');
 
 const renderBlocks=()=>document.getElementById('blocks-body').innerHTML=rows('blocks',[{f:'t',ph:'Блок'},{f:'who',ph:'Имя'},{t:'st'},{f:'m',ph:'Комментарий'}]);
+
+/* ---------- day-by-day schedule ---------- */
+function renderSchedule(){
+  const kpiBox=document.getElementById('sched-kpi'), daysBox=document.getElementById('sched-days');
+  if(!S.date){
+    kpiBox.innerHTML='';
+    daysBox.innerHTML=`<div class="card" style="color:var(--muted);font-size:13px">Укажите дату тоя в «Данные тоя» — расписание соберётся само.</div>`;
+    return;
+  }
+  const today=new Date(); today.setHours(0,0,0,0);
+  const todayISO=today.toISOString().slice(0,10);
+
+  /* real deadlines already set elsewhere in the app, shown read-only under their date */
+  const extra={};
+  const pushExtra=(d,text)=>{ if(!d)return; (extra[d]=extra[d]||[]).push(text); };
+  S.pay.forEach(r=>{ const left=(+r.sum||0)-(+r.pre||0); if(r.due&&left>0)pushExtra(r.due,`Оплатить: ${r.t} — ${fmt(left)} ₸`); });
+  pushExtra(S.studioDate,'Запись песни в студии'+(S.studio?` (${S.studio})`:''));
+  pushExtra(S.songDeadline,'Дедлайн готового трека');
+  pushExtra(S.shootDate,'Национальная фотосессия'+(S.shootLoc?` (${S.shootLoc})`:''));
+  pushExtra(S.pzDeadline,'Дедлайн макета фотозоны');
+  pushExtra(S.filmDeadline,'Дедлайн готового фильма');
+  pushExtra(S.ledDeadline,'Дедлайн LED-ролика');
+
+  const dateSet=new Set([...Object.keys(extra), ...S.milestones.map(m=>m.d).filter(Boolean), S.date]);
+  const sorted=[...dateSet].sort();
+
+  const openM=S.milestones.filter(m=>!m.done);
+  const overdue=openM.filter(m=>m.d&&m.d<todayISO);
+  const next=openM.filter(m=>!m.d||m.d>=todayISO).sort((a,b)=>(a.d||'9999').localeCompare(b.d||'9999'))[0];
+  const dl=daysLeft();
+  kpiBox.innerHTML=kpiHTML([
+    {l:'Дней до тоя',v:dl===null?'—':(dl<0?'0':dl),n:dl===null?'дата не задана':(dl<0?'той прошёл':'до '+new Date(S.date+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long'}))},
+    {c:'ok',l:'Дел выполнено',v:`${S.milestones.length-openM.length}/${S.milestones.length}`,n:`${pct(S.milestones.length-openM.length,S.milestones.length)}%`},
+    {c:overdue.length?'warn':'ok',l:'Просрочено',v:overdue.length,n:overdue.length?'нужно наверстать':'всё по графику'},
+    {l:'Ближайшее дело',v:next&&next.d?new Date(next.d+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'short'}):'—',fs:'19px',n:next?next.t:'дел не осталось'}
+  ]);
+
+  daysBox.innerHTML=sorted.map(d=>{
+    const dObj=new Date(d+'T00:00:00');
+    const diff=Math.round((dObj-today)/86400000);
+    const isEvent=d===S.date;
+    const items=S.milestones.filter(m=>m.d===d);
+    const extras=extra[d]||[];
+    const label=isEvent?'той':diff<0?'просрочено':diff===0?'сегодня':`за ${diff} ${days(diff)}`;
+    const bdg=isEvent?'done':diff<0?'risk':(diff<=3?'prog':'todo');
+    return `<div class="card" style="margin-bottom:12px${diff<0&&!isEvent?';border-color:#e8c4bd':''}">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px">
+        <div style="font-family:var(--display);font-size:19px;font-weight:600;color:${isEvent?'var(--wine)':'var(--ink)'}">${dObj.toLocaleDateString('ru-RU',{day:'numeric',month:'long',weekday:'short'})}${isEvent?' 💍':''}</div>
+        <div class="bdg ${bdg}">${label}</div>
+      </div>
+      ${items.length?`<div style="margin-top:10px">${items.map(m=>`
+        <div class="chk ${m.done?'done':''}" style="margin-bottom:6px">
+          <input type="checkbox" class="cb" data-l="milestones" data-id="${m.id}" data-f="done"${m.done?' checked':''}>
+          <div class="tx"><div class="tt">${esc(m.t)}</div></div>
+          ${delBtn('milestones',m.id)}
+        </div>`).join('')}</div>`:''}
+      ${extras.length?`<div style="margin-top:${items.length?'4px':'10px'};font-size:12.5px;color:var(--muted)">${extras.map(x=>`<div style="padding:4px 0">◆ ${esc(x)}</div>`).join('')}</div>`:''}
+      ${isEvent?`<div style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--line2)">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin-bottom:8px">Тайминг дня</div>
+        ${S.day.map(r=>`<div style="display:flex;gap:10px;padding:3px 0;font-size:12.5px"><span style="font-family:var(--mono);color:var(--gold-d);font-weight:600;flex-shrink:0;width:44px">${esc(r.tm)}</span><span>${esc(r.t)}</span></div>`).join('')}
+      </div>`:''}
+      ${!items.length&&!extras.length&&!isEvent?`<div style="font-size:12.5px;color:var(--muted2);margin-top:6px">Пока пусто</div>`:''}
+    </div>`;
+  }).join('');
+}
+document.getElementById('add-milestone').onclick=()=>{
+  const t=prompt('Что нужно сделать?'); if(!t)return;
+  const d=prompt('На какую дату? (гггг-мм-дд)',S.date||''); if(!d)return;
+  S.milestones.push({id:uid(),d,t,done:false});
+  save(); renderSchedule(); renderDash();
+};
 const renderDay=()=>document.getElementById('day-body').innerHTML=rows('day',[{f:'tm',ph:'18:00'},{f:'t',ph:'Что происходит'},{f:'who',ph:'Кто'},{f:'mus',ph:'Музыка / съёмка'},{t:'st'}]);
 const renderGifts=()=>document.getElementById('gifts-body').innerHTML=rows('gifts',[{f:'who',ph:'Кому'},{f:'g',ph:'Подарок'},{f:'by',ph:'Кто вручает'},{t:'chk',f:'done'}]);
 const renderAttr=()=>document.getElementById('attr-body').innerHTML=rows('attr',[{f:'t',ph:'Позиция'},{f:'m',ph:'Комментарий'},{f:'who',ph:'Кто'},{t:'chk',f:'done'}]);
@@ -1481,6 +1589,7 @@ document.getElementById('reset').onclick=()=>{
 const TITLES={
   dash:['Дашборд','Общая готовность к сырға салу'],
   blocks:['Блоки готовности','Кто отвечает и на каком этапе'],
+  sched:['Расписание к тою','Что остаётся — отдельным списком на каждый день'],
   day:['Тайминг дня','Сценарий для ведущего, оператора и музыкантов'],
   guests:['Гости и рассадка','Список гостей и столы'],
   cards:['Карточки на тарелку','Именные карточки для печати'],
@@ -1524,7 +1633,7 @@ document.getElementById('mask').onclick=()=>{
 };
 
 function renderAll(){
-  renderDash(); renderBlocks(); renderDay(); renderGuests(); renderCardPrev(); renderCardKPI();
+  renderDash(); renderBlocks(); renderSchedule(); renderDay(); renderGuests(); renderCardPrev(); renderCardKPI();
   renderKuda(); renderGifts(); renderAttr(); renderToi(); renderPerf(); renderPlaylist();
   renderPhotozone(); renderShoot(); renderVideo(); renderSong(); renderRest(); renderDecor();
   renderPay(); renderCont(); renderFinal();
