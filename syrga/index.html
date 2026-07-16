@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сырға салу — панель подготовки</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236b2438'/><text x='16' y='23' font-size='18' text-anchor='middle'>💍</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wine:#6b2438; --wine2:#8f3450; --ink:#2e1a20;
+  --gold:#b8873e; --gold-d:#8f6529; --gold-l:#dcb974;
+  --ivory:#f7f2ea; --ivory2:#efe5d4; --paper:#fdfaf4;
+  --card:#ffffff; --line:#e8ddc9; --line2:#d9caae;
+  --muted:#7a6a5e; --muted2:#9d8f80;
+  --red:#a8493f; --redbg:#f8eae7;
+  --green:#3f7d5a; --greenbg:#e7f0ea;
+  --amber:#c08a2c; --amberbg:#f8efd9;
+  --display:'Cormorant Garamond',Georgia,serif;
+  --body:'Manrope',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:'Spline Sans Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--ivory);color:var(--ink);line-height:1.5;font-size:15px;-webkit-font-smoothing:antialiased}
+.app{display:flex;min-height:100vh}
+
+/* ---------- sidebar ---------- */
+.side{width:250px;background:var(--wine);color:#f0e2e6;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:40}
+.brand{padding:24px 22px 18px;border-bottom:1px solid rgba(255,255,255,.1)}
+.brand .kicker{font-size:10px;letter-spacing:.22em;color:var(--gold-l);text-transform:uppercase;font-weight:600}
+.brand h1{font-family:var(--display);font-size:28px;font-weight:600;color:#fff;line-height:1.05;margin-top:7px}
+.brand .sub{font-size:11.5px;color:#d3b5bd;margin-top:6px}
+.nav{padding:12px 12px 30px}
+.nav button{display:flex;align-items:center;gap:11px;width:100%;background:none;border:none;color:#dcc3ca;font-family:var(--body);font-size:13.5px;font-weight:500;text-align:left;padding:10px 12px;border-radius:9px;cursor:pointer;transition:.15s;margin-bottom:2px}
+.nav button:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav button.on{background:linear-gradient(90deg,rgba(184,135,62,.3),rgba(184,135,62,.05));color:#fff;box-shadow:inset 2px 0 0 var(--gold)}
+.nav .ico{width:18px;text-align:center;font-size:14px;flex-shrink:0}
+.nav .grp{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#b48d97;font-weight:700;padding:16px 12px 7px}
+
+/* ---------- main ---------- */
+.main{flex:1;min-width:0}
+.top{background:var(--paper);border-bottom:1px solid var(--line);padding:16px 30px;display:flex;align-items:center;justify-content:space-between;gap:14px;position:sticky;top:0;z-index:30}
+.top h2{font-family:var(--display);font-size:26px;font-weight:600;color:var(--wine)}
+.top .sub{font-size:12px;color:var(--muted);margin-top:1px}
+.burger{display:none;background:var(--wine);border:none;color:#fff;font-size:19px;width:40px;height:40px;border-radius:9px;cursor:pointer;flex-shrink:0}
+.wrap{padding:26px 30px 70px;max-width:1180px}
+.sect{display:none}.sect.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+h3.hh{font-family:var(--display);font-size:22px;font-weight:600;color:var(--wine);margin:26px 0 12px;display:flex;align-items:center;gap:12px}
+h3.hh:first-child{margin-top:0}
+h3.hh::after{content:'';flex:1;height:1px;background:var(--line2)}
+.hint{font-size:12.5px;color:var(--muted);margin:-6px 0 14px;max-width:640px}
+
+.grid{display:grid;gap:14px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:1000px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr}.g2{grid-template-columns:1fr}}
+
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:17px 18px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold)}
+.kpi.ok::before{background:var(--green)}.kpi.warn::before{background:var(--red)}.kpi.nv::before{background:var(--wine2)}
+.kpi .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+.kpi .val{font-family:var(--mono);font-size:27px;font-weight:600;color:var(--wine);margin-top:7px;line-height:1}
+.kpi .val small{font-size:13px;color:var(--muted2)}
+.kpi .note{font-size:11.5px;color:var(--muted2);margin-top:6px}
+.bar{height:9px;background:var(--ivory2);border-radius:6px;overflow:hidden;margin-top:9px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-l));border-radius:6px;transition:width .5s}
+.bar.gr i{background:linear-gradient(90deg,var(--green),#5da97d)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px 20px}
+.card .ct{font-family:var(--display);font-size:19px;font-weight:600;color:var(--wine);margin-bottom:4px}
+.card .cs{font-size:12px;color:var(--muted);margin-bottom:12px}
+
+.bdg{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.bdg.todo{background:var(--ivory2);color:var(--muted)}
+.bdg.prog{background:var(--amberbg);color:var(--amber)}
+.bdg.done{background:var(--greenbg);color:var(--green)}
+.bdg.risk{background:var(--redbg);color:var(--red)}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:10px 12px;border-bottom:2px solid var(--line2);background:var(--paper);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fdfaf4}
+.num{font-family:var(--mono);text-align:right;white-space:nowrap}
+.tbl-wrap{background:var(--card);border:1px solid var(--line);border-radius:13px;overflow:auto}
+tfoot td{border-top:2px solid var(--line2);font-weight:700;background:var(--paper)}
+
+input[type=text],input[type=number],input[type=date],input[type=time],select,textarea{font-family:var(--body);font-size:13.5px;border:1px solid var(--line2);border-radius:8px;padding:8px 11px;background:#fff;color:var(--ink);width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+textarea{resize:vertical;min-height:74px;line-height:1.5}
+select{cursor:pointer}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;margin-bottom:5px}
+td input,td select{border-color:transparent;background:transparent;padding:5px 7px}
+td input:hover,td select:hover{border-color:var(--line2);background:#fff}
+td input.num{text-align:right;font-family:var(--mono)}
+
+.btn{font-family:var(--body);font-weight:600;font-size:13px;border:none;border-radius:9px;padding:9px 15px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:7px}
+.btn.pri{background:var(--wine);color:#fff}.btn.pri:hover{background:var(--wine2)}
+.btn.gh{background:none;border:1px solid var(--line2);color:var(--muted)}.btn.gh:hover{border-color:var(--gold);color:var(--gold-d)}
+.btn.sm{padding:6px 11px;font-size:12px}
+.del{background:none;border:none;color:var(--muted2);cursor:pointer;font-size:15px;padding:3px 6px;border-radius:6px;line-height:1}
+.del:hover{background:var(--redbg);color:var(--red)}
+.bar-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:20px;border:1px solid var(--line2);background:#fff;color:var(--muted);cursor:pointer;transition:.15s}
+.chip.on{background:var(--wine);color:#fff;border-color:var(--wine)}
+
+.chk{display:flex;align-items:flex-start;gap:11px;padding:11px 14px;border:1px solid var(--line);border-radius:11px;background:#fff;margin-bottom:8px}
+.chk input[type=checkbox]{width:18px;height:18px;accent-color:var(--wine);margin-top:2px;flex-shrink:0;cursor:pointer}
+.chk .tx{flex:1;min-width:0}
+.chk .tt{font-size:13.5px;font-weight:600;color:var(--ink)}
+.chk .mt{font-size:11.5px;color:var(--muted2);margin-top:2px}
+.chk.done .tt{text-decoration:line-through;color:var(--muted2)}
+.chk.done{background:#fbf9f4}
+
+.hero{background:linear-gradient(135deg,var(--wine),var(--wine2));color:#fff;border-radius:15px;padding:24px 26px;position:relative;overflow:hidden}
+.hero::after{content:'💍';position:absolute;right:-8px;bottom:-22px;font-size:120px;opacity:.11}
+.hero .k{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-l);font-weight:700}
+.hero h4{font-family:var(--display);font-size:32px;font-weight:600;margin-top:6px;line-height:1.1}
+.hero .meta{font-size:13px;color:#eccfd6;margin-top:8px}
+.hero .cd{display:flex;gap:26px;margin-top:18px;position:relative;z-index:2}
+.hero .cd div{text-align:center}
+.hero .cd .n{font-family:var(--mono);font-size:30px;font-weight:600;line-height:1}
+.hero .cd .u{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e0b9c2;margin-top:4px}
+
+.tl{position:relative;padding-left:26px}
+.tl::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:repeating-linear-gradient(180deg,var(--gold) 0 8px,transparent 8px 15px)}
+.tl .it{position:relative;padding:0 0 16px}
+.tl .it::before{content:'';position:absolute;left:-23px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--card);border:2px solid var(--gold)}
+.tl .it.done::before{background:var(--green);border-color:var(--green)}
+.tl .tm{font-family:var(--mono);font-size:12px;color:var(--gold-d);font-weight:600}
+.tl .tt{font-size:14px;font-weight:600;color:var(--ink);margin-top:1px}
+.tl .td{font-size:12px;color:var(--muted);margin-top:2px}
+
+.saved{position:fixed;right:20px;bottom:20px;background:var(--wine);color:#fff;font-size:12.5px;font-weight:600;padding:9px 15px;border-radius:20px;opacity:0;transform:translateY(8px);transition:.25s;pointer-events:none;z-index:60}
+.saved.on{opacity:1;transform:none}
+
+.mask{display:none;position:fixed;inset:0;background:rgba(46,26,32,.5);z-index:35}
+.mask.on{display:block}
+
+@media(max-width:860px){
+  .side{position:fixed;left:0;top:0;transform:translateX(-100%);transition:transform .25s}
+  .side.on{transform:none}
+  .burger{display:block}
+  .top{padding:12px 16px}
+  .top h2{font-size:21px}
+  .wrap{padding:18px 16px 60px}
+  .hero{padding:20px}
+  .hero h4{font-size:26px}
+  .hero .cd{gap:14px}
+  .hero .cd .n{font-size:23px}
+  .kpi{padding:14px 15px}
+  .kpi .val{font-size:19px;white-space:nowrap}
+  .kpi .val small{font-size:11px}
+  .kpi .lbl{font-size:10px}
+}
+</style>
+</head>
+<body>
+<div class="mask" id="mask"></div>
+<div class="app">
+
+  <aside class="side" id="side">
+    <div class="brand">
+      <div class="kicker">Отбасылық той</div>
+      <h1>Сырға салу</h1>
+      <div class="sub">Панель подготовки</div>
+    </div>
+    <nav class="nav" id="nav">
+      <div class="grp">Обзор</div>
+      <button data-s="dash" class="on"><span class="ico">◆</span>Дашборд</button>
+      <button data-s="plan"><span class="ico">✓</span>Чек-лист</button>
+      <button data-s="day"><span class="ico">🕐</span>Сценарий дня</button>
+      <div class="grp">Контент</div>
+      <button data-s="video"><span class="ico">🎬</span>Видео и фильм</button>
+      <button data-s="song"><span class="ico">🎙</span>Запись песни</button>
+      <button data-s="music"><span class="ico">🎵</span>Диджей и музыка</button>
+      <button data-s="perform"><span class="ico">🎤</span>Кто что поёт</button>
+      <div class="grp">Деньги</div>
+      <button data-s="pay"><span class="ico">₸</span>Оплаты и предоплаты</button>
+      <div class="grp">Настройки</div>
+      <button data-s="set"><span class="ico">⚙</span>Данные тоя</button>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="top">
+      <button class="burger" id="burger">☰</button>
+      <div style="flex:1;min-width:0">
+        <h2 id="ttl">Дашборд</h2>
+        <div class="sub" id="tsub">Общая готовность к сырға салу</div>
+      </div>
+      <button class="btn gh sm" id="exp">⬇ Экспорт</button>
+    </div>
+    <div class="wrap">
+
+      <!-- ================= DASHBOARD ================= -->
+      <section class="sect on" id="s-dash">
+        <div class="hero">
+          <div class="k">Сырға салу</div>
+          <h4 id="h-names">—</h4>
+          <div class="meta" id="h-meta">—</div>
+          <div class="cd" id="h-cd"></div>
+        </div>
+
+        <h3 class="hh">Ключевые цифры</h3>
+        <div class="grid g4" id="kpis"></div>
+
+        <h3 class="hh">Готовность по направлениям</h3>
+        <div class="grid g2" id="tracks"></div>
+
+        <h3 class="hh">Ближайшие дела</h3>
+        <div id="soon"></div>
+      </section>
+
+      <!-- ================= CHECKLIST ================= -->
+      <section class="sect" id="s-plan">
+        <div class="chips" id="plan-chips"></div>
+        <div id="plan-list"></div>
+        <div class="bar-actions">
+          <button class="btn pri sm" id="add-task">+ Добавить дело</button>
+        </div>
+      </section>
+
+      <!-- ================= DAY SCRIPT ================= -->
+      <section class="sect" id="s-day">
+        <p class="hint">Тайминг самого дня — по нему работают ведущий, оператор и диджей. Отметьте галочкой то, что уже согласовано.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th style="width:90px">Время</th><th>Что происходит</th><th style="width:150px">Кто ведёт</th><th style="width:170px">Музыка / съёмка</th><th style="width:110px">Статус</th><th style="width:44px"></th></tr></thead>
+            <tbody id="day-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" id="add-day">+ Добавить блок</button></div>
+      </section>
+
+      <!-- ================= VIDEO ================= -->
+      <section class="sect" id="s-video">
+        <div class="grid g3" id="video-kpi"></div>
+
+        <h3 class="hh">Съёмочная группа</h3>
+        <div class="grid g2">
+          <div class="card">
+            <div class="ct">Команда</div>
+            <div class="cs">Кто снимает и на чём</div>
+            <div class="field"><label>Видеограф / студия</label><input type="text" data-v="videographer" placeholder="Имя, контакт"></div>
+            <div class="field"><label>Второй оператор</label><input type="text" data-v="videographer2" placeholder="Имя, контакт"></div>
+            <div class="field"><label>Фотограф</label><input type="text" data-v="photographer" placeholder="Имя, контакт"></div>
+            <div class="field" style="margin:0"><label>Техника (камеры, дрон, свет, петлички)</label><textarea data-v="videoGear" placeholder="2 камеры, дрон, 2 петлички, свет на локации"></textarea></div>
+          </div>
+          <div class="card">
+            <div class="ct">Фильм</div>
+            <div class="cs">Что должно получиться на выходе</div>
+            <div class="field"><label>Формат фильма</label><input type="text" data-v="filmFormat" placeholder="Фильм 12–15 мин + клип 3 мин + вертикалки"></div>
+            <div class="field"><label>Дедлайн готового фильма</label><input type="date" data-v="filmDeadline"></div>
+            <div class="field"><label>Музыка фильма</label><input type="text" data-v="filmMusic" placeholder="Трек для монтажа"></div>
+            <div class="field" style="margin:0"><label>Идея / настроение</label><textarea data-v="filmIdea" placeholder="Тёплая семейная история, national style, живые эмоции, без постановки"></textarea></div>
+          </div>
+        </div>
+
+        <h3 class="hh">План съёмки — сцены</h3>
+        <p class="hint">Список кадров и сцен, которые нужно снять. Отдайте его оператору до тоя — тогда ничего не потеряется.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th style="width:110px">Когда</th><th>Сцена / кадр</th><th style="width:150px">Локация</th><th style="width:150px">Кто в кадре</th><th style="width:110px">Статус</th><th style="width:44px"></th></tr></thead>
+            <tbody id="shot-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" id="add-shot">+ Добавить сцену</button></div>
+      </section>
+
+      <!-- ================= SONG ================= -->
+      <section class="sect" id="s-song">
+        <div class="grid g3" id="song-kpi"></div>
+
+        <h3 class="hh">Песня</h3>
+        <div class="grid g2">
+          <div class="card">
+            <div class="ct">О песне</div>
+            <div class="cs">Что записываем</div>
+            <div class="field"><label>Название / песня</label><input type="text" data-v="songTitle" placeholder="Название песни"></div>
+            <div class="field"><label>Кто исполняет</label><input type="text" data-v="songSinger" placeholder="Имя"></div>
+            <div class="field"><label>Автор слов / музыки</label><input type="text" data-v="songAuthor" placeholder="Автор"></div>
+            <div class="field" style="margin:0"><label>Тональность, длительность, комментарий</label><textarea data-v="songNote" placeholder="Тональность, минусовка, кто аранжирует"></textarea></div>
+          </div>
+          <div class="card">
+            <div class="ct">Студия</div>
+            <div class="cs">Где и когда пишем</div>
+            <div class="field"><label>Студия</label><input type="text" data-v="studio" placeholder="Название, адрес"></div>
+            <div class="field"><label>Дата записи</label><input type="date" data-v="studioDate"></div>
+            <div class="field"><label>Звукорежиссёр</label><input type="text" data-v="soundEng" placeholder="Имя, контакт"></div>
+            <div class="field" style="margin:0"><label>Дедлайн готового трека</label><input type="date" data-v="songDeadline"></div>
+          </div>
+        </div>
+
+        <h3 class="hh">Этапы записи</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Этап</th><th style="width:160px">Ответственный</th><th style="width:140px">Срок</th><th style="width:120px">Статус</th><th style="width:44px"></th></tr></thead>
+            <tbody id="stage-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" id="add-stage">+ Добавить этап</button></div>
+      </section>
+
+      <!-- ================= MUSIC / DJ ================= -->
+      <section class="sect" id="s-music">
+        <div class="grid g2">
+          <div class="card">
+            <div class="ct">Диджей</div>
+            <div class="cs">Контакты и техника</div>
+            <div class="field"><label>Диджей</label><input type="text" data-v="dj" placeholder="Имя, контакт"></div>
+            <div class="field"><label>Ведущий / асаба</label><input type="text" data-v="host" placeholder="Имя, контакт"></div>
+            <div class="field"><label>Аппаратура и свет</label><input type="text" data-v="djGear" placeholder="Звук, микрофоны, свет, дым"></div>
+            <div class="field" style="margin:0"><label>Время саундчека</label><input type="text" data-v="soundcheck" placeholder="За 2 часа до начала"></div>
+          </div>
+          <div class="card">
+            <div class="ct">Пожелания по музыке</div>
+            <div class="cs">Что играем и чего точно не играем</div>
+            <div class="field"><label>Общее настроение</label><input type="text" data-v="musicMood" placeholder="Kazakh pop, ретро для старших, танцы после 22:00"></div>
+            <div class="field" style="margin:0"><label>Стоп-лист</label><textarea data-v="musicStop" placeholder="Треки и жанры, которые не ставить"></textarea></div>
+          </div>
+        </div>
+
+        <h3 class="hh">Плейлист по блокам</h3>
+        <p class="hint">Список для диджея: какой трек в какой момент. Отправьте его вместе с таймингом дня.</p>
+        <div class="chips" id="pl-chips"></div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th style="width:170px">Момент</th><th>Трек</th><th style="width:160px">Исполнитель</th><th style="width:120px">Статус</th><th style="width:44px"></th></tr></thead>
+            <tbody id="pl-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" id="add-pl">+ Добавить трек</button></div>
+      </section>
+
+      <!-- ================= PERFORMERS ================= -->
+      <section class="sect" id="s-perform">
+        <div class="grid g3" id="perf-kpi"></div>
+        <h3 class="hh">Живое исполнение</h3>
+        <p class="hint">Кто выходит петь, какая песня, есть ли минусовка. Отметьте, у кого нужно заранее забрать фонограмму — это самая частая причина накладок.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th style="width:160px">Кто поёт</th><th>Песня</th><th style="width:130px">Когда</th><th style="width:120px">Минусовка</th><th style="width:120px">Статус</th><th style="width:44px"></th></tr></thead>
+            <tbody id="perf-body"></tbody>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" id="add-perf">+ Добавить номер</button></div>
+      </section>
+
+      <!-- ================= PAYMENTS ================= -->
+      <section class="sect" id="s-pay">
+        <div class="grid g4" id="pay-kpi"></div>
+
+        <h3 class="hh">Сметы, предоплаты и остатки</h3>
+        <p class="hint">Впишите сумму и предоплату — остаток посчитается сам. Суммы в тенге.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th>Статья</th><th style="width:150px">Подрядчик</th>
+              <th style="width:120px">Сумма</th><th style="width:120px">Предоплата</th><th style="width:110px">Остаток</th>
+              <th style="width:130px">Оплатить до</th><th style="width:110px">Статус</th><th style="width:44px"></th>
+            </tr></thead>
+            <tbody id="pay-body"></tbody>
+            <tfoot><tr>
+              <td colspan="2">Итого</td>
+              <td class="num" id="t-sum">0</td><td class="num" id="t-pre">0</td><td class="num" id="t-left">0</td>
+              <td colspan="3"></td>
+            </tr></tfoot>
+          </table>
+        </div>
+        <div class="bar-actions"><button class="btn pri sm" id="add-pay">+ Добавить статью</button></div>
+
+        <h3 class="hh">График платежей</h3>
+        <div id="pay-sched"></div>
+      </section>
+
+      <!-- ================= SETTINGS ================= -->
+      <section class="sect" id="s-set">
+        <div class="grid g2">
+          <div class="card">
+            <div class="ct">Данные тоя</div>
+            <div class="cs">Эти данные видны на дашборде</div>
+            <div class="field"><label>Кому надевают сырға (келін)</label><input type="text" data-v="bride" placeholder="Имя"></div>
+            <div class="field"><label>Жених / семья</label><input type="text" data-v="groom" placeholder="Имя"></div>
+            <div class="field"><label>Дата тоя</label><input type="date" data-v="date"></div>
+            <div class="field"><label>Время начала</label><input type="time" data-v="time"></div>
+            <div class="field"><label>Место</label><input type="text" data-v="venue" placeholder="Ресторан, адрес"></div>
+            <div class="field" style="margin:0"><label>Количество гостей</label><input type="number" data-v="guests" placeholder="60"></div>
+          </div>
+          <div class="card">
+            <div class="ct">Бюджет и данные</div>
+            <div class="cs">Ориентир и управление сохранением</div>
+            <div class="field"><label>Плановый бюджет, ₸</label><input type="number" data-v="budget" placeholder="2000000"></div>
+            <div class="field"><label>Ответственный за деньги</label><input type="text" data-v="treasurer" placeholder="Имя"></div>
+            <div class="field" style="margin:0"><label>Заметки</label><textarea data-v="notes" placeholder="Любые договорённости"></textarea></div>
+            <div class="bar-actions">
+              <button class="btn gh sm" id="exp2">⬇ Скачать копию (JSON)</button>
+              <button class="btn gh sm" id="imp">⬆ Загрузить копию</button>
+              <button class="btn gh sm" id="reset" style="color:var(--red);border-color:#e8c4bd">Сбросить всё</button>
+            </div>
+            <input type="file" id="file" accept="application/json" hidden>
+            <p class="hint" style="margin:12px 0 0">Данные хранятся только в этом браузере. Чтобы перенести на другое устройство — скачайте копию и загрузите её там.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+<div class="saved" id="toast">Сохранено</div>
+
+<script>
+const KEY='syrga-salu-v1';
+const STATUS=['todo','prog','done'];
+const ST_LABEL={todo:'Не начато',prog:'В работе',done:'Готово'};
+const uid=()=>Math.random().toString(36).slice(2,9);
+
+const SEED={
+  bride:'',groom:'',date:'',time:'17:00',venue:'',guests:'',budget:'',treasurer:'',notes:'',
+  videographer:'',videographer2:'',photographer:'',videoGear:'',
+  filmFormat:'Фильм 12–15 мин + клип 3 мин + вертикальные ролики',filmDeadline:'',filmMusic:'',filmIdea:'',
+  songTitle:'',songSinger:'',songAuthor:'',songNote:'',studio:'',studioDate:'',soundEng:'',songDeadline:'',
+  dj:'',host:'',djGear:'',soundcheck:'',musicMood:'',musicStop:'',
+  tasks:[
+    {id:uid(),cat:'Организация',t:'Согласовать дату с двумя семьями',m:'Старшие с обеих сторон',done:false},
+    {id:uid(),cat:'Организация',t:'Забронировать ресторан и меню',m:'Аванс по договору',done:false},
+    {id:uid(),cat:'Организация',t:'Составить список гостей',m:'',done:false},
+    {id:uid(),cat:'Сырға',t:'Купить сырға',m:'Главный атрибут — выбрать заранее',done:false},
+    {id:uid(),cat:'Сырға',t:'Подготовить коробочку / поднос для сырға',m:'Красивая подача в кадре',done:false},
+    {id:uid(),cat:'Сырға',t:'Собрать подарки келін (кимешек, шапан, отрезы)',m:'',done:false},
+    {id:uid(),cat:'Сырға',t:'Договориться, кто надевает сырға',m:'Обычно апа или ене',done:false},
+    {id:uid(),cat:'Образ',t:'Платье и образ келін',m:'Примерка минимум за 2 недели',done:false},
+    {id:uid(),cat:'Образ',t:'Визажист и стилист — бронь',m:'',done:false},
+    {id:uid(),cat:'Декор',t:'Оформление зала и фотозона',m:'',done:false},
+    {id:uid(),cat:'Декор',t:'Торт и сладкий стол',m:'',done:false},
+    {id:uid(),cat:'Контент',t:'Отдать оператору план съёмки',m:'Раздел «Видео и фильм»',done:false},
+    {id:uid(),cat:'Контент',t:'Отдать диджею плейлист и тайминг',m:'Раздел «Диджей и музыка»',done:false},
+    {id:uid(),cat:'Контент',t:'Собрать минусовки у всех, кто поёт',m:'Раздел «Кто что поёт»',done:false}
+  ],
+  day:[
+    {id:uid(),tm:'15:00',t:'Сборы келін, макияж',who:'Стилист',mus:'Съёмка сборов, лайв-музыка',s:'todo'},
+    {id:uid(),tm:'16:30',t:'Приезд гостей, встреча',who:'Ведущий',mus:'Фоновый плейлист, съёмка welcome',s:'todo'},
+    {id:uid(),tm:'17:00',t:'Той бастар — открытие',who:'Ведущий',mus:'Той бастар трек',s:'todo'},
+    {id:uid(),tm:'17:30',t:'Слово старших, бата',who:'Ата / апа',mus:'Тихий фон, обе камеры',s:'todo'},
+    {id:uid(),tm:'18:00',t:'Сырға салу — главный момент',who:'Ене / апа',mus:'Торжественный трек, крупный план рук',s:'todo'},
+    {id:uid(),tm:'18:20',t:'Подарки и поздравления',who:'Ведущий',mus:'Фон, съёмка реакций',s:'todo'},
+    {id:uid(),tm:'19:00',t:'Живая песня для келін',who:'Исполнитель',mus:'Минусовка, свет на сцену',s:'todo'},
+    {id:uid(),tm:'20:00',t:'Торт',who:'Ведущий',mus:'Торжественный трек',s:'todo'},
+    {id:uid(),tm:'20:30',t:'Танцы',who:'Диджей',mus:'Танцевальный блок',s:'todo'},
+    {id:uid(),tm:'22:00',t:'Завершение, проводы гостей',who:'Ведущий',mus:'Спокойный фон',s:'todo'}
+  ],
+  shots:[
+    {id:uid(),w:'До тоя',t:'Love story / прогулка пары',loc:'Улица, парк',who:'Пара',s:'todo'},
+    {id:uid(),w:'До тоя',t:'Интервью с родителями о келін',loc:'Дом',who:'Родители',s:'todo'},
+    {id:uid(),w:'Утро',t:'Сборы келін: платье, детали, украшения',loc:'Дом / отель',who:'Келін',s:'todo'},
+    {id:uid(),w:'Утро',t:'Крупный план сырға в коробочке',loc:'Дом',who:'—',s:'todo'},
+    {id:uid(),w:'Той',t:'Дрон: общий план локации',loc:'Улица',who:'—',s:'todo'},
+    {id:uid(),w:'Той',t:'Встреча гостей, объятия',loc:'Холл',who:'Гости',s:'todo'},
+    {id:uid(),w:'Той',t:'Оформление зала до гостей',loc:'Зал',who:'—',s:'todo'},
+    {id:uid(),w:'Той',t:'Бата — слово аксакала',loc:'Зал',who:'Ата',s:'todo'},
+    {id:uid(),w:'Той',t:'СЫРҒА САЛУ — две камеры, крупный план рук и лица',loc:'Зал',who:'Ене, келін',s:'todo'},
+    {id:uid(),w:'Той',t:'Реакция родителей в момент сырға салу',loc:'Зал',who:'Родители',s:'todo'},
+    {id:uid(),w:'Той',t:'Живая песня — полностью, со звуком с пульта',loc:'Сцена',who:'Исполнитель',s:'todo'},
+    {id:uid(),w:'Той',t:'Поздравления гостей на камеру',loc:'Фотозона',who:'Гости',s:'todo'},
+    {id:uid(),w:'Той',t:'Торт и танцы',loc:'Зал',who:'Все',s:'todo'},
+    {id:uid(),w:'После',t:'Черновой монтаж на согласование',loc:'—',who:'Видеограф',s:'todo'}
+  ],
+  stages:[
+    {id:uid(),t:'Выбрать песню и утвердить текст',who:'',d:'',s:'todo'},
+    {id:uid(),t:'Заказать аранжировку / минусовку',who:'',d:'',s:'todo'},
+    {id:uid(),t:'Репетиция с минусовкой',who:'',d:'',s:'todo'},
+    {id:uid(),t:'Запись вокала в студии',who:'',d:'',s:'todo'},
+    {id:uid(),t:'Сведение и мастеринг',who:'',d:'',s:'todo'},
+    {id:uid(),t:'Отдать готовый трек видеографу и диджею',who:'',d:'',s:'todo'}
+  ],
+  playlist:[
+    {id:uid(),mom:'Встреча гостей',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Той бастар',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Выход келін',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Сырға салу — момент',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Бата / слово старших',t:'Тихий инструментал',a:'',s:'todo'},
+    {id:uid(),mom:'Подарки',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Застолье, фон',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Торт',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Танцы',t:'',a:'',s:'todo'},
+    {id:uid(),mom:'Финал вечера',t:'',a:'',s:'todo'}
+  ],
+  perf:[
+    {id:uid(),who:'',t:'',w:'Сырға салу',mi:'no',s:'todo'},
+    {id:uid(),who:'',t:'',w:'Застолье',mi:'no',s:'todo'},
+    {id:uid(),who:'',t:'',w:'Танцы',mi:'no',s:'todo'}
+  ],
+  pay:[
+    {id:uid(),t:'Ресторан и меню',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Видеограф и фильм',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Фотограф',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Запись песни (студия, аранжировка)',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Диджей и аппаратура',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Ведущий / асаба',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Декор и фотозона',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Сырға',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Подарки келін (кимешек, шапан)',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Платье и образ',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Визажист и стилист',c:'',sum:0,pre:0,due:'',s:'todo'},
+    {id:uid(),t:'Торт',c:'',sum:0,pre:0,due:'',s:'todo'}
+  ]
+};
+
+let S;
+try{ S=Object.assign({},SEED,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){ S=structuredClone(SEED); }
+
+let toastT;
+function save(){
+  localStorage.setItem(KEY,JSON.stringify(S));
+  const t=document.getElementById('toast');
+  t.classList.add('on'); clearTimeout(toastT);
+  toastT=setTimeout(()=>t.classList.remove('on'),1100);
+}
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=n=>(+n||0).toLocaleString('ru-RU');
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+/* one / few / many, e.g. 1 статья, 3 статьи, 5 статей */
+function plural(n,one,few,many){
+  const a=Math.abs(n)%100, b=a%10;
+  if(a>10&&a<20)return many;
+  if(b>1&&b<5)return few;
+  if(b===1)return one;
+  return many;
+}
+const days=n=>plural(n,'день','дня','дней');
+
+/* ---------- generic row helpers ---------- */
+function inp(list,id,f,ph,cls){
+  return `<input type="text" value="${esc(S[list].find(x=>x.id===id)[f])}" data-l="${list}" data-id="${id}" data-f="${f}" placeholder="${esc(ph||'')}" class="${cls||''}">`;
+}
+function numInp(list,id,f){
+  return `<input type="number" value="${+S[list].find(x=>x.id===id)[f]||0}" data-l="${list}" data-id="${id}" data-f="${f}" data-n="1" class="num">`;
+}
+function sel(list,id,f,opts){
+  const v=S[list].find(x=>x.id===id)[f];
+  return `<select data-l="${list}" data-id="${id}" data-f="${f}">`+
+    opts.map(([k,l])=>`<option value="${k}"${k===v?' selected':''}>${l}</option>`).join('')+`</select>`;
+}
+const stSel=(l,id)=>sel(l,id,'s',STATUS.map(k=>[k,ST_LABEL[k]]));
+const delBtn=(l,id)=>`<button class="del" data-del="${l}" data-id="${id}" title="Удалить">×</button>`;
+
+/* Re-rendering a table while the user types inside it would destroy the focused
+   input, so keystrokes only refresh derived views (totals, KPI, timeline). */
+document.addEventListener('input',e=>{
+  const el=e.target;
+  if(el.dataset.v!==undefined){
+    S[el.dataset.v]=el.value; save();
+    renderDash(); renderVideoKPI(); renderSongKPI();
+    return;
+  }
+  if(el.dataset.l){
+    const row=S[el.dataset.l].find(x=>x.id===el.dataset.id);
+    if(!row)return;
+    row[el.dataset.f]=el.dataset.n?(+el.value||0):el.value;
+    save();
+    if(el.dataset.l==='pay'){ refreshPayTotals(); renderPayKPI(); renderPaySched(); }
+    renderDash();
+  }
+});
+document.addEventListener('change',e=>{
+  const el=e.target;
+  if(el.dataset.l&&el.tagName==='SELECT'){
+    const row=S[el.dataset.l].find(x=>x.id===el.dataset.id);
+    if(row){ row[el.dataset.f]=el.value; save(); renderAll(); }
+  }
+});
+document.addEventListener('click',e=>{
+  const d=e.target.closest('[data-del]');
+  if(d){
+    const l=d.dataset.del;
+    S[l]=S[l].filter(x=>x.id!==d.dataset.id);
+    save(); renderAll();
+  }
+});
+
+/* ---------- dashboard ---------- */
+function trackStats(){
+  const done=l=>S[l].filter(x=>x.s==='done').length;
+  return [
+    {n:'Организация (чек-лист)',d:S.tasks.filter(t=>t.done).length,t:S.tasks.length,ic:'✓'},
+    {n:'Сценарий дня',d:done('day'),t:S.day.length,ic:'🕐'},
+    {n:'Видео и фильм',d:done('shots'),t:S.shots.length,ic:'🎬'},
+    {n:'Запись песни',d:done('stages'),t:S.stages.length,ic:'🎙'},
+    {n:'Плейлист диджея',d:done('playlist'),t:S.playlist.length,ic:'🎵'},
+    {n:'Живые номера',d:done('perf'),t:S.perf.length,ic:'🎤'}
+  ];
+}
+function money(){
+  const sum=S.pay.reduce((a,r)=>a+(+r.sum||0),0);
+  const pre=S.pay.reduce((a,r)=>a+Math.min(+r.pre||0,+r.sum||0),0);
+  return {sum,pre,left:sum-pre};
+}
+function daysLeft(){
+  if(!S.date)return null;
+  const d=new Date(S.date+'T00:00:00'), n=new Date(); n.setHours(0,0,0,0);
+  return Math.round((d-n)/86400000);
+}
+function renderDash(){
+  const names=[S.bride,S.groom].filter(Boolean).join(' & ');
+  document.getElementById('h-names').textContent=names||'Заполните данные тоя';
+  const dl=daysLeft();
+  const dateStr=S.date?new Date(S.date+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}):'дата не выбрана';
+  document.getElementById('h-meta').textContent=[dateStr,S.time,S.venue,S.guests?S.guests+' гостей':''].filter(Boolean).join(' · ');
+
+  const m=money();
+  const tr=trackStats();
+  const allD=tr.reduce((a,x)=>a+x.d,0), allT=tr.reduce((a,x)=>a+x.t,0);
+  document.getElementById('h-cd').innerHTML=
+    `<div><div class="n">${dl===null?'—':(dl<0?'0':dl)}</div><div class="u">${dl===null?'дней до тоя':(dl<0?'той прошёл':(dl===0?'той сегодня':days(dl)+' до тоя'))}</div></div>`+
+    `<div><div class="n">${pct(allD,allT)}%</div><div class="u">готовность</div></div>`+
+    `<div><div class="n">${fmt(m.left)}</div><div class="u">₸ доплатить</div></div>`;
+
+  const over=S.budget&&m.sum>+S.budget;
+  document.getElementById('kpis').innerHTML=[
+    {c:'',l:'Общая смета',v:fmt(m.sum),s:'₸',n:S.budget?`план ${fmt(S.budget)} ₸`:'бюджет не задан'},
+    {c:'ok',l:'Внесено предоплат',v:fmt(m.pre),s:'₸',n:`${pct(m.pre,m.sum)}% от сметы`},
+    {c:'warn',l:'Остаток к оплате',v:fmt(m.left),s:'₸',n:(()=>{const k=S.pay.filter(r=>(+r.sum||0)-(+r.pre||0)>0).length;return `${k} ${plural(k,'статья не закрыта','статьи не закрыты','статей не закрыто')}`;})()},
+    {c:over?'warn':'nv',l:'Бюджет',v:S.budget?(over?'+'+fmt(m.sum-+S.budget):fmt(+S.budget-m.sum)):'—',s:'₸',n:over?'перерасход':'запас'}
+  ].map(k=>`<div class="kpi ${k.c}"><div class="lbl">${k.l}</div><div class="val">${k.v} <small>${k.s}</small></div><div class="note">${k.n}</div></div>`).join('');
+
+  document.getElementById('tracks').innerHTML=tr.map(t=>`
+    <div class="card" style="padding:15px 17px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+        <div style="font-weight:700;font-size:13.5px">${t.ic} ${t.n}</div>
+        <div style="font-family:var(--mono);font-size:12.5px;color:var(--muted)">${t.d}/${t.t}</div>
+      </div>
+      <div class="bar ${t.d===t.t&&t.t?'gr':''}"><i style="width:${pct(t.d,t.t)}%"></i></div>
+    </div>`).join('');
+
+  const soon=[];
+  S.pay.filter(r=>r.due&&(+r.sum||0)-(+r.pre||0)>0).forEach(r=>soon.push({d:r.due,t:`Оплатить: ${r.t}`,m:`${fmt((+r.sum||0)-(+r.pre||0))} ₸ остаток`}));
+  if(S.studioDate)soon.push({d:S.studioDate,t:'Запись песни в студии',m:S.studio||''});
+  if(S.songDeadline)soon.push({d:S.songDeadline,t:'Дедлайн готового трека',m:''});
+  if(S.filmDeadline)soon.push({d:S.filmDeadline,t:'Дедлайн готового фильма',m:''});
+  if(S.date)soon.push({d:S.date,t:'СЫРҒА САЛУ',m:[S.time,S.venue].filter(Boolean).join(' · ')});
+  soon.sort((a,b)=>a.d.localeCompare(b.d));
+  const today=new Date().toISOString().slice(0,10);
+  document.getElementById('soon').innerHTML=soon.length?`<div class="tl">`+soon.slice(0,9).map(x=>`
+    <div class="it ${x.d<today?'done':''}">
+      <div class="tm">${new Date(x.d+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}</div>
+      <div class="tt">${esc(x.t)}</div>${x.m?`<div class="td">${esc(x.m)}</div>`:''}
+    </div>`).join('')+`</div>`:`<div class="card" style="color:var(--muted);font-size:13px">Проставьте даты в разделах оплат, песни и фильма — здесь появится список ближайших дел.</div>`;
+}
+
+/* ---------- checklist ---------- */
+let planCat='Все';
+function renderPlan(){
+  const cats=['Все',...new Set(S.tasks.map(t=>t.cat))];
+  if(!cats.includes(planCat))planCat='Все';
+  document.getElementById('plan-chips').innerHTML=cats.map(c=>{
+    const list=c==='Все'?S.tasks:S.tasks.filter(t=>t.cat===c);
+    return `<button class="chip ${c===planCat?'on':''}" data-cat="${esc(c)}">${esc(c)} <span style="opacity:.6">${list.filter(t=>t.done).length}/${list.length}</span></button>`;
+  }).join('');
+  const list=planCat==='Все'?S.tasks:S.tasks.filter(t=>t.cat===planCat);
+  document.getElementById('plan-list').innerHTML=list.map(t=>`
+    <div class="chk ${t.done?'done':''}">
+      <input type="checkbox" data-chk="${t.id}" ${t.done?'checked':''}>
+      <div class="tx">
+        <div class="tt">${esc(t.t)}</div>
+        <div class="mt">${esc(t.cat)}${t.m?' · '+esc(t.m):''}</div>
+      </div>
+      ${delBtn('tasks',t.id)}
+    </div>`).join('')||`<div class="card" style="color:var(--muted);font-size:13px">Дел пока нет.</div>`;
+}
+document.getElementById('plan-chips').addEventListener('click',e=>{
+  const c=e.target.closest('[data-cat]'); if(!c)return;
+  planCat=c.dataset.cat; renderPlan();
+});
+document.getElementById('plan-list').addEventListener('change',e=>{
+  const c=e.target.closest('[data-chk]'); if(!c)return;
+  const t=S.tasks.find(x=>x.id===c.dataset.chk);
+  t.done=c.checked; save(); renderPlan(); renderDash();
+});
+document.getElementById('add-task').onclick=()=>{
+  const t=prompt('Что нужно сделать?'); if(!t)return;
+  const cat=prompt('Категория:',planCat==='Все'?'Организация':planCat)||'Организация';
+  S.tasks.push({id:uid(),cat,t,m:'',done:false}); planCat=cat; save(); renderPlan(); renderDash();
+};
+
+/* ---------- day ---------- */
+function renderDay(){
+  document.getElementById('day-body').innerHTML=S.day.map(r=>`<tr>
+    <td>${inp('day',r.id,'tm','18:00')}</td>
+    <td>${inp('day',r.id,'t','Что происходит')}</td>
+    <td>${inp('day',r.id,'who','Кто')}</td>
+    <td>${inp('day',r.id,'mus','Музыка / съёмка')}</td>
+    <td>${stSel('day',r.id)}</td>
+    <td>${delBtn('day',r.id)}</td></tr>`).join('');
+}
+document.getElementById('add-day').onclick=()=>{S.day.push({id:uid(),tm:'',t:'',who:'',mus:'',s:'todo'});save();renderDay();renderDash();};
+
+/* ---------- video ---------- */
+function renderVideoKPI(){
+  const d=S.shots.filter(x=>x.s==='done').length;
+  document.getElementById('video-kpi').innerHTML=[
+    {c:'',l:'Сцен в плане',v:S.shots.length,n:'кадров к съёмке'},
+    {c:'ok',l:'Отснято',v:d,n:`${pct(d,S.shots.length)}% плана`},
+    {c:'nv',l:'Дедлайн фильма',v:S.filmDeadline?new Date(S.filmDeadline+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'short'}):'—',n:S.videographer||'видеограф не указан'}
+  ].map(k=>`<div class="kpi ${k.c}"><div class="lbl">${k.l}</div><div class="val">${k.v}</div><div class="note">${esc(k.n)}</div></div>`).join('');
+}
+function renderVideo(){
+  renderVideoKPI();
+  document.getElementById('shot-body').innerHTML=S.shots.map(r=>`<tr>
+    <td>${inp('shots',r.id,'w','Когда')}</td>
+    <td>${inp('shots',r.id,'t','Сцена')}</td>
+    <td>${inp('shots',r.id,'loc','Локация')}</td>
+    <td>${inp('shots',r.id,'who','Кто в кадре')}</td>
+    <td>${stSel('shots',r.id)}</td>
+    <td>${delBtn('shots',r.id)}</td></tr>`).join('');
+}
+document.getElementById('add-shot').onclick=()=>{S.shots.push({id:uid(),w:'Той',t:'',loc:'',who:'',s:'todo'});save();renderVideo();renderDash();};
+
+/* ---------- song ---------- */
+function renderSongKPI(){
+  const d=S.stages.filter(x=>x.s==='done').length;
+  document.getElementById('song-kpi').innerHTML=[
+    {c:'',l:'Песня',v:S.songTitle||'—',n:S.songSinger?'исполняет '+S.songSinger:'исполнитель не указан'},
+    {c:'ok',l:'Этапов готово',v:`${d}/${S.stages.length}`,n:`${pct(d,S.stages.length)}% записи`},
+    {c:'nv',l:'Запись в студии',v:S.studioDate?new Date(S.studioDate+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'short'}):'—',n:S.studio||'студия не выбрана'}
+  ].map(k=>`<div class="kpi ${k.c}"><div class="lbl">${k.l}</div><div class="val" style="font-size:${String(k.v).length>10?'18px':'27px'}">${esc(k.v)}</div><div class="note">${esc(k.n)}</div></div>`).join('');
+}
+function renderSong(){
+  renderSongKPI();
+  document.getElementById('stage-body').innerHTML=S.stages.map(r=>`<tr>
+    <td>${inp('stages',r.id,'t','Этап')}</td>
+    <td>${inp('stages',r.id,'who','Кто')}</td>
+    <td><input type="date" value="${esc(r.d)}" data-l="stages" data-id="${r.id}" data-f="d"></td>
+    <td>${stSel('stages',r.id)}</td>
+    <td>${delBtn('stages',r.id)}</td></tr>`).join('');
+}
+document.getElementById('add-stage').onclick=()=>{S.stages.push({id:uid(),t:'',who:'',d:'',s:'todo'});save();renderSong();renderDash();};
+
+/* ---------- music ---------- */
+let plMom='Все';
+function renderMusic(){
+  const moms=['Все',...new Set(S.playlist.map(p=>p.mom))];
+  if(!moms.includes(plMom))plMom='Все';
+  document.getElementById('pl-chips').innerHTML=moms.map(m=>`<button class="chip ${m===plMom?'on':''}" data-mom="${esc(m)}">${esc(m)}</button>`).join('');
+  const list=plMom==='Все'?S.playlist:S.playlist.filter(p=>p.mom===plMom);
+  document.getElementById('pl-body').innerHTML=list.map(r=>`<tr>
+    <td>${inp('playlist',r.id,'mom','Момент')}</td>
+    <td>${inp('playlist',r.id,'t','Название трека')}</td>
+    <td>${inp('playlist',r.id,'a','Исполнитель')}</td>
+    <td>${stSel('playlist',r.id)}</td>
+    <td>${delBtn('playlist',r.id)}</td></tr>`).join('')||`<tr><td colspan="5" style="color:var(--muted)">Пусто</td></tr>`;
+}
+document.getElementById('pl-chips').addEventListener('click',e=>{
+  const c=e.target.closest('[data-mom]'); if(!c)return;
+  plMom=c.dataset.mom; renderMusic();
+});
+document.getElementById('add-pl').onclick=()=>{S.playlist.push({id:uid(),mom:plMom==='Все'?'':plMom,t:'',a:'',s:'todo'});save();renderMusic();renderDash();};
+
+/* ---------- performers ---------- */
+function renderPerf(){
+  const d=S.perf.filter(x=>x.s==='done').length;
+  const mi=S.perf.filter(x=>x.mi==='yes').length;
+  document.getElementById('perf-kpi').innerHTML=[
+    {c:'',l:'Номеров',v:S.perf.length,n:'живых выступлений'},
+    {c:'ok',l:'Готовы',v:`${d}/${S.perf.length}`,n:'подтверждено и отрепетировано'},
+    {c:mi<S.perf.length?'warn':'ok',l:'Минусовки собраны',v:`${mi}/${S.perf.length}`,n:mi<S.perf.length?'заберите фонограммы заранее':'все на руках'}
+  ].map(k=>`<div class="kpi ${k.c}"><div class="lbl">${k.l}</div><div class="val">${k.v}</div><div class="note">${k.n}</div></div>`).join('');
+  document.getElementById('perf-body').innerHTML=S.perf.map(r=>`<tr data-id="${r.id}">
+    <td>${inp('perf',r.id,'who','Имя')}</td>
+    <td>${inp('perf',r.id,'t','Песня')}</td>
+    <td>${inp('perf',r.id,'w','Момент')}</td>
+    <td>${sel('perf',r.id,'mi',[['no','Нужна'],['yes','Есть'],['live','Живой звук']])}</td>
+    <td>${stSel('perf',r.id)}</td>
+    <td>${delBtn('perf',r.id)}</td></tr>`).join('');
+}
+document.getElementById('add-perf').onclick=()=>{S.perf.push({id:uid(),who:'',t:'',w:'',mi:'no',s:'todo'});save();renderPerf();renderDash();};
+
+/* ---------- payments ---------- */
+function renderPayKPI(){
+  const m=money();
+  document.getElementById('pay-kpi').innerHTML=[
+    {c:'',l:'Общая сумма',v:fmt(m.sum),s:'₸',n:'по всем статьям'},
+    {c:'ok',l:'Предоплачено',v:fmt(m.pre),s:'₸',n:`${pct(m.pre,m.sum)}% внесено`},
+    {c:'warn',l:'Остаток',v:fmt(m.left),s:'₸',n:'к доплате'},
+    {c:'nv',l:'Статей',v:`${S.pay.filter(r=>r.s==='done').length}/${S.pay.length}`,s:'',n:'закрыто полностью'}
+  ].map(k=>`<div class="kpi ${k.c}"><div class="lbl">${k.l}</div><div class="val">${k.v}${k.s?` <small>${k.s}</small>`:''}</div><div class="note">${k.n}</div></div>`).join('');
+}
+function refreshPayTotals(){
+  const m=money();
+  document.querySelectorAll('#pay-body tr').forEach(tr=>{
+    const r=S.pay.find(x=>x.id===tr.dataset.id); if(!r)return;
+    const left=(+r.sum||0)-(+r.pre||0);
+    const cell=tr.querySelector('.left-cell');
+    cell.textContent=fmt(left);
+    cell.style.color=left>0?'var(--red)':'var(--green)';
+  });
+  document.getElementById('t-sum').textContent=fmt(m.sum);
+  document.getElementById('t-pre').textContent=fmt(m.pre);
+  document.getElementById('t-left').textContent=fmt(m.left);
+}
+function renderPay(){
+  renderPayKPI();
+  document.getElementById('pay-body').innerHTML=S.pay.map(r=>{
+    const left=(+r.sum||0)-(+r.pre||0);
+    return `<tr data-id="${r.id}">
+      <td>${inp('pay',r.id,'t','Статья')}</td>
+      <td>${inp('pay',r.id,'c','Подрядчик')}</td>
+      <td>${numInp('pay',r.id,'sum')}</td>
+      <td>${numInp('pay',r.id,'pre')}</td>
+      <td class="num left-cell" style="color:${left>0?'var(--red)':'var(--green)'};font-weight:600">${fmt(left)}</td>
+      <td><input type="date" value="${esc(r.due)}" data-l="pay" data-id="${r.id}" data-f="due"></td>
+      <td>${sel('pay',r.id,'s',[['todo','Не оплачено'],['prog','Предоплата'],['done','Оплачено']])}</td>
+      <td>${delBtn('pay',r.id)}</td></tr>`;
+  }).join('');
+  refreshPayTotals();
+  renderPaySched();
+}
+function renderPaySched(){
+  const due=S.pay.filter(r=>r.due&&(+r.sum||0)-(+r.pre||0)>0).sort((a,b)=>a.due.localeCompare(b.due));
+  const today=new Date().toISOString().slice(0,10);
+  document.getElementById('pay-sched').innerHTML=due.length?`<div class="tl">`+due.map(r=>`
+    <div class="it ${r.due<today?'done':''}">
+      <div class="tm">${new Date(r.due+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long'})}${r.due<today?' · просрочено':''}</div>
+      <div class="tt">${esc(r.t)} — ${fmt((+r.sum||0)-(+r.pre||0))} ₸</div>
+      <div class="td">${esc(r.c||'подрядчик не указан')}</div>
+    </div>`).join('')+`</div>`:`<div class="card" style="color:var(--muted);font-size:13px">Проставьте даты «Оплатить до» — здесь соберётся график платежей.</div>`;
+}
+document.getElementById('add-pay').onclick=()=>{S.pay.push({id:uid(),t:'',c:'',sum:0,pre:0,due:'',s:'todo'});save();renderPay();renderDash();};
+
+/* ---------- settings / io ---------- */
+function fillFields(){
+  document.querySelectorAll('[data-v]').forEach(el=>{ el.value=S[el.dataset.v]??''; });
+}
+function exportJSON(){
+  const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`syrga-salu-${S.date||new Date().toISOString().slice(0,10)}.json`;
+  a.click(); URL.revokeObjectURL(a.href);
+}
+document.getElementById('exp').onclick=exportJSON;
+document.getElementById('exp2').onclick=exportJSON;
+document.getElementById('imp').onclick=()=>document.getElementById('file').click();
+document.getElementById('file').onchange=e=>{
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{ S=Object.assign({},SEED,JSON.parse(r.result)); save(); fillFields(); renderAll(); }
+    catch(err){ alert('Не получилось прочитать файл: '+err.message); }
+  };
+  r.readAsText(f);
+};
+document.getElementById('reset').onclick=()=>{
+  if(!confirm('Удалить все данные и вернуть шаблон? Отменить будет нельзя.'))return;
+  S=structuredClone(SEED); save(); fillFields(); renderAll();
+};
+
+/* ---------- nav ---------- */
+const TITLES={
+  dash:['Дашборд','Общая готовность к сырға салу'],
+  plan:['Чек-лист','Что нужно успеть до тоя'],
+  day:['Сценарий дня','Тайминг для ведущего, оператора и диджея'],
+  video:['Видео и фильм','Съёмка и монтаж фильма'],
+  song:['Запись песни','Студия, этапы и дедлайны'],
+  music:['Диджей и музыка','Плейлист по моментам вечера'],
+  perform:['Кто что поёт','Живые номера и минусовки'],
+  pay:['Оплаты и предоплаты','Сметы, авансы и остатки'],
+  set:['Данные тоя','Основная информация и резервная копия']
+};
+function go(s){
+  document.querySelectorAll('.sect').forEach(x=>x.classList.toggle('on',x.id==='s-'+s));
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.s===s));
+  document.getElementById('ttl').textContent=TITLES[s][0];
+  document.getElementById('tsub').textContent=TITLES[s][1];
+  document.getElementById('side').classList.remove('on');
+  document.getElementById('mask').classList.remove('on');
+  window.scrollTo(0,0);
+  location.hash=s;
+}
+document.getElementById('nav').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-s]'); if(b)go(b.dataset.s);
+});
+document.getElementById('burger').onclick=()=>{
+  document.getElementById('side').classList.toggle('on');
+  document.getElementById('mask').classList.toggle('on');
+};
+document.getElementById('mask').onclick=()=>{
+  document.getElementById('side').classList.remove('on');
+  document.getElementById('mask').classList.remove('on');
+};
+
+function renderAll(){ renderDash();renderPlan();renderDay();renderVideo();renderSong();renderMusic();renderPerf();renderPay(); }
+fillFields(); renderAll();
+if(location.hash&&TITLES[location.hash.slice(1)])go(location.hash.slice(1));
+</script>
+</body>
+</html>
