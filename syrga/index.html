@@ -303,6 +303,10 @@ td input.num{text-align:right;font-family:var(--mono)}
       <!-- CARDS -->
       <section class="sect" id="s-cards">
         <p class="hint">Именная карточка кладётся на тарелку каждого гостя. Заполните список в разделе «Гости» — карточки соберутся сами, останется распечатать и разрезать.</p>
+        <div class="chips">
+          <button class="chip" data-sc="cyr">Кириллица</button>
+          <button class="chip" data-sc="lat">Латиница</button>
+        </div>
         <div class="grid g2">
           <div class="card">
             <div class="ct">Что печатаем</div>
@@ -310,10 +314,11 @@ td input.num{text-align:right;font-family:var(--mono)}
             <div class="field"><label>Надпись сверху</label><input type="text" data-v="cardTop" placeholder="Сырға салу"></div>
             <div class="field"><label>Строка под именем</label><input type="text" data-v="cardLine" placeholder="Қыз барған жеріне құт алып барады"></div>
             <div class="field" style="margin:0"><label>Показывать номер стола</label>
-              <select data-v="cardTable"><option value="yes">Да — «2-үстел»</option><option value="no">Нет</option></select>
+              <select data-v="cardTable"><option value="yes">Да — «2-<span id="ust">үстел</span>»</option><option value="no">Нет</option></select>
             </div>
             <div class="bar-actions">
               <button class="btn pri sm" id="print-cards">🖨 Распечатать карточки</button>
+              <button class="btn gh sm" id="lat-guests">Аа → Aa Имена гостей на латиницу</button>
             </div>
             <p class="hint" style="margin:12px 0 0">Печать на плотной бумаге 300 г, A4 — по 8 карточек на лист, 90×55 мм.</p>
           </div>
@@ -445,6 +450,10 @@ td input.num{text-align:right;font-family:var(--mono)}
       <section class="sect" id="s-photo">
         <h3 class="hh">Как будет выглядеть</h3>
         <p class="hint">Живой макет: меняйте поля ниже — надпись обновляется сразу. Покажите этот экран подрядчику.</p>
+        <div class="chips">
+          <button class="chip" data-sc="cyr">Кириллица</button>
+          <button class="chip" data-sc="lat">Латиница</button>
+        </div>
         <div class="pz" id="pz-prev"></div>
 
         <h3 class="hh">Текст на фотозону</h3>
@@ -456,6 +465,7 @@ td input.num{text-align:right;font-family:var(--mono)}
             <div class="field"><label>Главная строка (имена)</label><input type="text" data-v="pzMain" placeholder="Даяна & Есім"></div>
             <div class="field"><label>Строка-бата снизу</label><input type="text" data-v="pzSub" placeholder="Қыз барған жеріне құт алып барады"></div>
             <div class="field" style="margin:0"><label>Дата на баннере</label><input type="text" data-v="pzDate" placeholder="12.09.2026"></div>
+            <div class="bar-actions"><button class="btn gh sm" id="lat-pz">Аа → Aa Перевести на латиницу</button></div>
             <p class="hint" style="margin:12px 0 0">Можно писать текст прямо, а можно вставить <b>{names}</b> — подставятся оба имени, <b>{bride}</b> — имя қыз, <b>{date}</b> — дата. Тогда надпись сама обновится, если поменяете данные тоя.</p>
           </div>
           <div class="card">
@@ -644,7 +654,9 @@ td input.num{text-align:right;font-family:var(--mono)}
             <div class="ct">Данные тоя</div>
             <div class="cs">Видны на дашборде и в макетах</div>
             <div class="field"><label>Қыз (кому надевают сырға)</label><input type="text" data-v="bride" placeholder="Даяна"></div>
+            <div class="field"><label>Қыз — латиницей</label><input type="text" data-v="brideLat" placeholder="Dayana"></div>
             <div class="field"><label>Күйеу бала</label><input type="text" data-v="groom" placeholder="Имя"></div>
+            <div class="field"><label>Күйеу бала — латиницей</label><input type="text" data-v="groomLat" placeholder="Esim"></div>
             <div class="field"><label>Дата мероприятия</label><input type="date" data-v="date"></div>
             <div class="field"><label>Время начала</label><input type="time" data-v="time"></div>
             <div class="field"><label>Место</label><input type="text" data-v="venue" placeholder="Ресторан, адрес"></div>
@@ -679,20 +691,59 @@ const STATUS=['todo','prog','done'];
 const ST_LABEL={todo:'Не начато',prog:'В работе',done:'Готово'};
 const uid=()=>Math.random().toString(36).slice(2,9);
 
-/* Тексты для фотозоны — Kazakh, с подсказкой где уместен каждый */
+/* Тексты для фотозоны. Латиница — казахский алфавит 2021 г., выверена вручную:
+   ғ→ğ, қ→q, ң→ñ, ө→ö, ә→ä, ұ→ū, ү→ü, ш→ş, ж→j, ы→y, і→ı */
 const PHRASES=[
-  {top:'Сырға салу',main:'{names}',sub:'Қыз барған жеріне құт алып барады',tr:'Девушка приносит благодать туда, куда приходит',use:'Классика: обряд сверху, имена крупно, строка из баты снизу. Самый универсальный вариант.'},
-  {top:'Құдалық',main:'Екі әулет — бір шаңырақ',sub:'Құтты болсын!',tr:'Два рода — один шаңырак',use:'Про сам смысл құдалық: соединяются две семьи. Хорошо, если фотозона общая для двух сторон.'},
-  {top:'Ақ бата',main:'Ақ жол, {bride}!',sub:'Бақ пен береке бірге қонсын',tr:'Счастливого пути, {bride}! Пусть счастье и достаток придут вместе',use:'Тёплый, личный — как на вашей карточке «Қызға ақ бата». Имя читается издалека.'},
-  {top:'Сырға салу',main:'{bride}',sub:'Қыз — әулеттің ең аяулы аманаты',tr:'Дочь — самый дорогой аманат рода',use:'Если фотозона именно про невесту, а не про пару. Строка из вашей баты.'},
-  {top:'',main:'Құтты болсын!',sub:'{names} · {date}',tr:'Пусть будет благословенно!',use:'Минимализм: одно крупное слово. Читается с любого расстояния, красиво в кадре.'},
-  {top:'Сырға салу',main:'Бақыт қонсын шаңыраққа',sub:'{names}',tr:'Пусть счастье поселится в доме',use:'Пожелание дому. Хорошо сочетается с юртой или шаңырак-декором в фотозоне.'},
-  {top:'Аяулы қызымыз',main:'{bride}',sub:'Қыз — қонақ',tr:'Наша любимая дочь · Дочь — гостья',use:'Со стороны родителей невесты. Короткая пословица бьёт прямо в сердце гостям.'},
-  {top:'',main:'{names}',sub:'Ақ жүрекпен барған шаңырағына береке қонады',tr:'В дом, куда идут с чистым сердцем, приходит достаток',use:'Если хотите только имена крупно, а бата — тонкой строкой. Строка из вашей карточки.'}
+  {top:'Сырға салу',main:'{names}',sub:'Қыз барған жеріне құт алып барады',
+   topL:'Syrğa salu',mainL:'{names}',subL:'Qyz barğan jerıne qūt alyp barady',
+   tr:'Девушка приносит благодать туда, куда приходит',use:'Классика: обряд сверху, имена крупно, строка из баты снизу. Самый универсальный вариант.'},
+  {top:'Құдалық',main:'Екі әулет — бір шаңырақ',sub:'Құтты болсын!',
+   topL:'Qūdalyq',mainL:'Ekı äulet — bır şañyraq',subL:'Qūtty bolsyn!',
+   tr:'Два рода — один шаңырак',use:'Про сам смысл құдалық: соединяются две семьи. Хорошо, если фотозона общая для двух сторон.'},
+  {top:'Ақ бата',main:'Ақ жол, {bride}!',sub:'Бақ пен береке бірге қонсын',
+   topL:'Aq bata',mainL:'Aq jol, {bride}!',subL:'Baq pen bereke bırge qonsyn',
+   tr:'Счастливого пути, {bride}! Пусть счастье и достаток придут вместе',use:'Тёплый, личный — как на вашей карточке «Қызға ақ бата». Имя читается издалека.'},
+  {top:'Сырға салу',main:'{bride}',sub:'Қыз — әулеттің ең аяулы аманаты',
+   topL:'Syrğa salu',mainL:'{bride}',subL:'Qyz — äulettıñ eñ aiauly amanaty',
+   tr:'Дочь — самый дорогой аманат рода',use:'Если фотозона именно про невесту, а не про пару. Строка из вашей баты.'},
+  {top:'',main:'Құтты болсын!',sub:'{names} · {date}',
+   topL:'',mainL:'Qūtty bolsyn!',subL:'{names} · {date}',
+   tr:'Пусть будет благословенно!',use:'Минимализм: одно крупное слово. Читается с любого расстояния, красиво в кадре.'},
+  {top:'Сырға салу',main:'Бақыт қонсын шаңыраққа',sub:'{names}',
+   topL:'Syrğa salu',mainL:'Baqyt qonsyn şañyraqqa',subL:'{names}',
+   tr:'Пусть счастье поселится в доме',use:'Пожелание дому. Хорошо сочетается с юртой или шаңырак-декором в фотозоне.'},
+  {top:'Аяулы қызымыз',main:'{bride}',sub:'Қыз — қонақ',
+   topL:'Aiauly qyzymyz',mainL:'{bride}',subL:'Qyz — qonaq',
+   tr:'Наша любимая дочь · Дочь — гостья',use:'Со стороны родителей невесты. Короткая пословица бьёт прямо в сердце гостям.'},
+  {top:'',main:'{names}',sub:'Ақ жүрекпен барған шаңырағына береке қонады',
+   topL:'',mainL:'{names}',subL:'Aq jürekpen barğan şañyrağyna bereke qonady',
+   tr:'В дом, куда идут с чистым сердцем, приходит достаток',use:'Если хотите только имена крупно, а бата — тонкой строкой. Строка из вашей карточки.'}
 ];
 
+/* Кириллица → латиница, казахский алфавит 2021 г.
+   Регистр задан явно: и→i, но И→İ; і→ı, но І→I — .toUpperCase() здесь врёт. */
+const LAT_LOW={'а':'a','ә':'ä','б':'b','в':'v','г':'g','ғ':'ğ','д':'d','е':'e','ё':'io','ж':'j','з':'z',
+  'и':'i','й':'i','к':'k','қ':'q','л':'l','м':'m','н':'n','ң':'ñ','о':'o','ө':'ö','п':'p','р':'r','с':'s',
+  'т':'t','у':'u','ұ':'ū','ү':'ü','ф':'f','х':'h','һ':'h','ц':'ts','ч':'ch','ш':'ş','щ':'şç','ъ':'',
+  'ы':'y','і':'ı','ь':'','э':'e','ю':'iu','я':'ia'};
+const LAT_UP={'А':'A','Ә':'Ä','Б':'B','В':'V','Г':'G','Ғ':'Ğ','Д':'D','Е':'E','Ё':'İo','Ж':'J','З':'Z',
+  'И':'İ','Й':'İ','К':'K','Қ':'Q','Л':'L','М':'M','Н':'N','Ң':'Ñ','О':'O','Ө':'Ö','П':'P','Р':'R','С':'S',
+  'Т':'T','У':'U','Ұ':'Ū','Ү':'Ü','Ф':'F','Х':'H','Һ':'H','Ц':'Ts','Ч':'Ch','Ш':'Ş','Щ':'Şç','Ъ':'',
+  'Ы':'Y','І':'I','Ь':'','Э':'E','Ю':'İu','Я':'İa'};
+function toLat(s){
+  return String(s??'').split('').map(c=>{
+    if(LAT_LOW[c]!==undefined)return LAT_LOW[c];
+    if(LAT_UP[c]!==undefined)return LAT_UP[c];
+    return c;
+  }).join('');
+}
+const isLat=()=>S.script==='lat';
+const USTEL=()=>isLat()?'üstel':'үстел';
+
 const SEED={
-  bride:'Даяна',groom:'',date:'',time:'17:00',venue:'',tables:6,coord:'',budget:'',treasurer:'',notes:'',
+  script:'cyr',
+  bride:'Даяна',groom:'',brideLat:'Dayana',groomLat:'',
+  date:'',time:'17:00',venue:'',tables:6,coord:'',budget:'',treasurer:'',notes:'',
   cardTop:'Сырға салу',cardLine:'Қыз барған жеріне құт алып барады',cardTable:'yes',
   pzTop:'Сырға салу',pzMain:'Даяна',pzSub:'Қыз барған жеріне құт алып барады',pzDate:'',
   pzType:'',pzVendor:'',pzDeadline:'',pzNote:'',
@@ -926,7 +977,11 @@ function plural(n,one,few,many){
   return many;
 }
 const days=n=>plural(n,'день','дня','дней');
-const names=()=>[S.bride,S.groom].filter(Boolean).join(' & ')||S.bride||'—';
+/* Имена латиницей берём из отдельных полей — транслитерировать имя человека
+   автоматом нельзя (Даяна → Daiana по правилам, но в паспорте обычно Dayana). */
+const brideName=()=>isLat()?(S.brideLat||toLat(S.bride)):S.bride;
+const groomName=()=>isLat()?(S.groomLat||toLat(S.groom)):S.groom;
+const names=()=>[brideName(),groomName()].filter(Boolean).join(' & ')||brideName()||'—';
 
 /* ---------- generic row rendering ---------- */
 function inp(l,id,f,ph){
@@ -1169,12 +1224,14 @@ document.getElementById('bulk').onclick=()=>{
 /* ---------- place cards ---------- */
 function renderCardPrev(){
   const g=S.guests[0];
+  const ph=isLat()?'Aigerım apai':'Айгерім апай';
   document.getElementById('pc-prev').innerHTML=
     `<div class="o">◆ ◆ ◆</div>
      ${S.cardTop?`<div class="t" style="margin-top:6px">${esc(S.cardTop)}</div>`:''}
-     <div class="n">${esc(g&&g.n?g.n:'Айгерім апай')}</div>
-     ${S.cardTable==='yes'?`<div class="t">${esc(g&&g.tb?g.tb:'2')}-үстел</div>`:''}
+     <div class="n">${esc(g&&g.n?g.n:ph)}</div>
+     ${S.cardTable==='yes'?`<div class="t">${esc(g&&g.tb?g.tb:'2')}-${USTEL()}</div>`:''}
      ${S.cardLine?`<div class="l">${esc(S.cardLine)}</div>`:''}`;
+  const u=document.getElementById('ust'); if(u)u.textContent=USTEL();
 }
 function renderCardKPI(){
   const cd=S.guests.filter(g=>g.card).length;
@@ -1191,7 +1248,7 @@ function printCards(){
     <div class="o">&#9670; &#9670; &#9670;</div>
     ${S.cardTop?`<div class="tp">${esc(S.cardTop)}</div>`:''}
     <div class="n">${esc(g.n||'')}</div>
-    ${S.cardTable==='yes'&&g.tb?`<div class="tb">${esc(g.tb)}-үстел</div>`:''}
+    ${S.cardTable==='yes'&&g.tb?`<div class="tb">${esc(g.tb)}-${USTEL()}</div>`:''}
     ${S.cardLine?`<div class="l">${esc(S.cardLine)}</div>`:''}
   </div>`).join('');
   const w=window.open('','_blank');
@@ -1217,6 +1274,14 @@ function printCards(){
   setTimeout(()=>{ w.focus(); w.print(); },700);
 }
 document.getElementById('print-cards').onclick=printCards;
+document.getElementById('lat-guests').onclick=()=>{
+  const cyr=S.guests.filter(g=>/[а-яёәғқңөұүһі]/i.test(g.n||''));
+  if(!cyr.length){ alert('Кириллических имён в списке нет.'); return; }
+  const sample=cyr.slice(0,3).map(g=>`${g.n} → ${toLat(g.n)}`).join('\n');
+  if(!confirm(`Перевести ${cyr.length} ${plural(cyr.length,'имя','имени','имён')} на латиницу?\n\n${sample}\n\nПравила общие, поэтому имена стоит проверить и поправить вручную — вернуть кириллицу автоматически будет нельзя.`))return;
+  cyr.forEach(g=>{ g.n=toLat(g.n); });
+  save(); renderAll();
+};
 
 /* ---------- kuda gifts ---------- */
 function renderKudaKPI(){
@@ -1248,9 +1313,11 @@ function renderPerf(){
 function fill(str){
   return String(str||'')
     .replace(/\{names\}/g,names())
-    .replace(/\{bride\}/g,S.bride||'—')
+    .replace(/\{bride\}/g,brideName()||'—')
     .replace(/\{date\}/g,S.pzDate||(S.date?new Date(S.date+'T00:00:00').toLocaleDateString('ru-RU'):''));
 }
+/* в латинице у фразы свои поля topL/mainL/subL */
+const ph=(p,f)=>isLat()?p[f+'L']:p[f];
 function renderPhotozone(){
   document.getElementById('pz-prev').innerHTML=
     `<div class="orn">◆ ◆ ◆</div>
@@ -1258,13 +1325,15 @@ function renderPhotozone(){
      <div class="t2">${esc(fill(S.pzMain)||'—')}</div>
      ${S.pzSub?`<div class="t3">${esc(fill(S.pzSub))}</div>`:''}
      ${S.pzDate?`<div class="t4">${esc(S.pzDate)}</div>`:''}`;
+  document.querySelectorAll('[data-sc]').forEach(b=>b.classList.toggle('on',b.dataset.sc===S.script));
   document.getElementById('phrases').innerHTML=PHRASES.map((p,i)=>{
-    const on=S.pzMain===p.main&&S.pzSub===p.sub;
+    const on=S.pzMain===ph(p,'main')&&S.pzSub===ph(p,'sub');
+    const top=ph(p,'top');
     return `<div class="phr ${on?'on':''}" data-ph="${i}">
       <div class="pick">✓ выбрано</div>
-      ${p.top?`<div style="font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-d);font-weight:700;margin-bottom:5px">${esc(p.top)}</div>`:''}
-      <div class="kk">${esc(fill(p.main))}</div>
-      <div class="kk" style="font-size:15px;font-weight:500;color:var(--ink);margin-top:5px">${esc(fill(p.sub))}</div>
+      ${top?`<div style="font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-d);font-weight:700;margin-bottom:5px">${esc(top)}</div>`:''}
+      <div class="kk">${esc(fill(ph(p,'main')))}</div>
+      <div class="kk" style="font-size:15px;font-weight:500;color:var(--ink);margin-top:5px">${esc(fill(ph(p,'sub')))}</div>
       <div class="tr">${esc(fill(p.tr))}</div>
       <div class="use">${esc(p.use)}</div>
     </div>`;
@@ -1273,9 +1342,29 @@ function renderPhotozone(){
 document.getElementById('phrases').addEventListener('click',e=>{
   const c=e.target.closest('[data-ph]'); if(!c)return;
   const p=PHRASES[+c.dataset.ph];
-  S.pzTop=p.top; S.pzMain=p.main; S.pzSub=p.sub;
+  S.pzTop=ph(p,'top'); S.pzMain=ph(p,'main'); S.pzSub=ph(p,'sub');
   save(); fillFields(); renderPhotozone();
 });
+/* переключение алфавита: подставленный вариант фразы меняем на парный,
+   текст, вписанный руками, не трогаем — предлагаем транслитерацию */
+function setScript(sc){
+  if(sc===S.script)return;
+  const was=S.script; S.script=sc;
+  const hit=PHRASES.find(p=>p['main'+(was==='lat'?'L':'')]===S.pzMain&&p['sub'+(was==='lat'?'L':'')]===S.pzSub);
+  if(hit){ S.pzTop=ph(hit,'top'); S.pzMain=ph(hit,'main'); S.pzSub=ph(hit,'sub'); }
+  const cardHit=PHRASES.find(p=>p['sub'+(was==='lat'?'L':'')]===S.cardLine);
+  if(cardHit)S.cardLine=ph(cardHit,'sub');
+  if(S.cardTop==='Сырға салу'&&sc==='lat')S.cardTop='Syrğa salu';
+  else if(S.cardTop==='Syrğa salu'&&sc==='cyr')S.cardTop='Сырға салу';
+  save(); fillFields(); renderAll();
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-sc]'); if(b)setScript(b.dataset.sc);
+});
+document.getElementById('lat-pz').onclick=()=>{
+  ['pzTop','pzMain','pzSub'].forEach(k=>S[k]=toLat(S[k]));
+  save(); fillFields(); renderPhotozone();
+};
 
 /* ---------- video / song ---------- */
 function renderVideoKPI(){
