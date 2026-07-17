@@ -135,6 +135,44 @@ td input.num{text-align:right;font-family:var(--mono)}
 .tl .tt{font-size:14px;font-weight:600;color:var(--ink);margin-top:1px}
 .tl .td{font-size:12px;color:var(--muted);margin-top:2px}
 
+/* kanban board */
+.kanban{display:none;gap:14px;grid-template-columns:repeat(3,1fr);align-items:start}
+.kanban.on{display:grid}
+@media(max-width:860px){.kanban{grid-template-columns:1fr}}
+.kcol{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:12px;min-height:60px;transition:.15s}
+.kcol.over{border-color:var(--gold);background:#fbf3df}
+.kcol h4{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--muted);padding:4px 6px 10px;display:flex;justify-content:space-between}
+.kcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 12px;margin-bottom:9px;cursor:grab;box-shadow:0 1px 3px rgba(58,35,40,.05)}
+.kcard:active{cursor:grabbing}
+.kcard.drag{opacity:.4}
+.kcard .kt{font-size:13.5px;font-weight:700;color:var(--ink)}
+.kcard .kw{font-size:11.5px;color:var(--gold-d);font-weight:600;margin-top:3px}
+.kcard .km{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.4}
+.kcard .krow{display:flex;justify-content:space-between;align-items:center;margin-top:9px;gap:6px}
+.kcard .kmv{display:flex;gap:4px}
+.kcard .kmv button{background:var(--ivory2);border:none;color:var(--muted);width:23px;height:23px;border-radius:6px;cursor:pointer;font-size:12px;line-height:1}
+.kcard .kmv button:hover{background:var(--gold-l);color:#fff}
+.kcard .kmv button:disabled{opacity:.3;cursor:default}
+.kcard .kmv button:disabled:hover{background:var(--ivory2);color:var(--muted)}
+
+/* calendar */
+.cal-month{margin-bottom:22px}
+.cal-month h4{font-family:var(--display);font-size:19px;font-weight:600;color:var(--wine);margin-bottom:10px;text-transform:capitalize}
+.cal-grid2{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal-dow{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted2);font-weight:700;text-align:center;padding-bottom:4px}
+.cal-cell{aspect-ratio:1/1;border:1px solid var(--line);border-radius:9px;padding:6px;background:var(--card);cursor:pointer;transition:.15s;position:relative;display:flex;flex-direction:column}
+.cal-cell:hover{border-color:var(--gold)}
+.cal-cell.blank{background:transparent;border-color:transparent;cursor:default}
+.cal-cell.today{border-color:var(--wine);box-shadow:0 0 0 1.5px var(--wine)}
+.cal-cell.event{background:linear-gradient(160deg,var(--wine),var(--wine2));border-color:var(--wine)}
+.cal-cell.event .cn{color:#fff}
+.cal-cell .cn{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--ink)}
+.cal-cell .cdots{display:flex;gap:3px;flex-wrap:wrap;margin-top:auto}
+.cal-cell .cdots i{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.cal-cell .cdots i.done{background:var(--green)}
+.cal-cell .cdots i.over{background:var(--red)}
+@media(max-width:860px){.cal-cell{padding:4px}.cal-cell .cn{font-size:11px}}
+
 /* phrase picker */
 .phr{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;cursor:pointer;transition:.15s;position:relative}
 .phr:hover{border-color:var(--gold)}
@@ -201,6 +239,7 @@ td input.num{text-align:right;font-family:var(--mono)}
       <button data-s="dash" class="on"><span class="ico">◆</span>Дашборд</button>
       <button data-s="blocks"><span class="ico">▤</span>Блоки готовности</button>
       <button data-s="sched"><span class="ico">📅</span>Расписание к тою</button>
+      <button data-s="cal"><span class="ico">🗓</span>Календарь</button>
       <button data-s="day"><span class="ico">🕐</span>Тайминг дня</button>
       <div class="grp">Гости</div>
       <button data-s="guests"><span class="ico">👥</span>Гости и рассадка</button>
@@ -259,14 +298,21 @@ td input.num{text-align:right;font-family:var(--mono)}
 
       <!-- BLOCKS -->
       <section class="sect" id="s-blocks">
-        <p class="hint">Главная таблица готовности: кто отвечает за блок и на каком он этапе.</p>
-        <div class="tbl-wrap">
-          <table>
-            <thead><tr><th>Блок</th><th style="width:160px">Ответственный</th><th style="width:130px">Статус</th><th style="width:200px">Комментарий</th><th style="width:44px"></th></tr></thead>
-            <tbody id="blocks-body"></tbody>
-          </table>
+        <p class="hint">Общие задачи по подготовке: кто отвечает за блок и на каком он этапе. Таблица — для правки полей, канбан — чтобы двигать карточки между этапами, как в Trello.</p>
+        <div class="chips">
+          <button class="chip" data-bv="table">▤ Таблица</button>
+          <button class="chip" data-bv="kanban">▥ Канбан</button>
         </div>
-        <div class="bar-actions"><button class="btn pri sm" data-add="blocks">+ Добавить блок</button></div>
+        <div id="blocks-table-view">
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Блок</th><th style="width:160px">Ответственный</th><th style="width:130px">Статус</th><th style="width:200px">Комментарий</th><th style="width:44px"></th></tr></thead>
+              <tbody id="blocks-body"></tbody>
+            </table>
+          </div>
+          <div class="bar-actions"><button class="btn pri sm" data-add="blocks">+ Добавить блок</button></div>
+        </div>
+        <div id="blocks-kanban-view" class="kanban"></div>
       </section>
 
       <!-- SCHEDULE -->
@@ -275,6 +321,12 @@ td input.num{text-align:right;font-family:var(--mono)}
         <p class="hint">Каждый день до тоя — отдельным списком: дела, которые вы добавили, и настоящие дедлайны из других разделов (оплаты, студия, фотосессия). Дни без дел не показываются. Сам той — последней карточкой, с полным таймингом.</p>
         <div id="sched-days"></div>
         <div class="bar-actions"><button class="btn pri sm" id="add-milestone">+ Добавить дело на дату</button></div>
+      </section>
+
+      <!-- CALENDAR -->
+      <section class="sect" id="s-cal">
+        <p class="hint">Точки — дела на этот день (жёлтая — есть открытые, зелёная — всё готово, красная — просрочено). Той отмечен отдельно. Клик по дню — перейти к нему в расписании.</p>
+        <div id="cal-months"></div>
       </section>
 
       <!-- DAY -->
@@ -750,7 +802,7 @@ const isLat=()=>S.script==='lat';
 const USTEL=()=>isLat()?'üstel':'үстел';
 
 const SEED={
-  script:'cyr',
+  script:'cyr',blocksView:'table',
   bride:'Даяна',groom:'',brideLat:'Dayana',groomLat:'',
   date:'2026-08-15',time:'17:00',venue:'',tables:6,coord:'',budget:'',treasurer:'',notes:'',
   cardTop:'Сырға салу',cardLine:'Қыз барған жеріне құт алып барады',cardTable:'yes',
@@ -1185,18 +1237,74 @@ const kpiHTML=arr=>arr.map(k=>`<div class="kpi ${k.c||''}"><div class="lbl">${k.
 
 const renderBlocks=()=>document.getElementById('blocks-body').innerHTML=rows('blocks',[{f:'t',ph:'Блок'},{f:'who',ph:'Имя'},{t:'st'},{f:'m',ph:'Комментарий'}]);
 
-/* ---------- day-by-day schedule ---------- */
-function renderSchedule(){
-  const kpiBox=document.getElementById('sched-kpi'), daysBox=document.getElementById('sched-days');
-  if(!S.date){
-    kpiBox.innerHTML='';
-    daysBox.innerHTML=`<div class="card" style="color:var(--muted);font-size:13px">Укажите дату тоя в «Данные тоя» — расписание соберётся само.</div>`;
-    return;
+/* ---------- blocks kanban (Trello-style board for the shared task list) ---------- */
+function renderBlocksKanban(){
+  const box=document.getElementById('blocks-kanban-view');
+  box.innerHTML=STATUS.map(st=>{
+    const items=S.blocks.filter(b=>b.s===st);
+    return `<div class="kcol" data-col="${st}">
+      <h4><span>${ST_LABEL[st]}</span><span>${items.length}</span></h4>
+      ${items.map(b=>{
+        const idx=STATUS.indexOf(st);
+        return `<div class="kcard" draggable="true" data-kid="${b.id}">
+          <div class="kt">${esc(b.t)||'<span style="color:var(--muted2)">Без названия</span>'}</div>
+          ${b.who?`<div class="kw">${esc(b.who)}</div>`:''}
+          ${b.m?`<div class="km">${esc(b.m)}</div>`:''}
+          <div class="krow">
+            <div class="kmv">
+              <button data-mv="-1" data-id="${b.id}" ${idx===0?'disabled':''} title="Назад">←</button>
+              <button data-mv="1" data-id="${b.id}" ${idx===STATUS.length-1?'disabled':''} title="Дальше">→</button>
+            </div>
+            ${delBtn('blocks',b.id)}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }).join('');
+}
+function renderBlocksView(){
+  document.querySelectorAll('[data-bv]').forEach(b=>b.classList.toggle('on',b.dataset.bv===S.blocksView));
+  document.getElementById('blocks-table-view').style.display=S.blocksView==='kanban'?'none':'';
+  document.getElementById('blocks-kanban-view').classList.toggle('on',S.blocksView==='kanban');
+  if(S.blocksView==='kanban')renderBlocksKanban();
+}
+document.getElementById('blocks-kanban-view').addEventListener('click',e=>{
+  const mv=e.target.closest('[data-mv]');
+  if(mv){
+    const b=S.blocks.find(x=>x.id===mv.dataset.id); if(!b)return;
+    const idx=STATUS.indexOf(b.s)+(+mv.dataset.mv);
+    if(idx<0||idx>=STATUS.length)return;
+    b.s=STATUS[idx]; save(); renderBlocksKanban(); renderBlocks(); renderDash();
   }
-  const today=new Date(); today.setHours(0,0,0,0);
-  const todayISO=today.toISOString().slice(0,10);
+});
+let dragId=null;
+document.getElementById('blocks-kanban-view').addEventListener('dragstart',e=>{
+  const c=e.target.closest('.kcard'); if(!c)return;
+  dragId=c.dataset.kid; c.classList.add('drag');
+});
+document.getElementById('blocks-kanban-view').addEventListener('dragend',e=>{
+  const c=e.target.closest('.kcard'); if(c)c.classList.remove('drag');
+});
+document.getElementById('blocks-kanban-view').addEventListener('dragover',e=>{
+  const col=e.target.closest('.kcol'); if(!col)return;
+  e.preventDefault();
+  col.classList.add('over');
+});
+document.getElementById('blocks-kanban-view').addEventListener('dragleave',e=>{
+  const col=e.target.closest('.kcol'); if(col)col.classList.remove('over');
+});
+document.getElementById('blocks-kanban-view').addEventListener('drop',e=>{
+  const col=e.target.closest('.kcol'); if(!col||!dragId)return;
+  e.preventDefault();
+  col.classList.remove('over');
+  const b=S.blocks.find(x=>x.id===dragId); if(!b)return;
+  b.s=col.dataset.col; dragId=null;
+  save(); renderBlocksKanban(); renderBlocks(); renderDash();
+});
 
-  /* real deadlines already set elsewhere in the app, shown read-only under their date */
+/* ---------- day-by-day schedule ---------- */
+/* shared between the day-by-day schedule and the calendar view */
+function collectScheduleDates(){
   const extra={};
   const pushExtra=(d,text)=>{ if(!d)return; (extra[d]=extra[d]||[]).push(text); };
   S.pay.forEach(r=>{ const left=(+r.sum||0)-(+r.pre||0); if(r.due&&left>0)pushExtra(r.due,`Оплатить: ${r.t} — ${fmt(left)} ₸`); });
@@ -1206,9 +1314,19 @@ function renderSchedule(){
   pushExtra(S.pzDeadline,'Дедлайн макета фотозоны');
   pushExtra(S.filmDeadline,'Дедлайн готового фильма');
   pushExtra(S.ledDeadline,'Дедлайн LED-ролика');
-
-  const dateSet=new Set([...Object.keys(extra), ...S.milestones.map(m=>m.d).filter(Boolean), S.date]);
-  const sorted=[...dateSet].sort();
+  const sorted=[...new Set([...Object.keys(extra), ...S.milestones.map(m=>m.d).filter(Boolean), S.date].filter(Boolean))].sort();
+  return {extra,sorted};
+}
+function renderSchedule(){
+  const kpiBox=document.getElementById('sched-kpi'), daysBox=document.getElementById('sched-days');
+  if(!S.date){
+    kpiBox.innerHTML='';
+    daysBox.innerHTML=`<div class="card" style="color:var(--muted);font-size:13px">Укажите дату тоя в «Данные тоя» — расписание соберётся само.</div>`;
+    return;
+  }
+  const today=new Date(); today.setHours(0,0,0,0);
+  const todayISO=today.toISOString().slice(0,10);
+  const {extra,sorted}=collectScheduleDates();
 
   const openM=S.milestones.filter(m=>!m.done);
   const overdue=openM.filter(m=>m.d&&m.d<todayISO);
@@ -1229,7 +1347,7 @@ function renderSchedule(){
     const extras=extra[d]||[];
     const label=isEvent?'той':diff<0?'просрочено':diff===0?'сегодня':`за ${diff} ${days(diff)}`;
     const bdg=isEvent?'done':diff<0?'risk':(diff<=3?'prog':'todo');
-    return `<div class="card" style="margin-bottom:12px${diff<0&&!isEvent?';border-color:#e8c4bd':''}">
+    return `<div class="card" data-day="${d}" style="margin-bottom:12px${diff<0&&!isEvent?';border-color:#e8c4bd':''}">
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px">
         <div style="font-family:var(--display);font-size:19px;font-weight:600;color:${isEvent?'var(--wine)':'var(--ink)'}">${dObj.toLocaleDateString('ru-RU',{day:'numeric',month:'long',weekday:'short'})}${isEvent?' 💍':''}</div>
         <div class="bdg ${bdg}">${label}</div>
@@ -1253,8 +1371,75 @@ document.getElementById('add-milestone').onclick=()=>{
   const t=prompt('Что нужно сделать?'); if(!t)return;
   const d=prompt('На какую дату? (гггг-мм-дд)',S.date||''); if(!d)return;
   S.milestones.push({id:uid(),d,t,done:false});
-  save(); renderSchedule(); renderDash();
+  save(); renderSchedule(); renderDash(); renderCalendar();
 };
+
+/* ---------- calendar ---------- */
+const MONTH_NAMES=['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
+const DOW=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+function renderCalendar(){
+  const box=document.getElementById('cal-months');
+  if(!S.date){
+    box.innerHTML=`<div class="card" style="color:var(--muted);font-size:13px">Укажите дату тоя в «Данные тоя» — календарь соберётся сам.</div>`;
+    return;
+  }
+  const today=new Date(); today.setHours(0,0,0,0);
+  const todayISO=today.toISOString().slice(0,10);
+  const {extra,sorted}=collectScheduleDates();
+  const byDate={};
+  sorted.forEach(d=>{
+    const items=S.milestones.filter(m=>m.d===d);
+    const ex=extra[d]||[];
+    if(items.length||ex.length||d===S.date) byDate[d]={open:items.filter(m=>!m.done).length,done:items.filter(m=>m.done).length,extra:ex.length};
+  });
+
+  const start=today<new Date(S.date+'T00:00:00')?today:new Date(S.date+'T00:00:00');
+  const end=today<new Date(S.date+'T00:00:00')?new Date(S.date+'T00:00:00'):today;
+  const months=[];
+  let cur=new Date(start.getFullYear(),start.getMonth(),1);
+  const last=new Date(end.getFullYear(),end.getMonth(),1);
+  while(cur<=last){ months.push(new Date(cur)); cur=new Date(cur.getFullYear(),cur.getMonth()+1,1); }
+
+  box.innerHTML=months.map(m=>{
+    const y=m.getFullYear(), mo=m.getMonth();
+    const firstDow=(new Date(y,mo,1).getDay()+6)%7; // Monday-first
+    const daysInMonth=new Date(y,mo+1,0).getDate();
+    let cells='';
+    for(let i=0;i<firstDow;i++)cells+=`<div class="cal-cell blank"></div>`;
+    for(let day=1;day<=daysInMonth;day++){
+      const iso=`${y}-${String(mo+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+      const info=byDate[iso];
+      const isEvent=iso===S.date, isToday=iso===todayISO;
+      let dots='';
+      if(info){
+        if(info.open)dots+=`<i class="${iso<todayISO&&!isEvent?'over':''}"></i>`;
+        if(info.done)dots+=`<i class="done"></i>`;
+        if(info.extra)dots+=`<i></i>`;
+      }
+      cells+=`<div class="cal-cell${isEvent?' event':''}${isToday?' today':''}" data-jump="${iso}">
+        <div class="cn">${day}</div>
+        <div class="cdots">${dots}</div>
+      </div>`;
+    }
+    return `<div class="cal-month">
+      <h4>${MONTH_NAMES[mo]} ${y}</h4>
+      <div class="cal-grid2">${DOW.map(d=>`<div class="cal-dow">${d}</div>`).join('')}${cells}</div>
+    </div>`;
+  }).join('');
+}
+document.getElementById('cal-months').addEventListener('click',e=>{
+  const c=e.target.closest('[data-jump]'); if(!c||!byDateHasContent(c.dataset.jump))return;
+  go('sched');
+  requestAnimationFrame(()=>{
+    const card=document.querySelector(`#sched-days [data-day="${c.dataset.jump}"]`);
+    if(card)card.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+});
+function byDateHasContent(iso){
+  const {sorted}=collectScheduleDates();
+  return sorted.includes(iso);
+}
+
 const renderDay=()=>document.getElementById('day-body').innerHTML=rows('day',[{f:'tm',ph:'18:00'},{f:'t',ph:'Что происходит'},{f:'who',ph:'Кто'},{f:'mus',ph:'Музыка / съёмка'},{t:'st'}]);
 const renderGifts=()=>document.getElementById('gifts-body').innerHTML=rows('gifts',[{f:'who',ph:'Кому'},{f:'g',ph:'Подарок'},{f:'by',ph:'Кто вручает'},{t:'chk',f:'done'}]);
 const renderAttr=()=>document.getElementById('attr-body').innerHTML=rows('attr',[{f:'t',ph:'Позиция'},{f:'m',ph:'Комментарий'},{f:'who',ph:'Кто'},{t:'chk',f:'done'}]);
@@ -1468,6 +1653,7 @@ function setScript(sc){
 }
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-sc]'); if(b)setScript(b.dataset.sc);
+  const bv=e.target.closest('[data-bv]'); if(bv){ S.blocksView=bv.dataset.bv; save(); renderBlocksView(); }
 });
 document.getElementById('lat-pz').onclick=()=>{
   ['pzTop','pzMain','pzSub'].forEach(k=>S[k]=toLat(S[k]));
@@ -1590,6 +1776,7 @@ const TITLES={
   dash:['Дашборд','Общая готовность к сырға салу'],
   blocks:['Блоки готовности','Кто отвечает и на каком этапе'],
   sched:['Расписание к тою','Что остаётся — отдельным списком на каждый день'],
+  cal:['Календарь','Все дела на карте месяца'],
   day:['Тайминг дня','Сценарий для ведущего, оператора и музыкантов'],
   guests:['Гости и рассадка','Список гостей и столы'],
   cards:['Карточки на тарелку','Именные карточки для печати'],
@@ -1633,7 +1820,7 @@ document.getElementById('mask').onclick=()=>{
 };
 
 function renderAll(){
-  renderDash(); renderBlocks(); renderSchedule(); renderDay(); renderGuests(); renderCardPrev(); renderCardKPI();
+  renderDash(); renderBlocks(); renderBlocksView(); renderSchedule(); renderCalendar(); renderDay(); renderGuests(); renderCardPrev(); renderCardKPI();
   renderKuda(); renderGifts(); renderAttr(); renderToi(); renderPerf(); renderPlaylist();
   renderPhotozone(); renderShoot(); renderVideo(); renderSong(); renderRest(); renderDecor();
   renderPay(); renderCont(); renderFinal();
