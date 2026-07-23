@@ -95,6 +95,9 @@ select{cursor:pointer}
 td input,td select{border-color:transparent;background:transparent;padding:5px 7px}
 td input:hover,td select:hover{border-color:var(--line2);background:#fff}
 td input.num{text-align:right;font-family:var(--mono)}
+td.vtop{vertical-align:top}
+td textarea.cellwrap{border:1px solid transparent;background:transparent;padding:5px 7px;min-height:32px;height:auto;resize:none;overflow:hidden;line-height:1.35;font-size:13.5px;field-sizing:content}
+td textarea.cellwrap:hover,td textarea.cellwrap:focus{border-color:var(--line2);background:#fff}
 
 .btn{font-family:var(--body);font-weight:600;font-size:13px;border:none;border-radius:9px;padding:9px 15px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:7px}
 .btn.pri{background:var(--wine);color:#fff}.btn.pri:hover{background:var(--wine2)}
@@ -246,7 +249,6 @@ td input.num{text-align:right;font-family:var(--mono)}
       <button data-s="cards"><span class="ico">🏷</span>Карточки на тарелку</button>
       <div class="grp">Подарки</div>
       <button data-s="kuda"><span class="ico">🎁</span>Құдаларға сыйлық</button>
-      <button data-s="gifts"><span class="ico">💍</span>Жених, невеста, дети</button>
       <button data-s="attr"><span class="ico">🕌</span>Ұлттық атрибуттар</button>
       <div class="grp">Программа</div>
       <button data-s="toi"><span class="ico">🎺</span>Тойбастар</button>
@@ -334,7 +336,7 @@ td input.num{text-align:right;font-family:var(--mono)}
         <p class="hint">Тайминг дня — по нему работают ведущий, оператор, жетіген и хостес.</p>
         <div class="tbl-wrap">
           <table>
-            <thead><tr><th style="width:90px">Время</th><th>Что происходит</th><th style="width:150px">Кто ведёт</th><th style="width:180px">Музыка / съёмка</th><th style="width:120px">Статус</th><th style="width:44px"></th></tr></thead>
+            <thead><tr><th style="width:78px">Время</th><th style="min-width:280px">Что происходит</th><th style="width:120px">Кто ведёт</th><th style="width:140px">Музыка / съёмка</th><th style="width:108px">Статус</th><th style="width:44px"></th></tr></thead>
             <tbody id="day-body"></tbody>
           </table>
         </div>
@@ -407,18 +409,6 @@ td input.num{text-align:right;font-family:var(--mono)}
           </table>
         </div>
         <div class="bar-actions"><button class="btn pri sm" data-add="kuda">+ Добавить құда</button></div>
-      </section>
-
-      <!-- GIFTS -->
-      <section class="sect" id="s-gifts">
-        <h3 class="hh">Подарки для жениха, невесты и детей</h3>
-        <div class="tbl-wrap">
-          <table>
-            <thead><tr><th style="width:170px">Кому</th><th>Подарок</th><th style="width:150px">Кто вручает</th><th style="width:90px">Готово</th><th style="width:44px"></th></tr></thead>
-            <tbody id="gifts-body"></tbody>
-          </table>
-        </div>
-        <div class="bar-actions"><button class="btn pri sm" data-add="gifts">+ Добавить</button></div>
       </section>
 
       <!-- ATTRIBUTES -->
@@ -671,21 +661,19 @@ td input.num{text-align:right;font-family:var(--mono)}
         <div class="tbl-wrap">
           <table>
             <thead><tr>
-              <th>Статья</th><th style="width:140px">Подрядчик</th>
-              <th style="width:115px">Сумма</th><th style="width:115px">Предоплата</th><th style="width:105px">Остаток</th>
-              <th style="width:130px">Оплатить до</th><th style="width:125px">Статус</th><th style="width:44px"></th>
+              <th style="min-width:240px">Статья расходов</th><th style="width:130px">Подрядчик</th>
+              <th style="width:135px">Сумма</th><th style="width:135px">Предоплата</th><th style="width:110px">Остаток</th>
+              <th style="width:138px">Статус</th><th style="width:44px"></th>
             </tr></thead>
             <tbody id="pay-body"></tbody>
             <tfoot><tr>
               <td colspan="2">Итого</td>
               <td class="num" id="t-sum">0</td><td class="num" id="t-pre">0</td><td class="num" id="t-left">0</td>
-              <td colspan="3"></td>
+              <td colspan="2"></td>
             </tr></tfoot>
           </table>
         </div>
         <div class="bar-actions"><button class="btn pri sm" data-add="pay">+ Добавить статью</button></div>
-        <h3 class="hh">График платежей</h3>
-        <div id="pay-sched"></div>
       </section>
 
       <!-- CONTACTS -->
@@ -865,11 +853,6 @@ const SEED={
     {id:uid(),n:14,who:'Подруга құдағи',g:'',bought:false,signed:false},
     {id:uid(),n:15,who:'Дядя отца',g:'',bought:false,signed:false},
     {id:uid(),n:16,who:'Старшая тәте',g:'',bought:false,signed:false}
-  ],
-  gifts:[
-    {id:uid(),who:'Күйеу бала (жених)',g:'',by:'',done:false},
-    {id:uid(),who:'Қыз (невеста)',g:'Сырға — серьги',by:'',done:false},
-    {id:uid(),who:'Дети',g:'',by:'',done:false}
   ],
   attr:[
     {id:uid(),t:'Сырға (серьги)',m:'Главный атрибут — купить заранее',who:'',done:false},
@@ -1085,6 +1068,8 @@ function sel(l,id,f,opts){
 }
 const stSel=(l,id)=>sel(l,id,'s',STATUS.map(k=>[k,ST_LABEL[k]]));
 const delBtn=(l,id)=>`<button class="del" data-del="${l}" data-id="${id}" title="Удалить">×</button>`;
+/* grow a wrapping cell textarea to fit its content (fallback where field-sizing is unsupported) */
+function autosize(ta){ ta.style.height='auto'; ta.style.height=(ta.scrollHeight)+'px'; }
 
 /* cols: {t:'text'|'num'|'date'|'st'|'sel'|'chk', f, ph, opts} */
 function rows(l,cols){
@@ -1102,7 +1087,6 @@ const NEW={
   day:()=>({id:uid(),tm:'',t:'',who:'',mus:'',s:'todo'}),
   guests:()=>({id:uid(),n:'',tb:'',side:'qyz',ok:false,card:false}),
   kuda:()=>({id:uid(),n:S.kuda.length+1,who:'',g:'',bought:false,signed:false}),
-  gifts:()=>({id:uid(),who:'',g:'',by:'',done:false}),
   attr:()=>({id:uid(),t:'',m:'',who:'',done:false}),
   toi:()=>({id:uid(),t:'',who:'',s:'todo'}),
   perf:()=>({id:uid(),who:'',t:'',w:'',mi:'no',s:'todo'}),
@@ -1130,8 +1114,9 @@ document.addEventListener('input',e=>{
     if(!r)return;
     r[el.dataset.f]=el.dataset.n?(+el.value||0):el.value;
     save();
+    if(el.classList.contains('cellwrap'))autosize(el);
     /* never re-render a table while it holds focus — only derived views */
-    if(el.dataset.l==='pay'){ refreshPayTotals(); renderPayKPI(); renderPaySched(); renderSchedule(); }
+    if(el.dataset.l==='pay'){ refreshPayTotals(); renderPayKPI(); renderSchedule(); }
     if(el.dataset.l==='guests'){ renderGuestKPI(); renderTables(); renderCardPrev(); renderCardKPI(); }
     renderDash();
   }
@@ -1215,7 +1200,6 @@ function renderDash(){
     </div>`).join('');
 
   const soon=[];
-  S.pay.filter(r=>r.due&&(+r.sum||0)-(+r.pre||0)>0).forEach(r=>soon.push({d:r.due,t:`Оплатить: ${r.t}`,m:`${fmt((+r.sum||0)-(+r.pre||0))} ₸ остаток`}));
   if(S.pzDeadline)soon.push({d:S.pzDeadline,t:'Дедлайн макета фотозоны',m:S.pzVendor||''});
   if(S.shootDate)soon.push({d:S.shootDate,t:'Национальная фотосессия',m:S.shootLoc||''});
   if(S.studioDate)soon.push({d:S.studioDate,t:'Запись песни в студии',m:S.studio||''});
@@ -1307,7 +1291,6 @@ document.getElementById('blocks-kanban-view').addEventListener('drop',e=>{
 function collectScheduleDates(){
   const extra={};
   const pushExtra=(d,text)=>{ if(!d)return; (extra[d]=extra[d]||[]).push(text); };
-  S.pay.forEach(r=>{ const left=(+r.sum||0)-(+r.pre||0); if(r.due&&left>0)pushExtra(r.due,`Оплатить: ${r.t} — ${fmt(left)} ₸`); });
   pushExtra(S.studioDate,'Запись песни в студии'+(S.studio?` (${S.studio})`:''));
   pushExtra(S.songDeadline,'Дедлайн готового трека');
   pushExtra(S.shootDate,'Национальная фотосессия'+(S.shootLoc?` (${S.shootLoc})`:''));
@@ -1441,7 +1424,6 @@ function byDateHasContent(iso){
 }
 
 const renderDay=()=>document.getElementById('day-body').innerHTML=rows('day',[{f:'tm',ph:'18:00'},{f:'t',ph:'Что происходит'},{f:'who',ph:'Кто'},{f:'mus',ph:'Музыка / съёмка'},{t:'st'}]);
-const renderGifts=()=>document.getElementById('gifts-body').innerHTML=rows('gifts',[{f:'who',ph:'Кому'},{f:'g',ph:'Подарок'},{f:'by',ph:'Кто вручает'},{t:'chk',f:'done'}]);
 const renderAttr=()=>document.getElementById('attr-body').innerHTML=rows('attr',[{f:'t',ph:'Позиция'},{f:'m',ph:'Комментарий'},{f:'who',ph:'Кто'},{t:'chk',f:'done'}]);
 const renderToi=()=>document.getElementById('toi-body').innerHTML=rows('toi',[{f:'t',ph:'Шаг'},{f:'who',ph:'Кто'},{t:'st'}]);
 const renderShoot=()=>document.getElementById('shoot-body').innerHTML=rows('shoot',[{f:'t',ph:'Кадр / реквизит'},{f:'loc',ph:'Локация'},{f:'who',ph:'Кто в кадре'},{t:'st'}]);
@@ -1706,31 +1688,21 @@ function refreshPayTotals(){
   document.getElementById('t-pre').textContent=fmt(m.pre);
   document.getElementById('t-left').textContent=fmt(m.left);
 }
-function renderPaySched(){
-  const due=S.pay.filter(r=>r.due&&(+r.sum||0)-(+r.pre||0)>0).sort((a,b)=>a.due.localeCompare(b.due));
-  const today=new Date().toISOString().slice(0,10);
-  document.getElementById('pay-sched').innerHTML=due.length?`<div class="tl">`+due.map(r=>`
-    <div class="it ${r.due<today?'done':''}">
-      <div class="tm">${new Date(r.due+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long'})}${r.due<today?' · просрочено':''}</div>
-      <div class="tt">${esc(r.t)} — ${fmt((+r.sum||0)-(+r.pre||0))} ₸</div>
-      <div class="td">${esc(r.c||'подрядчик не указан')}</div>
-    </div>`).join('')+`</div>`:`<div class="card" style="color:var(--muted);font-size:13px">Проставьте даты «Оплатить до» — здесь соберётся график платежей.</div>`;
-}
 function renderPay(){
   renderPayKPI();
   document.getElementById('pay-body').innerHTML=S.pay.map(r=>{
     const left=(+r.sum||0)-(+r.pre||0);
     return `<tr data-id="${r.id}">
-      <td>${inp('pay',r.id,'t','Статья')}</td>
-      <td>${inp('pay',r.id,'c','Подрядчик')}</td>
-      <td>${numInp('pay',r.id,'sum')}</td>
-      <td>${numInp('pay',r.id,'pre')}</td>
-      <td class="num left-cell" style="color:${left>0?'var(--red)':'var(--green)'};font-weight:600">${fmt(left)}</td>
-      <td><input type="date" value="${esc(r.due)}" data-l="pay" data-id="${r.id}" data-f="due"></td>
-      <td>${sel('pay',r.id,'s',[['todo','Не оплачено'],['prog','Предоплата'],['done','Оплачено']])}</td>
-      <td>${delBtn('pay',r.id)}</td></tr>`;
+      <td class="vtop"><textarea class="cellwrap" rows="1" data-l="pay" data-id="${r.id}" data-f="t" placeholder="Статья расходов">${esc(r.t)}</textarea></td>
+      <td class="vtop">${inp('pay',r.id,'c','Подрядчик')}</td>
+      <td class="vtop"><input type="number" value="${+r.sum||0}" data-l="pay" data-id="${r.id}" data-f="sum" data-n="1" class="num" style="font-size:15px;font-weight:600"></td>
+      <td class="vtop"><input type="number" value="${+r.pre||0}" data-l="pay" data-id="${r.id}" data-f="pre" data-n="1" class="num" style="font-size:15px"></td>
+      <td class="num left-cell vtop" style="color:${left>0?'var(--red)':'var(--green)'};font-weight:700;font-size:15px">${fmt(left)}</td>
+      <td class="vtop">${sel('pay',r.id,'s',[['todo','Не оплачено'],['prog','Предоплата'],['done','Оплачено']])}</td>
+      <td class="vtop">${delBtn('pay',r.id)}</td></tr>`;
   }).join('');
-  refreshPayTotals(); renderPaySched();
+  document.querySelectorAll('#pay-body textarea.cellwrap').forEach(autosize);
+  refreshPayTotals();
 }
 
 /* ---------- final checklist ---------- */
@@ -1781,7 +1753,6 @@ const TITLES={
   guests:['Гости и рассадка','Список гостей и столы'],
   cards:['Карточки на тарелку','Именные карточки для печати'],
   kuda:['Құдаларға сыйлық','Подарки со стороны невесты'],
-  gifts:['Жених, невеста, дети','Личные подарки'],
   attr:['Ұлттық атрибуттар','Сырға, шашу и всё национальное'],
   toi:['Тойбастар','Открытие тоя и сый исполнителю'],
   perform:['Кто что поёт','Живые номера и фонограммы'],
@@ -1821,7 +1792,7 @@ document.getElementById('mask').onclick=()=>{
 
 function renderAll(){
   renderDash(); renderBlocks(); renderBlocksView(); renderSchedule(); renderCalendar(); renderDay(); renderGuests(); renderCardPrev(); renderCardKPI();
-  renderKuda(); renderGifts(); renderAttr(); renderToi(); renderPerf(); renderPlaylist();
+  renderKuda(); renderAttr(); renderToi(); renderPerf(); renderPlaylist();
   renderPhotozone(); renderShoot(); renderVideo(); renderSong(); renderRest(); renderDecor();
   renderPay(); renderCont(); renderFinal();
 }
